@@ -1,0 +1,9 @@
+<div class="price-wrapper">
+    <p-slider [(ngModel)]="rangePrice" [min]="price.minPrice" [max]="price.maxPrice" [range]="true"
+        (onChange)="priceChanged($event)">
+    </p-slider>
+    <div class="display-price">
+        <span>min: ${{rangePrice[0] | number}}</span>
+        <span>max: ${{rangePrice[1] | number}}</span>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+<div id="main">
+    <ng-container>
+        <ng-container *ngTemplateOutlet="toolbar"></ng-container>
+    </ng-container>
+
+    <ng-container>
+        <ng-container *ngTemplateOutlet="header"></ng-container>
+    </ng-container>
+
+    <content></content>
+
+    <ng-container>
+        <ng-container *ngTemplateOutlet="footer"></ng-container>
+    </ng-container>
+
+    <ng-container>
+        <ng-container *ngTemplateOutlet="footerFixed"></ng-container>
+    </ng-container>
+</div>
+<ng-template #toolbar>
+    <toolbar></toolbar>
+</ng-template>
+
+<ng-template #header>
+    <app-header></app-header>
+</ng-template>
+
+<ng-template #footer>
+    <footer id="footer" data-footer-style="1" class="bg-dark"></footer>
+</ng-template>
+
+<ng-template #footerFixed>
+    <footer-fixed></footer-fixed>
+</ng-template>

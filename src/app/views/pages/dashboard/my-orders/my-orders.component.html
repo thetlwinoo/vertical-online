@@ -1,0 +1,61 @@
+<nav mat-tab-nav-bar animationDuration="0ms">
+  <a mat-tab-link *ngFor="let link of navOrders" [active]="activeNav.label == link.label" (click)="onChangeNav(link)">
+    {{link.label}}
+  </a>
+</nav>
+
+<p-table #dt [columns]="cols" [value]="(orderState | async)?.allOrders" dataKey="id" [paginator]="true" [rows]="10"
+  id="order-lists">
+  <ng-template pTemplate="caption">
+    <div style="text-align: left">
+      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+      <input pInputText type="text" size="25" placeholder="Filter by Order Number"
+        (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+    </div>
+  </ng-template>
+  <!-- <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns" [ngSwitch]="col.field">
+        <input *ngSwitchCase="'orderNumber'" placeholder="Filter by order number" pInputText type="text"
+          (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+      </th>
+    </tr>    
+  </ng-template> -->
+  <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-expanded="expanded" let-columns="columns">
+    <tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.id].index === rowIndex" [pSelectableRow]="rowData">
+      <td colspan="4">
+        <a href="#" [pRowToggler]="rowData">
+          <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
+          <span>#{{rowData.orderNumber}}</span>
+        </a>
+        <div>
+          <span class="place-on">place on : {{rowData.createdDate | date:'medium' }}</span>
+        </div>
+      </td>
+      <td>
+        <div style="text-align: right;">
+          <button *ngIf="rowData.paymentStatus == 1;else paynow" pButton type="button" label="Manage"
+            class="ui-button-secondary" [routerLink]="['/pages/dashboard/my-orders',rowData.id,'view']"></button>
+          <ng-template #paynow>
+            <button pButton type="button" label="Pay now" class="ui-button-warning" [routerLink]="['/checkout/payment', rowData.id, 'secure']"></button>
+          </ng-template>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="rowexpansion" let-rowData let-rowIndex="rowIndex">
+    <tr *ngFor="let orderDetail of rowData.orderLineLists">
+      <td class="order-detail">
+        <img *ngIf="orderDetail.product.photo;else noimage" src="{{orderDetail.product.photo}}" alt=""
+          (click)="goToItem(orderDetail.cartProduct.id)" />
+        <ng-template #noimage>
+          <img src="assets/images/noimage.png" alt="no image preview">
+        </ng-template>
+      </td>
+      <td>{{orderDetail.product.productName}}</td>
+      <td>Qty: {{orderDetail.quantity}}</td>
+      <td><button pButton type="button" label="Delivered" class="ui-button-secondary" disabled></button></td>
+      <td>Delivered On : {{orderDetail.lastModifiedDate | date }}</td>
+    </tr>
+  </ng-template>
+</p-table>

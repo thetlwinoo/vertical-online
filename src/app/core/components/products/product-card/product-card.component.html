@@ -1,0 +1,56 @@
+<div id="product-card">
+    <div class="product-card-wrapper">
+        <div class="product-left-badge-wrapper">
+            <div class="product-left-badge horizontal-badge">
+                <!-- <i class="product-svg-icon icon ion-md-checkmark"></i> -->
+                <fa-icon icon="check" class="icon"></fa-icon>
+                preferred
+            </div>
+        </div>
+        <div class="product-badge-wrapper">
+            <div class="product-badge product-badge-fixed-width product-badge-promotion">
+                <div class="product-badge-promotion-label-wrapper">
+                    <span class="percent">14%</span>
+                    <span class="product-badge-promotion-label-wrapper-off">off</span>
+                </div>
+            </div>
+        </div>
+        <img src="assets/images/general/lowest.png" class="product-lowest-guaranteed" *ngIf="lowestPrice">
+        <div class="square" [style.backgroundImage]="'url('+ product.photo +')'" *ngIf="product.photo;else noimage">
+        </div>
+        <ng-template #noimage>
+            <div class="square no-image"></div>
+        </ng-template>
+        <div class="p-3 word_wrap product-name">
+            {{product.productName | ellipsis:45}}
+        </div>
+        <div class="rating-love">
+            <div class="love-spacer">
+                <!-- <i class="icon ion-md-heart-empty s-16 amber-fg"></i> -->
+                <fa-icon [icon]="['far','heart']" class="icon"></fa-icon>
+                <span class="text-muted">(51)</span>
+            </div>
+            <p-rating [ngModel]="rating" readonly="true" stars="5" [cancel]="false"></p-rating>
+            <span class="ml-1 text-muted">({{rating}})</span>
+        </div>
+        <!-- <div class="card-divider"></div> -->
+        <div class="price-wrapper">
+            <div class="price-spacer">
+                <div class="product-price-wrapper">
+                    <span
+                        class="product-current-price">{{product.unitPrice | currency:productsService?.currency:'symbol'}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="price-wrapper">
+            <div class="price-spacer">
+                <div class="product-price-wrapper">
+                    <span
+                        class="product-price-old">{{product.recommendedRetailPrice | currency:productsService?.currency:'symbol'}}</span>
+                    <span class="discount-percentage">-80%</span>
+                </div>
+            </div>            
+            <fa-icon icon="truck" class="text-muted"></fa-icon>
+        </div>
+    </div>
+</div>

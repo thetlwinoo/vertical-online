@@ -30,7 +30,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              
+            ]
           },
           "configurations": {
             "production": {
@@ -119,6 +121,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "ng-storefront"
 }

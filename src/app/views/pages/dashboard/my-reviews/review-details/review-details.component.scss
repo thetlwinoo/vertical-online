@@ -1,0 +1,109 @@
+:host {
+    .card {
+        border: none !important;
+    }
+
+    .review-container {
+        // margin-top: 17px;
+
+        .review-content {
+            padding: 15px 12px;
+            border: 1px solid #d5d5d5;
+            white-space: pre-wrap;
+            font-size: 14px;
+            color: #212121;
+            background: #eff0f5;
+
+            .review-value {
+                word-wrap: break-word;
+            }
+
+            .review-like-count {
+                margin-top: 9px;
+                color: #aaa;
+                cursor: pointer;
+                display: inline-block;
+            }
+        }
+    }
+
+    .review-products-list {
+        border-bottom: 1px solid #d9d9d9;
+        padding: 20px 0px;
+    }
+
+    .rating-display {
+        display: inline-flex;
+
+        label {
+            margin: auto 5px;
+        }
+    }
+
+    .review-text {
+        font-size: 1.1em !important;
+    }
+
+    .media {
+        .product {
+            width: 64px;
+            height: 64px;
+        }
+    }
+
+    .reviews-right-wrapper {
+        .rate-face {
+            font-size: 1.1em;
+            display: inline-flex;
+
+            fa-icon {
+                font-size: 2em;
+            }
+
+            .table {
+                display: table;
+                /* Allow the centering to work */
+                margin: 0 auto;
+            }
+
+            ul#horizontal-list {
+                // min-width: 696px;
+                list-style: none;
+                padding: 0;
+                // padding-top: 20px;
+            }
+
+            ul#horizontal-list li {
+                padding: 0px 5px;
+                display: inline;
+            }
+
+            label {
+                margin: auto 5px;
+            }
+        }
+
+    }
+
+    .reviews-left-wrapper {
+        padding: 10px;
+        border-right: 1px solid #eff0f5;
+    }
+
+    .review-submit-wrapper {
+        float: right;
+
+        .review-as {
+            display: inline-flex;
+        }
+
+        .edit-button {
+            button {
+                // width: 100%;
+                font-size: 1.1em;
+                font-weight: 300;
+                padding: 5px 30px;
+            }
+        }
+    }
+}

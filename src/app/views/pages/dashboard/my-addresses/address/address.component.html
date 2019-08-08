@@ -1,0 +1,70 @@
+<p-card id="dashboard-address">
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-8">
+      <table>
+        <tr>
+          <td><span class="label">Name</span></td>
+          <td class="default">
+            <span class="title">{{addresses.contactPerson}}</span>
+            <button *ngIf="addresses.addressType" pButton type="button" label="{{addresses.addressType?.addressTypeName}}"
+              class="ui-button-warning default-button"></button>
+            <button class="default-button" *ngIf="addresses.defaultInd" pButton type="button"
+              label="Default" class="ui-button-success default-button"></button>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="label">AddressLine1</span></td>
+          <td>{{addresses.addressLine1}}</td>
+        </tr>
+        <tr>
+          <td><span class="label">AddressLine2</span></td>
+          <td>{{addresses.addressLine2}}</td>
+        </tr>
+        <tr>
+          <td><span class="label">City</span></td>
+          <td>{{addresses.city}}</td>
+        </tr>
+        <tr>
+          <td><span class="label">PostalCode</span></td>
+          <td>{{addresses.postalCode}}</td>
+        </tr>
+        <!-- <tr>
+          <td><span class="label">StateProvince</span></td>
+          <td>{{addresses.stateProvince?.stateProvinceName}}</td>
+        </tr> -->
+      </table>
+    </div>
+    <div class="ui-grid-col-4">
+      <table style="float:right;" id="address-control">
+        <tr>
+          <td>
+            <!-- <a href="JavaScript:void(0);">Edit</a> -->
+            <!-- <button pButton type="button" label="Edit" class="ui-button-secondary" [routerLink]="['/pages/dashboard/address-book', addresses.id, 'edit']"></button> -->
+            <button type="button" id="edit-button" class="btn btn-secondary"
+              [routerLink]="['/pages/dashboard/address-book', addresses.id, 'edit']">
+              <fa-icon [icon]="'edit'"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+            <!-- <a href="JavaScript:void(0);" (click)="deleteAddress.emit(addresses)">Delete</a> -->
+            <!-- <button pButton type="button" label="Delete" class="ui-button-secondary ml-1"
+              (click)="deleteAddress.emit(addresses)" [disabled]="addresses.defaultInd"></button> -->
+            <button type="button" id="delete-button" class="btn btn-secondary ml-2" (click)="deleteAddress.emit(addresses)"
+              [disabled]="addresses.defaultInd">
+              <fa-icon [icon]="'trash-alt'"></fa-icon>&nbsp;<span>Delete</span>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <!-- <button pButton type="button" label="Set As Default" icon="pi pi-bookmark" class="ui-button-secondary"
+              [disabled]="addresses.defaultInd" (click)="setDefault.emit(addresses)"></button> -->
+
+              <button type="button" id="setdefault-button" class="btn btn-primary set-default" (click)="setDefault.emit(addresses)"
+              [disabled]="addresses.defaultInd">
+              <fa-icon [icon]="'map-marked-alt'"></fa-icon>&nbsp;<span>Set As Default</span>
+            </button>
+            </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</p-card>

@@ -1,0 +1,14 @@
+<div class="condition-wrapper">
+  <div class="ui-g" style="width:250px;margin-bottom:10px">
+    <div class="ui-g-12">
+      <p-checkbox name="group1" value="new" label="New Products" [(ngModel)]="selectedCondition" inputId="ny"
+        (onChange)="changeCondition.emit(selectedCondition)">
+      </p-checkbox>
+    </div>
+    <div class="ui-g-12">
+      <p-checkbox name="group1" value="used" label="Used Item" [(ngModel)]="selectedCondition" inputId="sf"
+        (onChange)="changeCondition.emit(selectedCondition)">
+      </p-checkbox>
+    </div>
+  </div>
+</div>

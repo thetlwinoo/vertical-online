@@ -1,0 +1,47 @@
+:host {
+    margin: 10px 0px;
+
+    table {
+        tr {
+            td {
+                a{
+                    margin-left: 10px;
+                }
+                
+                &.default {
+                    display: inline-flex;    
+                    
+                    .default-button{
+                        margin-left: 10px;
+                    }
+                }
+
+                span {
+                    &.label {
+                        margin-right: 1.5625rem;
+                        text-transform: capitalize;
+                        width: 3.75rem;
+                        text-align: right;
+                        color: rgba(85, 85, 85, .8);
+                    }
+
+                    &.title {
+                        display: inline-block;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        margin-right: .625rem;
+                        max-width: 350px;
+                        color: rgba(0, 0, 0, .8);
+                        font-weight: 500;
+                        font-size: 1.3rem;
+                    }
+                }
+
+                .set-default{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

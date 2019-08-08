@@ -1,0 +1,18 @@
+<div class="container interested-products">
+  <div *ngFor="let e of (showcaseState | async).errors">
+    <div *ngIf="e.errorEffect == 'FETCH_INTERESTED'" class=" col-md-12 alert-warning">
+      <div *ngIf="e.error.status === 400 || e.error.status === 401 ">Problem loading products...</div>
+      <div *ngIf="e.error.status === 500 || e.error.status === 0 ">Internal server error! Please contact our support
+        team.
+      </div>
+    </div>
+  </div>
+  <p-carousel headerText="you might be interested" [value]="(showcaseState | async).interested" [circular]="true"
+    [numVisible]="6" [pageLinks]="3">
+    <ng-template let-product pTemplate="item">
+      <a routerLink="/products/{{product.id}}">
+        <product-box [product]="product" [mode]="'interested'"></product-box>
+      </a>
+    </ng-template>
+  </p-carousel>
+</div>

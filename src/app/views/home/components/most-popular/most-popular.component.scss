@@ -1,0 +1,69 @@
+@import "src/@root/scss/root";
+
+section {
+    padding-top: 0px !important;
+}
+
+#most-popular {
+    margin-top: 10px;
+
+    .viwer-title {
+        align-content: center;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        padding: 0 8px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        position: relative;
+        z-index: 2;
+
+        .viwer-title-spacer {
+            flex: 1 1 auto;
+
+            i {
+                color: #f44336;
+            }
+
+            .title {
+                text-transform: uppercase;
+                font-weight: 500;
+            }
+
+            .countdown {
+                padding: 5px;
+                background: #000000;
+                color: #ffffff;
+            }
+        }
+    }
+
+    .viwer-body {
+        padding-top: 20px;
+        background: #FFFFFF;
+
+        .content {
+            .cards {
+                .flash-deals-slider .card {
+                    border: none;
+                    display: flex;
+                    align-items: flex-start;
+                    background: transparent;
+                    padding: 5px;
+
+                    .card-preview {
+                        display: flex;
+                        min-width: 185px;
+
+                        @include media-breakpoint("xs") {
+                            min-width: 177px !important;
+                        }
+                    }
+
+                    .card-source {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

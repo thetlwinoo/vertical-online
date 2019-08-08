@@ -1,0 +1,160 @@
+:host {
+    .total-summary{
+        span{
+            font-size: 1.2em;
+            // color: #9e9e9e;
+        }
+    }
+
+    .summary-wrapper {
+        display: inline-block;
+        width: 100%;
+
+        .summary-left {
+            float: left;
+        }
+
+        .summary-right {
+            float: right;
+        }
+    }
+
+    .top-bar-wrapper {
+        display: inline-block;
+        width: 100%;
+
+        .left-bar {
+            float: left;
+
+            .left-place-on {
+                color: #9e9e9e;
+                font-size: 0.8em;
+            }
+        }
+
+        .right-bar {
+            float: right;
+
+            span:first-child {
+                font-size: 1.5em;
+                color: #9e9e9e;
+            }
+
+            span:last-child {
+                font-size: 1.5em;
+                color: #ff5722;
+            }
+        }
+    }
+
+    .details-wrapper {
+        display: inline-block;
+        width: 100%;
+
+        .left-details {
+            float: left;
+
+            .sold-by {
+                font-size: 0.9em;
+                color: #9e9e9e;
+            }
+        }
+    }
+
+    .details-body {
+        border-top: 1px solid #dadada;
+
+        .item {
+            margin-right: 0;
+            margin-left: 0;
+        }
+
+        .image {
+            padding: 0;
+        }
+
+        .image img {
+            width: 100px;
+            height: 100px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .description {
+            margin: auto;
+        }
+
+        .description span {
+            display: block;
+            font-size: 14px;
+            color: #43484D;
+            font-weight: 400;
+        }
+
+        .description span:last-child {
+            font-weight: 300;
+            margin-top: 8px;
+            color: #86939E;
+        }
+
+        .item-price,
+        .quantity {
+            text-align: center;
+            font-size: 1.5em;
+            color: #43484D;
+            font-weight: 300;
+            margin: auto;
+            width: 83px;
+        }
+    }
+
+    table {
+        width: 100%;
+
+        &.footer{
+            border-top: 1px solid #dadada;
+        }
+
+        tr {
+            td {
+                .pad-right {
+                    float: right;
+                }
+
+                a {
+                    margin-left: 10px;
+                }
+
+                &.default {
+                    display: inline-flex;
+
+                    .default-button {
+                        margin-left: 10px;
+                    }
+                }
+
+                span {
+                    &.label {
+                        margin-right: 1.5625rem;
+                        text-transform: capitalize;
+                        width: 3.75rem;
+                        text-align: right;
+                        color: rgba(85, 85, 85, .8);
+                    }
+
+                    &.title {
+                        display: inline-block;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        margin-right: .625rem;
+                        max-width: 350px;
+                        color: rgba(0, 0, 0, .8);
+                        font-weight: 500;
+                        font-size: 1.3rem;
+                    }
+                }
+            }
+        }
+    }
+}

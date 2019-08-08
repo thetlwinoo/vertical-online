@@ -1,0 +1,22 @@
+//bootstrap
+@import 'partials/bootstrap-variables';
+@import '~bootstrap/scss/bootstrap';
+
+@import "~animate.css/animate.min.css";
+
+@import "~primeicons/primeicons.css";
+@import "~primeng/resources/themes/nova-light/theme.css";
+@import "~primeng/resources/primeng.min.css";
+@import "~primeflex/primeflex.scss";
+
+@import "root";
+
+@import "partials/normalize";
+@import "partials/general";
+@import "partials/bootstrap-fix";
+@import "partials/primeng-fix";
+@import "partials/typography";
+@import "partials/custom";
+@import 'partials/custom-responsive';
+
+@import "partials/plugins/plugins";

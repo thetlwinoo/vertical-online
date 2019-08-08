@@ -1,0 +1,64 @@
+<div class="sidebar-content">
+  <mat-list>
+    <h3 matSubheader *ngIf="account">Hello, {{account.login | uppercase }}</h3>
+    <mat-list-item *ngIf="account">
+      <button id="verify" pButton type="button" label="Verified Account" class="ui-button-success"
+        icon="pi pi-check"></button>
+    </mat-list-item>
+    <!-- <h3 matSubheader>Manage My Account</h3> -->
+
+    <mat-list-item>
+      <a [routerLink]="['/pages/dashboard/my-profile']">My Profile</a>
+    </mat-list-item>
+
+    <mat-divider></mat-divider>
+
+    <mat-list-item>
+      <a [routerLink]="['/pages/dashboard/my-payment-options']">Payment Options</a>
+    </mat-list-item>
+
+    <mat-divider></mat-divider>
+
+    <mat-list-item>
+      <a [routerLink]="['/pages/dashboard/address-book']">Address Book</a>
+    </mat-list-item>
+
+    <mat-divider></mat-divider>
+
+    <mat-list-item>
+      <a [routerLink]="['/pages/dashboard/my-wishlist']">My Wishlist</a>
+    </mat-list-item>
+
+    <mat-divider></mat-divider>
+
+    <mat-list-item>
+      <a [routerLink]="['/pages/dashboard/my-compare']">My Compare</a>
+    </mat-list-item>
+
+    <mat-divider></mat-divider>
+
+    <mat-list-item>
+      <a [routerLink]="['/pages/dashboard/my-reviews']">My Reviews</a>
+    </mat-list-item>
+
+    <mat-divider></mat-divider>
+    
+    <mat-list-item>
+      <a [routerLink]="['/pages/dashboard/my-orders']">My Orders</a>
+    </mat-list-item>
+
+  </mat-list>
+  <!-- <mat-list>
+    <h3 matSubheader>Manage My Orders</h3>    
+  </mat-list> -->
+  <div class="box-card" style="max-width: 240px; width: 100%;" fxLayout="column" fxLayoutAlign="center center">
+
+    <img src="assets/images/qr.png">
+
+    <div class="qr-title p-16">
+      <div class="h1">BieeBox App</div>
+      <div class="h4 secondary-text">scan or click</div>
+    </div>
+
+  </div>
+</div>

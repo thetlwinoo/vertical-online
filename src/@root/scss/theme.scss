@@ -1,0 +1,3 @@
+@mixin root-core-theme($theme) {
+    @include typography-theme($theme);
+}

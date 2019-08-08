@@ -1,0 +1,162 @@
+<div class="page-layout blank collection-wrapper">
+  <div class="container">
+    <div class="details-wrapper">
+      <div class="row">
+        <div class="col-md-5 col-sm-12 col-xs-12">
+          <div class="wrapper">
+            <div *ngIf="(photoState | async).loading;else galleria" class="loader"></div>
+            <div *ngIf="(photoState | async).loading" style="min-height: 50vh"></div>
+            <ng-template #galleria>
+              <p-galleria *ngIf="!(photoState | async).loading" [images]="(photoState | async).images" panelWidth="auto"
+                panelHeight="470" [showCaption]="false" [autoPlay]="false">
+              </p-galleria>
+            </ng-template>
+          </div>
+
+        </div>
+        <div class="col-md-7 rtl-text" *ngIf="product">
+          <div class="wrapper">
+            <div class="right-column">
+
+              <!-- Product Description -->
+              <div class="product-description">
+                <span>{{ product.productSubCategoryProductSubCategoryName }}</span>
+                <h1>{{ product.productName}}</h1>
+                <p> {{ product.productModelProductModelName }}</p>
+              </div>
+
+              <div class="product-reviews">
+                <div class="review-left">
+                  <p-rating [ngModel]="4" readonly="true" stars="5" [cancel]="false"></p-rating>
+                  <a style="margin-left:5px;" href="JavaScript:void(0);"><span>4 Ratings</span></a>
+                  <span style="margin:0 5px;">|</span>
+                  <a href="JavaScript:void(0);"><span>10 Answered Question</span></a>
+                </div>
+                <div class="review-right">
+                  <!-- <a href="JavaScript:void(0);" pTooltip="Share via" tooltipPosition="bottom">
+                  <i class="share-icon fa fa-share-alt"></i>
+                </a> -->
+                  <!-- <a href="JavaScript:void(0);" pTooltip="Wishlist" tooltipPosition="bottom" (click)="toggleWishlist($event)">
+                  <i class="wishlist-icon fa" [ngClass]="{'fa-heart': isInWishlist, 'fa-heart-o': !isInWishlist}"></i>
+                </a> -->
+                  <button mat-icon-button aria-label="share via" (click)="onShareVia($event)"
+                    [disabled]="(wishlistState | async).loading" matTooltip="Share Via">
+                    <mat-icon>share</mat-icon>
+                  </button>
+                  <button mat-icon-button aria-label="compare" (click)="toggleCompare($event)"
+                    [disabled]="(compareState | async).loading" matTooltip="Compare">
+                    <mat-icon *ngIf="isInCompare;else notcompare" class="collections_bookmark">collections_bookmark
+                    </mat-icon>
+                    <ng-template #notcompare>
+                      <mat-icon class="collections">collections</mat-icon>
+                    </ng-template>
+                  </button>
+                  <button mat-icon-button aria-label="wishlist" (click)="toggleWishlist($event)"
+                    [disabled]="(wishlistState | async).loading" matTooltip="Wishlist">
+                    <mat-icon *ngIf="isInWishlist;else notwishlist" class="favorite">favorite</mat-icon>
+                    <ng-template #notwishlist>
+                      <mat-icon class="favorite_border">favorite_border</mat-icon>
+                    </ng-template>
+                  </button>
+                </div>
+              </div>
+              <div class="product-brand">
+                Brand : {{product.brand}}
+              </div>
+
+              <!-- Product Pricing -->
+              <div class="product-price">
+
+                <div class="row" *ngFor="let e of (cartState | async).errors">
+                  <div *ngIf="e.errorEffect == 'ADD_TO_CART'" class="alert-warning">
+                    <div class="col-md-12">
+                      <div *ngIf="e.error.status === 400 || e.error.status === 401">Could not add item.</div>
+                      <div *ngIf="e.error.status === 409">Please select a proper amount</div>
+                      <div *ngIf="e.error.status === 500 || e.error.status === 0">Internal server error. Please contact
+                        our
+                        support team.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <span class="unit-price">${{ product.unitPrice }}</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div style="display: inline-flex;">
+                      <span class="retail-price">${{ product.recommendedRetailPrice }}</span>
+                      <span class="discount-percent" style="margin-left: 5px;">-15%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Product Configuration -->
+              <div class="product-configuration">
+
+                <!-- Product Color -->
+                <div class="product-color">
+                  <span>Color</span>
+
+                  <div class="color-choose">
+                    <div>
+                      <input data-image="red" type="radio" id="red" name="color" value="red" checked>
+                      <label for="red"><span></span></label>
+                    </div>
+                    <div>
+                      <input data-image="blue" type="radio" id="blue" name="color" value="blue">
+                      <label for="blue"><span></span></label>
+                    </div>
+                    <div>
+                      <input data-image="black" type="radio" id="black" name="color" value="black">
+                      <label for="black"><span></span></label>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Cable Configuration -->
+                <div class="cable-config">
+                  <span>Quantity</span>
+
+                  <div class="cable-choose">
+                    <input #amount type="number" placeholder="Amount" min="1" value="1">
+                  </div>
+                  <a (click)="open(faq)">How to contact support?</a>
+                </div>
+              </div>
+
+
+              <div class="product-details-control">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div *ngIf="(cartState | async).loading" class="loader" style="top:0; left: 25%"></div>
+                    <!-- <button routerLink="/checkout" [disabled]="(cartState | async).loading"
+                    [style.display]="(cartState | async).loading ? 'none' : 'inline-block'"
+                    class="ui-button-warning checkout-button" pButton label="Buy Now">
+                  </button>
+                  <button (click)="addToCart(amount)" [disabled]="(cartState | async).loading"
+                    [style.display]="(cartState | async).loading ? 'none' : 'inline-block'" class="addtocart-button"
+                    pButton label="Add to cart">
+                  </button> -->
+                    <button mat-raised-button color="warn" (click)="buyNow(amount)"
+                      [disabled]="(cartState | async).loading">Buy Now</button>
+                    <button mat-raised-button color="accent" (click)="addToCart(amount)"
+                      [disabled]="(cartState | async).loading" class="addtocart-button">Add To Cart</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <reviews-product [product]="product"></reviews-product>
+  <related-products></related-products>
+</div>

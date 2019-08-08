@@ -1,0 +1,96 @@
+@import "src/@box/scss/box";
+
+:host {    
+    .example-card {
+        box-shadow: none !important;
+    }
+
+    .example-header-image {
+        background-image: url('/assets/devita/img/bc/bc4.png');
+        background-size: cover;
+    }
+
+    h4 {
+        font-size: 0.9em;
+        font-weight: 500 !important;
+        text-transform: uppercase;
+    }
+
+    .expansion-title{
+        text-transform: uppercase;
+        font-size: 16px;
+        color: lighten(#000000, 26.5%);
+        font-weight: 600;
+    }
+    
+    .page-layout {
+        &.simple {
+            &.left-sidebar {
+                >.sidebar {
+                    width: 280px !important;
+                    min-width: 280px !important;
+                    max-width: 280px !important;
+
+                    >.content {
+                        >.shop-sidebar-wrapper {
+                            // border: 1px solid #efefef;
+                            padding: 28px 18px 29px;
+
+                            h4.shop-sidebar-title {
+                                font-size: 18px;
+                                font-weight: 500;
+                                margin: 0;
+                            }
+
+                            >.shop-price-filter {
+                                >.price_filter {
+                                    padding: 10px;
+
+                                    >.horizontal-wrapper {
+                                        >span {
+                                            min-width: 40.66px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                >.center {
+                    box-shadow: none;
+
+                    >.header {
+                        height: auto !important;
+                        min-height: auto !important;
+                    }
+
+                    >.horizontal-content {
+                        background: none !important;
+                        padding: 4px;
+
+                        @include media-breakpoint("xs") {
+                            padding: 0;
+                        }
+
+
+                        >.horizontal-wrapper {
+                            >.horizontal-spacer {
+                                >h4 {
+                                    >span {
+                                        color: #ff5722;
+                                    }
+                                }
+                            }
+                        }
+
+                        .product-infinitescroll {
+                            margin-top: 20px;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}

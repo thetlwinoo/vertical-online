@@ -1,0 +1,18 @@
+<div class="ui-fluid">
+  <div class="ui-g-12 ui-md-4" *ngFor="let compare of (compareState | async)?.compares?.compareLists">
+    <p-card [header]="compare.product.productName"
+      [subheader]="compare.product.productSubCategory.productSubCategoryName" styleClass="ui-card-shadow">
+      <p-header>
+        <img src="Card" [src]="compare.product.photo">
+      </p-header>
+      <div><span>On Sale </span><span>${{compare.product.unitPrice.toFixed(2) | number:'1.2'}}</span>
+      </div>
+      <p-footer>
+        <button pButton type="button" label="Add To Cart" icon="pi pi-plus"
+          (click)="addToCart(compare.product.id)"></button>
+        <button pButton type="button" label="Remove From Compare List" icon="pi pi-times" class="ui-button-secondary"
+          style="margin-top: .25em" (click)="removeFromCompare(compare.product.id)"></button>
+      </p-footer>
+    </p-card>
+  </div>
+</div>

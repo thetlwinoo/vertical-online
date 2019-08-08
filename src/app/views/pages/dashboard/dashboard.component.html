@@ -1,0 +1,29 @@
+<div class="page-layout blank">
+  <div class="container">
+    <div class="page-layout simple left-sidebar inner-scroll">
+
+      <box-sidebar class="sidebar" name="simple-left-sidebar-2" position="left" lockedOpen="gt-md">
+        <div class="content p-24" boxPerfectScrollbar>
+          <sidebar-content [account]="account"></sidebar-content>
+        </div>
+      </box-sidebar>
+
+      <div class="center" boxPerfectScrollbar>
+        <div class="header box-navy-50 p-24" fxLayout="row" fxLayoutAlign="start center">
+
+          <button mat-icon-button class="sidebar-toggle mr-8" fxHide.gt-md
+            (click)="toggleSidebar('simple-left-sidebar-2')">
+            <mat-icon>menu</mat-icon>
+          </button>
+
+          <h3 class="m-0">{{pageTitle}}</h3>
+
+        </div>
+
+        <div class="content">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

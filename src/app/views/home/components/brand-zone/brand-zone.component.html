@@ -1,0 +1,28 @@
+<section id="brand-zone">
+    <div class="viwer-area">
+        <div class="container">
+            <div class="viwer-title">
+                <div class="viwer-title-spacer title">
+                    Featured Brand
+                </div>
+                <button type="button" class="btn btn-link">
+                    <span>see all</span>
+                    <fa-icon icon="expand-arrows-alt" class="ml-2"></fa-icon>
+                </button>
+            </div>
+            <div class="content">
+                <div class="brand-list">
+                    <div class="brand-item" *ngFor="let brand of brands">
+                        <a routerLink="/pages/shop" routerLinkActive="active">
+                            <div #boxcag class="card-preview">
+                                <div class="box-card brand-list">
+                                    <img src="assets/images/home/brands/{{brand.icon}}.png">
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

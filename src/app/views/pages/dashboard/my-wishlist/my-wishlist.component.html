@@ -1,0 +1,50 @@
+<div class="wishlist-section">
+  <div class="row item" *ngFor="let wishlist of (wishlistState | async)?.wishlists?.wishlistLists">
+    <div class="col-md-1 buttons">
+      <div *ngIf="(wishlistState | async).loading" class="loader" style="font-size: 6px; top:25%"></div>
+      <!-- <span *ngIf="(wishlistState | async).loading == false" class="delete-btn"
+        (click)="removeFromWishlist(wishlist.product.id)"></span> -->
+        <button *ngIf="(wishlistState | async).loading == false" mat-icon-button (click)="removeFromWishlist(wishlist.product.id)" matTooltip="Remove from wishlist">
+          <mat-icon>delete_forever</mat-icon>
+        </button>
+    </div>
+    <div class="col-md-3 image">
+      <img *ngIf="wishlist.product.photo;else noimage" src="{{wishlist.product.photo}}" alt=""
+        (click)="goToItem(cartItem.cartProduct.id)" />
+      <ng-template #noimage>
+        <img src="assets/images/noimage.png" alt="no image preview">
+      </ng-template>
+    </div>
+
+    <div class="col-md-3 description">
+      <span style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; cursor: pointer"
+        (click)="goToItem(wishlist.product.id)">
+        {{wishlist.product.productName}}
+      </span>
+      <span>{{wishlist.product.productSubCategory.productSubCategoryName}}</span>
+    </div>
+
+    <div class="col-md-3">
+      <div class="availability">
+        <span>In Stock</span>
+      </div>
+    </div>
+
+    <div class="col-md-1 price">
+      <div class="item-price">
+        <span>${{wishlist.product.unitPrice.toFixed(2) | number:'1.2'}}</span>
+      </div>
+    </div>
+
+    <div class="col-md-1">
+      <div class="add-cart">
+        <!-- <button mat-raised-button color="warn" (click)="addToCart(wishlist.product.id)">
+          <mat-icon>add_shopping_cart</mat-icon>
+        </button> -->
+        <button type="button" id="add-cart" class="btn btn-warning cart-plus" (click)="addToCart(wishlist.product.id)">
+            <fa-icon [icon]="'cart-plus'"></fa-icon>
+          </button>
+      </div>
+    </div>
+  </div>
+</div>

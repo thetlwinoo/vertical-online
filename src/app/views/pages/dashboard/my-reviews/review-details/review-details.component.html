@@ -1,0 +1,103 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Delivered on {{orders.orderDate.format("DD MMM YYYY")}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Rate and review purchased product:</h6>
+    <div class="row review-products-list">
+      <div class="col-md-7">
+        <div class="reviews-left-wrapper"
+          *ngFor="let reviewLine of orders.orderReview.reviewLists;let i = index;trackBy: trackId">
+          <div class="media mt-4">
+            <img *ngIf="reviewLine.product?.photo;else noimage" src="{{reviewLine.product.photo}}" alt=""
+              class="mr-3 product" />
+            <ng-template #noimage>
+              <img src="assets/images/noimage.png" alt="no image preview" class="mr-3 product">
+            </ng-template>
+
+            <div class="media-body">
+              <h5 class="mt-0">{{reviewLine.product?.productName}}</h5>
+              <h6 class="mb-2 text-muted">{{reviewLine.product?.productModel.productModelName}}</h6>
+
+              <div class="form-group rating-display">
+                <p-rating id="field_productRating_{{i}}" name="productRating_{{i}}"
+                  [(ngModel)]="reviewLine.productRating" [cancel]="false" stars="5"
+                  [iconOnStyle]="{'font-size': '2.2em'}" [iconOffStyle]="{'font-size': '2.2em'}" readonly="true">
+                </p-rating>
+                <label for="field_productRating_{{i}}">{{getRatingDescription(reviewLine.productRating)}}</label>
+              </div>
+
+              <div class="review-container">
+                <div class="review-content">
+                  <div class="review-value">{{reviewLine.productReview}}</div>
+                  <div class="review-like-count">
+                    <fa-icon [icon]="['far', 'thumbs-up']"></fa-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-5">
+        <div class="reviews-right-wrapper">
+          <div>
+            Sold by XXX
+          </div>
+          <div>
+            Your seller review:
+          </div>
+          <div class="rate-face">
+            <div id="seller-rating">
+              <div class="table">
+                <ul id="horizontal-list">
+                  <li *ngIf="orders.orderReview.overAllSellerRating == 1">
+                    <a href="JavaScript:void(0);">
+                      <fa-icon [icon]="['fas', 'frown']"></fa-icon>
+                    </a>
+                  </li>
+                  <li *ngIf="orders.orderReview.overAllSellerRating == 2">
+                    <a href="JavaScript:void(0);" class="ml-3 mr-3">
+                      <fa-icon [icon]="['fas', 'meh']"></fa-icon>
+                    </a>
+                  </li>
+                  <li *ngIf="orders.orderReview.overAllSellerRating == 3">
+                    <a href="JavaScript:void(0);">
+                      <fa-icon [icon]="['fas', 'smile']"></fa-icon>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <label for="seller-rating">{{getSellerRatingDescription(orders.orderReview.overAllSellerRating)}}</label>
+          </div>
+          <div class="review-container" *ngIf="orders.orderReview.overAllSellerReview">
+            <div class="review-content">
+              <div class="review-value">{{orders.orderReview.overAllSellerReview}}</div>
+              <div class="review-like-count">
+                <fa-icon [icon]="['far', 'thumbs-up']"></fa-icon>
+              </div>
+            </div>
+          </div>
+          <div class="rate-delivery-label">Rate and review delivery service:</div>
+          <div class="form-group rating-display">
+            <p-rating name="deliveryRating" id="field_deliveryRating"
+              [(ngModel)]="orders.orderReview.overAllDeliveryRating" [cancel]="false" stars="5"
+              [iconOnStyle]="{'font-size': '2.2em'}" [iconOffStyle]="{'font-size': '2.2em'}" readonly="true"></p-rating>
+            <label for="field_deliveryRating">{{getRatingDescription(orders.orderReview.overAllDeliveryRating)}}</label>
+          </div>
+          <div class="review-container" *ngIf="orders.orderReview.overAllDeliveryReview">
+            <div class="review-content">
+              <div class="review-value">{{orders.orderReview.overAllDeliveryReview}}</div>
+            </div>
+          </div>
+          <div class="review-submit-wrapper mt-2">
+            <div class="edit-button mt-4">
+              <button type="button" class="btn btn-secondary" id="save-review"
+                [routerLink]="['/pages/dashboard/my-reviews', orders.id, 'new']">Edit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+@media (min-width: 1200px) {
+    body #footer .contact-details {background:url("/assets/images/say_hi.png") no-repeat right top;}
+    .newsletter-signup input {border: none; width: calc(90% - 83px);}
+	.newsletter-signup input[type=submit] {margin-left: -7px; border-bottom-left-radius: 0; border-top-left-radius: 0;}
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    #footer {padding: 60px 0 50px !important;}
+    #footer .copyright {float:left;}
+    #footer .contact-details {background: url("/assets/images/say_hi_smaller.png") no-repeat right top;}
+}
+
+@media (max-width: 767px) {
+    #footer {padding: 60px 0 50px !important;}
+    #footer .menu:before, 
+    #footer .menu:after {content: '\0020'; display: block; overflow: hidden; visibility: hidden; width: 0; height: 0; }
+    #footer .menu:after {clear: both; }
+    #footer .social-icons {float:none; margin-left: 0; padding-left: 0; margin-bottom: 30px;}
+    #footer .copyright img {margin-bottom: 20px;}
+
+    .newsletter-signup input[type=text] { width: 100%;}
+    .newsletter-signup input[type=submit] { width: 100%; margin: 0; margin-bottom: 15px;}            
+    .newsletter-signup input {width: 100%;}
+}
+

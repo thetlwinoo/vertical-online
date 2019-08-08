@@ -1,0 +1,52 @@
+a:hover {
+    text-decoration: none !important;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1200px;
+    }
+
+    .navbar {
+        padding: 0;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .container {
+        &:not(.footer-container){
+            padding: 0 !important;
+        }   
+    }
+}
+
+@media (max-width: 767px) {
+    .container {
+        &:not(.footer-container){
+            padding: 0 !important;
+        }        
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    .container {
+        &:not(.footer-container){
+            padding: 0 !important;
+        }   
+    }
+}
+
+button:focus {
+    outline: none !important;
+}
+
+.btn-link {
+
+    &:hover,
+    &:active,
+    &:focus {
+        text-decoration: none !important;
+    }
+}

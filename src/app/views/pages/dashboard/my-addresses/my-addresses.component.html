@@ -1,0 +1,28 @@
+<div *ngIf="innerLoading" class="loader"></div>
+<div *ngIf="innerLoading" style="min-height: 50vh"></div>
+
+<div class="container" *ngIf="!innerLoading">
+  <p-toolbar>
+    <div class="ui-toolbar-group-left">
+    </div>
+    <div class="ui-toolbar-group-right">
+      <button type="button" id="setdefault-button" class="btn btn-primary set-default"
+        [routerLink]="['/pages/dashboard/address-book/new']">
+        <fa-icon [icon]="'plus'"></fa-icon>&nbsp;<span>Add New Address</span>
+      </button>
+    </div>
+  </p-toolbar>
+  <div *ngFor="let e of (addressState | async).errors">
+    <div *ngIf="e.errorEffect == 'FETCH_ADDRESS'" class="alert-warning p-2">
+      <div *ngIf="e.error.status === 500 || e.error.status === 0">Internal server error! Please contact our
+        support team.
+      </div>
+    </div>
+  </div>
+  <div *ngFor="let addresses of (addressState | async).addresses | orderBy:lastModifiedDate ;trackBy: trackId">
+    <dashboard-address [addresses]="addresses" [account]="account" (editAddress)="onEditAddress($event)"
+      (deleteAddress)="onDeleteAddress($event)" (setDefault)="onSetDefault($event)"></dashboard-address>
+  </div>
+</div>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" [transitionOptions]="'0ms'" appendTo="body">
+</p-confirmDialog>

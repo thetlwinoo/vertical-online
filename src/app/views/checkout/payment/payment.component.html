@@ -1,0 +1,66 @@
+<!-- <div class="row">
+  <div class="col-md-12">
+    <a routerLink="/checkout/form" class="btn" style="color: #5E6977;"><i class="fa fa-arrow-left"></i> Back to
+      form</a>
+  </div>
+</div> -->
+<div class="ui-fluid">
+  <div class="ui-g-12 ui-md-8">
+    <p-tabView id="payment">
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <div style="text-align: center; min-width: 10em">
+            <div class="ui-menuitem-icon" ngClass="fa fa-fw fa-credit-card" style="font-size: 2em"></div>
+            <div class="ui-menuitem-text">
+              Credit/Debit Card
+            </div>
+          </div>
+        </ng-template>
+        <credit-card (chargeCard)="onChargeCard($event)"></credit-card>
+      </p-tabPanel>
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <div style="text-align: center; min-width: 10em">
+            <div class="ui-menuitem-icon" ngClass="fa fa-fw fa-paypal" style="font-size: 2em"></div>
+            <div class="ui-menuitem-text">
+              Paypal Checkout
+            </div>
+          </div>
+        </ng-template>
+        <div class="paypal-checkout-wrapper">
+          <a href="JavaScript:void(0);" (click)="onPaypalCheckout($event)"><img
+              src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"></a>
+          <!-- <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"> -->
+          <iframe *ngIf="paypalRedirectUrl" width="100%" height="720" [src]="paypalRedirectUrl | safe"></iframe>
+        </div>
+
+      </p-tabPanel>
+      <p-tabPanel>
+        <ng-template pTemplate="header">
+          <div style="text-align: center; min-width: 10em">
+            <div class="ui-menuitem-icon" ngClass="fa fa-fw fa-university" style="font-size: 2em"></div>
+            <div class="ui-menuitem-text">
+              Bank Payment
+            </div>
+          </div>
+        </ng-template>
+        Bank Payment
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+  <div class="ui-g-12 ui-md-4">
+    <p-card id="payment-summary" header="Order Summary" subheader="Sub Total - item(s)">
+      <div class="item p-2 pl-4">        
+        <div class="row pricing">
+          <div class="col-md-4 col-4">
+            <span>Total</span>
+          </div>
+          <div class="col-md-8 col-8 mr-auto">
+            <p class="price p-0 m-0 total-price" style="font-weight: bold">${{this.orders?.totalDue.toFixed(2) |
+                                              number:'1.2' }}</p>
+          </div>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>

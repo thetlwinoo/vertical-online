@@ -1,0 +1,27 @@
+$font-family-sans-serif: 'Muli','Helvetica Neue','Arial',sans-serif;
+// $font-family-sans-serif: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$line-height-base: 1.6;
+$font-size-base: 0.9rem;
+
+// $brand-primary: darken(#FFFFFF, 6.5%) !default;
+// $link-color: $brand-primary !default;
+
+$primary: #3e8acc;
+$success: #28a745;
+$info: #17a2b8;
+$warning: #ffc107;
+$danger: #dc3545;
+
+$enable-rounded: false;
+$enable-shadows: false;
+$enable-gradients: false;
+$enable-transitions: true;
+$enable-hover-media-query: false;
+$enable-grid-classes: true;
+$enable-print-styles: true;
+
+$border-radius: 0.15rem;
+$border-radius-lg: 0.125rem;
+$border-radius-sm: 0.1rem;
+
+$body-bg: #e4e5e6;

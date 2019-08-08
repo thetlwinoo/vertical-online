@@ -1,0 +1,19 @@
+:host {
+    .order-detail {
+        img {
+            width: 100px;
+            height: 100px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    }
+
+    p-table {
+        &#order-lists {
+            .place-on {
+                font-size: 0.9em;
+                color: #757575;
+            }
+        }
+    }
+}

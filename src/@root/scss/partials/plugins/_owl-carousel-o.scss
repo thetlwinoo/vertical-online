@@ -1,0 +1,58 @@
+@import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+
+.owl-carousel {
+    position: relative;
+    height: 100%;
+
+    div:not(.owl-dots) {
+        height: 100%;
+    }
+
+    .owl-stage {
+        background: #FFFFFF;
+        display: flex;
+        position: relative;
+        padding: 0;
+        margin: 0;
+    }
+
+    .owl-item {
+        .banner-image {
+            width: auto;
+            height: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: bottom;
+        }
+
+        .owl-sub-item {
+            margin: 1px;
+        }
+    }
+}
+
+// .owl-dot-style-2 .owl-dot {
+//     background: #d8d9d9 none repeat scroll 0 0 !important;
+//     border-radius: 50px;
+//     display: inline-block;
+//     height: 10px;
+//     margin: 0 5px;
+//     width: 10px;
+// }
+
+// .owl-dot-style-2 .owl-dot.active {
+//     background: #0363cd none repeat scroll 0 0 !important;
+//     height: 13px;
+//     position: relative;
+//     top: 2px;
+//     width: 13px;
+// }
+
+.owl-dot-style-2 .owl-dots {
+    bottom: 0px;
+    left: 0px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+}

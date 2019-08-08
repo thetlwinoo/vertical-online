@@ -1,0 +1,92 @@
+/* Social icons */
+.social-icons {margin-left:10px; margin-bottom:0; z-index: 1; }
+.social-icons li {display:inline-block; margin:5px; margin-left:10px; margin-right:0; vertical-align: top;}
+.social-icons li a {display: inline-block; color: #fff; width: 35px; height: 35px; position: relative; border-radius: 3px; text-align: center; -webkit-transition: all 0.2s ease-out; transition: all 0.2s ease-out; font-size: 0.9rem; font-weight: normal; opacity: 1;}
+.social-icons li a:before {line-height:30px;}
+.social-icons li a:hover {box-shadow:0 0 6px rgba(0,0,0,0.4)}
+.social-icons.sc--normal li a { background-color: #111; }
+.social-icons.sc--normal li a:hover {background-color:#CD2122;}
+/* Colored social icons */
+.social-icons.sc--colored li a:hover {background-color:#121212;}
+/* Colored social icons */
+.social-icons.sc--colored_hov li a:not(:hover) {background-color:#121212;}
+/* Social icons - clean style */
+.social-icons.sc--clean li {margin-left: 0; margin-right: 0;}
+.social-icons.sc--clean li a {background:none;  box-shadow: none; font-size: 1rem; line-height: 2.2;}
+.social-icons.sc--clean li a:hover {background:none; box-shadow: none; }
+
+/* Social color bg */
+.social-icons.sc--colored .fa-facebook-f {background-color: #3b579d;}
+.social-icons.sc--colored .fa-twitter {background-color: #5ea9dd;}
+.social-icons.sc--colored .fa-google-plus-g {background-color: #df4b38;}
+.social-icons.sc--colored .fa-linkedin {background-color: #007ab5;}
+
+/* Footer Styles*/
+/* Footer Default style */
+#footer {padding: 60px 0 20px; color: #d5d5d5; border-top: 4px solid #fff; position: relative;}
+#footer a {color: #fff;}
+#footer a:hover {color: #d5d5d5;}
+#footer .m_title {font-size: 1.1rem; font-weight: bold; color: #fff; text-shadow: none;}
+#footer .menu {margin: 0; padding: 0; list-style: none;}
+#footer .menu a {padding-right: 10px;}
+#footer .sbs .menu li {float: left; width: 50%;}
+.scfooter-icon-nocolor {background-color: #121212;}
+
+#footer .payments-links li {display: inline-block;}
+#footer .payments-links a {color: #ADB5BD; font-size: 30px; margin-left: 3px; position: relative; -webkit-transform: skewX(-10deg); -ms-transform: skewX(-10deg); transform: skewX(-10deg);}
+#footer .payments-links a:hover {color: #fff;}
+/* END Footer Default style */
+
+.newsletter-signup form { margin-bottom:0;}
+.newsletter-signup input { vertical-align: top; margin-bottom: 10px; width: calc(90% - 130px); display: inline-block; height: 40px;}
+.newsletter-signup input[type=text] {color:#4d4d4d; background: #EFEFEF; border: 1px solid #a3a3a3; box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1) inset; 
+	width: 190px; display: inline-block; height: 40px; width: calc(90% - 130px);}
+.newsletter-signup input[type=submit] {color:#fff; background:#CD2122; border:0; font-weight:700; font-size:13px; height:40px; padding:0 15px; margin-left:10px; border-radius:3px; width: 100px; cursor: pointer; border: none !important;}
+.newsletter-signup input[type=submit]:hover {background:#000;}
+.newsletter-signup #result {display:inline-block; margin-bottom:10px;}
+.newsletter-signup #result:empty {display:inline;}
+
+#sidebar .newsletter-signup input[type="text"],
+.zn_sidebar .newsletter-signup input[type="text"],
+[id*='sidebar-widget-'] .newsletter-signup input[type="text"] {width: 139px;}
+.newsletter-signup.cd-news .nl-email { width: calc(70% - 130px);}
+
+.map-link > span {margin-top:2px;}
+
+#footer .bottom {padding-top: 30px; border-top: 5px solid #484848; color: #8b8c8d;}
+#footer .footer-area--bottom {padding-top:30px; border-top:5px solid #484848; color:#8b8c8d;}
+#footer .social-icons {float:right;}
+#footer .copyright img {float:left; margin-right:20px;}
+
+#footer .social-icons li.title {line-height:30px;}
+#footer .social-icons li {margin:0 0 0 10px; }
+#footer .social-icons li:first-child {margin-left:0;}
+
+#footer .contact-details { min-height: 64px; background: url("/assets/images/say_hi.png") no-repeat right top;}
+
+/* contact form errors */
+.cf_response { display: none; padding-left: 15px; padding-right: 15px;}
+.ui-state-error{border:1px solid #EB3034 !important; position:relative;}
+.ui-state-valid{border: none !important; position:relative;}
+.ui-state-error + span::after,
+.ui-state-valid + span::after {font-family: 'icomoon'; font-size: 15px; position: absolute; right: 12px; top: 10px; display: block; z-index: 1;}
+.ui-state-error + span::after { content: "\e01b"; color: #EB3034;}
+.ui-state-valid + span::after { content: "\e013"; color: #0EAB55;}
+
+
+#notification_container .alert { display: inline-block; position: relative; padding: 10px 20px; }
+#notification_container .close::before { content: "\00d7"; color: #000; outline: none;}
+#notification_container .close { position: absolute; top: 2px; right: 2px; font-size: 15px; opacity: 1;}
+
+/* TWITTER FEED */
+#twitterFeed {background:url("/assets/images/general/socials/twitter-bird.png") no-repeat 15px center #444; font-size:12px; color:#fff; padding: 15px 75px 15px 60px; position:relative; margin-bottom:15px; font-style:italic; border-radius:3px;}
+#twitterFeed:after {content:''; position:absolute; bottom:-10px; left:15px; border:5px solid transparent; border-top-color:#444;}
+#twitterFeed ul {margin:0; padding:0; list-style:none; font-size:1rem;}
+#twitterFeed .twTime {display:inline-block; color:#9d9d9d; padding-left:10px; border-left:1px solid #707070; font-size:11px; position:absolute; right: -65px; top: 0; bottom: 0; width: 45px; vertical-align: middle;line-height: 1;}
+#twitterFeed > div:not(:only-child) {margin-bottom: 10px;}
+.twitterFeed { margin-bottom: 30px;}
+.twitter-feed > iframe {max-height: 20px;}
+#twitterFeed .timePosted {display: inline-block; color: #9d9d9d; padding-left: 10px; border-left: 1px solid #707070; font-size: 0.9rem; position: absolute; right: 15px; top: 15px; bottom: 15px; width: 60px; vertical-align: middle; line-height: 1; display: -webkit-box !important; display: -ms-flexbox !important; display: flex !important;}
+#twitterFeed .timePosted a {-ms-flex-item-align: center !important; align-self: center !important;}
+#twitterFeed p {margin-bottom: 0;}
+#twitterFeed p.tweet a {text-decoration: underline;}

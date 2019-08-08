@@ -1,0 +1,63 @@
+<div class="card">
+  <div class="card-body">
+    <nav mat-tab-nav-bar animationDuration="0ms" id="reviews-nav">
+      <a mat-tab-link *ngFor="let link of navReviews" [active]="activeNav.label == link.label"
+        (click)="onChangeNav(link)">
+        {{link.label}}({{(orders | completedReviews:link.reviewed)?.length}})
+      </a>
+    </nav>
+  </div>
+</div>
+
+<p-table id="review-products" [value]="orders | completedReviews:reviewedInd" [paginator]="true" [rows]="5">
+  <ng-template pTemplate="body" let-order>
+    <tr>
+      <td>
+        <div class="card" *ngIf="!reviewedInd;else pending">
+          <div class="card-body">
+            <h5 class="card-title">Purchased on {{order.orderDate.format("DD MMM YYYY")}}</h5>
+            <!-- <h6 class="card-subtitle mb-2 text-muted">Rate and review purchased product:</h6> -->
+            <div class="row">
+              <div class="col-md-7">
+                <div class="reviews-left-wrapper">
+                  <div class="media mt-4" *ngFor="let orderLine of order.orderLineLists">
+                    <img *ngIf="orderLine.product.photo;else noimage" src="{{orderLine.product.photo}}" alt=""
+                      class="mr-3 product" />
+                    <ng-template #noimage>
+                      <img src="assets/images/noimage.png" alt="no image preview" class="mr-3 product">
+                    </ng-template>
+                    <div class="media-body">
+                      <h5 class="mt-0">{{orderLine.product.productName}}</h5>
+                      <h6 class="mb-2 text-muted">{{orderLine.product.productModel?.productModelName}}</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="reviews-right-wrapper">
+                  <div>
+                    Sold by XXX
+                  </div>
+                  <div>
+                    <button type="button" class="btn btn-outline-secondary review-button mt-4"
+                      [routerLink]="['/pages/dashboard/my-reviews', order.id, 'new']">REVIEW</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-template #pending>
+          <review-details [orders]="order"></review-details>
+        </ng-template>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage" let-columns>
+    <tr>
+      <td [attr.colspan]="1">
+        No records found
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

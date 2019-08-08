@@ -1,0 +1,58 @@
+@mixin typography-theme($theme) {
+    $background: map-get($theme, background);
+    $accent: map-get($theme, accent);
+    $is-dark: map-get($theme, is-dark);
+}
+
+html,
+body {
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: normal;
+}
+
+// Links
+a {
+    text-decoration: none;
+
+    &:not(.mat-button):not(.mat-raised-button):not(.mat-flat-button):not(.mat-stroked-button):not(.mat-icon-button):not(.mat-fab):not(.mat-mini-fab) {
+
+        &:hover,
+        &:active {
+            text-decoration: underline;
+        }
+    }
+}
+
+// Font weight helpers
+@for $weight from 1 through 9 {
+
+    .font-weight-#{$weight * 100} {
+        font-weight: #{$weight * 100};
+    }
+}
+
+// Font size helpers
+@for $size from 1 through 60 {
+
+    .font-size-#{$size * 2} {
+        font-size: #{$size * 2}px;
+    }
+}
+
+// Line height helpers
+@for $lineHeight from 1 through 60 {
+
+    .line-height-#{$lineHeight * 2} {
+        line-height: #{$lineHeight * 2}px;
+    }
+}

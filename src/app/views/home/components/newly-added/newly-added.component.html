@@ -1,0 +1,40 @@
+<section id="newly-added" class="tools-grey">
+    <div class="container">
+        <div class="viwer-wrapper">
+            <div class="viwer-title">
+                <div class="viwer-title-spacer title">
+                    newly added
+                </div>
+                <button type="button" class="btn btn-link" (click)="owlNewlyAdded.prev()">
+                    <fa-icon icon="chevron-circle-left"></fa-icon>
+                </button>
+                <button type="button" class="btn btn-link" (click)="owlNewlyAdded.next()">
+                    <fa-icon icon="chevron-circle-right"></fa-icon>
+                </button>
+            </div>
+            <div class="viwer-body">
+                <div *ngFor="let e of (showcaseState | async).errors">
+                    <div *ngIf="e.errorEffect == 'FETCH_NEWLY_ADDED'" class=" col-md-12 alert-warning">
+                        <div *ngIf="e.error.status === 400 || e.error.status === 401 ">Problem loading products...</div>
+                        <div *ngIf="e.error.status === 500 || e.error.status === 0 ">Internal server error! Please
+                            contact our
+                            support
+                            team.
+                        </div>
+                    </div>
+                </div>
+                <owl-carousel-o #owlNewlyAdded [options]="carousel.options">
+                    <ng-container *ngFor="let product of (showcaseState | async).newlyAdded">
+                        <ng-template carouselSlide>
+                            <a routerLink="/pages/shop" routerLinkActive="active">
+                                <div class="owl-sub-item">
+                                    <product-box [product]="product" [mode]="'popular'"></product-box>
+                                </div>
+                            </a>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+            </div>
+        </div>
+    </div>
+</section>

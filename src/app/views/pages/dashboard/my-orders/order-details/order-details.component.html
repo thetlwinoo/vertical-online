@@ -1,0 +1,146 @@
+<div class="row">
+  <div class="col-md-12">
+    <p-card class="order-details">
+      <div class="top-bar-wrapper">
+        <div class="left-bar">
+          <div>Order #{{orders.orderNumber}}</div>
+          <div class="left-place-on">Placed on {{orders.orderDate | date :'medium' }}</div>
+        </div>
+        <div class="right-bar">
+          <div><span>Total: </span> <span>${{orders.totalDue.toFixed(2) | number:'1.2'}}</span></div>
+        </div>
+      </div>
+    </p-card>
+  </div>
+  <div class="col-md-12">
+    <p-card class="order-details">
+      <div class="details-wrapper">
+        <div class="left-details">
+          <div>Package</div>
+          <div class="sold-by">Sold By: XXX</div>
+        </div>
+      </div>
+      <div class="details-body">
+        <div class="row item" *ngFor="let orderLine of orders.orderLineLists">
+          <div class="col-md-3 image">
+            <img *ngIf="orderLine.product.photo;else noimage" src="{{orderLine.product.photo}}" alt=""
+              (click)="goToItem(orderLine.cartProduct.id)" />
+            <ng-template #noimage>
+              <img src="assets/images/noimage.png" alt="no image preview">
+            </ng-template>
+          </div>
+
+          <div class="col-md-3 description">
+            <span style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; cursor: pointer"
+              (click)="goToItem(orderLine.product.id)">
+              {{orderLine.product.productName}}
+            </span>
+            <span>{{orderLine.product.productSubCategory.productSubCategoryName}}</span>
+          </div>
+
+          <div class="col-md-3 item-price">
+            <span> ${{orderLine.product.unitPrice.toFixed(2) | number:'1.2'}}</span>
+          </div>
+
+          <div class="col-md-3 quantity">
+            <span>Qty : {{orderLine.quantity}}</span>
+          </div>
+
+        </div>
+      </div>
+    </p-card>
+  </div>
+  <div class="col-md-6">
+    <p-card class="order-details" header="Shipping Address">
+      <table>
+        <tr>
+          <td><span class="label">Name</span></td>
+          <td class="default">
+            <span class="title">{{orders.shipToAddress.contactPerson}}</span>
+            <button *ngIf="orders.shipToAddress.addressType" pButton type="button"
+              label="{{orders.shipToAddress.addressType?.addressTypeName}}"
+              class="ui-button-warning default-button"></button>
+            <button class="default-button" *ngIf="orders.shipToAddress.defaultInd" pButton type="button" label="Default"
+              class="ui-button-success default-button"></button>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="label">AddressLine1</span></td>
+          <td>{{orders.shipToAddress.addressLine1}}</td>
+        </tr>
+        <tr>
+          <td><span class="label">AddressLine2</span></td>
+          <td>{{orders.shipToAddress.addressLine2}}</td>
+        </tr>
+        <tr>
+          <td><span class="label">City</span></td>
+          <td>{{orders.shipToAddress.city}}</td>
+        </tr>
+        <tr>
+          <td><span class="label">PostalCode</span></td>
+          <td>{{orders.shipToAddress.postalCode}}</td>
+        </tr>
+      </table>
+    </p-card>
+    <p-card class="order-details" header="Billing Address">
+      <table>
+        <tr>
+          <td><span class="label">Name</span></td>
+          <td class="default">
+            <span class="title">{{orders.billToAddress.contactPerson}}</span>
+            <button *ngIf="orders.billToAddress.addressType" pButton type="button"
+              label="{{orders.billToAddress.addressType?.addressTypeName}}"
+              class="ui-button-warning default-button"></button>
+            <button class="default-button" *ngIf="orders.billToAddress.defaultInd" pButton type="button" label="Default"
+              class="ui-button-success default-button"></button>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="label">AddressLine1</span></td>
+          <td>{{orders.billToAddress.addressLine1}}</td>
+        </tr>
+        <tr>
+          <td><span class="label">AddressLine2</span></td>
+          <td>{{orders.billToAddress.addressLine2}}</td>
+        </tr>
+        <tr>
+          <td><span class="label">City</span></td>
+          <td>{{orders.billToAddress.city}}</td>
+        </tr>
+        <tr>
+          <td><span class="label">PostalCode</span></td>
+          <td>{{orders.billToAddress.postalCode}}</td>
+        </tr>
+      </table>
+    </p-card>
+  </div>
+  <!-- <div class="col-md-6">
+    
+  </div> -->
+  <div class="col-md-6">
+    <p-card class="order-details total-summary" header="Total Summary">
+      <table>
+        <tr>
+          <td><span>Subtotal</span></td>
+          <td><span class="pad-right">${{orders.totalDue.toFixed(2) | number:'1.2'}}</span></td>
+        </tr>
+        <tr>
+          <td><span>Shipping Fee</span></td>
+          <td><span class="pad-right">${{orders.frieight.toFixed(2) | number:'1.2'}}</span></td>
+        </tr>
+      </table>
+      <p-footer>
+        <table class="footer">
+          <tr>
+            <td><span>Total</span></td>
+            <td><span class="pad-right">${{orders.totalDue.toFixed(2) | number:'1.2'}}</span></td>
+          </tr>
+          <tr>
+            <td><span>Paid By</span></td>
+            <td><span class="pad-right"></span></td>
+          </tr>
+        </table>
+      </p-footer>
+    </p-card>
+  </div>
+</div>

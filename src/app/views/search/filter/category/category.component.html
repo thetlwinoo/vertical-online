@@ -1,0 +1,14 @@
+<!-- <div class="collection-collapse-block">  
+  <h3 class="collapse-block-title" (click)="expand = !expand">category</h3>
+  <div class="collection-collapse-block-content" *ngIf="expand" [@expandCollapse]>
+    <div class="collection-category-filter">
+      <div class="tree-wrapper">
+        <p-tree [value]="categories" selectionMode="checkbox" [(selection)]="selectedFiles"
+          (onNodeSelect)="nodeChange($event)" (onNodeUnselect)="nodeChange($event)"></p-tree>
+      </div>
+      <button mat-button (click)="collapseAll()">clear</button>
+    </div>
+  </div>
+</div> -->
+<p-tree [value]="categories" selectionMode="checkbox" [(selection)]="selectedFiles" (onNodeSelect)="nodeChange($event)"
+  (onNodeUnselect)="nodeChange($event)"></p-tree>

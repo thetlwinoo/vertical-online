@@ -1,0 +1,29 @@
+<section id="daily-discover">
+    <div class="viwer-area">
+        <div class="container">
+            <div class="viwer-title">
+                <div class="viwer-title-spacer title">
+                    daily discover
+                </div>
+                <button type="button" class="btn btn-link">
+                    <span>see all</span>
+                    <fa-icon icon="expand-arrows-alt" class="ml-2"></fa-icon>
+                </button>
+            </div>
+            <div class="viwer-body">
+                <div class="content">
+                    <div class="product-wrapper">
+                        <div class="product-item product-box"
+                            *ngFor="let item of (showcaseState | async).dailyDiscover">
+                            <a [routerLink]="['/products',item.id]" routerLinkActive="active">
+                                <div #productcard class="card-preview">
+                                    <product-card [product]="item"></product-card>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

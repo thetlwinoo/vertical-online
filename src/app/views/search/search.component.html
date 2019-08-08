@@ -1,0 +1,174 @@
+<div class="page-layout blank">
+  <div class="container">
+    <div class="page-layout simple left-sidebar">
+      <box-sidebar class="sidebar" name="simple-left-sidebar-2" position="left" lockedOpen="gt-md">
+        <div class="content">
+          <div class="shop-sidebar-wrapper gray-bg-7">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title>Jade</mat-card-title>
+                <mat-card-subtitle>Offical Store</mat-card-subtitle>
+              </mat-card-header>
+              <img mat-card-image src="assets/kallas/banner-set2-32.jpg" alt="Photo of a Shiba Inu">
+              <mat-card-content>
+                <p>
+                  jewellery shop
+                </p>
+              </mat-card-content>
+            </mat-card>
+            <mat-divider></mat-divider>
+            <mat-accordion>
+              <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <div class="expansion-title">
+                      category
+                    </div>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <category [categories]="categoriesTree" (selectedCategories)="updateCategories($event)"></category>
+              </mat-expansion-panel>
+              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <div class="expansion-title">
+                      color
+                    </div>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <color [colorsFilters]="colors" (changedColorFilters)="updateColorFilters($event)"
+                  *ngIf="colors.length"></color>
+              </mat-expansion-panel>
+              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <div class="expansion-title">
+                      price
+                    </div>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <price-filter [price]="price" [rangePrice]="rangePrice" (priceFilters)="updatePriceFilters($event)">
+                </price-filter>
+              </mat-expansion-panel>
+              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <div class="expansion-title">
+                      condition
+                    </div>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <condition (changeCondition)="updateCondition($event)"></condition>
+              </mat-expansion-panel>
+              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <div class="expansion-title">
+                      rating
+                    </div>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <rating></rating>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </box-sidebar>
+      <div class="center" boxPerfectScrollbar>
+        <div class="header header-light-grey p-12" fxLayout="row" fxLayoutAlign="start center">
+
+          <button mat-icon-button class="sidebar-toggle mr-8" fxHide.gt-md
+            (click)="toggleSidebar('simple-left-sidebar-2')">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
+        <div class="horizontal-content">
+          <div class="horizontal-wrapper" *ngIf="key?.length>0">
+            <div class="horizontal-spacer">
+              <h4>Search related to &#34;
+                <span>{{key}}</span>&#34;</h4>
+            </div>
+          </div>
+          <div class="content" [@Animation]="animation">
+            <p-dataView #dv [value]="products | category: categoriesFilters | color:colorFilters" [paginator]="true"
+              [rows]="20" paginatorPosition="bottom" filterBy="productName" [sortField]="sortField"
+              [sortOrder]="sortOrder" [layout]="dataViewOptions.layout">
+              <p-header>
+                <div class="ui-helper-clearfix">
+                  <div class="ui-g">
+                    <div class="ui-g-12 ui-md-4">
+                      <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By"
+                        (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
+                    </div>
+                    <div class="ui-g-6 ui-md-4 filter-container">
+                      <div style="position:relative">
+                        <input type="search" pInputText placeholder="Search by name"
+                          (keyup)="dv.filter($event.target.value)">
+                      </div>
+                    </div>
+                    <div class="ui-g-6 ui-md-4" style="text-align:right">
+                      <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                    </div>
+                  </div>
+                </div>
+              </p-header>
+              <ng-template let-product pTemplate="listItem">
+                <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
+                  <div class="ui-g-12 ui-md-3" style="text-align:center">
+                    <img [src]="product.pictures[0]">
+                  </div>
+                  <div class="ui-g-12 ui-md-8 product-details">
+                    <div class="ui-g">
+                      <div class="ui-g-2 ui-sm-6">Name: </div>
+                      <div class="ui-g-10 ui-sm-6"><b>{{product.name}}</b></div>
+
+                      <div class="ui-g-2 ui-sm-6">Price: </div>
+                      <div class="ui-g-10 ui-sm-6"><b>{{product.price}}</b></div>
+
+                      <div class="ui-g-2 ui-sm-6">Discount: </div>
+                      <div class="ui-g-10 ui-sm-6"><b>{{product.discount}}</b></div>
+
+                      <div class="ui-g-2 ui-sm-6">Short Details: </div>
+                      <div class="ui-g-10 ui-sm-6"><b>{{product.shortDetails}}</b></div>
+                    </div>
+                  </div>
+                  <div class="ui-g-12 ui-md-1 search-icon">
+                    <button pButton type="button" icon="pi pi-search" (click)="selectProduct($event, product)"></button>
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template let-product pTemplate="gridItem">
+                <div style="padding:.5em" class="ui-g-12 ui-md-3">
+                  <a [routerLink]="['/products',product.id]" routerLinkActive="active">
+                    <product-card [product]="product" (quickview)="onQuickView($event)"></product-card>
+                  </a>
+                </div>
+              </ng-template>
+            </p-dataView>
+
+            <p-dialog appendTo="body" header="Product Details" [(visible)]="displayDialog" [responsive]="true"
+              showEffect="fade" [modal]="true" [style]="{width: '400px'}" (onAfterHide)="onDialogHide()"
+              [contentStyle]="{'overflow':'visible'}">
+              <div class="ui-g" *ngIf="selectedProduct">
+                <div class="ui-g-12" style="text-align:center">
+                  <img [src]="selectedProduct.pictures[0]" width="60">
+                </div>
+                <div class="ui-g-4">Name: </div>
+                <div class="ui-g-8">{{selectedProduct.name}}</div>
+
+                <div class="ui-g-4">Price: </div>
+                <div class="ui-g-8">{{selectedProduct.price}}</div>
+
+                <div class="ui-g-4">Discount: </div>
+                <div class="ui-g-8">{{selectedProduct.discount}}</div>
+
+                <div class="ui-g-4">Short Details: </div>
+                <div class="ui-g-8">{{selectedProduct.shortDetails}}</div>
+              </div>
+            </p-dialog>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

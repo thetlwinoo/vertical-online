@@ -1,0 +1,15 @@
+<section id="related-products" class="tools-grey">
+    <div class="container">
+        <div *ngIf="fetchError != null && fetchError.status !== 404" class=" col-md-12 alert-warning">
+            Problem loading products...
+        </div>
+        <p-carousel headerText="related products" [value]="relatedProducts" [circular]="true" [numVisible]="6"
+            [pageLinks]="3">
+            <ng-template let-product pTemplate="item">
+                <a routerLink="/products/{{product.id}}">
+                    <product-box [product]="product" [mode]="'related'"></product-box>
+                </a>
+            </ng-template>
+        </p-carousel>
+    </div>
+</section>

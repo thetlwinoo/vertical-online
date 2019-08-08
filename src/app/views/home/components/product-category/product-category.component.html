@@ -1,0 +1,38 @@
+<section id="product-category">
+    <div class="container">
+        <div class="viwer-wrapper">
+            <div class="viwer-title">
+                <div class="viwer-title-spacer title">
+                    trending search
+                </div>
+                <button type="button" class="btn btn-link" (click)="owlCategory.prev()">
+                    <fa-icon icon="chevron-circle-left"></fa-icon>
+                </button>
+                <button type="button" class="btn btn-link" (click)="owlCategory.next()">
+                    <fa-icon icon="chevron-circle-right"></fa-icon>
+                </button>
+            </div>
+            <div class="viwer-body">
+                <div class="content">
+                    <owl-carousel-o #owlCategory [options]="carousel.options">
+                        <ng-container class="bundle" *ngFor="let bundle of bundles">
+                            <ng-template carouselSlide>
+                                <div class="category" *ngFor="let category of bundle">
+                                    <a routerLink="/pages/shop" routerLinkActive="active">
+                                        <div class="category-item">
+                                            <img
+                                                src="assets/images/home/product-category/categories/{{category.theme.icon}}.png">
+                                            <div class="title p-2 line-height-1.75 word_wrap">
+                                                {{category.data}}
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </ng-template>
+                        </ng-container>
+                    </owl-carousel-o>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
