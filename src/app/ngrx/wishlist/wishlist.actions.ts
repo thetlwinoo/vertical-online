@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Wishlists } from "app/core/e-commerce/_models";
+import { Wishlists } from "@root/models";
 import { HttpError } from "../app.reducers";
 
 export const ADD_TO_WISHLIST = 'ADD_TO_WISHLIST';

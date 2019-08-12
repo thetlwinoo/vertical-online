@@ -12,9 +12,9 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     SidebarContentComponent
   ],
   imports: [
-    CommonModule,
-    DashboardRoutingModule,
+    CommonModule,    
     RootSharedModule,
+    DashboardRoutingModule,
     RootSidebarModule,
   ]  
 })

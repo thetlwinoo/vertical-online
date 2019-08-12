@@ -18,7 +18,7 @@ import {
     faUserPlus,
     faRoad,
     faTachometerAlt,
-    faHeart,
+    faHeart as fasHeart,
     faList,
     faBell,
     faBook,
@@ -61,7 +61,9 @@ import {
     faShoppingCart,
     faExpandArrowsAlt,
     faCheck,
-    faTruck
+    faTruck,
+    faShare,
+    faBookmark as fasBookmark
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -69,7 +71,8 @@ import {
     faSmile as farSmile,
     faMeh as farMeh,
     faThumbsUp as farThumbsUp,
-    faHeart as farHeart
+    faHeart as farHeart,
+    faBookmark as farBookmark
 } from '@fortawesome/free-regular-svg-icons';
 
 import {
@@ -104,7 +107,8 @@ library.add(faThList);
 library.add(faUserPlus);
 library.add(faRoad);
 library.add(faTachometerAlt);
-library.add(faHeart);
+library.add(fasHeart);
+library.add(farHeart);
 library.add(faList);
 library.add(faBell);
 library.add(faTasks);
@@ -160,3 +164,6 @@ library.add(fabCcPaypal);
 library.add(fabCcVisa);
 library.add(fabCcMastercard);
 library.add(fabCcAmex);
+library.add(faShare);
+library.add(fasBookmark);
+library.add(farBookmark);

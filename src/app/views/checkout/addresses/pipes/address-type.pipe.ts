@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AddressTypes } from 'app/core/e-commerce/_models';
+import { AddressTypes } from '@root/models';
 
 @Pipe({
   name: 'addressTypePipe'

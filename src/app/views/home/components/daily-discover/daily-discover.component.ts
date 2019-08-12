@@ -2,15 +2,17 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import * as fromApp from "app/ngrx/app.reducers";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
-import { Products, IProducts } from "app/core/e-commerce/_models";
+import { Products, IProducts } from "@root/models";
 import { Subscription } from "rxjs/Subscription";
 import * as ShowcaseActions from 'app/ngrx/showcase/showcase.actions';
 import 'rxjs/add/operator/filter';
+import { rootAnimations } from '@root/animations';
 
 @Component({
   selector: 'daily-discover',
   templateUrl: './daily-discover.component.html',
-  styleUrls: ['./daily-discover.component.scss']
+  styleUrls: ['./daily-discover.component.scss'],
+  animations: rootAnimations
 })
 export class DailyDiscoverComponent implements OnInit, OnDestroy {
   showcaseState: Observable<{ newlyAdded: IProducts[], mostSelling: IProducts[], interested: IProducts[], dailyDiscover: IProducts[] }>;

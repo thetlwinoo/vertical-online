@@ -4,7 +4,7 @@ import { Store } from "@ngrx/store";
 import * as OrderActions from "app/ngrx/order/order.actions";
 import { Observable } from "rxjs";
 import { HttpError } from "app/ngrx/app.reducers";
-import { Orders } from 'app/core/e-commerce/_models';
+import { Orders } from '@root/models';
 import { SelectItem } from 'primeng/api';
 
 @Component({

@@ -3,14 +3,16 @@ import { interval, Subject, Subscription } from 'rxjs';
 import { map, takeUntil, filter } from 'rxjs/operators';
 import * as moment from 'moment';
 import { deal } from '@root/config/owl-carousel';
-import { ProductsService } from 'app/core/e-commerce/_services';
+import { ProductsService } from '@root/services';
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
-import { IProducts } from 'app/core/e-commerce/_models';
+import { IProducts } from '@root/models';
+import { rootAnimations } from '@root/animations';
 
 @Component({
   selector: 'flash-deals',
   templateUrl: './flash-deals.component.html',
-  styleUrls: ['./flash-deals.component.scss']
+  styleUrls: ['./flash-deals.component.scss'],
+  animations: rootAnimations
 })
 export class FlashDealsComponent implements OnInit, OnDestroy {
   @Input('eventDate') eventDate;
@@ -64,7 +66,7 @@ export class FlashDealsComponent implements OnInit, OnDestroy {
         this.countdown = value;
       });
 
-      this.getFlashDeals();
+    this.getFlashDeals();
   }
 
   getFlashDeals() {

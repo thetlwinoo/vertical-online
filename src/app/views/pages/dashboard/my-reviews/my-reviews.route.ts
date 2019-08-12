@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { UserRouteAccessService } from 'app/core/auth/services/user-route-access.service';
+import { UserRouteAccessService } from '@root/services/core/auth/user-route-access.service';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { MyReviewsComponent } from './my-reviews.component';
-import { ReviewsService, OrderService } from 'app/core/e-commerce/_services';
-import { Reviews, IReviews, Orders, IOrders, ReviewLines, IReviewLines } from 'app/core/e-commerce/_models';
+import { ReviewsService, OrderService } from '@root/services';
+import { Reviews, IReviews, Orders, IOrders, ReviewLines, IReviewLines } from '@root/models';
 import { ReviewDetailsComponent } from './review-details/review-details.component';
 import { ReviewUpdateComponent } from './review-update/review-update.component';
 import * as moment from 'moment';

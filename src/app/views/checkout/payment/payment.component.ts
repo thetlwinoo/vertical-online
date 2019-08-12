@@ -10,7 +10,7 @@ import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import 'rxjs/add/operator/take';
 import { HttpError } from "app/ngrx/app.reducers";
-import { Orders } from 'app/core/e-commerce/_models';
+import { Orders } from '@root/models';
 import { filter, take } from 'rxjs/operators';
 import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 

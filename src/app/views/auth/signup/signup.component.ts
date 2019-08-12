@@ -5,7 +5,7 @@ import { Store } from "@ngrx/store";
 import * as fromApp from "app/ngrx/app.reducers";
 import { HttpError } from "app/ngrx/app.reducers";
 import { Observable } from "rxjs/Observable";
-import * as PasswordValidators from "app/core/e-commerce/_services/validators/password.validator";
+import * as PasswordValidators from "@root/validators";
 
 @Component({
   selector: 'app-signup',

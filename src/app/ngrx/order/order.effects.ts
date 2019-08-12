@@ -4,8 +4,8 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { map, switchMap } from 'rxjs/operators';
 import * as OrderActions from "./order.actions";
 import * as CartActions from "../cart/cart.actions";
-import { OrderService } from "app/core/e-commerce/_services";
-import { Orders } from "app/core/e-commerce/_models";
+import { OrderService } from "@root/services";
+import { Orders } from "@root/models";
 import { Router } from "@angular/router";
 import { of } from "rxjs";
 

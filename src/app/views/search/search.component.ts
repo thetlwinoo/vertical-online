@@ -1,13 +1,14 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { ProductService } from "app/core/e-commerce/_services";
+import { ProductService } from "@root/services";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/catch';
 import { ProductDisplay } from "app/ngrx/cart/cart.reducer";
 import { Observable } from "rxjs/Observable";
-import { ColorFilter } from 'app/core/e-commerce/_models';
+import { ColorFilter } from '@root/models';
 import { TreeNode, SelectItem } from 'primeng/api';
+import { RootSidebarService } from '@root/components/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-search',
@@ -24,7 +25,7 @@ export class SearchComponent implements OnInit {
   public categoriesTree: any;
   public colors: any[] = [];
   public price: any;
-  public rangePrice: any;
+  public rangePrice: any = [0,0];
 
   products: any[] = [];
   public filteredItems: any[] = [];
@@ -46,7 +47,8 @@ export class SearchComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private rootSidebarService: RootSidebarService
   ) { }
 
   ngOnInit() {
@@ -73,7 +75,7 @@ export class SearchComponent implements OnInit {
     });
 
     this.sortOptions = [
-      { label: 'Price', value: 'listPrice' },
+      { label: 'Price', value: 'unitPrice' },
       { label: 'Top Sales', value: 'sellCount' },
       { label: 'Name', value: 'productName' }
     ];
@@ -93,8 +95,8 @@ export class SearchComponent implements OnInit {
     products.map((product, index) => {
 
       if (index == 0) {
-        minPrice = product.listPrice;
-        maxPrice = product.listPrice;
+        minPrice = product.unitPrice;
+        maxPrice = product.unitPrice;
       }
 
       if (product.color) {
@@ -113,9 +115,10 @@ export class SearchComponent implements OnInit {
         }
       }
 
-      if (product.listPrice) {
-        if (product.listPrice < minPrice) minPrice = product.listPrice;
-        if (product.listPrice > maxPrice) maxPrice = product.listPrice;
+      
+      if (product.unitPrice) {
+        if (product.unitPrice < minPrice) minPrice = product.unitPrice;
+        if (product.unitPrice > maxPrice) maxPrice = product.unitPrice;
       }
     });
 
@@ -215,7 +218,7 @@ export class SearchComponent implements OnInit {
   public updatePriceFilters(price: any) {
     const temp: any[] = [];
     this.filteredItems.filter((item: any) => {
-      if (item.listPrice >= price[0] && item.listPrice <= price[1]) {
+      if (item.unitPrice >= price[0] && item.unitPricef <= price[1]) {
         temp.push(item);
       }
     });
@@ -226,6 +229,11 @@ export class SearchComponent implements OnInit {
   updateCondition(condition: any[]) {
     console.log(condition);
   }
+
+  toggleSidebar(name): void
+    {
+        this.rootSidebarService.getSidebar(name).toggleOpen();
+    }
   // @HostListener('window:scroll', ['$event'])
   // onScroll($event: Event): void {
   //   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {

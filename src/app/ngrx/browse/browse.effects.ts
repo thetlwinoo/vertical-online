@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { map, switchMap, mergeMap } from 'rxjs/operators';
 import * as BrowseActions from "./browse.actions";
-import { ProductService } from "app/core/e-commerce/_services";
+import { ProductService } from "@root/services";
 import { of } from "rxjs";
 
 @Injectable()

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import * as WishlistActions from "./wishlist.actions";
 import { of } from "rxjs";
-import { WishlistService } from "app/core/e-commerce/_services";
+import { WishlistService } from "@root/services";
 
 @Injectable()
 export class WishlistEffects {

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { addressReducer } from 'app/ngrx/adresses/addresses.reducer';
-import { Account } from 'app/core/e-commerce/_models';
+import { Account } from '@root/models';
 
 @Component({
   selector: 'app-address',

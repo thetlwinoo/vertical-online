@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BusinessEntityAddress, IAddressTypes, Addresses, AddressTypes } from 'app/core/e-commerce/_models';
+import { BusinessEntityAddress, IAddressTypes, Addresses, AddressTypes } from '@root/models';
 import { JhiAlertService } from 'ng-jhipster';
 import { ActivatedRoute } from '@angular/router';
 import * as fromApp from "app/ngrx/app.reducers";
@@ -8,7 +8,7 @@ import { Observable, Subscription } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { Store } from "@ngrx/store";
 // import * as AddressesActions from "app/store/adresses/addresses.actions";
-import { AddressesService } from 'app/core/e-commerce/_services';
+import { AddressesService } from '@root/services';
 import { HttpError } from "app/ngrx/app.reducers";
 
 @Component({

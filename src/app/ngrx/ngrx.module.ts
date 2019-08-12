@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { reducers } from "./app.reducers";
-import { CoreModule } from 'app/core/core.module';
 //Store Module
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from "@ngrx/effects";
@@ -36,8 +35,7 @@ import { ReviewsEffects } from "./reviews/reviews.effects";
       WishlistEffects,
       CompareEffects,
       ReviewsEffects
-    ]),
-    CoreModule
+    ])
   ]
 })
 export class NgrxModule { }

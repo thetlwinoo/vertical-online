@@ -1,5 +1,5 @@
 import * as AddressesActions from './addresses.actions';
-import { Addresses } from 'app/core/e-commerce/_models';
+import { Addresses } from '@root/models';
 import { HttpError } from "../app.reducers";
 
 export interface State {

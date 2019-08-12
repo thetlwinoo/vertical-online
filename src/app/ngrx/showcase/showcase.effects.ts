@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { switchMap } from 'rxjs/operators';
 
 import * as ShowcaseActions from "./showcase.actions";
-import { ProductService } from "app/core/e-commerce/_services";
+import { ProductService } from "@root/services";
 
 @Injectable()
 export class ShowcaseEffects {

@@ -1,5 +1,5 @@
 import { ViewEncapsulation, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ProductColor, ColorFilter } from 'app/core/e-commerce/_models';
+import { ProductColor, ColorFilter } from '@root/models';
 import { rootAnimations } from '@root/animations';
 
 @Component({

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RootSharedModule } from '@root/shared.module';
 import { HeaderComponent } from './header.component';
-import { SearchBoxComponent } from './search-box/search-box.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    SearchBoxComponent
+    SearchBarComponent
   ],
   imports: [
     RootSharedModule

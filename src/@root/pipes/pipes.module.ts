@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 
 import { EllipsisPipe } from './ellipsis.pipe';
+import { SafePipe } from './safe.pipe';
 
 @NgModule({
     declarations: [
-        EllipsisPipe
+        EllipsisPipe,
+        SafePipe
     ],
     imports: [],
     exports: [
-        EllipsisPipe
+        EllipsisPipe,
+        SafePipe
     ]
 })
 export class RootPipesModule {

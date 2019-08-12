@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Orders } from 'app/core/e-commerce/_models';
+import { Orders } from '@root/models';
 import { PaymentObject } from "./order.reducer";
 import { HttpError } from "../app.reducers";
 

@@ -5,7 +5,7 @@ import { map, switchMap, concatMap } from 'rxjs/operators';
 
 import * as PeopleActions from "./people.actions";
 import { of } from "rxjs";
-import { PeopleService } from 'app/core/e-commerce/_services';
+import { PeopleService } from '@root/services';
 
 @Injectable()
 export class PeopleEffects {

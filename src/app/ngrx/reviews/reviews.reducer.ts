@@ -1,6 +1,6 @@
 import * as ReviewsActions from "./reviews.actions";
 import { HttpError } from "../app.reducers";
-import { ReviewLines } from "app/core/e-commerce/_models";
+import { ReviewLines } from "@root/models";
 
 
 export interface State {

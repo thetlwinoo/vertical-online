@@ -1,7 +1,7 @@
 import * as OrderActions from './order.actions';
 import { Discount, ProductDisplay } from "../cart/cart.reducer";
 import { HttpError } from "../app.reducers";
-import { Orders } from 'app/core/e-commerce/_models';
+import { Orders } from '@root/models';
 
 export interface OrderDetails {
   id: number,

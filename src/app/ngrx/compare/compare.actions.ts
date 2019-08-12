@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Compares } from "app/core/e-commerce/_models";
+import { Compares } from "@root/models";
 import { HttpError } from "../app.reducers";
 
 export const ADD_TO_COMPARE = 'ADD_TO_COMPARE';

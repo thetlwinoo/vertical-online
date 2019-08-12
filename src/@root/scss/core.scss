@@ -11,11 +11,23 @@
 
 @import "root";
 
+@import "theme";
+
+@include mat-core();
+
+@import "partials/variables";
 @import "partials/normalize";
+// @import "partials/scrollbars";
+// @import "partials/helpers";
 @import "partials/general";
+@import "partials/icons";
+// @import "partials/colors";
+@import "partials/material";
+@import "partials/angular-material-fix";
 @import "partials/bootstrap-fix";
 @import "partials/primeng-fix";
 @import "partials/typography";
+@import "partials/page-layouts";
 @import "partials/custom";
 @import 'partials/custom-responsive';
 

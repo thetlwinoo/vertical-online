@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { Store } from "@ngrx/store";
-import { Products,IProducts } from "app/core/e-commerce/_models";
+import { Products,IProducts } from "@root/models";
 import * as ShowcaseActions from "app/ngrx/showcase/showcase.actions";
 import { Subscription } from "rxjs/Subscription";
 import * as fromApp from "app/ngrx/app.reducers";

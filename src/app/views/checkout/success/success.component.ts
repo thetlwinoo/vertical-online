@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { PaymentObject, BusinessEntityObject } from "app/ngrx/order/order.reducer";
-import { Orders } from 'app/core/e-commerce/_models';
+import { Orders } from '@root/models';
 import { Subscription } from "rxjs/Subscription";
 import { Router, ActivatedRoute, Params, NavigationEnd } from "@angular/router";
 

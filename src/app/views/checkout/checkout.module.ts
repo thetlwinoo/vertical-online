@@ -10,14 +10,14 @@ import { InterestedComponent } from './display-cart/interested/interested.compon
 import { OrderFormComponent } from './order-form/order-form.component';
 import { PaymentComponent } from './payment/payment.component';
 import { SuccessComponent } from './success/success.component';
-import { CheckoutGuardService } from "app/core/e-commerce/_services";
+import { CheckoutGuardService } from "@root/services";
 import { RootSharedModule } from '@root/shared.module';
-import { CoreModule } from 'app/core/core.module';
-import { MessageService, PaypalService } from 'app/core/e-commerce/_services';
+import { MessageService, PaypalService } from '@root/services';
 import { DefaultAddressPipe } from './default-address.pipe';
 import { AddressTypePipe } from './addresses/pipes/address-type.pipe';
 import { AddressComponent } from './addresses/address/address.component';
 import { NewAddressComponent } from './addresses/new-address/new-address.component';
+import { CreditCardComponent } from './payment/credit-card/credit-card.component';
 
 @NgModule({
   declarations: [
@@ -31,15 +31,15 @@ import { NewAddressComponent } from './addresses/new-address/new-address.compone
     DefaultAddressPipe,
     AddressTypePipe,
     AddressComponent,
-    NewAddressComponent
+    NewAddressComponent,
+    CreditCardComponent
   ],
   imports: [
     CommonModule,
     CheckoutRoutingModule,
     ReactiveFormsModule,
     NgbModule,
-    RootSharedModule,
-    CoreModule
+    RootSharedModule
   ],
   providers: [
     CheckoutGuardService,

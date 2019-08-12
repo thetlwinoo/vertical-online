@@ -1,6 +1,6 @@
 import * as PeopleActions from './people.actions';
 import { HttpError } from "../app.reducers";
-import { People } from 'app/core/e-commerce/_models';
+import { People } from '@root/models';
 
 export interface State {
     isPeopleExist: boolean;

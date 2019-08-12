@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import * as PaymentActions from "./payment.actions";
 import { of } from "rxjs";
-import { PaypalService, CreditCardService } from "app/core/e-commerce/_services";
+import { PaypalService, CreditCardService } from "@root/services";
 
 @Injectable()
 export class PaymentEffects {

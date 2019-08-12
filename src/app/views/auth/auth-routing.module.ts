@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { NonAuthGuardService } from "app/core/e-commerce/_services/non-auth-guard.service";
+import { NonAuthGuardService } from "@root/services";
 
 const routes: Routes = [
   {

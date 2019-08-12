@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from '@app/env';
 import { createRequestOption } from '@root/utils';
-import { IAddressTypes } from 'app/core/e-commerce/_models';
+import { IAddressTypes } from '@root/models';
 
 type EntityResponseType = HttpResponse<IAddressTypes>;
 type EntityArrayResponseType = HttpResponse<IAddressTypes[]>;

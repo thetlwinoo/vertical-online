@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import * as CompareActions from "./compare.actions";
 import { of } from "rxjs";
-import { CompareService } from "app/core/e-commerce/_services";
+import { CompareService } from "@root/services";
 
 @Injectable()
 export class CompareEffects {

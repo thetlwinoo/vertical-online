@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard.component';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+import { BreadcrumbGuard } from '@root/services';
 
 @Injectable({ providedIn: 'root' })
 export class MyDashboardResolve implements Resolve<String> {
@@ -30,7 +31,7 @@ const routes = [
       authorities: ['ROLE_USER'],
       pageTitle: 'Dashboard'
     },
-    canActivate: [],
+    canActivate: [BreadcrumbGuard],
     children: [
       {
         path: 'my-orders',
@@ -47,7 +48,7 @@ const routes = [
           authorities: ['ROLE_USER'],
           pageTitle: 'My Orders'
         },
-        canActivate: []
+        canActivate: [BreadcrumbGuard]
       },
       {
         path: 'my-reviews',
@@ -64,7 +65,7 @@ const routes = [
           authorities: ['ROLE_USER'],
           pageTitle: 'My Reviews'
         },
-        canActivate: []
+        canActivate: [BreadcrumbGuard]
       },
       {
         path: 'my-profile',
@@ -81,7 +82,7 @@ const routes = [
           authorities: ['ROLE_USER'],
           pageTitle: 'My Profile'
         },
-        canActivate: []
+        canActivate: [BreadcrumbGuard]
       },
       {
         path: 'my-wishlist',
@@ -98,7 +99,7 @@ const routes = [
           authorities: ['ROLE_USER'],
           pageTitle: 'My Wishlist'
         },
-        canActivate: []
+        canActivate: [BreadcrumbGuard]
       },
       {
         path: 'my-compare',
@@ -115,7 +116,7 @@ const routes = [
           authorities: ['ROLE_USER'],
           pageTitle: 'My Compare'
         },
-        canActivate: []
+        canActivate: [BreadcrumbGuard]
       },
       {
         path: 'address-book',
@@ -132,7 +133,7 @@ const routes = [
           authorities: ['ROLE_USER'],
           pageTitle: 'Address Book'
         },
-        canActivate: []
+        canActivate: [BreadcrumbGuard]
       },
       {
         path: 'my-payment-options',
@@ -149,7 +150,7 @@ const routes = [
           authorities: ['ROLE_USER'],
           pageTitle: 'My Payment Options'
         },
-        canActivate: []
+        canActivate: [BreadcrumbGuard]
       }
     ]
   }

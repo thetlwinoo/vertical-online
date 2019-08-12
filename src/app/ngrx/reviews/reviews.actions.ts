@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { HttpError } from "../app.reducers";
-import { ReviewLines } from "app/core/e-commerce/_models";
+import { ReviewLines } from "@root/models";
 export const FETCH_REVIEWS = 'FETCH_REVIEWS';
 export const FETCH_REVIEWS_SUCCESS = 'FETCH_REVIEWS_SUCCESS';
 export const REVIEWS_ERROR = 'REVIEWS_ERROR';

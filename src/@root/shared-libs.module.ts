@@ -5,6 +5,27 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgJhipsterModule } from 'ng-jhipster';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+import {
+    MatChipsModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatCheckboxModule,
+    MatDividerModule,
+    MatListModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatInputModule,
+    MatRadioModule,
+    MatTabsModule,
+    MatCardModule,
+    MatGridListModule,
+    MatProgressSpinnerModule,
+    MatToolbarModule
+} from '@angular/material';
+
 //primeng
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
@@ -31,10 +52,15 @@ import { GalleriaModule } from 'primeng/galleria';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { InputMaskModule } from 'primeng/inputmask';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+
+import { CookieModule } from 'ngx-cookie';
 
 @NgModule({
     imports: [
         NgbModule.forRoot(),
+        CookieModule.forRoot(),
         FontAwesomeModule
     ],
     exports: [
@@ -45,12 +71,25 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
         NgJhipsterModule,
         FontAwesomeModule,
 
+        MatChipsModule,
+        MatIconModule,
+        MatButtonModule,
+        MatListModule,
+        MatExpansionModule,
+        MatTabsModule,
+        MatTooltipModule,
+        MatCardModule,
+        MatGridListModule,
+        MatProgressSpinnerModule,
+        MatToolbarModule,
+
         TableModule,
         ButtonModule,
         SplitButtonModule,
         CardModule,
         ToolbarModule,
         InputTextModule,
+        InputMaskModule,
         DropdownModule,
         DataViewModule,
         ConfirmDialogModule,
@@ -68,7 +107,8 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
         GalleriaModule,
         ProgressBarModule,
         InputSwitchModule,
-        AutoCompleteModule
+        AutoCompleteModule,
+        BreadcrumbModule
     ],
     providers: [
     ]

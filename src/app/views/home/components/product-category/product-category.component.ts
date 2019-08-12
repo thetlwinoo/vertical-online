@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { category } from '@root/config/owl-carousel';
+import { rootAnimations } from '@root/animations';
 
 @Component({
   selector: 'product-category',
   templateUrl: './product-category.component.html',
-  styleUrls: ['./product-category.component.scss']
+  styleUrls: ['./product-category.component.scss'],
+  animations: rootAnimations
 })
 export class ProductCategoryComponent implements OnInit {
   carousel: any;

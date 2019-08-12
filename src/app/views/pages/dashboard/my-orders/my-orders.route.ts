@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { UserRouteAccessService } from 'app/core/auth/services/user-route-access.service';
+import { UserRouteAccessService } from '@root/services/core/auth/user-route-access.service';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { MyOrdersComponent } from './my-orders.component';
-import { OrderService } from 'app/core/e-commerce/_services';
-import { Orders, IOrders } from 'app/core/e-commerce/_models';
+import { OrderService } from '@root/services';
+import { Orders, IOrders } from '@root/models';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 
 @Injectable({ providedIn: 'root' })

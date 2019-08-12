@@ -18,7 +18,7 @@ export class SliderBannerComponent implements OnInit {
       "icon": "bc2.png"
     },
     {
-      "label": "BieeBox Special",
+      "label": "BieeRoot Special",
       "icon": "bc3.png"
     },
     {

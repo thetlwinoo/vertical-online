@@ -3,10 +3,10 @@ import * as fromApp from "app/ngrx/app.reducers";
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 import { Router, ActivatedRoute } from '@angular/router';
-import { Addresses, IAddresses } from 'app/core/e-commerce/_models';
+import { Addresses, IAddresses } from '@root/models';
 import { HttpError } from "app/ngrx/app.reducers";
 import * as AddressActions from "app/ngrx/adresses/addresses.actions";
-import { AccountService } from 'app/core/auth/services/account.service';
+import { AccountService } from '@root/services/core/auth/account.service';
 import { ConfirmationService } from 'primeng/api';
 
 @Component({

@@ -1,12 +1,11 @@
 import { Component, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
-import { ProductService } from "app/core/e-commerce/_services";
+import { ProductService } from "@root/services";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
-import { Products, IProducts } from 'app/core/e-commerce/_models';
+import { Products, IProducts } from '@root/models';
 import { Subscription } from "rxjs/Subscription";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/catch';
+import { deal } from '@root/config/owl-carousel';
 
 @Component({
   selector: 'related-products',
@@ -23,11 +22,14 @@ export class RelatedProductsComponent implements OnInit, OnDestroy {
   innerLoading: boolean = true;
   relatedProducts: IProducts[];
   id: number;
+  carousel: any;
 
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute
-  ) { }
+  ) {
+    this.carousel = deal;
+   }
 
   ngOnInit() {
 

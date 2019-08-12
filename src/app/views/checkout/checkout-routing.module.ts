@@ -1,14 +1,14 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, RouterModule } from '@angular/router';
 import { CheckoutComponent } from "./checkout.component";
-// import { AuthGuardService } from "@box/services/e-commerce/auth-guard.service";
-import { UserRouteAccessService } from 'app/core/auth/services/user-route-access.service';
+// import { AuthGuardService } from "@root/services/e-commerce/auth-guard.service";
+import { UserRouteAccessService } from '@root/services/core/auth/user-route-access.service';
 import { OrderFormComponent } from "./order-form/order-form.component";
 import { PaymentComponent } from "./payment/payment.component";
 import { DisplayCartComponent } from "./display-cart/display-cart.component";
-import { CheckoutGuardService, OrderService } from "app/core/e-commerce/_services";
+import { CheckoutGuardService, OrderService } from "@root/services";
 import { SuccessComponent } from "./success/success.component";
-import { Orders, IOrders } from 'app/core/e-commerce/_models';
+import { Orders, IOrders } from '@root/models';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';

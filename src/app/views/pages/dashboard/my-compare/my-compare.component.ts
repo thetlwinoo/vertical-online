@@ -3,7 +3,7 @@ import { Observable } from "rxjs/Observable";
 import { Store } from "@ngrx/store";
 import * as fromApp from 'app/ngrx/app.reducers';
 import { HttpError } from 'app/ngrx/app.reducers';
-import { Compares } from 'app/core/e-commerce/_models';
+import { Compares } from '@root/models';
 import * as CompareActions from 'app/ngrx/compare/compare.actions';
 import * as CartActions from "app/ngrx/cart/cart.actions";
 

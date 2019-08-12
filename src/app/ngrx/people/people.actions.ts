@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { HttpError } from "../app.reducers";
-import { People } from 'app/core/e-commerce/_models';
+import { People } from '@root/models';
 
 export const FETCH_LOGIN_PEOPLE = 'FETCH_LOGIN_PEOPLE';
 export const FETCH_LOGIN_PEOPLE_SUCCESS = 'FETCH_LOGIN_PEOPLE_SUCCESS';

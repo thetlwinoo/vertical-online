@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-// import { ProductDetailService } from 'app/core/e-commerce/_services';
-import { Wishlists, Compares, Products, IProducts } from 'app/core/e-commerce/_models';
+// import { ProductDetailService } from '@root/services';
+import { Wishlists, Compares, Products, IProducts } from '@root/models';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Router, ActivatedRoute, Params, NavigationEnd } from "@angular/router";
 import { Store } from "@ngrx/store";
@@ -18,11 +18,11 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/catch';
 import { filter, map } from 'rxjs/operators';
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
-import { AccountService } from 'app/core/auth/services/account.service';
-import { LoginModalService } from 'app/core/auth/login/login-modal.service';
+import { AccountService } from '@root/services/core/auth/account.service';
+import { LoginModalService } from '@root/services/core/login/login-modal.service';
 import { JhiEventManager } from 'ng-jhipster';
 import { Subscription } from "rxjs/Subscription";
-import { ProductService, ProductPhotoService } from 'app/core/e-commerce/_services';
+import { ProductService, ProductPhotoService } from '@root/services';
 import 'rxjs/add/operator/filter';
 import { CommaExpr } from '@angular/compiler';
 

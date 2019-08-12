@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RootSidebarService } from '@root/components/sidebar/sidebar.service';
-import { AccountService } from 'app/core/auth/services/account.service';
+import { AccountService } from '@root/services/core/auth/account.service';
 import { Observable, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   pageTitle: string = null;
 
   constructor(
-    private boxSidebarService: RootSidebarService,
+    private rootSidebarService: RootSidebarService,
     private accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
   ) {
@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   toggleSidebar(name): void {
-    this.boxSidebarService.getSidebar(name).toggleOpen();
+    // this.rootSidebarService.getSidebar(name).toggleOpen();
   }
 
   ngOnDestroy() {

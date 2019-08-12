@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { ProductTags, TagFilter } from 'app/core/e-commerce/_models';
+import { ProductTags, TagFilter } from '@root/models';
 import { TreeNode } from 'primeng/api';
 import { rootAnimations } from '@root/animations';
 

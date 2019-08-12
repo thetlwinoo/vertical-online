@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CloudinaryModel, Orders } from 'app/core/e-commerce/_models';
+import { CloudinaryModel, Orders } from '@root/models';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';

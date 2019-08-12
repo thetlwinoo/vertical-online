@@ -4,13 +4,15 @@ import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
 import { Subscription } from "rxjs/Subscription";
 import * as ShowcaseActions from 'app/ngrx/showcase/showcase.actions';
-import { Products, IProducts } from 'app/core/e-commerce/_models';
+import { Products, IProducts } from '@root/models';
 import { deal } from '@root/config/owl-carousel';
+import { rootAnimations } from '@root/animations';
 
 @Component({
   selector: 'most-popular',
   templateUrl: './most-popular.component.html',
-  styleUrls: ['./most-popular.component.scss']
+  styleUrls: ['./most-popular.component.scss'],
+  animations: rootAnimations
 })
 export class MostPopularComponent implements OnInit {
   showcaseState: Observable<{ newlyAdded: IProducts[], mostSelling: IProducts[], interested: IProducts[] }>;

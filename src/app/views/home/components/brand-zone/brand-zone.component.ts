@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { rootAnimations } from '@root/animations';
 
 @Component({
   selector: 'brand-zone',
   templateUrl: './brand-zone.component.html',
-  styleUrls: ['./brand-zone.component.scss']
+  styleUrls: ['./brand-zone.component.scss'],
+  animations: rootAnimations
 })
 export class BrandZoneComponent implements OnInit {
   brands = [

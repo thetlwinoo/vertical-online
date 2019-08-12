@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { map, switchMap, mergeMap } from 'rxjs/operators';
 import * as AddressesActions from "./addresses.actions";
-import { AddressesService } from "app/core/e-commerce/_services";
+import { AddressesService } from "@root/services";
 import { of } from "rxjs";
-import { Addresses } from 'app/core/e-commerce/_models';
+import { Addresses } from '@root/models';
 
 @Injectable()
 export class AddressesEffects {

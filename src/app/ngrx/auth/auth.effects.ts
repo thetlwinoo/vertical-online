@@ -7,7 +7,7 @@ import * as AuthActions from "./auth.actions";
 import * as CartActions from "../cart/cart.actions";
 import * as OrderActions from "../order/order.actions";
 import * as ShowcaseActions from "../showcase/showcase.actions";
-import { TokenService, AccountService } from "app/core/e-commerce/_services";
+import { TokenService, AccountApiService } from "@root/services";
 import { of } from "rxjs";
 
 
@@ -124,6 +124,6 @@ export class AuthEffects {
 
 
   constructor(private actions$: Actions, private tokenService: TokenService,
-    private router: Router, private accountService: AccountService) {
+    private router: Router, private accountService: AccountApiService) {
   }
 }

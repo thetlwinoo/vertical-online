@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
 import * as CartActions from "./cart.actions";
 import { of } from "rxjs";
-import { CartService } from "app/core/e-commerce/_services";
+import { CartService } from "@root/services";
 
 @Injectable()
 export class CartEffects {

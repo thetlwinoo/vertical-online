@@ -7,8 +7,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { RootSidebarService } from './sidebar.service';
-import { RootMatchMediaService } from '@root/services/match-media.service';
-import { RootConfigService } from '@root/services/config.service';
+import { RootConfigService, RootMatchMediaService } from '@root/services';
 
 @Component({
     selector: 'root-sidebar',
@@ -493,7 +492,7 @@ export class RootSidebarComponent implements OnInit, OnDestroy {
      */
     private _showSidebar(): void {
         // Remove the root-shadow style
-        this._renderer.removeStyle(this._elementRef.nativeElement, 'root-shadow');
+        this._renderer.removeStyle(this._elementRef.nativeElement, 'box-shadow');
 
         // Make the sidebar invisible
         this._renderer.removeStyle(this._elementRef.nativeElement, 'visibility');

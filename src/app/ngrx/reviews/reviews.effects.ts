@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { map, switchMap, mergeMap } from 'rxjs/operators';
 import * as ReviewsActions from "./reviews.actions";
-import { ReviewsService } from "app/core/e-commerce/_services";
+import { ReviewsService } from "@root/services";
 import { of } from "rxjs";
 
 @Injectable()

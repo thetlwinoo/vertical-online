@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Addresses } from "app/core/e-commerce/_models";
+import { Addresses } from "@root/models";
 import { HttpError } from "../app.reducers";
 
 export const CREATE_ADDRESSES_FORM = 'CREATE_ADDRESSES_FORM';

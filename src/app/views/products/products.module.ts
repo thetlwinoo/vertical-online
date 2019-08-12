@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { Routes, RouterModule } from '@angular/router';
 import { RelatedProductsComponent } from './related-products/related-products.component';
-import { CoreModule } from 'app/core/core.module';
 import { FormsModule } from '@angular/forms';
 import { RootSharedModule } from '@root/shared.module';
 import { ReviewsProductComponent } from './reviews-product/reviews-product.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { BreadcrumbGuard } from '@root/services';
 
 const routes: Routes = [
   {
@@ -20,7 +21,9 @@ const routes: Routes = [
       }
       ]
     },
-    canActivate: []
+    canActivate: [
+      BreadcrumbGuard
+    ]
   }
 ];
 
@@ -33,9 +36,9 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    CarouselModule,
     FormsModule,
-    RootSharedModule,
-    CoreModule
+    RootSharedModule
   ],
   providers: []
 })

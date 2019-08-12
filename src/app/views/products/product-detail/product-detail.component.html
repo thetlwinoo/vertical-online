@@ -41,22 +41,22 @@
                 </a> -->
                   <button mat-icon-button aria-label="share via" (click)="onShareVia($event)"
                     [disabled]="(wishlistState | async).loading" matTooltip="Share Via">
-                    <mat-icon>share</mat-icon>
+                    <!-- <mat-icon>share</mat-icon> -->
+                    <fa-icon icon="share"></fa-icon>
                   </button>
                   <button mat-icon-button aria-label="compare" (click)="toggleCompare($event)"
                     [disabled]="(compareState | async).loading" matTooltip="Compare">
-                    <mat-icon *ngIf="isInCompare;else notcompare" class="collections_bookmark">collections_bookmark
-                    </mat-icon>
-                    <ng-template #notcompare>
-                      <mat-icon class="collections">collections</mat-icon>
-                    </ng-template>
+                    <!-- <mat-icon *ngIf="isInCompare;else notcompare" class="collections_bookmark">collections_bookmark
+                    </mat-icon> -->
+                    <fa-icon [icon]="[isInCompare?'fas':'far','bookmark']" class="collections_bookmark"></fa-icon>
                   </button>
                   <button mat-icon-button aria-label="wishlist" (click)="toggleWishlist($event)"
                     [disabled]="(wishlistState | async).loading" matTooltip="Wishlist">
-                    <mat-icon *ngIf="isInWishlist;else notwishlist" class="favorite">favorite</mat-icon>
+                    <!-- <mat-icon *ngIf="isInWishlist;else notwishlist" class="favorite">favorite</mat-icon>
                     <ng-template #notwishlist>
                       <mat-icon class="favorite_border">favorite_border</mat-icon>
-                    </ng-template>
+                    </ng-template> -->
+                    <fa-icon [icon]="[isInWishlist?'fas':'far','heart']" class="favorite"></fa-icon>
                   </button>
                 </div>
               </div>

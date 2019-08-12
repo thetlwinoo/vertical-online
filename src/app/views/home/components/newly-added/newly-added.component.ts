@@ -3,15 +3,17 @@ import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
 import * as fromApp from "app/ngrx/app.reducers";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
-import { Products, IProducts } from "app/core/e-commerce/_models";
+import { Products, IProducts } from "@root/models";
 import { Subscription } from "rxjs/Subscription";
 import * as ShowcaseActions from 'app/ngrx/showcase/showcase.actions';
 import { deal } from '@root/config/owl-carousel';
+import { rootAnimations } from '@root/animations';
 
 @Component({
   selector: 'newly-added',
   templateUrl: './newly-added.component.html',
-  styleUrls: ['./newly-added.component.scss']
+  styleUrls: ['./newly-added.component.scss'],
+  animations: rootAnimations
 })
 export class NewlyAddedComponent implements OnInit, OnDestroy {
   @Input() searching = false;

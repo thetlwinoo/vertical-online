@@ -1,9 +1,19 @@
 <div class="page-layout blank">
   <div class="container">
     <div class="page-layout simple left-sidebar">
-      <box-sidebar class="sidebar" name="simple-left-sidebar-2" position="left" lockedOpen="gt-md">
+      <root-sidebar class="sidebar" name="simple-left-sidebar-2" position="left" lockedOpen="gt-md">
         <div class="content">
-          <div class="shop-sidebar-wrapper gray-bg-7">
+            <div class="shop-sidebar-wrapper gray-bg-7">
+              <category [categories]="categoriesTree" (selectedCategories)="updateCategories($event)"></category>
+            <color [colorsFilters]="colors" (changedColorFilters)="updateColorFilters($event)"
+            *ngIf="colors.length"></color>
+            <price-filter [price]="price" [rangePrice]="rangePrice" (priceFilters)="updatePriceFilters($event)">
+              </price-filter>
+              <condition (changeCondition)="updateCondition($event)"></condition>
+              <rating></rating>
+            </div>
+            
+          <!-- <div class="shop-sidebar-wrapper gray-bg-7">
             <mat-card class="example-card">
               <mat-card-header>
                 <div mat-card-avatar class="example-header-image"></div>
@@ -72,16 +82,16 @@
                 <rating></rating>
               </mat-expansion-panel>
             </mat-accordion>
-          </div>
+          </div> -->
         </div>
-      </box-sidebar>
-      <div class="center" boxPerfectScrollbar>
+      </root-sidebar>
+      <div class="center">
         <div class="header header-light-grey p-12" fxLayout="row" fxLayoutAlign="start center">
 
-          <button mat-icon-button class="sidebar-toggle mr-8" fxHide.gt-md
+          <!-- <button mat-icon-button class="sidebar-toggle mr-8" fxHide.gt-md
             (click)="toggleSidebar('simple-left-sidebar-2')">
             <mat-icon>menu</mat-icon>
-          </button>
+          </button> -->
         </div>
         <div class="horizontal-content">
           <div class="horizontal-wrapper" *ngIf="key?.length>0">
