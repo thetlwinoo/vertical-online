@@ -3,16 +3,16 @@
     <div class="page-layout simple left-sidebar">
       <root-sidebar class="sidebar" name="simple-left-sidebar-2" position="left" lockedOpen="gt-md">
         <div class="content">
-            <div class="shop-sidebar-wrapper gray-bg-7">
-              <category [categories]="categoriesTree" (selectedCategories)="updateCategories($event)"></category>
-            <color [colorsFilters]="colors" (changedColorFilters)="updateColorFilters($event)"
-            *ngIf="colors.length"></color>
+          <div class="shop-sidebar-wrapper gray-bg-7">
+            <category [categories]="categoriesTree" (selectedCategories)="updateCategories($event)"></category>
+            <color [colorsFilters]="colors" (changedColorFilters)="updateColorFilters($event)" *ngIf="colors.length">
+            </color>
             <price-filter [price]="price" [rangePrice]="rangePrice" (priceFilters)="updatePriceFilters($event)">
-              </price-filter>
-              <condition (changeCondition)="updateCondition($event)"></condition>
-              <rating></rating>
-            </div>
-            
+            </price-filter>
+            <condition (changeCondition)="updateCondition($event)"></condition>
+            <rating></rating>
+          </div>
+
           <!-- <div class="shop-sidebar-wrapper gray-bg-7">
             <mat-card class="example-card">
               <mat-card-header>
@@ -100,9 +100,20 @@
                 <span>{{key}}</span>&#34;</h4>
             </div>
           </div>
-          <div class="content" [@Animation]="animation">
+          <div class="content">
+            <!-- <div class="product-wrapper-grid">
+              <div class="container-fluid">
+                <div class="row" [@Animation]="animation">
+                  <div class="col-md-3" *ngFor="let product of products">
+                    <a [routerLink]="['/products',product.id]" routerLinkActive="active">
+                      <product-card [product]="product" (quickview)="onQuickView($event)"></product-card>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div> -->
             <p-dataView #dv [value]="products | category: categoriesFilters | color:colorFilters" [paginator]="true"
-              [rows]="20" paginatorPosition="bottom" filterBy="productName" [sortField]="sortField"
+              [rows]="10" paginatorPosition="bottom" filterBy="productName" [sortField]="sortField"
               [sortOrder]="sortOrder" [layout]="dataViewOptions.layout">
               <p-header>
                 <div class="ui-helper-clearfix">

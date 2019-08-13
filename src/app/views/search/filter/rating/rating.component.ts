@@ -13,6 +13,24 @@ export class RatingComponent implements OnInit {
 
   selectedValue: string;
 
+  data: any[] = [
+    {
+      star: 5
+    },
+    {
+      star: 4
+    },
+    {
+      star: 3
+    },
+    {
+      star: 2
+    },
+    {
+      star: 1
+    }
+  ];
+
   constructor() { }
 
   ngOnInit() { }

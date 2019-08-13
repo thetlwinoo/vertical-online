@@ -1,7 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" [ngSwitch]="isAuthenticated()">
+<nav class="navbar navbar-expand-lg navbar-dark d-none d-sm-block" [ngSwitch]="isAuthenticated()" [ngClass]="isMobile?'':'bg-dark'">
     <div class="container">
         <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-        <button class="navbar-toggler" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed"
+            data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarNav">
@@ -25,20 +26,36 @@
                 <li class="nav-item" *ngSwitchCase="false">
                     <a class="nav-link" href="javascript:void(0);" (click)="login()">Login</a>
                 </li>
-                      <li class="nav-item dropdown" ngbDropdown *ngSwitchCase="true">
-                            <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" ngbDropdownToggle>
-                                    {{account.login | titlecase }}'s Account
-                            </a>
-                            <div class="dropdown-menu" ngbDropdownMenu>
-                              <a class="dropdown-item" href="javascript:void(0);" [routerLink]="['/pages/dashboard/my-profile']">My Profile</a>
-                              <a class="dropdown-item" href="javascript:void(0);" [routerLink]="['/pages/dashboard/my-orders']">My Orders</a>
-                              <!-- <div class="dropdown-divider"></div> -->
-                              <a class="dropdown-item" href="javascript:void(0);" [routerLink]="['/pages/dashboard/my-wishlist']">My Wishlist</a>
-                              <a class="dropdown-item" href="javascript:void(0);" [routerLink]="['/pages/dashboard/my-compare']">My Compare</a>
-                              <a class="dropdown-item" href="javascript:void(0);" [routerLink]="['/pages/dashboard/address-book']">Address Book</a>
-                              <a class="dropdown-item" href="javascript:void(0);" (click)="logout()">Logout</a>
-                            </div>
-                          </li>
+                <li class="nav-item dropdown" ngbDropdown *ngSwitchCase="true">
+                    <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button"
+                        ngbDropdownToggle>
+                        {{account.login | titlecase }}'s Account
+                    </a>
+                    <div class="dropdown-menu" ngbDropdownMenu>
+                        <a class="dropdown-item" href="javascript:void(0);"
+                            [routerLink]="['/pages/dashboard/my-profile']">
+                            <fa-icon [icon]="['far','user']" class="mr-3"></fa-icon>My Profile
+                        </a>
+                        <a class="dropdown-item" href="javascript:void(0);"
+                            [routerLink]="['/pages/dashboard/my-orders']">
+                            <fa-icon [icon]="['fas','box']" class="mr-3"></fa-icon>My Orders
+                        </a>
+                        <!-- <div class="dropdown-divider"></div> -->
+                        <a class="dropdown-item" href="javascript:void(0);"
+                            [routerLink]="['/pages/dashboard/my-wishlist']">
+                            <fa-icon [icon]="['far','heart']" class="mr-3"></fa-icon>My Wishlist
+                        </a>
+                        <a class="dropdown-item" href="javascript:void(0);"
+                            [routerLink]="['/pages/dashboard/my-compare']">
+                            <fa-icon [icon]="['far','bookmark']" class="mr-3"></fa-icon>My Compare
+                        </a>
+                        <a class="dropdown-item" href="javascript:void(0);"
+                            [routerLink]="['/pages/dashboard/address-book']">
+                            <fa-icon [icon]="['far','address-book']" class="mr-3"></fa-icon>Address Book
+                        </a>
+                        <a class="dropdown-item" href="javascript:void(0);" (click)="logout()"><fa-icon [icon]="['fas','sign-out-alt']" class="mr-3"></fa-icon>Logout</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>

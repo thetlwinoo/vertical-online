@@ -53,7 +53,10 @@
                             }
 
                             .average {
-                                margin-top: 7px;
+                                .star {
+                                    font-size: 1.8rem;
+                                    color: #e2e2e2;
+                                }
                             }
 
                             .count {
@@ -72,23 +75,28 @@
 
                                     margin-bottom: 8px;
                                     color: #757575;
-                                    font-size: 10px;
+                                    // font-size: 10px;
 
                                     .progress-wrap {
                                         margin-left: 17px;
                                         margin-right: 12px;
 
                                         .progress-item {
+                                            vertical-align: middle;
                                             background: none;
                                             display: inline-block;
                                             position: relative;
                                             width: 138px;
-                                            height: 12px;
                                         }
                                     }
 
-                                    .star {
+                                    .star-wrapper {
                                         display: inline-block;
+
+                                        .star {
+                                            font-size: 1rem;
+                                            color: #e2e2e2;
+                                        }
                                     }
 
                                     .percent {
@@ -186,10 +194,12 @@
 
                             .image-wrapper {
                                 margin-bottom: 15px;
-                                fa-icon{
+
+                                fa-icon {
                                     font-size: 3em;
+                                    color: #e2e2e2;
                                 }
-                                
+
                             }
 
                             p {

@@ -429,5 +429,16 @@ export const rootAnimations = [
                 ])
             ])
         ])
+    ]),
+
+    trigger('Animation', [
+        transition('* => fadeOut', [
+            style({ opacity: 0.1 }),
+            animate(1000, style({ opacity: 0.1 }))
+        ]),
+        transition('* => fadeIn', [
+            style({ opacity: 0.1 }),
+            animate(1000, style({ opacity: 0.1 }))
+        ])
     ])
 ];

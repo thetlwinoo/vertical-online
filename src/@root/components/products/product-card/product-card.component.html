@@ -27,10 +27,15 @@
         <div class="rating-love">
             <div class="love-spacer">
                 <!-- <i class="icon ion-md-heart-empty s-16 amber-fg"></i> -->
-                <fa-icon [icon]="['far','heart']" class="icon"></fa-icon>
+                <fa-icon [icon]="['fas','heart']" class="text-warning"></fa-icon>
                 <span class="text-muted">(51)</span>
             </div>
-            <p-rating [ngModel]="rating" readonly="true" stars="5" [cancel]="false"></p-rating>
+            <!-- <p-rating [ngModel]="rating" readonly="true" stars="5" [cancel]="false"></p-rating> -->
+            <ngb-rating [(rate)]="rating" [readonly]="true" max="5">
+                <ng-template let-fill="fill" let-index="index">
+                    <span class="star" [class.text-warning]="fill === 100"><fa-icon icon="star"></fa-icon></span>
+                </ng-template>
+            </ngb-rating>
             <span class="ml-1 text-muted">({{rating}})</span>
         </div>
         <!-- <div class="card-divider"></div> -->
@@ -49,7 +54,7 @@
                         class="product-price-old">{{product.recommendedRetailPrice | currency:productsService?.currency:'symbol'}}</span>
                     <span class="discount-percentage">-80%</span>
                 </div>
-            </div>            
+            </div>
             <fa-icon icon="truck" class="text-muted"></fa-icon>
         </div>
     </div>

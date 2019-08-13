@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+<nav #headerNav class="navbar navbar-expand-lg navbar-dark" [ngClass]="isMobile?'fixed-top':'sticky-top bg-dark'">
     <div class="container">
         <a class="navbar-brand d-none d-md-block d-lg-block" href="#"><img src="assets/logo/zezawar.svg" alt=""></a>
         <search-bar class="search-bar"></search-bar>
@@ -6,4 +6,4 @@
             <fa-icon icon="shopping-cart"></fa-icon>
         </a>
     </div>
-</nav>
+</nav>  

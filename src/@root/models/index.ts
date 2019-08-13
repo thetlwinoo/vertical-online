@@ -20,3 +20,4 @@ export * from './reviews.model';
 export * from './review-lines.model';
 export * from './shopping-carts.model';
 export * from './shopping-cart-items.model';
+export * from './pageable';

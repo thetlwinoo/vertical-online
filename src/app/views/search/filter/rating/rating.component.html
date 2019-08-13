@@ -1,29 +1,14 @@
-<div class="rating-wrapper">
-    <div class="ui-g" style="width:250px;margin-bottom:10px">
-      <div class="ui-g-12 p-0">
-        <a href="javascript:void(0);">
-          <p-rating [ngModel]="5" readonly="true" stars="5" [cancel]="false"></p-rating>
-        </a>
-      </div>
-      <div class="ui-g-12 p-0">
-        <a href="javascript:void(0);">
-          <p-rating [ngModel]="4" readonly="true" stars="5" [cancel]="false"></p-rating><span> & up</span>
-        </a>
-      </div>
-      <div class="ui-g-12 p-0">
-        <a href="javascript:void(0);">
-          <p-rating [ngModel]="3" readonly="true" stars="5" [cancel]="false"></p-rating><span> & up</span>
-        </a>
-      </div>
-      <div class="ui-g-12 p-0">
-        <a href="javascript:void(0);">
-          <p-rating [ngModel]="2" readonly="true" stars="5" [cancel]="false"></p-rating><span> & up</span>
-        </a>
-      </div>
-      <div class="ui-g-12 p-0">
-        <a href="javascript:void(0);">
-          <p-rating [ngModel]="1" readonly="true" stars="5" [cancel]="false"></p-rating><span> & up</span>
-        </a>
-      </div>
+<ul class="p-0">
+  <li *ngFor="let val of data">
+    <div class="star-wrapper">
+      <ngb-rating [(rate)]="val.star" [readonly]="true" max="5">
+        <ng-template let-fill="fill" let-index="index">
+          <span class="star" [class.text-warning]="fill === 100">
+            <fa-icon icon="star"></fa-icon>
+          </span>
+        </ng-template>
+      </ngb-rating>
     </div>
-  </div>
+    <span class="up">& up</span>
+  </li>
+</ul>

@@ -63,7 +63,8 @@ import {
     faCheck,
     faTruck,
     faShare,
-    faBookmark as fasBookmark
+    faBookmark as fasBookmark,
+    faBox
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -72,7 +73,9 @@ import {
     faMeh as farMeh,
     faThumbsUp as farThumbsUp,
     faHeart as farHeart,
-    faBookmark as farBookmark
+    faBookmark as farBookmark,
+    faUser as farUser,
+    faAddressBook as farAddressBook
 } from '@fortawesome/free-regular-svg-icons';
 
 import {
@@ -167,3 +170,6 @@ library.add(fabCcAmex);
 library.add(faShare);
 library.add(fasBookmark);
 library.add(farBookmark);
+library.add(farUser);
+library.add(faBox);
+library.add(farAddressBook);

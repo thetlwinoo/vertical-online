@@ -4,16 +4,19 @@ import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/catch';
-import { ProductDisplay } from "app/ngrx/cart/cart.reducer";
 import { Observable } from "rxjs/Observable";
 import { ColorFilter } from '@root/models';
 import { TreeNode, SelectItem } from 'primeng/api';
 import { RootSidebarService } from '@root/components/sidebar/sidebar.service';
+import { rootAnimations } from '@root/animations';
+import { Pageable } from '@root/models';
+import { LazyLoadEvent } from 'primeng/api';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
+  animations: rootAnimations
 })
 export class SearchComponent implements OnInit {
   querySubscribe: Subscription;
@@ -25,7 +28,7 @@ export class SearchComponent implements OnInit {
   public categoriesTree: any;
   public colors: any[] = [];
   public price: any;
-  public rangePrice: any = [0,0];
+  public rangePrice: any = [0, 0];
 
   products: any[] = [];
   public filteredItems: any[] = [];
@@ -43,6 +46,8 @@ export class SearchComponent implements OnInit {
   sortKey: string;
   sortField: string;
   sortOrder: number;
+  loading: boolean;
+  totalRecords:number = 1000;
 
   constructor(
     private productService: ProductService,
@@ -115,7 +120,7 @@ export class SearchComponent implements OnInit {
         }
       }
 
-      
+
       if (product.unitPrice) {
         if (product.unitPrice < minPrice) minPrice = product.unitPrice;
         if (product.unitPrice > maxPrice) maxPrice = product.unitPrice;
@@ -230,29 +235,31 @@ export class SearchComponent implements OnInit {
     console.log(condition);
   }
 
-  toggleSidebar(name): void
-    {
-        this.rootSidebarService.getSidebar(name).toggleOpen();
-    }
-  // @HostListener('window:scroll', ['$event'])
-  // onScroll($event: Event): void {
-  //   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-  //     console.log(this.canFetch);
-  //     if (this.canFetch) {
-  //       this.productService.searchProduct(this.page, this.keyword)
-  //         .take(1)
-  //         .catch(error => {
-  //           this.canFetch = false;
-  //           return Observable.throw(error);
-  //         })
-  //         .subscribe(data => {
-  //           this.products.push(...data);
-  //           this.page++;
-  //           if (data.length == 0) {
-  //             this.canFetch = false;
-  //           }
-  //         });
-  //     }
-  //   }
-  // }
+  toggleSidebar(name): void {
+    this.rootSidebarService.getSidebar(name).toggleOpen();
+  }
+
+  loadDataLazy(event: LazyLoadEvent): void {
+    this.loading = true; // used to display loading dots in the UI
+    const pageableData: Pageable = {
+      page: event.first / 10,
+      size: event.rows
+    };
+    this.productService.searchProduct(pageableData.page, this.keyword)
+      .take(1)
+      .catch(error => {
+        this.canFetch = false;
+        return Observable.throw(error);
+      })
+      .subscribe(data => {
+        this.products = data;
+        this.filteredItems = data;
+        // this.page++;
+        this.getFilters(data);
+
+        if (data.length != 0) {
+          this.canFetch = true;
+        }
+      });
+  }
 }

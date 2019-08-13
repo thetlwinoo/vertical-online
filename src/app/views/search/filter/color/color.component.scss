@@ -1,8 +1,10 @@
-ul {
-    padding-left: 0;
-    margin-bottom: 0;
+:host {
+    ul {
+        padding-left: 0;
+        margin-bottom: 0;
 
-    > li{
-        display: inline-block !important;
+        >li {
+            display: inline-block !important;
+        }
     }
 }

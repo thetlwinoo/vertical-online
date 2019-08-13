@@ -17,9 +17,13 @@
                       <span class="score-max">/5</span>
                     </div>
                     <div class="average">
-                      <p-rating [cancel]="false" [(ngModel)]="overAllRating" stars="5"
-                        [iconOnStyle]="{'font-size': '2.2em'}" [iconOffStyle]="{'font-size': '2.2em'}" readonly="true">
-                      </p-rating>
+                      <ngb-rating [(rate)]="ratingObject.overAllRating" [readonly]="true" max="5">
+                        <ng-template let-fill="fill" let-index="index">
+                          <span class="star" [class.text-warning]="fill === 100">
+                            <fa-icon icon="star"></fa-icon>
+                          </span>
+                        </ng-template>
+                      </ngb-rating>
                     </div>
                     <div class="count">
                       {{ratingObject.ratingCount}} Ratings
@@ -30,14 +34,18 @@
                   <div class="detail">
                     <ul class="p-0">
                       <li *ngFor="let val of data">
-                        <div class="star">
-                          <p-rating [cancel]="false" [(ngModel)]="val.star" stars="5" readonly="true">
-                          </p-rating>
+                        <div class="star-wrapper">
+                          <ngb-rating [(rate)]="val.star" [readonly]="true" max="5">
+                            <ng-template let-fill="fill" let-index="index">
+                              <span class="star" [class.text-warning]="fill === 100">
+                                <fa-icon icon="star"></fa-icon>
+                              </span>
+                            </ng-template>
+                          </ngb-rating>
                         </div>
                         <span class="progress-wrap">
                           <div class="progress-item">
-                            <p-progressBar [value]="val.progress" [showValue]="false" [style]="{'height': '15px'}">
-                            </p-progressBar>
+                            <ngb-progressbar type="warning" [value]="val.progress" height=".85rem"></ngb-progressbar>
                           </div>
 
                         </span>

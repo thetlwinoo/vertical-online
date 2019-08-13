@@ -17,6 +17,7 @@ import { RootSidebarService } from '@root/components/sidebar/sidebar.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import * as _ from 'lodash';
+import { Platform } from '@angular/cdk/platform';
 
 @Component({
   selector: 'toolbar',
@@ -25,6 +26,7 @@ import * as _ from 'lodash';
   encapsulation: ViewEncapsulation.None
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
+  isMobile: boolean;
   account: Account;
   modalRef: NgbModalRef;
   wishlistState: Observable<{ wishlists: Wishlists, errors: HttpError[], loading: boolean }>;
@@ -42,8 +44,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   wishlistCount: number = 0;
   compareCount: number = 0;
 
-  isNavbarCollapsed=true;
-  
+  isNavbarCollapsed = true;
+
   private _unsubscribeAll: Subject<any>;
   private subscriptions: Subscription[] = [];
   constructor(
@@ -55,12 +57,17 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private router: Router,
     private loginModalService: LoginModalService,
     private eventManager: JhiEventManager,
-    private store: Store<fromApp.AppState>
+    private store: Store<fromApp.AppState>,
+    private _platform: Platform
   ) {
     this._unsubscribeAll = new Subject();
   }
 
   ngOnInit() {
+    if (this._platform.ANDROID || this._platform.IOS) {
+      this.isMobile = true;
+    }
+
     const configSubscription = this._rootConfigService.config
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((settings) => {

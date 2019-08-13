@@ -49,7 +49,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   modalRef: NgbModalRef;
   id: number;
   isPopState = false;
-  rating: number = 4.5;
+  rating: number = 4;
   isInWishlist: boolean = false;
   isInCompare: boolean = false;
   // wishlistList: any;  

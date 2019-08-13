@@ -27,36 +27,30 @@
 
               <div class="product-reviews">
                 <div class="review-left">
-                  <p-rating [ngModel]="4" readonly="true" stars="5" [cancel]="false"></p-rating>
+                  <!-- <p-rating [ngModel]="4" readonly="true" stars="5" [cancel]="false"></p-rating> -->
+                  <ngb-rating [(rate)]="rating" [readonly]="true" max="5">
+                    <ng-template let-fill="fill" let-index="index">
+                      <span class="star" [class.text-warning]="fill === 100">
+                        <fa-icon icon="star"></fa-icon>
+                      </span>
+                    </ng-template>
+                  </ngb-rating>
                   <a style="margin-left:5px;" href="JavaScript:void(0);"><span>4 Ratings</span></a>
                   <span style="margin:0 5px;">|</span>
                   <a href="JavaScript:void(0);"><span>10 Answered Question</span></a>
                 </div>
                 <div class="review-right">
-                  <!-- <a href="JavaScript:void(0);" pTooltip="Share via" tooltipPosition="bottom">
-                  <i class="share-icon fa fa-share-alt"></i>
-                </a> -->
-                  <!-- <a href="JavaScript:void(0);" pTooltip="Wishlist" tooltipPosition="bottom" (click)="toggleWishlist($event)">
-                  <i class="wishlist-icon fa" [ngClass]="{'fa-heart': isInWishlist, 'fa-heart-o': !isInWishlist}"></i>
-                </a> -->
-                  <button mat-icon-button aria-label="share via" (click)="onShareVia($event)"
-                    [disabled]="(wishlistState | async).loading" matTooltip="Share Via">
-                    <!-- <mat-icon>share</mat-icon> -->
+                  <button class="btn btn-link" aria-label="share via" (click)="onShareVia($event)"
+                    [disabled]="(wishlistState | async).loading" ngbTooltip="Share Via">
                     <fa-icon icon="share"></fa-icon>
                   </button>
-                  <button mat-icon-button aria-label="compare" (click)="toggleCompare($event)"
-                    [disabled]="(compareState | async).loading" matTooltip="Compare">
-                    <!-- <mat-icon *ngIf="isInCompare;else notcompare" class="collections_bookmark">collections_bookmark
-                    </mat-icon> -->
-                    <fa-icon [icon]="[isInCompare?'fas':'far','bookmark']" class="collections_bookmark"></fa-icon>
+                  <button class="btn btn-link" aria-label="compare" (click)="toggleCompare($event)"
+                    [disabled]="(compareState | async).loading" ngbTooltip="Compare">
+                    <fa-icon [icon]="[isInCompare?'fas':'far','bookmark']"></fa-icon>
                   </button>
-                  <button mat-icon-button aria-label="wishlist" (click)="toggleWishlist($event)"
-                    [disabled]="(wishlistState | async).loading" matTooltip="Wishlist">
-                    <!-- <mat-icon *ngIf="isInWishlist;else notwishlist" class="favorite">favorite</mat-icon>
-                    <ng-template #notwishlist>
-                      <mat-icon class="favorite_border">favorite_border</mat-icon>
-                    </ng-template> -->
-                    <fa-icon [icon]="[isInWishlist?'fas':'far','heart']" class="favorite"></fa-icon>
+                  <button class="btn btn-link" aria-label="wishlist" (click)="toggleWishlist($event)"
+                    [disabled]="(wishlistState | async).loading" ngbTooltip="Wishlist">
+                    <fa-icon [icon]="[isInWishlist?'fas':'far','heart']"></fa-icon>
                   </button>
                 </div>
               </div>
@@ -143,10 +137,10 @@
                     [style.display]="(cartState | async).loading ? 'none' : 'inline-block'" class="addtocart-button"
                     pButton label="Add to cart">
                   </button> -->
-                    <button mat-raised-button color="warn" (click)="buyNow(amount)"
+                    <button type="button" class="btn btn-warning" (click)="buyNow(amount)"
                       [disabled]="(cartState | async).loading">Buy Now</button>
-                    <button mat-raised-button color="accent" (click)="addToCart(amount)"
-                      [disabled]="(cartState | async).loading" class="addtocart-button">Add To Cart</button>
+                    <button type="button" class="btn btn-danger ml-2" (click)="addToCart(amount)"
+                      [disabled]="(cartState | async).loading">Add To Cart</button>
                   </div>
                 </div>
               </div>

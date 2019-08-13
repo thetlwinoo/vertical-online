@@ -5,7 +5,7 @@ export const rootConfig: RootConfig = {
     colorTheme: 'theme-default',
     customScrollbars: false,
     layout: {
-        style: 'horizontal-layout-1',
+        style: 'layout-1',
         width: 'fullwidth',
         header: {
             hidden: false,
