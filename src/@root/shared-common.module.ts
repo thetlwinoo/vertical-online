@@ -2,15 +2,14 @@ import { NgModule } from '@angular/core';
 import { ResourceSharedLibsModule } from './shared-libs.module';
 
 import {
-    ProductService,
     CartService,
     OrderService,
     PeopleService,
     TokenService,
     PaypalService,
     CreditCardService,
-    AuthGuardService,
-    NonAuthGuardService,
+    // AuthGuardService,
+    // NonAuthGuardService,
     AccountApiService,
     ProductPhotoService,
     WishlistService,
@@ -30,15 +29,14 @@ import {
         ResourceSharedLibsModule
     ],
     providers: [
-        ProductService,
         CartService,
         OrderService,
         PeopleService,
         TokenService,
         PaypalService,
         CreditCardService,
-        AuthGuardService,
-        NonAuthGuardService,
+        // AuthGuardService,
+        // NonAuthGuardService,
         AccountApiService,
         ProductPhotoService,
         WishlistService,

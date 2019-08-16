@@ -12,11 +12,17 @@ import { MostPopularComponent } from './components/most-popular/most-popular.com
 import { NewlyAddedComponent } from './components/newly-added/newly-added.component';
 import { SubBannerComponent } from './components/sub-banner/sub-banner.component';
 import { DailyDiscoverComponent } from './components/daily-discover/daily-discover.component';
+import { ProductsModule } from 'app/ngrx/products';
+import { BreadcrumbGuard } from '@root/services';
 
 const routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+    data: {
+      crumbs: []
+    },
+    canActivate: [BreadcrumbGuard]
   }
 ];
 
@@ -35,6 +41,7 @@ const routes = [
   imports: [
     RouterModule.forChild(routes),
     RootSharedModule,
+    ProductsModule,
     CarouselModule
   ]
 })

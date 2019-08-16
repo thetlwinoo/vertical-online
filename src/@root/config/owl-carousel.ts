@@ -220,6 +220,7 @@ export const deal = {
     options: {
         loop: true,
         nav: false,
+        lazyLoad : true,
         autoplay: false,
         dots: false,
         autoplayTimeout: 5000,

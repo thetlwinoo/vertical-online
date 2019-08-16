@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, Renderer, ElementRef } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiLanguageService } from 'ng-jhipster';
+// import { JhiLanguageService } from 'ng-jhipster';
 
 import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from '@root/constants';
 import { LoginModalService } from '@root/services/core/login/login-modal.service';
@@ -22,12 +22,12 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     modalRef: NgbModalRef;
 
     constructor(
-        private languageService: JhiLanguageService,
+        // private languageService: JhiLanguageService,
         private loginModalService: LoginModalService,
         private registerService: Register,
         private elementRef: ElementRef,
         private renderer: Renderer
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.success = false;
@@ -46,15 +46,21 @@ export class RegisterComponent implements OnInit, AfterViewInit {
             this.error = null;
             this.errorUserExists = null;
             this.errorEmailExists = null;
-            this.languageService.getCurrent().then(key => {
-                this.registerAccount.langKey = key;
-                this.registerService.save(this.registerAccount).subscribe(
-                    () => {
-                        this.success = true;
-                    },
-                    response => this.processError(response)
-                );
-            });
+            // this.languageService.getCurrent().then(key => {
+            //     this.registerAccount.langKey = key;
+            //     this.registerService.save(this.registerAccount).subscribe(
+            //         () => {
+            //             this.success = true;
+            //         },
+            //         response => this.processError(response)
+            //     );
+            // });
+            this.registerService.save(this.registerAccount).subscribe(
+                () => {
+                    this.success = true;
+                },
+                response => this.processError(response)
+            );
         }
     }
 

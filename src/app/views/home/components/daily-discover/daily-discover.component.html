@@ -14,7 +14,7 @@
                 <div class="content">
                     <div class="product-wrapper">
                         <div class="product-item product-box"
-                            *ngFor="let item of (showcaseState | async).dailyDiscover">
+                            *ngFor="let item of data">
                             <a [routerLink]="['/products',item.id]" routerLinkActive="active">
                                 <div #productcard class="card-preview">
                                     <product-card [product]="item"></product-card>

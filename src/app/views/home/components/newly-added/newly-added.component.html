@@ -13,7 +13,7 @@
                 </button>
             </div>
             <div class="viwer-body">
-                <div *ngFor="let e of (showcaseState | async).errors">
+                <!-- <div *ngFor="let e of (showcaseState | async).errors">
                     <div *ngIf="e.errorEffect == 'FETCH_NEWLY_ADDED'" class=" col-md-12 alert-warning">
                         <div *ngIf="e.error.status === 400 || e.error.status === 401 ">Problem loading products...</div>
                         <div *ngIf="e.error.status === 500 || e.error.status === 0 ">Internal server error! Please
@@ -22,11 +22,11 @@
                             team.
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <owl-carousel-o #owlNewlyAdded [options]="carousel.options">
-                    <ng-container *ngFor="let product of (showcaseState | async).newlyAdded">
+                    <ng-container *ngFor="let product of data">
                         <ng-template carouselSlide>
-                            <a routerLink="/pages/shop" routerLinkActive="active">
+                            <a [routerLink]="['/products',product.id]" routerLinkActive="active">
                                 <div class="owl-sub-item">
                                     <product-box [product]="product" [mode]="'popular'"></product-box>
                                 </div>

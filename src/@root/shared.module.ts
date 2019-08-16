@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { RootPipesModule } from '@root/pipes/pipes.module';
+import { RootPipesModule } from '@root/pipes';
 import { ResourceSharedLibsModule } from './shared-libs.module';
 import { ResourceSharedCommonModule } from './shared-common.module';
 import { RootDirectivesModule } from '@root/directives/directives';

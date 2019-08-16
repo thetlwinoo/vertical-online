@@ -1,0 +1,125 @@
+<div class="container">
+    <div class="display-container mt-3 fixed-width-full">
+        <div class="display-wrapper">
+            <div class="display">
+                <div>
+                    <div class="title">
+                        <h2 class="section-title outer-title">Ratings & Reviews of {{product?.productName}}</h2>
+                    </div>
+                    <div class="body">
+                        <div class="body-content">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="summary">
+                                        <div class="score">
+                                            <span
+                                                class="score-average">{{ratingObject.overAllRating?(ratingObject.overAllRating.toFixed(1) | number:'1.1'):0}}</span>
+                                            <span class="score-max">/5</span>
+                                        </div>
+                                        <div class="average">
+                                            <ngb-rating [(rate)]="ratingObject.overAllRating" [readonly]="true" max="5">
+                                                <ng-template let-fill="fill" let-index="index">
+                                                    <span class="star" [class.text-warning]="fill === 100">
+                                                        <fa-icon icon="star"></fa-icon>
+                                                    </span>
+                                                </ng-template>
+                                            </ngb-rating>
+                                        </div>
+                                        <div class="count">
+                                            {{ratingObject.ratingCount}} Ratings
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="detail">
+                                        <ul class="p-0">
+                                            <li *ngFor="let val of data">
+                                                <div class="star-wrapper">
+                                                    <ngb-rating [(rate)]="val.star" [readonly]="true" max="5">
+                                                        <ng-template let-fill="fill" let-index="index">
+                                                            <span class="star" [class.text-warning]="fill === 100">
+                                                                <fa-icon icon="star"></fa-icon>
+                                                            </span>
+                                                        </ng-template>
+                                                    </ngb-rating>
+                                                </div>
+                                                <span class="progress-wrap">
+                                                    <div class="progress-item">
+                                                        <ngb-progressbar type="warning" [value]="val.progress"
+                                                            height=".85rem"></ngb-progressbar>
+                                                    </div>
+
+                                                </span>
+                                                <span class="percent">{{val.percent}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="filter">
+                                        <span class="title">
+                                            Product Reviews
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="reviews" *ngIf="(reviewLines$ | async)?.length;else noreviews">
+                                    <div class="item" *ngFor="let reviewLine of (reviewLines$ | async)">
+                                        <div class="top">
+                                            <div class="rating">
+                                                <ngb-rating [(rate)]="reviewLine.productRating" [readonly]="true"
+                                                    max="5">
+                                                    <ng-template let-fill="fill" let-index="index">
+                                                        <span class="star" [class.text-warning]="fill === 100">
+                                                            <fa-icon icon="star"></fa-icon>
+                                                        </span>
+                                                    </ng-template>
+                                                </ngb-rating>
+                                            </div>
+
+                                            <span class="title-right">{{getDiffDays(reviewLine.createdDate)}} days
+                                                ago</span>
+                                        </div>
+                                        <div class="middle">
+                                            <span>by {{reviewLine.createdBy}}</span>
+                                            <span>
+                                                <fa-icon icon="check-square"></fa-icon>
+                                                <span class="verify">Verified Purchase</span>
+                                            </span>
+                                        </div>
+                                        <div class="content-wrapper">
+                                            <div class="content">{{reviewLine.productReview}}</div>
+                                            <div class="bottom">
+                                                <span class="left">
+                                                    <span class="like-icon">
+                                                        <fa-icon [icon]="['far', 'thumbs-up']"></fa-icon>
+                                                    </span>
+                                                    <span>0</span>
+                                                </span>
+                                                <span class="right"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template #noreviews>
+                                    <div class="empty-reviews">
+                                        <div class="image-wrapper">
+                                            <fa-icon [icon]="['far','smile']"></fa-icon>
+                                        </div>
+                                        <div>
+                                            <p>This product has no reviews.</p>
+                                            <p>Let others know what do you think and be the first to write a review.</p>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

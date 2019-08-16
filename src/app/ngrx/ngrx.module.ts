@@ -21,7 +21,14 @@ import { ReviewsEffects } from "./reviews/reviews.effects";
 @NgModule({
   declarations: [],
   imports: [
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: true,
+        strictActionSerializability: true,
+      },
+    }),
     EffectsModule.forRoot([
       CartEffects,
       OrderEffects,

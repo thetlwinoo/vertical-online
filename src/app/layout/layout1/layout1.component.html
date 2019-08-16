@@ -7,14 +7,12 @@
         <ng-container *ngTemplateOutlet="header"></ng-container>
     </ng-container>
 
-    <div class="container">            
-        <p-breadcrumb [model]="crumbs$ | async" [home]="home" *ngIf="(crumbs$ | async)?.length > 0"></p-breadcrumb>
+    <div class="container">
+        <p-breadcrumb [model]="crumbs$ | async" [home]="home" *ngIf="(crumbs$ | async)?.length"></p-breadcrumb>
     </div>
 
-    <div>
-        <content></content>
-    </div>
-    
+    <content></content>
+
     <ng-container>
         <ng-container *ngTemplateOutlet="footer"></ng-container>
     </ng-container>

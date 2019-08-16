@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+// import { TranslateService } from '@ngx-translate/core';
 import { LoginModalService, AccountService, LoginService } from '@root/services/core';
 import { Observable } from "rxjs/Observable";
 import { Account, Wishlists, Compares } from '@root/models';
@@ -51,7 +51,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   constructor(
     private _rootConfigService: RootConfigService,
     private _rootSidebarService: RootSidebarService,
-    private _translateService: TranslateService,
+    // private _translateService: TranslateService,
     private accountService: AccountService,
     private loginService: LoginService,
     private router: Router,
@@ -83,7 +83,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.registerAuthenticationSuccess();
 
     // Set the selected language from default languages
-    this.selectedLanguage = _.find(this.languages, { 'id': this._translateService.currentLang });
+    // this.selectedLanguage = _.find(this.languages, { 'id': this._translateService.currentLang });
 
     this.wishlistState = this.store.select('wishlist');
     const wishlistSubscription = this.wishlistState.subscribe(data => {
@@ -152,6 +152,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   setLanguage(lang): void {
     this.selectedLanguage = lang;
-    this._translateService.use(lang.id);
+    // this._translateService.use(lang.id);
   }
 }

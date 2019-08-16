@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
-import { ProductService } from "@root/services";
+import { ProductsService } from "@root/services";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import { Products, IProducts } from '@root/models';
@@ -18,22 +18,22 @@ export class RelatedProductsComponent implements OnInit, OnDestroy {
   // @Input() searching = false;
   // @Input() error = '';
   fetchError: HttpErrorResponse = null;
-  paramSubscription: Subscription;
   innerLoading: boolean = true;
   relatedProducts: IProducts[];
   id: number;
   carousel: any;
+  private subscriptions: Subscription[] = [];
 
   constructor(
-    private productService: ProductService,
+    private productService: ProductsService,
     private route: ActivatedRoute
   ) {
     this.carousel = deal;
-   }
+  }
 
   ngOnInit() {
 
-    this.paramSubscription = this.route.params.subscribe(
+    const paramSubscription = this.route.params.subscribe(
       (params: Params) => {
         this.id = params['id'];
         this.productService.getRelatedProducts(this.id)
@@ -44,20 +44,21 @@ export class RelatedProductsComponent implements OnInit, OnDestroy {
             return Observable.throw(error);
           })
           .subscribe(
-            (data: IProducts[]) => {
-              this.relatedProducts = data;
-              console.log(this.relatedProducts)
+            (res) => {
+              this.relatedProducts = res.body;
               this.innerLoading = false;
             }
           )
       }
     );
+
+    this.subscriptions.push(paramSubscription);
   }
 
   ngOnDestroy() {
-    if (this.paramSubscription != null) {
-      this.paramSubscription.unsubscribe();
-    }
+    this.subscriptions.forEach(el => {
+      if (el) el.unsubscribe();
+    });
   }
 
   public productSlideConfig: any = {

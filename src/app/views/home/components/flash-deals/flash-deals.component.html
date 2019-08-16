@@ -29,9 +29,9 @@
                     <div class="line"></div>
                 </div>
                 <owl-carousel-o #owlFlashDeals [options]="carousel.options">
-                    <ng-container *ngFor="let product of products">
+                    <ng-container *ngFor="let product of data">
                         <ng-template carouselSlide>
-                            <a routerLink="/pages/shop" routerLinkActive="active">
+                            <a [routerLink]="['/products',product.id]" routerLinkActive="active">
                                 <div class="owl-sub-item">
                                     <product-box [product]="product" [mode]="'deal'"></product-box>
                                 </div>

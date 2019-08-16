@@ -124,19 +124,10 @@
                 </div>
               </div>
 
-
               <div class="product-details-control">
                 <div class="row">
                   <div class="col-md-12">
                     <div *ngIf="(cartState | async).loading" class="loader" style="top:0; left: 25%"></div>
-                    <!-- <button routerLink="/checkout" [disabled]="(cartState | async).loading"
-                    [style.display]="(cartState | async).loading ? 'none' : 'inline-block'"
-                    class="ui-button-warning checkout-button" pButton label="Buy Now">
-                  </button>
-                  <button (click)="addToCart(amount)" [disabled]="(cartState | async).loading"
-                    [style.display]="(cartState | async).loading ? 'none' : 'inline-block'" class="addtocart-button"
-                    pButton label="Add to cart">
-                  </button> -->
                     <button type="button" class="btn btn-warning" (click)="buyNow(amount)"
                       [disabled]="(cartState | async).loading">Buy Now</button>
                     <button type="button" class="btn btn-danger ml-2" (click)="addToCart(amount)"

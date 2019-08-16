@@ -8,7 +8,6 @@ export * from './e-commerce/compare.service';
 export * from './e-commerce/non-auth-guard.service';
 export * from './e-commerce/people.service';
 export * from './e-commerce/product-photo.service';
-export * from './e-commerce/product.service';
 export * from './e-commerce/token.interceptor';
 export * from './e-commerce/token.service';
 export * from './e-commerce/wishlist.service';

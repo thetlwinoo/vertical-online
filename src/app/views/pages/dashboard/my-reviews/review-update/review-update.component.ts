@@ -5,7 +5,7 @@ import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/htt
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
-import { ReviewsService, ReviewLinesService, ProductService, OrderService } from '@root/services';
+import { ReviewsService, ReviewLinesService, ProductsService, OrderService } from '@root/services';
 
 @Component({
   selector: 'app-review-update',
@@ -30,7 +30,7 @@ export class ReviewUpdateComponent implements OnInit {
     // protected productsService: ProductsService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
-    private productService: ProductService,
+    private productService: ProductsService,
     private orderService: OrderService
   ) { }
 

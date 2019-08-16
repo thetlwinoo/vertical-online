@@ -47,25 +47,7 @@
             <label class="form-control-label" for="field_defaultInd">Default Ind</label>
             <input type="checkroot" class="form-control" name="defaultInd" id="field_defaultInd"
               [(ngModel)]="addresses.defaultInd" [disabled]="mandatoryDefault"/>
-          </div>
-          <!-- <div class="form-group">
-              <label class="form-control-label" jhiTranslate="resourceApp.addresses.activeInd"
-                for="field_activeInd">Active Ind</label>
-              <input type="checkroot" class="form-control" name="activeInd" id="field_activeInd"
-                [(ngModel)]="addresses.activeInd" />
-            </div>
-
-            <div class="form-group">
-              <label class="form-control-label" jhiTranslate="resourceApp.addresses.stateProvince"
-                for="field_stateProvince">State Province</label>
-              <select class="form-control" id="field_stateProvince" name="stateProvince"
-                [(ngModel)]="addresses.stateProvinceId">
-                <option [ngValue]="null"></option>
-                <option [ngValue]="stateProvincesOption.id"
-                  *ngFor="let stateProvincesOption of stateprovinces; trackBy: trackStateProvincesById">
-                  {{stateProvincesOption.stateProvinceName}}</option>
-              </select>
-            </div> -->
+          </div>          
         </div>
 
       </div>

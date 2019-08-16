@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { JhiLanguageService } from 'ng-jhipster';
+// import { JhiLanguageService } from 'ng-jhipster';
 
 import { AccountService } from '@root/services/core/auth/account.service';
 
@@ -15,7 +15,7 @@ export class SettingsComponent implements OnInit {
 
     constructor(
         private accountService: AccountService,
-        private languageService: JhiLanguageService,
+        // private languageService: JhiLanguageService,
         // private languageHelper: JhiLanguageHelper
     ) {}
 
@@ -36,11 +36,11 @@ export class SettingsComponent implements OnInit {
                 this.accountService.identity(true).then(account => {
                     this.settingsAccount = this.copyAccount(account);
                 });
-                this.languageService.getCurrent().then(current => {
-                    if (this.settingsAccount.langKey !== current) {
-                        this.languageService.changeLanguage(this.settingsAccount.langKey);
-                    }
-                });
+                // this.languageService.getCurrent().then(current => {
+                //     if (this.settingsAccount.langKey !== current) {
+                //         this.languageService.changeLanguage(this.settingsAccount.langKey);
+                //     }
+                // });
             },
             () => {
                 this.success = null;

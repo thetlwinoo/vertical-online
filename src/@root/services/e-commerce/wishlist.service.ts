@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { Wishlists } from "@root/models";
 import { SERVER_API_URL } from '@root/constants';
+import { IWishlists, IProducts } from '@root/models';
+import { Observable } from 'rxjs';
+
+type EntityResponseType = HttpResponse<IWishlists>;
+type EntityArrayResponseType = HttpResponse<IProducts[]>;
 
 @Injectable()
 export class WishlistService {
@@ -10,8 +15,12 @@ export class WishlistService {
   constructor(private http: HttpClient) {
   }
 
-  fetchWishlist() {
-    return this.http.get<Wishlists>(this.extendUrl + '/fetch');
+  fetchWishlist(): Observable<EntityResponseType> {
+    return this.http.get<IWishlists>(this.extendUrl + '/fetch', { observe: 'response' });
+  }
+
+  fetchWishlistProducts(): Observable<EntityArrayResponseType> {
+    return this.http.get<IProducts[]>(this.extendUrl + '/fetch/products', { observe: 'response' });
   }
 
   isInWishlist(productId: number) {

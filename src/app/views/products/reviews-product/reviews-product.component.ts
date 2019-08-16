@@ -21,7 +21,6 @@ import { HttpError } from "app/ngrx/app.reducers";
 })
 export class ReviewsProductComponent implements OnInit, OnDestroy {
   @Input() product;
-  paramSubscription: Subscription;
   reviewSubscription: Subscription;
   innerLoading: boolean = true;
   fetchError: HttpErrorResponse = null;
@@ -31,6 +30,7 @@ export class ReviewsProductComponent implements OnInit, OnDestroy {
   overAllRating: number = 0;
   ratingCount: number = 0;
   private _unsubscribeAll: Subject<any>;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private store: Store<fromApp.AppState>,
@@ -81,7 +81,7 @@ export class ReviewsProductComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // this.reviewState = this.store.select('reviews');
-    this.paramSubscription = this.route.params
+    const paramSubscription = this.route.params
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe(
         (params: Params) => {
@@ -103,13 +103,13 @@ export class ReviewsProductComponent implements OnInit, OnDestroy {
                   case 5:
                     this.ratingObject.fiveStars += 1; break;
                   case 4:
-                      this.ratingObject.fourStars += 1; break;
+                    this.ratingObject.fourStars += 1; break;
                   case 3:
-                      this.ratingObject.threeStars += 1; break;
+                    this.ratingObject.threeStars += 1; break;
                   case 2:
-                      this.ratingObject.twoStars += 1; break;
+                    this.ratingObject.twoStars += 1; break;
                   case 1:
-                      this.ratingObject.oneStar += 1; break;
+                    this.ratingObject.oneStar += 1; break;
                   default: break;
                 }
               });
@@ -145,7 +145,8 @@ export class ReviewsProductComponent implements OnInit, OnDestroy {
             );
 
           // this.store.dispatch(new ReviewsActions.FetchReviews(params['id']));
-        });   
+        });
+    this.subscriptions.push(paramSubscription);
   }
 
   protected onError(errorMessage: string) {
@@ -169,12 +170,8 @@ export class ReviewsProductComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
 
-    if (this.paramSubscription) {
-      this.paramSubscription.unsubscribe();
-    }
-
-    // if (this.reviewSubscription) {
-    //   this.reviewSubscription.unsubscribe();
-    // }
+    this.subscriptions.forEach(el => {
+      if (el) el.unsubscribe();
+    });
   }
 }

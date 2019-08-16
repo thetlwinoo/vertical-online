@@ -9,23 +9,23 @@ import { ReviewsProductComponent } from './reviews-product/reviews-product.compo
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { BreadcrumbGuard } from '@root/services';
 
-const routes: Routes = [
-  {
-    path: ':id',
-    component: ProductDetailComponent,
-    data: {
-      crumbs: [{
-        label: 'product'
-      }, {
-        label: 'details'
-      }
-      ]
-    },
-    canActivate: [
-      BreadcrumbGuard
-    ]
-  }
-];
+// const routes: Routes = [
+//   {
+//     path: ':id',
+//     component: ProductDetailComponent,
+//     data: {
+//       crumbs: [{
+//         label: 'product'
+//       }, {
+//         label: 'details'
+//       }
+//       ]
+//     },
+//     canActivate: [
+//       BreadcrumbGuard
+//     ]
+//   }
+// ];
 
 @NgModule({
   declarations: [
@@ -35,11 +35,11 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
+    // RouterModule.forChild(routes),
     CarouselModule,
     FormsModule,
     RootSharedModule
   ],
   providers: []
 })
-export class ProductsModule { }
+export class TestProductsModule { }

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
-import { Products,IProducts } from "@root/models";
+import { Products, IProductPhoto } from "@root/models";
 import { SERVER_API_URL } from '@root/constants';
 import { createRequestOption } from '@root/utils';
 import { Observable } from 'rxjs';
 
-type EntityResponseType = HttpResponse<any>;
-type EntityArrayResponseType = HttpResponse<any[]>;
+type EntityResponseType = HttpResponse<IProductPhoto>;
+type EntityArrayResponseType = HttpResponse<IProductPhoto[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ProductPhotoService {
@@ -19,14 +19,11 @@ export class ProductPhotoService {
     query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         console.log('options', this.resourceUrl, options)
-        return this.http.get<any[]>(this.resourceUrl, { params: options, observe: 'response' });
+        return this.http.get<IProductPhoto[]>(this.resourceUrl, { params: options, observe: 'response' });
     }
 
-    getProductPhotos(id: number) {
-        return this.http.get<any[]>(this.extendUrl + '/photos',
-            {
-                params: new HttpParams().set('id', id.toString())
-            });
+    getProductPhotos(id: number): Observable<EntityArrayResponseType> {
+        return this.http.get<IProductPhoto[]>(this.extendUrl + '/photos', { params: new HttpParams().set('id', id.toString()), observe: 'response' });
     }
 
 }

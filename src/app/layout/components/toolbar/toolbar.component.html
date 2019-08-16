@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark d-none d-sm-block" [ngSwitch]="isAuthenticated()" [ngClass]="isMobile?'':'bg-dark'">
-    <div class="container">
+<nav class="navbar navbar-expand-lg navbar-dark d-none d-sm-block" [ngClass]="isMobile?'':'bg-dark'">
+    <div class="container" [ngSwitch]="isAuthenticated()">
         <!-- <a class="navbar-brand" href="#">Navbar</a> -->
         <button class="navbar-toggler" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed"
             data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

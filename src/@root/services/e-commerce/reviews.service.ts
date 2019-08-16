@@ -58,7 +58,7 @@ export class ReviewsService {
     getReviewLinesByProductId(id: number): Observable<EntityReviewLinesArrayResponseType> {
         let params = new HttpParams();
         params = params.set('productId', id.toString());
-        return this.http.get<IReviews[]>(this.extendUrl + '/reviewed', { observe: 'response', params: params });
+        return this.http.get<IReviewLines[]>(this.extendUrl + '/reviewed', { observe: 'response', params: params });
     }
 
     createExtend(reviews: IReviews) {

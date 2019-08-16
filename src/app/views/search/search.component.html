@@ -12,77 +12,6 @@
             <condition (changeCondition)="updateCondition($event)"></condition>
             <rating></rating>
           </div>
-
-          <!-- <div class="shop-sidebar-wrapper gray-bg-7">
-            <mat-card class="example-card">
-              <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>Jade</mat-card-title>
-                <mat-card-subtitle>Offical Store</mat-card-subtitle>
-              </mat-card-header>
-              <img mat-card-image src="assets/kallas/banner-set2-32.jpg" alt="Photo of a Shiba Inu">
-              <mat-card-content>
-                <p>
-                  jewellery shop
-                </p>
-              </mat-card-content>
-            </mat-card>
-            <mat-divider></mat-divider>
-            <mat-accordion>
-              <mat-expansion-panel [expanded]="true">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <div class="expansion-title">
-                      category
-                    </div>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <category [categories]="categoriesTree" (selectedCategories)="updateCategories($event)"></category>
-              </mat-expansion-panel>
-              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <div class="expansion-title">
-                      color
-                    </div>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <color [colorsFilters]="colors" (changedColorFilters)="updateColorFilters($event)"
-                  *ngIf="colors.length"></color>
-              </mat-expansion-panel>
-              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <div class="expansion-title">
-                      price
-                    </div>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <price-filter [price]="price" [rangePrice]="rangePrice" (priceFilters)="updatePriceFilters($event)">
-                </price-filter>
-              </mat-expansion-panel>
-              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <div class="expansion-title">
-                      condition
-                    </div>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <condition (changeCondition)="updateCondition($event)"></condition>
-              </mat-expansion-panel>
-              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <div class="expansion-title">
-                      rating
-                    </div>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <rating></rating>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </div> -->
         </div>
       </root-sidebar>
       <div class="center">
@@ -101,19 +30,8 @@
             </div>
           </div>
           <div class="content">
-            <!-- <div class="product-wrapper-grid">
-              <div class="container-fluid">
-                <div class="row" [@Animation]="animation">
-                  <div class="col-md-3" *ngFor="let product of products">
-                    <a [routerLink]="['/products',product.id]" routerLinkActive="active">
-                      <product-card [product]="product" (quickview)="onQuickView($event)"></product-card>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-            <p-dataView #dv [value]="products | category: categoriesFilters | color:colorFilters" [paginator]="true"
-              [rows]="10" paginatorPosition="bottom" filterBy="productName" [sortField]="sortField"
+            <p-dataView #dv [value]="products$ | async"
+              [paginator]="true" [rows]="10" paginatorPosition="bottom" filterBy="productName" [sortField]="sortField"
               [sortOrder]="sortOrder" [layout]="dataViewOptions.layout">
               <p-header>
                 <div class="ui-helper-clearfix">
@@ -137,7 +55,7 @@
               <ng-template let-product pTemplate="listItem">
                 <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
                   <div class="ui-g-12 ui-md-3" style="text-align:center">
-                    <img [src]="product.pictures[0]">
+                    <img [src]="product.photo">
                   </div>
                   <div class="ui-g-12 ui-md-8 product-details">
                     <div class="ui-g">
@@ -155,7 +73,7 @@
                     </div>
                   </div>
                   <div class="ui-g-12 ui-md-1 search-icon">
-                    <button pButton type="button" icon="pi pi-search" (click)="selectProduct($event, product)"></button>
+                    <button pButton type="button" icon="pi pi-search"></button>
                   </div>
                 </div>
               </ng-template>
@@ -173,7 +91,7 @@
               [contentStyle]="{'overflow':'visible'}">
               <div class="ui-g" *ngIf="selectedProduct">
                 <div class="ui-g-12" style="text-align:center">
-                  <img [src]="selectedProduct.pictures[0]" width="60">
+                  <img [src]="selectedProduct.photo" width="60">
                 </div>
                 <div class="ui-g-4">Name: </div>
                 <div class="ui-g-8">{{selectedProduct.name}}</div>

@@ -1,10 +1,10 @@
 <div id="home">
     <slider-banner></slider-banner>
     <product-category></product-category>
-    <flash-deals eventDate="2020-01-01"></flash-deals>
+    <flash-deals eventDate="2020-01-01" [data]="newlyAdded$ | async" [loading]="loading$ | async" [error]="error$ | async"></flash-deals>
     <brand-zone></brand-zone>
-    <most-popular></most-popular>
-    <newly-added></newly-added>
+    <most-popular [data]="mostSelling$ | async" [loading]="loading$ | async" [error]="error$ | async"></most-popular>
+    <newly-added [data]="newlyAdded$ | async" [loading]="loading$ | async" [error]="error$ | async"></newly-added>
     <sub-banner></sub-banner>
-    <daily-discover></daily-discover>
+    <daily-discover [data]="dailyDiscover$ | async" [loading]="loading$ | async" [error]="error$ | async"></daily-discover>
 </div>

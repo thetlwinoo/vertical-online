@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { RootSharedModule } from '@root/shared.module';
 import { ToolbarModule } from 'app/layout/components/toolbar/toolbar.module';
 import { HeaderModule } from 'app/layout/components/header/header.module';
@@ -16,6 +17,7 @@ import { Layout1Component } from './layout1.component';
   imports: [
     RouterModule,
     RootSharedModule,
+    CommonModule,
     ToolbarModule,
     HeaderModule,
     ContentModule,

@@ -14,32 +14,35 @@ import { rootAnimations } from '@root/animations';
   styleUrls: ['./daily-discover.component.scss'],
   animations: rootAnimations
 })
-export class DailyDiscoverComponent implements OnInit, OnDestroy {
-  showcaseState: Observable<{ newlyAdded: IProducts[], mostSelling: IProducts[], interested: IProducts[], dailyDiscover: IProducts[] }>;
-  private subscriptions: Subscription[] = [];
-  isFetched: boolean = false;
+export class DailyDiscoverComponent {
+  @Input() data: IProducts[];
+  @Input() loading;
+  @Input() error;
+  // showcaseState: Observable<{ newlyAdded: IProducts[], mostSelling: IProducts[], interested: IProducts[], dailyDiscover: IProducts[] }>;
+  // private subscriptions: Subscription[] = [];
+  // isFetched: boolean = false;
 
   constructor(
     private store: Store<fromApp.AppState>
   ) { }
 
   ngOnInit() {
-    this.showcaseState = this.store.select('showcase');
-    const showcaseSubscription = this.showcaseState
-      .filter(data => data.dailyDiscover.length == 0 && !this.isFetched)
-      .subscribe(
-        data => {
-          this.store.dispatch(new ShowcaseActions.FetchDailyDiscover());
-          this.isFetched = true;
-        }
-      );
+    // this.showcaseState = this.store.select('showcase');
+    // const showcaseSubscription = this.showcaseState
+    //   .filter(data => data.dailyDiscover.length == 0 && !this.isFetched)
+    //   .subscribe(
+    //     data => {
+    //       this.store.dispatch(new ShowcaseActions.FetchDailyDiscover());
+    //       this.isFetched = true;
+    //     }
+    //   );
 
-    this.subscriptions.push(showcaseSubscription);
+    // this.subscriptions.push(showcaseSubscription);
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(el => {
-      if (el) el.unsubscribe();
-    });
+    // this.subscriptions.forEach(el => {
+    //   if (el) el.unsubscribe();
+    // });
   }
 }

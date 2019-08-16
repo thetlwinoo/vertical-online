@@ -1,29 +1,35 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { ProductService } from "@root/services";
+import { Component, HostListener, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { ProductsService } from "@root/services";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/catch';
 import { Observable } from "rxjs/Observable";
-import { ColorFilter } from '@root/models';
+import { map } from 'rxjs/operators';
+import { ColorFilter, IProducts } from '@root/models';
 import { TreeNode, SelectItem } from 'primeng/api';
 import { RootSidebarService } from '@root/components/sidebar/sidebar.service';
 import { rootAnimations } from '@root/animations';
 import { Pageable } from '@root/models';
 import { LazyLoadEvent } from 'primeng/api';
+import { Store, select } from "@ngrx/store";
+// import * as fromApp from "app/ngrx/app.reducers";
+// import { HttpError } from "app/ngrx/app.reducers";
+// import * as BrowseActions from "app/ngrx/browse/browse.actions";
+
+import { ProductActions } from 'app/ngrx/products/actions';
+import * as fromProducts from 'app/ngrx/products/reducers';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss'],
-  animations: rootAnimations
+  styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
-  querySubscribe: Subscription;
+export class SearchComponent implements OnInit, OnDestroy {
+  // browseState: Observable<{ products: IProducts[], errors: HttpError[], loading: boolean }>;
+  private subscriptions: Subscription[] = [];
   // page: number = 0;
   keyword: string;
   canFetch: boolean = false;
-
+  // querySubscribe: Subscription;
   public categories: any[] = [];
   public categoriesTree: any;
   public colors: any[] = [];
@@ -31,6 +37,9 @@ export class SearchComponent implements OnInit {
   public rangePrice: any = [0, 0];
 
   products: any[] = [];
+  products$: Observable<IProducts[]>;
+  loading$: Observable<boolean>;
+  error$: Observable<string>;
   public filteredItems: any[] = [];
 
   public colorFilters: ColorFilter[] = [];
@@ -47,37 +56,57 @@ export class SearchComponent implements OnInit {
   sortField: string;
   sortOrder: number;
   loading: boolean;
-  totalRecords:number = 1000;
+  totalRecords: number = 1000;
 
   constructor(
-    private productService: ProductService,
+    private productService: ProductsService,
+    // private store: Store<fromApp.AppState>,
+    private store: Store<fromProducts.State>,
     private router: Router,
     private route: ActivatedRoute,
     private rootSidebarService: RootSidebarService
-  ) { }
+  ) {
+    // this.browseState = store.pipe(select('browse'));
+    // const actionsSubscription = route.params
+    //   .pipe(map(params => new BrowseActions.SearchProducts({ keyword: params.keyword })))
+    //   .subscribe(action => store.dispatch(action));
+    // this.subscriptions.push(actionsSubscription);
+    const actionsSubscription = route.params
+      .pipe(map(params => ProductActions.searchProducts({ query: params.keyword })))
+      .subscribe(action => store.dispatch(action));
+    this.subscriptions.push(actionsSubscription);
+
+    this.products$ = store.pipe(select(fromProducts.getSearchResults));
+    this.loading$ = store.pipe(select(fromProducts.getSearchLoading));
+    this.error$ = store.pipe(select(fromProducts.getSearchError));
+  }
 
   ngOnInit() {
-    console.log('search init')
-    this.querySubscribe = this.route.params.subscribe((params: Params) => {
-      this.keyword = params['keyword'];
-      this.productService.searchProductAll(this.keyword)
-        .take(1)
-        .catch(error => {
-          this.canFetch = false;
-          return Observable.throw(error);
-        })
-        .subscribe(data => {
-          console.log('search result', data)
-          this.products = data;
-          this.filteredItems = data;
-          // this.page++;
-          this.getFilters(data);
+    // this.browseState = this.store.select('browse');
 
-          if (data.length != 0) {
-            this.canFetch = true;
-          }
-        });
-    });
+    // const querySubscribe = this.route.params.subscribe((params: Params) => {
+    //   this.keyword = params['keyword'];
+    //   // this.store.dispatch(new BrowseActions.SearchProducts({ keyword: this.keyword }));
+
+    //   this.productService.searchProductAll(this.keyword)
+    //     .take(1)
+    //     .catch(error => {
+    //       this.canFetch = false;
+    //       return Observable.throw(error);
+    //     })
+    //     .subscribe(res => {
+    //       console.log('search result', res.body)
+    //       this.products = res.body;
+    //       this.filteredItems = res.body;
+    //       // this.page++;
+    //       this.getFilters(res.body);
+
+    //       if (res.body.length != 0) {
+    //         this.canFetch = true;
+    //       }
+    //     });
+    // });    
+    // this.subscriptions.push(querySubscribe);
 
     this.sortOptions = [
       { label: 'Price', value: 'unitPrice' },
@@ -251,15 +280,21 @@ export class SearchComponent implements OnInit {
         this.canFetch = false;
         return Observable.throw(error);
       })
-      .subscribe(data => {
-        this.products = data;
-        this.filteredItems = data;
+      .subscribe(res => {
+        this.products = res.body;
+        this.filteredItems = res.body;
         // this.page++;
-        this.getFilters(data);
+        this.getFilters(res.body);
 
-        if (data.length != 0) {
+        if (res.body.length != 0) {
           this.canFetch = true;
         }
       });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(el => {
+      if (el) el.unsubscribe();
+    });
   }
 }

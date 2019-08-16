@@ -22,7 +22,7 @@ import { AccountService } from '@root/services/core/auth/account.service';
 import { LoginModalService } from '@root/services/core/login/login-modal.service';
 import { JhiEventManager } from 'ng-jhipster';
 import { Subscription } from "rxjs/Subscription";
-import { ProductService, ProductPhotoService } from '@root/services';
+import { ProductsService, ProductPhotoService } from '@root/services';
 import 'rxjs/add/operator/filter';
 import { CommaExpr } from '@angular/compiler';
 
@@ -32,9 +32,6 @@ import { CommaExpr } from '@angular/compiler';
   styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
-  paramSubscription: Subscription;
-  routerSubscription: Subscription;
-  wishlistSubscription: Subscription;
   fetchError: HttpErrorResponse = null;
   account: Account;
   images: any;
@@ -54,7 +51,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   isInCompare: boolean = false;
   // wishlistList: any;  
   // isWishlistFetched: boolean = false;
-
+  private subscriptions: Subscription[] = [];
   constructor(
     private router: Router,
     // private productDetailService: ProductDetailService,
@@ -65,14 +62,14 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private eventManager: JhiEventManager,
     private route: ActivatedRoute,
-    private productService: ProductService,
+    private productService: ProductsService,
     private productPhotoService: ProductPhotoService,
     // private wishlistService: WishlistService
   ) {
   }
 
   ngOnInit() {
-    this.routerSubscription = this.router.events.subscribe(event => {
+    const routerSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd && !this.isPopState) {
         // window.scrollTo(0, 0);
         this.isPopState = false;
@@ -82,25 +79,28 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this.isPopState = false;
       }
     });
+    this.subscriptions.push(routerSubscription);
 
     this.cartState = this.store.select('cart');
     this.wishlistState = this.store.select('wishlist');
     this.compareState = this.store.select('compare');
     this.photoState = this.store.select('photos');
 
-    this.paramSubscription = this.route.params.subscribe(
+    const paramSubscription = this.route.params.subscribe(
       (params: Params) => {
         this.id = params['id'];
         this.inlineLoading = true;
-        this.productService.getFullProduct(this.id).pipe(
-          filter((response: HttpResponse<Products>) => response.ok),
-          map((response: HttpResponse<Products>) => response.body))
+        this.productService.retrieveProduct(this.id)
+          .pipe(
+            filter((res: HttpResponse<Products>) => res.ok),
+            map((res: HttpResponse<Products>) => res.body)
+          )
           .subscribe(
             (data: any) => {
               this.product = data;
               this.inlineLoading = false;
             }
-          );
+          );        
 
         console.log('id', params['id']);
         this.store.dispatch(new PhotoActions.FetchPhotos(params['id']));
@@ -110,16 +110,19 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
           this.store.dispatch(new CompareActions.CheckInCompare(params['id']));
         }
       }
-    );
+    );    
+    this.subscriptions.push(paramSubscription);
 
-    this.wishlistState.subscribe(data => {
+    const wishlistSubscription = this.wishlistState.subscribe(data => {
       this.isInWishlist = data.isInWishlist;
       console.log('check in list status', data.isInWishlist);
     });
+    this.subscriptions.push(wishlistSubscription);
 
-    this.compareState.subscribe(data => {
+    const compareSubscription = this.compareState.subscribe(data => {
       this.isInCompare = data.isInCompare;
     });
+    this.subscriptions.push(compareSubscription);
   }
 
   public increment() {
@@ -220,15 +223,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.paramSubscription != null) {
-      this.paramSubscription.unsubscribe();
-    }
-    if (this.routerSubscription != null) {
-      this.routerSubscription.unsubscribe();
-    }
-
-    if (this.wishlistSubscription != null) {
-      this.wishlistSubscription.unsubscribe();
-    }
+    this.subscriptions.forEach(el => {
+      if (el) el.unsubscribe();
+    });
   }
 }

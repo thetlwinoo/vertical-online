@@ -70,7 +70,7 @@ export class ProductsService {
             });
     }
 
-    getFullProduct(id: number): Observable<EntityResponseType> {
+    retrieveProduct(id: number): Observable<EntityResponseType> {        
         return this.http.get<IProducts>(this.extendUrl + '/product', {
             params: new HttpParams().set('id', id.toString()),
             observe: 'response'
@@ -87,7 +87,7 @@ export class ProductsService {
         return this.http.get<IProducts[]>(this.extendUrl + '/recent', { observe: 'response' });
     }
 
-    getMostSelling(): Observable<EntityArrayResponseType> {
+    getMostSelling(): Observable<EntityArrayResponseType> {        
         return this.http.get<IProducts[]>(this.extendUrl + '/mostselling', { observe: 'response' });
     }
 
@@ -105,8 +105,9 @@ export class ProductsService {
         params = params.append('keyword', keyword);
         params = params.append('pageable', 'true');
         params = params.set('size', this.searchPageSize.toString());
-        console.log('this.extendUrl',this.extendUrl)
-        return this.http.get<IProducts[]>(this.extendUrl + '/search', { params: params, observe: 'response' });
+        console.log('this.extendUrl', this.extendUrl)
+        return this.http.get<IProducts[]>(this.extendUrl + '/search', { params: params, observe: 'response' })
+            .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
     searchProductAll(keyword: string): Observable<EntityArrayResponseType> {

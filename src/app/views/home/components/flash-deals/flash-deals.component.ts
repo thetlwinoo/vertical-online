@@ -16,15 +16,19 @@ import { rootAnimations } from '@root/animations';
 })
 export class FlashDealsComponent implements OnInit, OnDestroy {
   @Input('eventDate') eventDate;
+  @Input() data: IProducts[];
+  @Input() loading;
+  @Input() error;
+
   carousel: any;
   countdown: any;
-  products: IProducts[];
+  // products: IProducts[];
 
   private _unsubscribeAll: Subject<any>;
-  private subscriptions: Subscription[] = [];
+  // private subscriptions: Subscription[] = [];
 
   constructor(
-    private productsService: ProductsService
+    // private productsService: ProductsService
   ) {
     this.countdown = {
       days: '',
@@ -66,32 +70,32 @@ export class FlashDealsComponent implements OnInit, OnDestroy {
         this.countdown = value;
       });
 
-    this.getFlashDeals();
+    // this.getFlashDeals();
   }
 
-  getFlashDeals() {
-    const searchSubscription = this.productsService.getNewlyAdded()
-      .pipe(
-        filter((res: HttpResponse<IProducts[]>) => res.ok),
-        map((res: HttpResponse<IProducts[]>) => res.body)
-      )
-      .subscribe(
-        (data: any) => {
-          console.log(data)
-          this.products = data;
-        }
-      );
-    this.subscriptions.push(searchSubscription);
-  }
+  // getFlashDeals() {
+  //   const searchSubscription = this.productsService.getNewlyAdded()
+  //     .pipe(
+  //       filter((res: HttpResponse<IProducts[]>) => res.ok),
+  //       map((res: HttpResponse<IProducts[]>) => res.body)
+  //     )
+  //     .subscribe(
+  //       (data: any) => {
+  //         console.log(data)
+  //         this.products = data;
+  //       }
+  //     );
+  //   this.subscriptions.push(searchSubscription);
+  // }
 
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
 
-    this.subscriptions.forEach(el => {
-      if (el) el.unsubscribe();
-    });
+    // this.subscriptions.forEach(el => {
+    //   if (el) el.unsubscribe();
+    // });
   }
 
 }
