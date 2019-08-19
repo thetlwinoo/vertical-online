@@ -54,7 +54,7 @@ export function addressReducer(state = initialState, action: AddressesActions.Ad
                     loading: false
                 }
             }            
-console.log('fetch success 22222',action.payload);
+
             return {
                 ...state,
                 addresses: action.payload,

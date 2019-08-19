@@ -40,8 +40,8 @@ export class AddressesService {
         return this.http.post(this.addressesExtendUrl + '/setdefault', id, { observe: 'response' });
     }
 
-    fetch(): Observable<EntityResponseType> {
-        return this.http.get<IAddresses>(this.addressesExtendUrl + '/fetch', { observe: 'response' });
+    fetch(): Observable<EntityArrayResponseType> {
+        return this.http.get<IAddresses[]>(this.addressesExtendUrl + '/fetch', { observe: 'response' });
     }
 
     clearDefault(): Observable<EntityResponseType> {

@@ -12,10 +12,6 @@ export class PaypalService {
     }
 
     createPayment(payload: any) {
-        // let params = new HttpParams();
-        // params = params.set('sum', sum.toString());
-
-        // console.log('Params', params);
         console.log('craetePay',payload)
         return this.httpClient.post<any>(this.extendUrl + '/make/payment', {
             sum: payload.sum.toString(),
@@ -25,9 +21,6 @@ export class PaypalService {
     }
 
     completePayment(paymentId: string, payerId: string, orderId: number) {
-        // let params = new HttpParams();
-        // params = params.set('paymentId', paymentId);
-        // params = params.set('payerId', payerId);
         console.log('comple paypal service', paymentId, payerId, orderId);
         return this.httpClient.post<any>(this.extendUrl + '/complete/payment', {
             paymentId: paymentId,

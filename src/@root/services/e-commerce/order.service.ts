@@ -40,11 +40,11 @@ export class OrderService {
     });
   }
 
-  getAllOrdersWithoutPaging() {
-    return this.http.get<Orders[]>(this.extendUrl + '/allorders');
+  getAllOrdersWithoutPaging(): Observable<EntityArrayResponseType> {
+    return this.http.get<Orders[]>(this.extendUrl + '/allorders', { observe: 'response' });
   }
 
-  postOrder(orders: IOrders) {
+  postOrder(orders: IOrders): Observable<EntityResponseType> {
     console.log('Orders', orders)
     const copy = this.convertDateFromClient(orders);
     return this.http

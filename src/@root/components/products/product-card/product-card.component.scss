@@ -257,11 +257,11 @@
     }
 
     .product-name {
-        min-height: 76px;
-        font-size: 1rem !important;
+        min-height: 42px;
+        font-size: 0.9rem !important;
         font-weight: 600 !important;
-        line-height: 1.4rem !important;
-        color: rgba(0, 0, 0, .8) !important;
+        // line-height: 1.4rem !important;
+        color: rgba(0,0,0,.8) !important;
     }
 
     .star {

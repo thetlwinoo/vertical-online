@@ -1,52 +1,59 @@
 import { Injectable } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { ShoppingCarts } from "@root/models";
-import { environment } from '@app/env';
+import { IShoppingCarts } from "@root/models";
+import { SERVER_API_URL } from '@root/constants';
+import { Observable } from 'rxjs';
+
+type EntityResponseType = HttpResponse<IShoppingCarts>;
+type EntityArrayResponseType = HttpResponse<IShoppingCarts[]>;
 
 @Injectable()
 export class CartService {
-  securedUrl: string = `${environment.serverApi.baseUrl}` + 'api/shopping-carts-extend/cart';
+  extendUrl: string = SERVER_API_URL + 'api/shopping-carts-extend/cart';
 
   constructor(private httpClient: HttpClient) {
   }
 
-  getCart() {
-    return this.httpClient.get<ShoppingCarts>(this.securedUrl);
+  getCart(): Observable<EntityResponseType> {
+    return this.httpClient.get<IShoppingCarts>(this.extendUrl, { observe: 'response' });
   }
 
-  postCart(productId: number, quantity: number) {
-    return this.httpClient.post<ShoppingCarts>(this.securedUrl, {
+  postCart(productId: number, quantity: number): Observable<EntityResponseType> {
+    return this.httpClient.post<IShoppingCarts>(this.extendUrl, {
       productId: productId,
       amount: quantity
-    });
+    }, { observe: 'response' });
   }
 
-  removeFromCart(id: number) {
-    return this.httpClient.delete<ShoppingCarts>(this.securedUrl, {
-      params: new HttpParams().set('id', id.toString())
+  removeFromCart(id: number): Observable<EntityResponseType> {
+    return this.httpClient.delete<IShoppingCarts>(this.extendUrl, {
+      params: new HttpParams().set('id', id.toString()),
+      observe: 'response'
     })
   }
 
-  reduceFromCart(id: number, quantity: number) {
+  reduceFromCart(id: number, quantity: number): Observable<EntityResponseType> {
     console.log('reduce', id)
-    return this.httpClient.post<ShoppingCarts>(this.securedUrl + '/reduce', {
+    return this.httpClient.post<IShoppingCarts>(this.extendUrl + '/reduce', {
       id: id,
       quantity: quantity
+    }, { observe: 'response' });
+  }
+
+  confirmCart(cart: IShoppingCarts): Observable<HttpResponse<any>> {
+    return this.httpClient.post(this.extendUrl + '/confirm', cart, { observe: 'response' });
+  }
+
+  applyDiscount(code: string): Observable<EntityResponseType> {
+    return this.httpClient.get<IShoppingCarts>(this.extendUrl + '/discount', {
+      params: new HttpParams().set('code', code),
+      observe: 'response'
     });
   }
 
-  confirmCart(cart: ShoppingCarts) {
-    return this.httpClient.post(this.securedUrl + '/confirm', cart);
-  }
-
-  applyDiscount(code: string) {
-    return this.httpClient.get<ShoppingCarts>(this.securedUrl + '/discount', {
-      params: new HttpParams().set('code', code)
-    });
-  }
-
-  emptyCart() {
-    return this.httpClient.delete(this.securedUrl);
+  emptyCart(): Observable<HttpResponse<any>> {
+    return this.httpClient.delete(this.extendUrl, { observe: 'response' });
   }
 
 
