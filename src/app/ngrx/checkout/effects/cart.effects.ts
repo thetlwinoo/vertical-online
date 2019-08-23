@@ -33,7 +33,7 @@ export class CartEffects {
                 this.cartService.postCart(props.id, props.quantity).pipe(
                     filter((res: HttpResponse<IShoppingCarts>) => res.ok),
                     switchMap((res: HttpResponse<IShoppingCarts>) =>
-                        [CartActions.addToCartSuccess({ cart: res.body }), CartActions.setCart]
+                        [CartActions.addToCartSuccess({ cart: res.body }), CartActions.setCart({ cart: res.body })]
                     ),
                     catchError(err =>
                         of(CartActions.shoppingCartError({ errorMsg: err.message }))
@@ -50,7 +50,7 @@ export class CartEffects {
                 this.cartService.reduceFromCart(props.id, props.quantity).pipe(
                     filter((res: HttpResponse<IShoppingCarts>) => res.ok),
                     switchMap((res: HttpResponse<IShoppingCarts>) =>
-                        [CartActions.reduceFromCartSuccess({ cart: res.body }), CartActions.setCart]
+                        [CartActions.reduceFromCartSuccess({ cart: res.body }), CartActions.setCart({ cart: res.body })]
                     ),
                     catchError(err =>
                         of(CartActions.shoppingCartError({ errorMsg: err.message }))
@@ -67,7 +67,7 @@ export class CartEffects {
                 this.cartService.removeFromCart(id).pipe(
                     filter((res: HttpResponse<IShoppingCarts>) => res.ok),
                     switchMap((res: HttpResponse<IShoppingCarts>) =>
-                        [CartActions.removeFromCartSuccess({ cart: res.body }), CartActions.setCart]
+                        [CartActions.removeFromCartSuccess({ cart: res.body }), CartActions.setCart({ cart: res.body })]
                     ),
                     catchError(err =>
                         of(CartActions.shoppingCartError({ errorMsg: err.message }))

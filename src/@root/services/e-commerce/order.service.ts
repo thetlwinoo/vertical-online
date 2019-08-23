@@ -44,9 +44,8 @@ export class OrderService {
     return this.http.get<Orders[]>(this.extendUrl + '/allorders', { observe: 'response' });
   }
 
-  postOrder(orders: IOrders): Observable<EntityResponseType> {
-    console.log('Orders', orders)
-    const copy = this.convertDateFromClient(orders);
+  postOrder(orders: IOrders): Observable<EntityResponseType> {    
+    const copy = this.convertDateFromClient(orders);    
     return this.http
       .post<IOrders>(this.extendUrl + '/order', copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
@@ -101,7 +100,7 @@ export class OrderService {
   }
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
-    if (res.body) {
+    if (res.body) {      
       res.body.orderDate = res.body.orderDate != null ? moment(res.body.orderDate) : null;
       res.body.dueDate = res.body.dueDate != null ? moment(res.body.dueDate) : null;
       res.body.shipDate = res.body.shipDate != null ? moment(res.body.shipDate) : null;

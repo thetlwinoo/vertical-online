@@ -18,6 +18,7 @@ import { CompareEffects } from "./compare/compare.effects";
 import { AddressesEffects } from "./adresses/addresses.effects";
 import { ReviewsEffects } from "./reviews/reviews.effects";
 
+
 @NgModule({
   declarations: [],
   imports: [

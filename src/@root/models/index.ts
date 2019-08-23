@@ -22,3 +22,5 @@ export * from './shopping-carts.model';
 export * from './shopping-cart-items.model';
 export * from './pageable';
 export * from './product-photo.model';
+export * from './cart-actions.model';
+export * from './payment-actions.model';

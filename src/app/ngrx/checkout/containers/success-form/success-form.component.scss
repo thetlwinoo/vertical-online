@@ -1,0 +1,68 @@
+:host {
+    .success-page {
+        p {
+            text-align: center;
+            padding: 10px 0px;
+
+            &.thank-you-label {
+                color: #51DCA3;
+                font-size: 2em;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .order-summary-button {
+        width: 100%;
+        text-align: left;
+        text-decoration: none;
+        color: #333333;
+        font-weight: 400;
+    }
+
+    button {
+        &.total-due-button {
+            span {
+                color: #f57224;
+                font-size: 1.4em;
+            }
+        }
+
+        &.btn-link:hover {
+            color: inherit !important;
+            text-decoration: none !important;
+        }
+    }
+
+    #order-success-summary {
+        &.table {
+            tbody {
+                tr {
+                    td {
+                        &:last-child {
+                            text-align: right !important;
+                        }
+
+                        .total-due {
+                            color: #f57224;
+                            font-size: 1.4em;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    .gst-label {
+        font-size: 0.85em;
+        font-weight: 600;
+        text-align: right !important;
+        color: #8a8a8a;
+    }
+
+    #continue-shopping {
+        padding: 15px 20px;
+        font-size: 1.8em;
+    }
+}

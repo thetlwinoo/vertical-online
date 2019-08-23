@@ -52,6 +52,14 @@ export const reducer = createReducer(
             error: ''
         })
     ),
+    on(OrderActions.emptyOrder, (state) => ({
+        ...state,
+        loaded: true,
+        loading: false,
+        orders: [],
+        currentOrder: null,
+        error: ''
+    })),
     on(OrderActions.orderError, (state, { errorMsg }) => ({
         ...state,
         loading: false,

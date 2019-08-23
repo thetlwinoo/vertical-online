@@ -1,6 +1,6 @@
 <div class="page-layout blank collection-wrapper">
     <product-detail [product]="product$ | async" [inCompare]="isSelectedProductInCompare$ | async"
-        [inWishlist]="isSelectedProductInWishlist$ | async" (addToCompare)="addToCompare($event)"
+        [inWishlist]="isSelectedProductInWishlist$ | async" [inCart]="isSelectedProductInCart$ | async" (addToCompare)="addToCompare($event)"
         (removeFromCompare)="removeFromCompare($event)" (addToWishlist)="addToWishlist($event)"
-        (removeFromWishlist)="removeFromWishlist($event)"></product-detail>
+        (removeFromWishlist)="removeFromWishlist($event)" (addCart)="addToCart($event)"></product-detail>
 </div>

@@ -1,0 +1,52 @@
+<p-card id="business-entity" header="Shipping Address">
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-12">
+            <table>
+                <tr>
+                    <td><i class="pi pi-map-marker"></i></td>
+                    <td class="address-title">
+                        <span class="contact-person">{{address.contactPerson}}</span>
+                        <button *ngIf="address.addressType" pButton type="button"
+                            label="{{address.addressType?.addressTypeName}}"
+                            class="ui-button-warning default-button address-type"></button>
+                    </td>
+                    <td>
+                        <a [routerLink]="['/pages/dashboard/address-book', address.id, 'edit']">Edit</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <p class="info">{{address.addressLine1}}</p>
+                        <p class="info">{{address.addressLine2}}</p>
+                        <p class="info">{{address.postalCode}} , {{address.city}}.</p>
+                    </td>
+                    <td>
+                        <!-- <a href>Edit</a> -->
+                    </td>
+                </tr>
+                <tr>
+                    <td><i class="pi pi-tag"></i></td>
+                    <td><span class="info">Bill to the same address.</span></td>
+                    <td>
+                        <!-- <a href>Edit</a> -->
+                    </td>
+                </tr>
+                <tr>
+                    <td><i class="pi pi-mobile"></i></td>
+                    <td><span class="info">{{address.contactNumber}}</span></td>
+                    <td>
+                        <!-- <a href>Edit</a> -->
+                    </td>
+                </tr>
+                <tr>
+                    <td><i class="pi pi-envelope"></i></td>
+                    <td><span class="info">{{address.contactEmailAddress}}</span></td>
+                    <td>
+                        <!-- <a href>Edit</a> -->
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</p-card>

@@ -1,0 +1,3 @@
+<order-details [shoppingCart]="(cart$ | async)" [cartPrice]="(cartPrice$ | async)" [default]="(defaultAddress$ | async)"
+    [addresses]="(addresses$ | async)" [totalQuantity]="(totalQuantity$ | async)" (post)="postOrder($event)">
+</order-details>

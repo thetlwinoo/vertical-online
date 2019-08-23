@@ -1,22 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IOrders } from '@root/models';
-
-interface PaypalProps {
-    paymentId: string;
-    payerId: string;
-    orderId: number;
-}
-
-interface StripeProps {
-    token: string;
-    amount: number;
-    orderId: number;
-}
+import { IOrders, CreatePaypalProps, CompletePaypalProps, StripeProps } from '@root/models';
 
 export const createPaypal = createAction(
     '[Payment/API] Create Paypal',
-    props<{ props: PaypalProps }>()
+    props<{ props: CreatePaypalProps }>()
 );
 
 export const createPaypalSuccess = createAction(
@@ -26,7 +14,7 @@ export const createPaypalSuccess = createAction(
 
 export const completePaypal = createAction(
     '[Payment/API] Complete Paypal',
-    props<{ props: PaypalProps }>()
+    props<{ props: CompletePaypalProps }>()
 );
 
 export const completePaypalSuccess = createAction(

@@ -1,20 +1,15 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IShoppingCarts } from '@root/models';
-
-interface AddToCartProps {
-    id: number;
-    quantity: number;    
-}
-
-interface ReduceFromCartProps {
-    id: number;
-    quantity: number;    
-}
+import { IShoppingCarts, AddToCartProps, ReduceFromCartProps } from '@root/models';
 
 export const addToCart = createAction(
     '[ShoppingCarts/API] Add To Cart',
     props<{ props: AddToCartProps }>()
+);
+
+export const selectProduct = createAction(
+    '[ShoppingCarts/View Product] Select Product',
+    props<{ id: number }>()
 );
 
 export const addToCartSuccess = createAction(

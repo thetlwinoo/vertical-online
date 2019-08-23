@@ -11,8 +11,8 @@ export interface State {
     loaded: boolean;
     loading: boolean;
     addresses: IAddresses[];
-    default: IAddresses;
-    error: string;
+    default: IAddresses;    
+    error: string;    
 }
 
 const initialState: State = {
@@ -49,6 +49,6 @@ export const getLoading = (state: State) => state.loading;
 
 export const getAddresses = (state: State) => state.addresses;
 
-export const getDefaultAddress = (state: State) => state.default;
+export const getDefault = (state: State) => state.default;
 
 export const getError = (state: State) => state.error;

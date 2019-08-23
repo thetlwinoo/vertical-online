@@ -41,9 +41,9 @@ export class PaymentEffects {
             return this.paypalService.completePayment(payload.paymentId, payload.payerId, payload.orderId)
                 .map(res => {
                     console.log('complete paypal', res);
-                    if (res.status == 'approved') {
-                        this.ngZone.run(() => this.router.navigate(["/checkout/success", payload.orderId]).then());
-                    }
+                    // if (res.status == 'approved') {
+                    //     this.ngZone.run(() => this.router.navigate(["/checkout/success", payload.orderId]).then());
+                    // }
                     return { type: PaymentActions.COMPLETE_PAYPAL_SUCCESS, payload: { completePaypal: res, effect: PaymentActions.COMPLETE_PAYPAL } }
                 })
                 .catch(error => {
@@ -66,9 +66,9 @@ export class PaymentEffects {
             return this.creditCardService.chargeCard(payload)
                 .map(res => {
                     console.log('charge stripe res', res);
-                    if (res.status == 'succeeded') {
-                        this.ngZone.run(() => this.router.navigate(["/checkout/success", payload.orderId]).then());
-                    }
+                    // if (res.status == 'succeeded') {
+                    //     this.ngZone.run(() => this.router.navigate(["/checkout/success", payload.orderId]).then());
+                    // }
                     return { type: PaymentActions.CHARGE_STRIPE_SUCCESS, payload: { chargeStripe: res, effect: PaymentActions.CHARGE_STRIPE } }
                 })
                 .catch(error => {

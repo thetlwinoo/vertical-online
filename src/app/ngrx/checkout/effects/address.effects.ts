@@ -8,7 +8,7 @@ import { AddressActions } from '../actions';
 import { AddressesService } from '@root/services';
 
 @Injectable()
-export class ProductEffects {
+export class AddressEffects {
     fetchAddresses$ = createEffect(() =>
         this.actions$.pipe(
             ofType(AddressActions.fetchAddresses),

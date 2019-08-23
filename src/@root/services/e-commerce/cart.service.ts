@@ -16,10 +16,12 @@ export class CartService {
   }
 
   getCart(): Observable<EntityResponseType> {
+    console.log('fetch cart')
     return this.httpClient.get<IShoppingCarts>(this.extendUrl, { observe: 'response' });
   }
 
   postCart(productId: number, quantity: number): Observable<EntityResponseType> {
+    console.log('post cart',productId,quantity)
     return this.httpClient.post<IShoppingCarts>(this.extendUrl, {
       productId: productId,
       amount: quantity

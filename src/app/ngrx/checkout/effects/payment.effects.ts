@@ -28,7 +28,7 @@ export class PaymentEffects {
 
     completePaypal$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(PaymentActions.createPaypal),
+            ofType(PaymentActions.completePaypal),
             mergeMap(({ props }) =>
                 this.paypalService.completePayment(props.paymentId, props.payerId, props.orderId).pipe(
                     filter((res: HttpResponse<any>) => res.ok),
@@ -37,7 +37,7 @@ export class PaymentEffects {
                     ),
                     tap(payload => {
                         if (payload.completePaypal.status == 'approved') {
-                            this.ngZone.run(() => this.router.navigate(["/checkout/success", props.orderId]).then());;
+                            this.ngZone.run(() => this.router.navigate(["/checkout/success", props.orderId]).then());
                         }
                     }),
                     catchError(err =>
@@ -54,12 +54,11 @@ export class PaymentEffects {
             mergeMap(({ props }) =>
                 this.creditCardService.chargeCard(props).pipe(
                     filter((res: HttpResponse<any>) => res.ok),
-                    map((res: HttpResponse<any>) =>
-                        PaymentActions.chargeStripeSuccess({ chargeStripe: res.body })
-                    ),
+                    map((res: HttpResponse<any>) => PaymentActions.chargeStripeSuccess({ chargeStripe: res.body })),
                     tap(payload => {
                         if (payload.chargeStripe.status == 'succeeded') {
-                            this.ngZone.run(() => this.router.navigate(["/checkout/success", props.orderId]).then());;
+                            console.log('pros charg',props)
+                            this.ngZone.run(() => this.router.navigate(["/checkout/success", props.orderId]).then());
                         }
                     }),
                     catchError(err =>

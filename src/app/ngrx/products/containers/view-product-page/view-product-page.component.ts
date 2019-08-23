@@ -4,7 +4,7 @@ import { ProductActions } from 'app/ngrx/products/actions';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-product-page',

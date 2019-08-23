@@ -110,7 +110,6 @@ export class ReviewsService {
 
     protected convertDateArrayFromServer(res: EntityOrdersArrayResponseType): EntityOrdersArrayResponseType {
         if (res.body) {
-            console.log('RRRteturn', res.body)
             res.body.forEach((orders: IOrders) => {
                 orders.orderDate = orders.orderDate != null ? moment(orders.orderDate) : null;
                 orders.dueDate = orders.dueDate != null ? moment(orders.dueDate) : null;

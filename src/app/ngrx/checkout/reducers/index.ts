@@ -48,6 +48,16 @@ export const getAddressError = createSelector(
     fromAddress.getError
 );
 
+export const getAddressDefault = createSelector(
+    getAddressState,
+    fromAddress.getDefault
+);
+
+export const getAddresses = createSelector(
+    getAddressState,
+    fromAddress.getAddresses
+);
+
 export const getAddressLoading = createSelector(
     getAddressState,
     fromAddress.getLoading
@@ -69,6 +79,38 @@ export const getCartLoading = createSelector(
     fromCart.getLoading
 );
 
+export const getCartTotalQuantity = createSelector(
+    getCartState,
+    fromCart.getTotalQuantity
+);
+
+export const getCartTotalPrice = createSelector(
+    getCartState,
+    fromCart.getCartPrice
+);
+
+export const getCartItemCount = createSelector(
+    getCartState,
+    fromCart.getItemCount
+);
+
+export const getCartProductIds = createSelector(
+    getCartState,
+    fromCart.getProductIds
+);
+
+export const getSelectedProductId = createSelector(
+    getCartState,
+    fromCart.getSelectedId
+);
+
+export const isSelectedProductInCart = createSelector(
+    getCartProductIds,
+    getSelectedProductId,
+    (ids, selected) => {
+        return !!selected && ids.indexOf(+selected) > -1;
+    }
+);
 //Order State
 export const getOrderState = createSelector(
     getCheckoutState,
@@ -79,6 +121,12 @@ export const getOrderError = createSelector(
     getOrderState,
     fromOrder.getError
 );
+
+export const getOrderCurrent = createSelector(
+    getOrderState,
+    fromOrder.getCurrentOrder
+);
+
 
 export const getOrderLoading = createSelector(
     getOrderState,

@@ -29,6 +29,8 @@ import { NgrxCoreModule } from 'app/ngrx/core';
 import { RouterEffects } from 'app/ngrx/core/effects';
 import './vendor.ts';
 import 'hammerjs';
+import { ProductsModule } from 'app/ngrx/products';
+import { CheckoutModule } from 'app/ngrx/checkout';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -50,7 +52,7 @@ const routes: Routes = [
   },
   {
     path: 'checkout',
-    loadChildren: () => import('./views/checkout/checkout.module').then(m => m.CheckoutModule)
+    loadChildren: () => import('./ngrx/checkout/checkout.module').then(m => m.CheckoutModule)
   },
   {
     path: 'search',
@@ -87,12 +89,12 @@ const routes: Routes = [
     // NgrxModule,
     StoreModule.forRoot(ROOT_REDUCERS, {
       metaReducers,
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true,
-        strictStateSerializability: true,
-        strictActionSerializability: true,
-      },
+      // runtimeChecks: {
+      //   strictStateImmutability: true,
+      //   strictActionImmutability: true,
+      //   strictStateSerializability: true,
+      //   strictActionSerializability: true,
+      // },
     }),
     StoreRouterConnectingModule.forRoot({
       routerState: RouterState.Minimal,
@@ -105,7 +107,9 @@ const routes: Routes = [
     EffectsModule.forRoot([RouterEffects]),
     NgrxCoreModule,
     RootSharedModule,
-    RootProgressBarModule
+    RootProgressBarModule,
+    ProductsModule,
+    CheckoutModule
   ],
   providers: [
     {
