@@ -26,4 +26,4 @@ const ENTITY_STATES = [...myOrdersRoute];
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
-export class MyOrdersModule{}
+export class MyOrdersModule { }

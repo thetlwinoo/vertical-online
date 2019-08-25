@@ -40,7 +40,7 @@ export class OrderEffects {
                             OrderActions.postOrderSuccess({ order: res.body })
                         ]
                     ),
-                    tap(() => this.router.navigate(['/checkout/payment'])),
+                    // tap(() => this.router.navigate(['/checkout/payment'])),
                     catchError(err =>
                         of(OrderActions.orderError({ errorMsg: err.message }))
                     )

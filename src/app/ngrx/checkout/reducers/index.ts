@@ -53,7 +53,7 @@ export const getAddressDefault = createSelector(
     fromAddress.getDefault
 );
 
-export const getAddresses = createSelector(
+export const getAddressesFetched = createSelector(
     getAddressState,
     fromAddress.getAddresses
 );
@@ -120,6 +120,11 @@ export const getOrderState = createSelector(
 export const getOrderError = createSelector(
     getOrderState,
     fromOrder.getError
+);
+
+export const getOrderFetched = createSelector(
+    getOrderState,
+    fromOrder.getOrders
 );
 
 export const getOrderCurrent = createSelector(

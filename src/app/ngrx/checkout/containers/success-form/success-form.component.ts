@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SuccessFormComponent implements OnInit {
   orders: IOrders;
-
+  activeIds: any[] = [];
   constructor(
     protected activatedRoute: ActivatedRoute
   ) {

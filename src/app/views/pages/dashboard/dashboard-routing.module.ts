@@ -35,7 +35,7 @@ const routes = [
     children: [
       {
         path: 'my-orders',
-        loadChildren: './my-orders/my-orders.module#MyOrdersModule',
+        loadChildren: () => import('./my-orders/my-orders.module').then(m => m.MyOrdersModule),
         resolve: {
           title: MyDashboardResolve
         },
@@ -52,7 +52,7 @@ const routes = [
       },
       {
         path: 'my-reviews',
-        loadChildren: './my-reviews/my-reviews.module#MyReviewsModule',
+        loadChildren: () => import('./my-reviews/my-reviews.module').then(m => m.MyReviewsModule),
         resolve: {
           title: MyDashboardResolve
         },
@@ -69,7 +69,7 @@ const routes = [
       },
       {
         path: 'my-profile',
-        loadChildren: './my-profile/my-profile.module#MyProfileModule',
+        loadChildren: () => import('./my-profile/my-profile.module').then(m => m.MyProfileModule),
         resolve: {
           title: MyDashboardResolve
         },
@@ -86,7 +86,7 @@ const routes = [
       },
       {
         path: 'my-wishlist',
-        loadChildren: './my-wishlist/my-wishlist.module#MyWishlistModule',
+        loadChildren: () => import('./my-wishlist/my-wishlist.module').then(m => m.MyWishlistModule),        
         resolve: {
           title: MyDashboardResolve
         },
@@ -103,7 +103,7 @@ const routes = [
       },
       {
         path: 'my-compare',
-        loadChildren: './my-compare/my-compare.module#MyCompareModule',
+        loadChildren: () => import('./my-compare/my-compare.module').then(m => m.MyCompareModule),        
         resolve: {
           title: MyDashboardResolve
         },
@@ -120,10 +120,10 @@ const routes = [
       },
       {
         path: 'address-book',
-        loadChildren: './my-addresses/my-addresses.module#MyAddressesModule',
-        resolve: {
-          title: MyDashboardResolve
-        },
+        loadChildren: () => import('./my-addresses/my-addresses.module').then(m => m.MyAddressesModule),        
+        // resolve: {
+        //   title: MyDashboardResolve
+        // },
         data: {
           crumbs: [{
             label: 'Dashboard'
@@ -137,7 +137,7 @@ const routes = [
       },
       {
         path: 'my-payment-options',
-        loadChildren: './my-payment-options/my-payment-options.module#MyPaymentOptionsModule',
+        loadChildren: () => import('./my-payment-options/my-payment-options.module').then(m => m.MyPaymentOptionsModule),        
         resolve: {
           title: MyDashboardResolve
         },

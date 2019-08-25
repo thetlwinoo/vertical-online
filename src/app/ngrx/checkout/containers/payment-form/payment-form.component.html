@@ -13,7 +13,7 @@
                                 </div>
                             </div>
                         </ng-template>
-                        <credit-card [orders]="(orders$ | async)" (chargeCard)="onChargeCard($event)"></credit-card>
+                        <credit-card [orders]="orders" (chargeCard)="onChargeCard($event)"></credit-card>
                     </p-tabPanel>
                     <p-tabPanel>
                         <ng-template pTemplate="header">
@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-md-8 col-8 mr-auto">
                                 <p class="price p-0 m-0 total-price" style="font-weight: bold">
-                                    ${{(orders$ | async).totalDue.toFixed(2) | number:'1.2' }}</p>
+                                    ${{orders.totalDue.toFixed(2) | number:'1.2' }}</p>
                             </div>
                         </div>
                     </div>

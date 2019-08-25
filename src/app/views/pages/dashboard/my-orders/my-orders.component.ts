@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import * as fromApp from "app/ngrx/app.reducers";
-import { Store } from "@ngrx/store";
-import * as OrderActions from "app/ngrx/order/order.actions";
 import { Observable } from "rxjs";
 import { HttpError } from "app/ngrx/app.reducers";
 import { Orders } from '@root/models';
 import { SelectItem } from 'primeng/api';
+import { select, Store } from '@ngrx/store';
+import { IShoppingCarts, IAddresses, IOrders } from '@root/models';
+import * as fromCheckout from 'app/ngrx/checkout/reducers';
+import { AddressActions, OrderActions } from 'app/ngrx/checkout/actions';
 
 @Component({
   selector: 'my-orders',
@@ -15,7 +16,7 @@ import { SelectItem } from 'primeng/api';
 export class MyOrdersComponent implements OnInit {
   navOrders: any[];
   activeNav: string;
-  orderState: Observable<{ allOrders: Orders[], errors: HttpError[], loading: boolean }>;
+  orders$: Observable<IOrders[]>;
   rowGroupMetadata: any;
   cols: any[];
   sortOptions: SelectItem[];
@@ -24,8 +25,9 @@ export class MyOrdersComponent implements OnInit {
   sortField: string;
 
   constructor(
-    private store: Store<fromApp.AppState>,
+    private store: Store<fromCheckout.State>,
   ) {
+    this.orders$ = store.pipe(select(fromCheckout.getOrderFetched)) as Observable<IOrders[]>;
   }
 
   ngOnInit() {
@@ -48,22 +50,19 @@ export class MyOrdersComponent implements OnInit {
     ];
     this.activeNav = this.navOrders[0];
 
-    this.store.dispatch(new OrderActions.FetchOrder);
-    this.orderState = this.store.select('order');
+    this.store.dispatch(OrderActions.fetchOrder());
 
-    this.orderState.subscribe(orders => {
-      let allOrders = orders.allOrders;
-
+    this.orders$.subscribe(orders => {
       if (orders) {
         this.rowGroupMetadata = {};
-        for (let i = 0; i < allOrders.length; i++) {
-          let rowData = allOrders[i];
+        for (let i = 0; i < orders.length; i++) {
+          let rowData = orders[i];
           let id = rowData.id;
           if (i == 0) {
             this.rowGroupMetadata[id] = { index: 0, size: 1 };
           }
           else {
-            let previousRowData = allOrders[i - 1];
+            let previousRowData = orders[i - 1];
             let previousRowGroup = previousRowData.id;
             if (id === previousRowGroup)
               this.rowGroupMetadata[id].size++;

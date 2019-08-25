@@ -19,6 +19,7 @@ export class OrderFormComponent implements OnInit, OnDestroy {
   addresses$: Observable<IAddresses[]>;
   totalQuantity$: Observable<number>;
   currentOrder$: Observable<IOrders>;
+  placeOrderInd: boolean = false;
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -28,19 +29,19 @@ export class OrderFormComponent implements OnInit, OnDestroy {
     this.cart$ = store.pipe(select(fromCheckout.getCartState)) as Observable<IShoppingCarts>;
     this.cartPrice$ = store.pipe(select(fromCheckout.getCartTotalPrice)) as Observable<number>;
     this.defaultAddress$ = store.pipe(select(fromCheckout.getAddressDefault)) as Observable<IAddresses>;
-    this.addresses$ = store.pipe(select(fromCheckout.getAddresses)) as Observable<IAddresses[]>;
+    this.addresses$ = store.pipe(select(fromCheckout.getAddressesFetched)) as Observable<IAddresses[]>;
     this.totalQuantity$ = store.pipe(select(fromCheckout.getCartTotalQuantity)) as Observable<number>;
     this.currentOrder$ = store.pipe(select(fromCheckout.getOrderCurrent)) as Observable<IOrders>;
   }
 
   ngOnInit() {
     this.store.dispatch(AddressActions.fetchAddresses());
-    // const currentOrderSucscription = this.currentOrder$.subscribe(order => {
-    //   if (order && order.totalDue > 0 && this.placeOrderInd) {
-    //     this.router.navigate(['/checkout/payment', order.id, 'secure'])
-    //   }
-    // });
-    // this.subscriptions.push(currentOrderSucscription);
+    const currentOrderSucscription = this.currentOrder$.subscribe(order => {
+      if (order && order.totalDue > 0 && this.placeOrderInd) {
+        this.router.navigate(['/checkout/payment', order.id, 'secure'])
+      }
+    });
+    this.subscriptions.push(currentOrderSucscription);
   }
 
   postOrder(defaultId: number) {
@@ -53,6 +54,7 @@ export class OrderFormComponent implements OnInit, OnDestroy {
     };
     // console.log('POST ORDERS', postOrders);
     this.store.dispatch(OrderActions.postOrder({ order: postOrders }));
+    this.placeOrderInd = true;
   }
 
   ngOnDestroy() {

@@ -12,20 +12,22 @@ import { PaymentActions } from 'app/ngrx/checkout/actions';
   templateUrl: './payment-form.component.html',
   styleUrls: ['./payment-form.component.scss']
 })
-export class PaymentFormComponent {
-  orders$: Observable<IOrders>;
-  actionsSubscription: Subscription;
-  orderId: number;
+export class PaymentFormComponent implements OnDestroy {
+  private subscriptions: Subscription[] = [];
+  orders: IOrders;
   // private subscriptions: Subscription[] = [];
 
   constructor(
-    route: ActivatedRoute,
+    private route: ActivatedRoute,
     private router: Router,
     private store: Store<fromCheckout.State>
   ) {
-    this.orders$ = store.pipe(select(fromCheckout.getOrderCurrent)) as Observable<IOrders>;
+    const activatedRouteSubscription = this.route.data.subscribe(({ orders }) => {
+      this.orders = orders;
+    });
+    this.subscriptions.push(activatedRouteSubscription);
 
-    this.actionsSubscription = route.queryParams
+    const actionsSubscription = this.route.queryParams
       .pipe(
         filter(params => params['paymentId'] && params['PayerID']),
         map(params =>
@@ -33,23 +35,22 @@ export class PaymentFormComponent {
             props: {
               paymentId: params['paymentId'],
               payerId: params['PayerID'],
-              orderId: this.orderId,
+              orderId: this.orders.id,
             }
           }))
       )
       .subscribe(action => store.dispatch(action));
+
+    this.subscriptions.push(actionsSubscription);
   }
 
   onPaypalCheckout() {
-    this.orders$.subscribe(order => {
-      this.orderId = order.id;
-      const createPaypalProps: CreatePaypalProps = {
-        sum: order.totalDue,
-        returnUrl: this.router.url
-      };
+    const createPaypalProps: CreatePaypalProps = {
+      sum: this.orders.totalDue,
+      returnUrl: this.router.url
+    };
 
-      this.store.dispatch(PaymentActions.createPaypal({ props: createPaypalProps }));
-    });
+    this.store.dispatch(PaymentActions.createPaypal({ props: createPaypalProps }));
   }
 
   onChargeCard(event) {
@@ -72,6 +73,12 @@ export class PaymentFormComponent {
       } else {
         console.log(response.error.message);
       }
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(el => {
+      if (el) el.unsubscribe();
     });
   }
 

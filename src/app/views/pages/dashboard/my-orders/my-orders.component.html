@@ -4,8 +4,7 @@
   </a>
 </nav>
 
-<p-table #dt [columns]="cols" [value]="(orderState | async)?.allOrders" dataKey="id" [paginator]="true" [rows]="10"
-  id="order-lists">
+<p-table #dt [columns]="cols" [value]="(orders$ | async)" dataKey="id" [paginator]="true" [rows]="10" id="order-lists">
   <ng-template pTemplate="caption">
     <div style="text-align: left">
       <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -13,14 +12,6 @@
         (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
     </div>
   </ng-template>
-  <!-- <ng-template pTemplate="header" let-columns>
-    <tr>
-      <th *ngFor="let col of columns" [ngSwitch]="col.field">
-        <input *ngSwitchCase="'orderNumber'" placeholder="Filter by order number" pInputText type="text"
-          (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
-      </th>
-    </tr>    
-  </ng-template> -->
   <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-expanded="expanded" let-columns="columns">
     <tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.id].index === rowIndex" [pSelectableRow]="rowData">
       <td colspan="4">
@@ -34,10 +25,11 @@
       </td>
       <td>
         <div style="text-align: right;">
-          <button *ngIf="rowData.paymentStatus == 1;else paynow" pButton type="button" label="Manage"
-            class="ui-button-secondary" [routerLink]="['/pages/dashboard/my-orders',rowData.id,'view']"></button>
+          <button *ngIf="rowData.paymentStatus == 1;else paynow" type="button" class="btn btn-secondary"
+            [routerLink]="['/pages/dashboard/my-orders',rowData.id,'view']">Manage</button>
           <ng-template #paynow>
-            <button pButton type="button" label="Pay now" class="ui-button-warning" [routerLink]="['/checkout/payment', rowData.id, 'secure']"></button>
+            <button type="button" class="btn btn-warning" [routerLink]="['/checkout/payment', rowData.id, 'secure']">Pay
+              now</button>
           </ng-template>
         </div>
       </td>
@@ -54,7 +46,8 @@
       </td>
       <td>{{orderDetail.product.productName}}</td>
       <td>Qty: {{orderDetail.quantity}}</td>
-      <td><button pButton type="button" label="Delivered" class="ui-button-secondary" disabled></button></td>
+      <td><button type="button" class="btn btn-outline-secondary btn-sm" label="Delivered" disabled>Delivered</button>
+      </td>
       <td>Delivered On : {{orderDetail.lastModifiedDate | date }}</td>
     </tr>
   </ng-template>

@@ -1,17 +1,4 @@
 :host {
-    .success-page {
-        p {
-            text-align: center;
-            padding: 10px 0px;
-
-            &.thank-you-label {
-                color: #51DCA3;
-                font-size: 2em;
-                font-weight: 600;
-            }
-        }
-    }
-
     .order-summary-button {
         width: 100%;
         text-align: left;

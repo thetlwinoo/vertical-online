@@ -17,7 +17,7 @@ import {
     ReviewsService,
     BreadcrumbGuard
 } from "@root/services";
-
+import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
     imports: [
@@ -42,6 +42,7 @@ import {
         WishlistService,
         CompareService,
         ReviewsService,
+        ConfirmationService,
         BreadcrumbGuard
     ]
 })

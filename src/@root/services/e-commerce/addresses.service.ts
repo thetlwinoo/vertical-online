@@ -41,6 +41,7 @@ export class AddressesService {
     }
 
     fetch(): Observable<EntityArrayResponseType> {
+        console.log('fetch')
         return this.http.get<IAddresses[]>(this.addressesExtendUrl + '/fetch', { observe: 'response' });
     }
 

@@ -64,7 +64,10 @@ export const routes: Routes = [
         canActivate: [UserRouteAccessService, BreadcrumbGuard]
     },
     {
-        path: 'payment', component: PaymentFormComponent,
+        path: 'payment/:id/secure', component: PaymentFormComponent,
+        resolve: {
+            orders: OrdersResolve
+        },
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'Payment',
