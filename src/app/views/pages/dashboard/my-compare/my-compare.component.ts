@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs/Observable";
-import { Store } from "@ngrx/store";
-import * as fromApp from 'app/ngrx/app.reducers';
+import { IProducts, AddToCartProps } from '@root/models';
 import { HttpError } from 'app/ngrx/app.reducers';
-import { Compares } from '@root/models';
-import * as CompareActions from 'app/ngrx/compare/compare.actions';
-import * as CartActions from "app/ngrx/cart/cart.actions";
+import { select, Store } from '@ngrx/store';
+import * as fromCheckout from 'app/ngrx/checkout/reducers';
+import * as fromProduct from 'app/ngrx/products/reducers';
+import { CompareActions, SelectedProductPageActions } from 'app/ngrx/products/actions';
+import { CartActions } from 'app/ngrx/checkout/actions';
 
 @Component({
   selector: 'app-my-compare',
@@ -13,21 +14,34 @@ import * as CartActions from "app/ngrx/cart/cart.actions";
   styleUrls: ['./my-compare.component.scss']
 })
 export class MyCompareComponent implements OnInit {
-  compareState: Observable<{ compares: Compares, errors: HttpError[], loading: boolean }>;
+  products$: Observable<IProducts[]>;
+  loading$: Observable<boolean>;
+  loaded$: Observable<boolean>;
+
   constructor(
-    private store: Store<fromApp.AppState>,
-  ) { }
+    private store: Store<fromProduct.State>,
+    private checkoutStore: Store<fromCheckout.State>,
+  ) {
+    this.products$ = store.pipe(select(fromProduct.getCompareProducts)) as Observable<IProducts[]>;
+    this.loading$ = store.pipe(select(fromProduct.getCompareLoading)) as Observable<boolean>;
+    this.loaded$ = store.pipe(select(fromProduct.getCompareLoaded)) as Observable<boolean>;
+
+    this.products$.subscribe(data=> console.log('compare prod',data))
+  }
 
   ngOnInit() {
-    this.compareState = this.store.select('compare');
-    this.store.dispatch(new CompareActions.FetchCompare());
+    this.store.dispatch(CompareActions.loadCompare());
   }
 
-  removeFromCompare(productId: number) {
-    this.store.dispatch(new CompareActions.RemoveFromCompare(productId));
+  removeFromCompare(event) {
+    this.store.dispatch(SelectedProductPageActions.removeProductFromCompare({ product: event }));
   }
 
-  addToCart(productId: number) {
-    this.store.dispatch(new CartActions.AddToCart({ id: productId, quantity: 1 }));
+  addToCart(product: IProducts) {
+    let props: AddToCartProps = {
+      id: product.id,
+      quantity: 1
+    };
+    this.checkoutStore.dispatch(CartActions.addToCart({ props: props }));
   }
 }

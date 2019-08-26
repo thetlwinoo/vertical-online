@@ -1,7 +1,7 @@
 <div class="page-layout blank">
     <div class="container" style="min-height: 30vh">
-        <div class="ui-fluid" *ngIf="!innerLoading">
-            <div class="ui-g-12 ui-md-8">
+        <div class="row" *ngIf="!innerLoading">
+            <div class="col-sm-12 col-md-8">
                 <div class="address-list-wrapper">
                     <div *ngIf="(addresses.length && !addNewAddressInd);else newaddress">
                         <div class="row">
@@ -15,46 +15,50 @@
                     </ng-template>
                 </div>
             </div>
-            <div class="ui-g-12 ui-md-4">
-                <p-card id="order-summary" header="Order Summary" subheader="Sub Total - {{totalQuantity}} item(s)">
-                    <div class="item p-2 pl-4">
-                        <!-- <div class="row pricing" *ngIf="currentRoute != 'payment'">
-                            <div class="col-md-4 col-4">
-                                <span>Cart</span>
-                            </div>
-                            <div class="col-md-8 col-8 mr-auto">
-                                <p class="price p-0 m-0">${{cartPrice.toFixed(2) | number:'1.2' }}</p>
-                            </div>
+            <div class="col-sm-12 col-md-4">
+                <div class="card" id="order-summary">
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold">Order Summary</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Sub Total - {{totalQuantity}} item(s)</h6>
+
+                        <div class="item p-2 pl-4">
+                            <!-- <div class="row pricing" *ngIf="currentRoute != 'payment'">
+                                    <div class="col-md-4 col-4">
+                                        <span>Cart</span>
+                                    </div>
+                                    <div class="col-md-8 col-8 mr-auto">
+                                        <p class="price p-0 m-0">${{cartPrice.toFixed(2) | number:'1.2' }}</p>
+                                    </div>
+                                </div>
+                                <div class="row pricing" *ngIf="currentRoute != 'payment'">
+                                    <div class="col-md-4 col-4">
+                                        <span>Cargo</span>
+                                    </div>
+                                    <div class="col-md-8 col-8 mr-auto">
+                                        <p class="price p-0 m-0">
+                                            ${{shoppingCart.cart.totalCargoPrice.toFixed(2) | number:'1.2' }}</p>
+                                    </div>
+                                </div>
+                                <div *ngIf="shoppingCart.cart.specialDeals != null" class="row pricing">
+                                    <div class="col-md-4 col-4">
+                                        <span>Discount</span>
+                                    </div>
+                                    <div class="col-md-8 col-8 mr-auto">
+                                        <p class="price  p-0 m-0">{{shoppingCart.cart.specialDeals.discountPercentage}}%
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row pricing">
+                                    <div class="col-md-4 col-4">
+                                        <span>Total</span>
+                                    </div>
+                                    <div class="col-md-8 col-8 mr-auto">
+                                        <p class="price p-0 m-0 total-price" style="font-weight: bold">${{shoppingCart.cart.totalPrice.toFixed(2) |
+                                                                        number:'1.2' }}</p>
+                                    </div>
+                                </div> -->
                         </div>
-                        <div class="row pricing" *ngIf="currentRoute != 'payment'">
-                            <div class="col-md-4 col-4">
-                                <span>Cargo</span>
-                            </div>
-                            <div class="col-md-8 col-8 mr-auto">
-                                <p class="price p-0 m-0">
-                                    ${{shoppingCart.cart.totalCargoPrice.toFixed(2) | number:'1.2' }}</p>
-                            </div>
-                        </div>
-                        <div *ngIf="shoppingCart.cart.specialDeals != null" class="row pricing">
-                            <div class="col-md-4 col-4">
-                                <span>Discount</span>
-                            </div>
-                            <div class="col-md-8 col-8 mr-auto">
-                                <p class="price  p-0 m-0">{{shoppingCart.cart.specialDeals.discountPercentage}}%
-                                </p>
-                            </div>
-                        </div>
-                        <div class="row pricing">
-                            <div class="col-md-4 col-4">
-                                <span>Total</span>
-                            </div>
-                            <div class="col-md-8 col-8 mr-auto">
-                                <p class="price p-0 m-0 total-price" style="font-weight: bold">${{shoppingCart.cart.totalPrice.toFixed(2) |
-                                                                number:'1.2' }}</p>
-                            </div>
-                        </div> -->
-                    </div>
-                    <p-footer>
+
                         <div class=" p-2 pl-4">
                             <div class="row p-2 mt-3">
                                 <div class="col-md-12 col-12 mr-auto">
@@ -64,8 +68,8 @@
                                 </div>
                             </div>
                         </div>
-                    </p-footer>
-                </p-card>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

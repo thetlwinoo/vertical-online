@@ -19,25 +19,14 @@ export class MyAddressesComponent implements OnInit, OnDestroy {
   account: Account;
   addresses$: Observable<IAddresses[]>;
   addressSubscription: Subscription;
-
-  innerLoading: boolean = true;
   addNewAddressInd: boolean = false;
 
   constructor(
     private store: Store<fromCheckout.State>,
     private accountService: AccountService,
-    private router: Router,
-    private route: ActivatedRoute,
     private confirmationService: ConfirmationService
   ) {
     this.addresses$ = store.pipe(select(fromCheckout.getAddressesFetched)) as Observable<IAddresses[]>;
-
-    this.addressSubscription = this.addresses$.subscribe(addresses => {
-      console.log('addresses', addresses)
-      if (addresses && addresses.length <= 0) {
-        this.router.navigate(['pages/dashboard/address-book/new/']);
-      }
-    });
   }
 
   ngOnInit() {
@@ -46,10 +35,7 @@ export class MyAddressesComponent implements OnInit, OnDestroy {
 
     this.accountService.identity().then((account: Account) => {
       this.account = account;
-      this.innerLoading = false;
     });
-
-
   }
 
   onAddNewAddress(event) {
@@ -89,8 +75,5 @@ export class MyAddressesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.addressSubscription) {
-      this.addressSubscription.unsubscribe();
-    }
   }
 }

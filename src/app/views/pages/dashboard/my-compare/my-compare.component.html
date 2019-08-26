@@ -1,18 +1,56 @@
-<div class="ui-fluid">
-  <div class="ui-g-12 ui-md-4" *ngFor="let compare of (compareState | async)?.compares?.compareLists">
-    <p-card [header]="compare.product.productName"
-      [subheader]="compare.product.productSubCategory.productSubCategoryName" styleClass="ui-card-shadow">
-      <p-header>
-        <img src="Card" [src]="compare.product.photo">
-      </p-header>
-      <div><span>On Sale </span><span>${{compare.product.unitPrice.toFixed(2) | number:'1.2'}}</span>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="compare-page">
+        <div class="table-wrapper table-responsive">
+          <table class="table">
+            <thead>
+              <tr class="th-compare">
+                <td>Action</td>
+                <th class="item-row" *ngFor="let product of (products$ | async)">
+                  <button type="button" class="btn btn-link" (click)="removeFromCompare(product)"> Remove </button></th>
+              </tr>
+            </thead>
+            <tbody id="table-compare">
+              <tr>
+                <th class="product-name">Product Name</th>
+                <td class="grid-link__title" *ngFor="let product of (products$ | async)"> {{product.productName}} </td>
+              </tr>
+              <tr>
+                <th class="product-name ">Product Image</th>
+                <td class="item-row" *ngFor="let product of (products$ | async)">
+                  <a href="javascript:void(0)" [routerLink]="['/products/',product.id]"
+                    *ngIf="product.photo;else noimage">
+                    <img src="{{product.photo}}" alt="" class="featured-image" />
+                  </a>
+                  <ng-template #noimage>
+                    <img src="assets/images/noimage.png" alt="no image preview" class="featured-image">
+                  </ng-template>
+                  <div class="product-price product_price"> <strong>On Sale:
+                    </strong><span>${{product.unitPrice.toFixed(2) | number:'1.2'}}</span></div>
+                  <form class="variants clearfix">
+                    <input type="hidden">
+                    <button title="Add to Cart" class="add-to-cart btn btn-warning" (click)="addToCart(product)">Add to
+                      Cart</button>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <th class="product-name">Product Model</th>
+                <td class="item-row" *ngFor="let product of (products$ | async)">
+                  <p class="description-compare"> {{product.productModelProductModelName}} </p>
+                </td>
+              </tr>
+              <tr>
+                <th class="product-name"> Availability </th>
+                <td class="available-stock" *ngFor="let product of (products$ | async)">
+                  <p> Available In stock </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-      <p-footer>
-        <button pButton type="button" label="Add To Cart" icon="pi pi-plus"
-          (click)="addToCart(compare.product.id)"></button>
-        <button pButton type="button" label="Remove From Compare List" icon="pi pi-times" class="ui-button-secondary"
-          style="margin-top: .25em" (click)="removeFromCompare(compare.product.id)"></button>
-      </p-footer>
-    </p-card>
+    </div>
   </div>
 </div>

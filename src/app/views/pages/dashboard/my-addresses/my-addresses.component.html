@@ -1,7 +1,4 @@
-<div *ngIf="innerLoading" class="loader"></div>
-<div *ngIf="innerLoading" style="min-height: 50vh"></div>
-
-<div class="container" *ngIf="!innerLoading">
+<div class="container-fluid">
   <p-toolbar>
     <div class="ui-toolbar-group-left">
     </div>
@@ -12,14 +9,7 @@
       </button>
     </div>
   </p-toolbar>
-  <div *ngFor="let e of (addressState | async).errors">
-    <div *ngIf="e.errorEffect == 'FETCH_ADDRESS'" class="alert-warning p-2">
-      <div *ngIf="e.error.status === 500 || e.error.status === 0">Internal server error! Please contact our
-        support team.
-      </div>
-    </div>
-  </div>
-  <div *ngFor="let addresses of (addressState | async).addresses | orderBy:lastModifiedDate ;trackBy: trackId">
+  <div *ngFor="let addresses of (addresses$ | async) | orderBy:lastModifiedDate ;trackBy: trackId">
     <dashboard-address [addresses]="addresses" [account]="account" (editAddress)="onEditAddress($event)"
       (deleteAddress)="onDeleteAddress($event)" (setDefault)="onSetDefault($event)"></dashboard-address>
   </div>

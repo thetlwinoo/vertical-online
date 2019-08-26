@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs/Observable";
-import { Store } from "@ngrx/store";
-import * as fromApp from 'app/ngrx/app.reducers';
 import { HttpError } from 'app/ngrx/app.reducers';
-import { Wishlists } from '@root/models';
-import * as WishlistActions from 'app/ngrx/wishlist/wishlist.actions';
-import * as CartActions from "app/ngrx/cart/cart.actions";
+import { IProducts, AddToCartProps } from '@root/models';
+import { select, Store } from '@ngrx/store';
+import * as fromCheckout from 'app/ngrx/checkout/reducers';
+import * as fromProduct from 'app/ngrx/products/reducers';
+import { WishlistActions, SelectedProductPageActions } from 'app/ngrx/products/actions';
+import { CartActions } from 'app/ngrx/checkout/actions';
 
 @Component({
   selector: 'app-my-wishlist',
@@ -13,21 +14,34 @@ import * as CartActions from "app/ngrx/cart/cart.actions";
   styleUrls: ['./my-wishlist.component.scss']
 })
 export class MyWishlistComponent implements OnInit {
-  wishlistState: Observable<{ wishlists: Wishlists, errors: HttpError[], loading: boolean }>;
+  products$: Observable<IProducts[]>;
+  loading$: Observable<boolean>;
+  loaded$: Observable<boolean>;
+
   constructor(
-    private store: Store<fromApp.AppState>,
-  ) { }
+    private store: Store<fromProduct.State>,
+    private checkoutStore: Store<fromCheckout.State>,
+  ) {
+    this.products$ = store.pipe(select(fromProduct.getWishlistProducts)) as Observable<IProducts[]>;
+    this.loading$ = store.pipe(select(fromProduct.getWishlistLoading)) as Observable<boolean>;
+    this.loaded$ = store.pipe(select(fromProduct.getWishlistLoaded)) as Observable<boolean>;
+
+    this.products$.subscribe(data=> console.log('wishlist prod',data))
+  }
 
   ngOnInit() {
-    this.wishlistState = this.store.select('wishlist');
-    this.store.dispatch(new WishlistActions.FetchWishlist());
+    this.store.dispatch(WishlistActions.loadWishlist());
   }
 
-  removeFromWishlist(id) {
-    this.store.dispatch(new WishlistActions.RemoveFromWishlist(id));
+  removeFromWishlist(event) {
+    this.store.dispatch(SelectedProductPageActions.removeProductFromWishlist({ product: event }));
   }
 
-  addToCart(productId: number) {
-    this.store.dispatch(new CartActions.AddToCart({ id: productId, quantity: 1 }));
+  addToCart(product: IProducts) {
+    let props: AddToCartProps = {
+      id: product.id,
+      quantity: 1
+    };
+    this.checkoutStore.dispatch(CartActions.addToCart({ props: props }));
   }
 }

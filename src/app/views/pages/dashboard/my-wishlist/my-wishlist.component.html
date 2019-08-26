@@ -1,16 +1,14 @@
 <div class="wishlist-section">
-  <div class="row item" *ngFor="let wishlist of (wishlistState | async)?.wishlists?.wishlistLists">
+  <div class="row item" *ngFor="let product of (products$ | async)">
     <div class="col-md-1 buttons">
-      <div *ngIf="(wishlistState | async).loading" class="loader" style="font-size: 6px; top:25%"></div>
-      <!-- <span *ngIf="(wishlistState | async).loading == false" class="delete-btn"
-        (click)="removeFromWishlist(wishlist.product.id)"></span> -->
-        <button *ngIf="(wishlistState | async).loading == false" mat-icon-button (click)="removeFromWishlist(wishlist.product.id)" matTooltip="Remove from wishlist">
-          <mat-icon>delete_forever</mat-icon>
-        </button>
+      <div *ngIf="($loading | async)" class="loader" style="font-size: 6px; top:25%"></div>
+      <button type="button" class="close" aria-label="Close" *ngIf="(loaded$ | async)" (click)="removeFromWishlist(product)"
+        placement="bottom" ngbTooltip="Remove from wishlist">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
     <div class="col-md-3 image">
-      <img *ngIf="wishlist.product.photo;else noimage" src="{{wishlist.product.photo}}" alt=""
-        (click)="goToItem(cartItem.cartProduct.id)" />
+      <img *ngIf="product.photo;else noimage" src="{{product.photo}}" alt="" [routerLink]="['/products',product.id]" />
       <ng-template #noimage>
         <img src="assets/images/noimage.png" alt="no image preview">
       </ng-template>
@@ -18,10 +16,10 @@
 
     <div class="col-md-3 description">
       <span style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; cursor: pointer"
-        (click)="goToItem(wishlist.product.id)">
-        {{wishlist.product.productName}}
+        [routerLink]="['/products',product.id]">
+        {{product.productName}}
       </span>
-      <span>{{wishlist.product.productSubCategory.productSubCategoryName}}</span>
+      <span>{{product.productSubCategoryProductSubCategoryName}}</span>
     </div>
 
     <div class="col-md-3">
@@ -32,18 +30,15 @@
 
     <div class="col-md-1 price">
       <div class="item-price">
-        <span>${{wishlist.product.unitPrice.toFixed(2) | number:'1.2'}}</span>
+        <span>${{product.unitPrice.toFixed(2) | number:'1.2'}}</span>
       </div>
     </div>
 
     <div class="col-md-1">
       <div class="add-cart">
-        <!-- <button mat-raised-button color="warn" (click)="addToCart(wishlist.product.id)">
-          <mat-icon>add_shopping_cart</mat-icon>
-        </button> -->
-        <button type="button" id="add-cart" class="btn btn-warning cart-plus" (click)="addToCart(wishlist.product.id)">
-            <fa-icon [icon]="'cart-plus'"></fa-icon>
-          </button>
+        <button type="button" id="add-cart" class="btn btn-warning" (click)="addToCart(product)">
+          <fa-icon [icon]="'cart-plus'"></fa-icon>
+        </button>        
       </div>
     </div>
   </div>

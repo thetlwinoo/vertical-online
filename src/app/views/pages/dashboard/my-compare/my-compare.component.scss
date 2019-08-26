@@ -1,0 +1,100 @@
+$white-dark: #eeeeee;
+$dark-font: #222222;
+$top-header: #f8f8f8;
+
+.compare-page {
+    .table-wrapper {
+        padding-bottom: 0;
+
+        .table {
+            background: #FFFFFF;
+            border: 1px solid $white-dark;
+            text-transform: capitalize;
+            color: $dark-font;
+
+            .product-name {
+                width: 15%;
+            }
+
+            .featured-image {
+                width: 185px;
+            }
+
+            td {
+                border-top: none;
+            }
+
+            thead {
+                .th-compare {
+                    td {
+                        font-size: 14px;
+                        font-weight: 700;
+                        background: $top-header;
+                        border-right: 1px solid #eee;
+                    }
+
+                    th {
+                        text-align: left;
+                        border-bottom: 1px solid $white-dark;
+                        border-right: 1px solid $white-dark;
+
+                        .remove-compare {
+                            float: left;
+                            border: none;
+                            background: transparent;
+                            padding: 0;
+                            font-size: 14px;
+                            font-weight: 500;
+                        }
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    th {
+                        background: $top-header;
+                    }
+
+                    td {
+                        border-right: 1px solid #eee;
+                        position: relative;
+                    }
+
+                    th,
+                    td {
+                        padding: 15px;
+                        vertical-align: top;
+                        border-bottom: 1px solid #eee;
+                        border-top: 1px solid #eee;
+                        border-right: 1px solid #eee;
+                    }
+
+                    .grid-link__title {
+                        font-size: 15px;
+                    }
+
+                    .product_price {
+                        margin: 15px 0;
+
+                        span.money {
+                            padding-left: 5px;
+                        }
+                    }
+
+                    p {
+                        color: $dark-font;
+                        font-size: 13px;
+                        line-height: 20px;
+                        margin: 0;
+                    }
+
+                    .add-to-cart,
+                    .select-option-cls {
+                        padding: 6px 10px;
+                    }
+                }
+            }
+        }
+    }
+}

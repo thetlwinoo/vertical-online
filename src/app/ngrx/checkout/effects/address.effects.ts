@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, switchMap, filter, mergeMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { catchError, map, switchMap, filter, mergeMap, tap } from 'rxjs/operators';
 import { IAddresses } from '@root/models';
 import { AddressActions } from '../actions';
 import { AddressesService } from '@root/services';
@@ -15,9 +16,12 @@ export class AddressEffects {
             switchMap(() =>
                 this.addressesService.fetch().pipe(
                     filter((res: HttpResponse<IAddresses[]>) => res.ok),
-                    map((res: HttpResponse<IAddresses[]>) =>
-                        AddressActions.fetchAddressesSuccess({ addresses: res.body })
-                    ),
+                    map((res: HttpResponse<IAddresses[]>) => AddressActions.fetchAddressesSuccess({ addresses: res.body })),
+                    tap(payload => {
+                        if (payload.addresses.length <= 0) {
+                            this.router.navigate(['pages/dashboard/address-book/new/'])
+                        }
+                    }),
                     catchError(err =>
                         of(AddressActions.addressError({ errorMsg: err.message }))
                     )
@@ -80,6 +84,7 @@ export class AddressEffects {
 
     constructor(
         private actions$: Actions,
+        private router: Router,
         private addressesService: AddressesService
     ) { }
 }

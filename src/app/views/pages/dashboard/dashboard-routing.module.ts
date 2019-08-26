@@ -121,9 +121,9 @@ const routes = [
       {
         path: 'address-book',
         loadChildren: () => import('./my-addresses/my-addresses.module').then(m => m.MyAddressesModule),        
-        // resolve: {
-        //   title: MyDashboardResolve
-        // },
+        resolve: {
+          title: MyDashboardResolve
+        },
         data: {
           crumbs: [{
             label: 'Dashboard'

@@ -36,15 +36,15 @@ export class HeaderComponent implements OnInit {
     return this.accountService.isAuthenticated();
   }
 
-  @HostListener('window:scroll', ['$event'])
-  onScroll($event: Event): void {
-    if (this.isMobile) {
-      if (window.pageYOffset >= 100) {
-        this.headerNav.nativeElement.classList.add('bg-dark');
-      }
-      else {
-        this.headerNav.nativeElement.classList.remove('bg-dark');
-      }
-    }
-  }
+  // @HostListener('window:scroll', ['$event'])
+  // onScroll($event: Event): void {
+  //   if (this.isMobile) {
+  //     if (window.pageYOffset >= 100) {
+  //       this.headerNav.nativeElement.classList.add('bg-dark');
+  //     }
+  //     else {
+  //       this.headerNav.nativeElement.classList.remove('bg-dark');
+  //     }
+  //   }
+  // }
 }

@@ -101,7 +101,7 @@ export const getSearchResults = createSelector(
 //Fetch State
 export const getFetchState = createSelector(
     getProductsState,
-    (state: ProductsState) =>  state.fetch
+    (state: ProductsState) => state.fetch
 );
 
 export const getFetchError = createSelector(
@@ -168,15 +168,19 @@ export const getWishlistProductIds = createSelector(
     fromWishlist.getIds
 );
 
-export const getProductWishlist = createSelector(
-    getProductEntities,
-    getWishlistProductIds,
-    (entities, ids) => {
-        return ids
-            .map(id => entities[id])
-            .filter((product): product is IProducts => product != null);
-    }
+export const getWishlistProducts = createSelector(
+    getWishlistState,
+    fromWishlist.getProducts
 );
+// export const getProductWishlist = createSelector(
+//     getProductEntities,
+//     getWishlistProductIds,
+//     (entities, ids) => {
+//         return ids
+//             .map(id => entities[id])
+//             .filter((product): product is IProducts => product != null);
+//     }
+// );
 
 export const isSelectedProductInWishlist = createSelector(
     getWishlistProductIds,
@@ -205,20 +209,25 @@ export const getCompareProductIds = createSelector(
     fromCompare.getIds
 );
 
-export const getProductCompare = createSelector(
-    getProductEntities,
-    getCompareProductIds,
-    (entities, ids) => {
-        return ids
-            .map(id => entities[id])
-            .filter((product): product is IProducts => product != null);
-    }
+export const getCompareProducts = createSelector(
+    getCompareState,
+    fromWishlist.getProducts
 );
+
+// export const getProductCompare = createSelector(
+//     getProductEntities,
+//     getCompareProductIds,
+//     (entities, ids) => {
+//         return ids
+//             .map(id => entities[id])
+//             .filter((product): product is IProducts => product != null);
+//     }
+// );
 
 export const isSelectedProductInCompare = createSelector(
     getCompareProductIds,
     getSelectedProductId,
-    (ids, selected) => {        
+    (ids, selected) => {
         return !!selected && ids.indexOf(+selected) > -1;
     }
 );

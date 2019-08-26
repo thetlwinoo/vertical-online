@@ -1,5 +1,9 @@
 body {
 
+    p-inputMask > input {
+        width: 100%;
+    }
+
     p-inplace {
         &#discount-code {
             .ui-inplace {

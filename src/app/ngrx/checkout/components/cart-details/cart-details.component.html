@@ -1,96 +1,105 @@
 <div class="container" style="min-height: 30vh">
-    <div class="ui-fluid" *ngIf="itemCount > 0 ;else emptyCart">
-        <div class="ui-g-12 ui-md-8">
-            <p-card id="shipping-cart-list" header="Shopping Cart">
-                <div class="cart-section">
-                    <div class="row mt-5">
-                        <div class="col-md-12">
-                            <div>
-                                <div class="row item" *ngFor="let cartItem of shoppingCart.cart?.cartItemLists">
-                                    <div class="col-md-1 buttons">
-                                        <span class="delete-btn" (click)="remove.emit(cartItem.id)"></span>
-                                    </div>
-                                    <div class="col-md-3 image">
-                                        <a href="javascript:void(0)" [routerLink]="['/products/',cartItem.product.id]"
-                                            *ngIf="cartItem.product.photo;else noimage">
-                                            <img src="{{cartItem.product.photo}}" alt="" />
-                                        </a>
-                                        <ng-template #noimage>
-                                            <img src="assets/images/noimage.png" alt="no image preview">
-                                        </ng-template>
-                                    </div>
+    <div class="row" *ngIf="itemCount > 0 ;else emptyCart">
+        <div class="col-sm-12 col-md-8">
+            <div class="card" id="shipping-cart-list">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">Shopping Cart</h5>
+                    <div class="cart-section">
+                        <div class="row mt-5">
+                            <div class="col-md-12">
+                                <div>
+                                    <div class="row item" *ngFor="let cartItem of shoppingCart.cart?.cartItemLists">
+                                        <div class="col-md-1 buttons">
+                                            <span class="delete-btn" (click)="remove.emit(cartItem.id)"></span>
+                                        </div>
+                                        <div class="col-md-3 image">
+                                            <a href="javascript:void(0)"
+                                                [routerLink]="['/products/',cartItem.product.id]"
+                                                *ngIf="cartItem.product.photo;else noimage">
+                                                <img src="{{cartItem.product.photo}}" alt="" />
+                                            </a>
+                                            <ng-template #noimage>
+                                                <img src="assets/images/noimage.png" alt="no image preview">
+                                            </ng-template>
+                                        </div>
 
-                                    <div class="col-md-3 description">
-                                        <span
-                                            style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; cursor: pointer"
-                                            (click)="goToItem(cartItem.product.id)">
-                                            {{cartItem.product.productName}}
-                                        </span>
-                                        <span>{{cartItem.product.productSubCategory.productSubCategoryName}}</span>
-                                    </div>
+                                        <div class="col-md-3 description">
+                                            <span
+                                                style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; cursor: pointer"
+                                                (click)="goToItem(cartItem.product.id)">
+                                                {{cartItem.product.productName}}
+                                            </span>
+                                            <span>{{cartItem.product.productSubCategory.productSubCategoryName}}</span>
+                                        </div>
 
-                                    <div class="col-md-3 quantity">
-                                        <button class="plus-btn" type="button" name="button"
-                                            (click)="onAdd(cartItem.product.id,1)">
-                                            +
-                                        </button>
-                                        <input type="text" name="name" min="1" value="{{cartItem.quantity}}" readonly>
-                                        <button class="minus-btn" type="button" name="button"
-                                            (click)="onReduce(cartItem.id,1)" [disabled]="cartItem.quantity <=1 ">
-                                            -
-                                        </button>
-                                    </div>
+                                        <div class="col-md-3 quantity">
+                                            <button class="plus-btn" type="button" name="button"
+                                                (click)="onAdd(cartItem.product.id,1)">
+                                                +
+                                            </button>
+                                            <input type="text" name="name" min="1" value="{{cartItem.quantity}}"
+                                                readonly>
+                                            <button class="minus-btn" type="button" name="button"
+                                                (click)="onReduce(cartItem.id,1)" [disabled]="cartItem.quantity <=1 ">
+                                                -
+                                            </button>
+                                        </div>
 
-                                    <div class="col-md-1 price item-price">
-                                        ${{cartItem.product.unitPrice.toFixed(2) | number:'1.2'}}
+                                        <div class="col-md-2 price item-price">
+                                            ${{cartItem.product.unitPrice.toFixed(2) | number:'1.2'}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </p-card>
+            </div>
         </div>
-        <div class="ui-g-12 ui-md-4" *ngIf="itemCount > 0">
-            <p-card id="shopping-card-summary" header="Order Summary" subheader="Sub Total - {{totalQuantity}} item(s)">
-                <div class="item p-2 pl-4">
-                    <div class="row pricing">
-                        <div class="col-md-4 col-4">
-                            <span>Cart</span>
+        <div class="col-sm-12 col-md-4" *ngIf="itemCount > 0">
+            <div class="card" id="shopping-card-summary">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">Order Summary</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Sub Total - {{totalQuantity}} item(s)</h6>
+
+                    <div class="item p-2 pl-4">
+                        <div class="row pricing">
+                            <div class="col-md-4 col-4">
+                                <span>Cart</span>
+                            </div>
+                            <div class="col-md-8 col-8 mr-auto">
+                                <p class="price p-0 m-0">${{ cartPrice.toFixed(2) | number:'1.2' }}</p>
+                            </div>
                         </div>
-                        <div class="col-md-8 col-8 mr-auto">
-                            <p class="price p-0 m-0">${{ cartPrice.toFixed(2) | number:'1.2' }}</p>
+                        <div class="row pricing">
+                            <div class="col-md-4 col-4">
+                                <span>Cargo</span>
+                            </div>
+                            <div class="col-md-8 col-8 mr-auto">
+                                <p class="price p-0 m-0">
+                                    ${{shoppingCart.cart.totalCargoPrice.toFixed(2) | number:'1.2' }}</p>
+                            </div>
+                        </div>
+                        <div *ngIf="shoppingCart.cart.specialDeals != null" class="row pricing">
+                            <div class="col-md-4 col-4">
+                                <span>Discount</span>
+                            </div>
+                            <div class="col-md-8 col-8 mr-auto">
+                                <p class="price  p-0 m-0">{{shoppingCart.cart.specialDeals.discountPercentage}}%
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row pricing">
+                            <div class="col-md-4 col-4">
+                                <span>Total</span>
+                            </div>
+                            <div class="col-md-8 col-8 mr-auto">
+                                <p class="price p-0 m-0 total-price" style="font-weight: bold">${{shoppingCart.cart.totalPrice.toFixed(2) |
+                                                        number:'1.2' }}</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="row pricing">
-                        <div class="col-md-4 col-4">
-                            <span>Cargo</span>
-                        </div>
-                        <div class="col-md-8 col-8 mr-auto">
-                            <p class="price p-0 m-0">
-                                ${{shoppingCart.cart.totalCargoPrice.toFixed(2) | number:'1.2' }}</p>
-                        </div>
-                    </div>
-                    <div *ngIf="shoppingCart.cart.specialDeals != null" class="row pricing">
-                        <div class="col-md-4 col-4">
-                            <span>Discount</span>
-                        </div>
-                        <div class="col-md-8 col-8 mr-auto">
-                            <p class="price  p-0 m-0">{{shoppingCart.cart.specialDeals.discountPercentage}}%
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row pricing">
-                        <div class="col-md-4 col-4">
-                            <span>Total</span>
-                        </div>
-                        <div class="col-md-8 col-8 mr-auto">
-                            <p class="price p-0 m-0 total-price" style="font-weight: bold">${{shoppingCart.cart.totalPrice.toFixed(2) |
-                                                number:'1.2' }}</p>
-                        </div>
-                    </div>
-                </div>
-                <p-footer *ngIf="currentRoute != 'payment'">
+
                     <div class=" p-2 pl-4">
                         <div class="row p-2 mt-3">
                             <div class="col-md-12 col-12">
@@ -107,8 +116,7 @@
                                                     placeholder="Discount Code" aria-label="Discount Code"
                                                     aria-describedby="apply-addon">
                                                 <div class="input-group-append">
-                                                    <button class="btn btn-secondary" type="button"
-                                                        id="apply-addon"
+                                                    <button class="btn btn-secondary" type="button" id="apply-addon"
                                                         (click)="apply.emit(discountCodeField.value)">Apply</button>
                                                 </div>
                                             </div>
@@ -126,12 +134,12 @@
                             </div>
                         </div>
                     </div>
-                </p-footer>
-            </p-card>
+                </div>
+            </div>
         </div>
     </div>
     <ng-template #emptyCart>
-        <div class="ui-fluid">
+        <div class="row">
             <p-card>
                 <empty-cart></empty-cart>
             </p-card>
