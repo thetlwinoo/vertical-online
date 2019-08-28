@@ -1,28 +1,27 @@
-<div class="page-layout blank">
-    <div class="container" style="min-height: 30vh">
-        <div class="row" *ngIf="!innerLoading">
-            <div class="col-sm-12 col-md-8">
-                <div class="address-list-wrapper">
-                    <div *ngIf="(addresses.length && !addNewAddressInd);else newaddress">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <address-list [address]="default"></address-list>
-                            </div>
+<div class="container" style="min-height: 30vh">
+    <div class="row" *ngIf="!innerLoading">
+        <div class="col-sm-12 col-md-8">
+            <div class="address-list-wrapper">
+                <div *ngIf="(addresses.length && !addNewAddressInd);else newaddress">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <address-list [address]="default"></address-list>
                         </div>
                     </div>
-                    <ng-template #newaddress>
-                        <new-address [noOfAddress]="addresses.length" (cancel)="onCancel($event)"></new-address>
-                    </ng-template>
                 </div>
+                <ng-template #newaddress>
+                    <new-address [noOfAddress]="addresses.length" (cancel)="onCancel($event)"></new-address>
+                </ng-template>
             </div>
-            <div class="col-sm-12 col-md-4">
-                <div class="card" id="order-summary">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">Order Summary</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Sub Total - {{totalQuantity}} item(s)</h6>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <div class="card" id="order-summary">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">Order Summary</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Sub Total - {{totalQuantity}} item(s)</h6>
 
-                        <div class="item p-2 pl-4">
-                            <!-- <div class="row pricing" *ngIf="currentRoute != 'payment'">
+                    <div class="item p-2 pl-4">
+                        <!-- <div class="row pricing" *ngIf="currentRoute != 'payment'">
                                     <div class="col-md-4 col-4">
                                         <span>Cart</span>
                                     </div>
@@ -57,15 +56,14 @@
                                                                         number:'1.2' }}</p>
                                     </div>
                                 </div> -->
-                        </div>
+                    </div>
 
-                        <div class=" p-2 pl-4">
-                            <div class="row p-2 mt-3">
-                                <div class="col-md-12 col-12 mr-auto">
-                                    <button type="button" class="btn btn-warning w-100" (click)="post.emit(default.id)"
-                                        style="margin-top: 5px;" [disabled]="addresses.length <= 0">PLACE
-                                        ORDER</button>
-                                </div>
+                    <div class=" p-2 pl-4">
+                        <div class="row p-2 mt-3">
+                            <div class="col-md-12 col-12 mr-auto">
+                                <button type="button" class="btn btn-warning w-100" (click)="post.emit(default.id)"
+                                    style="margin-top: 5px;" [disabled]="addresses.length <= 0">PLACE
+                                    ORDER</button>
                             </div>
                         </div>
                     </div>
@@ -73,5 +71,4 @@
             </div>
         </div>
     </div>
-
 </div>

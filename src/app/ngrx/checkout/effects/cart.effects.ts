@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, switchMap, filter, mergeMap } from 'rxjs/operators';
+import { catchError, map, switchMap, filter, mergeMap, tap } from 'rxjs/operators';
 import { IShoppingCarts } from '@root/models';
 import { CartActions } from '../actions';
 import { CartService } from '@root/services';
+import { LayoutUtilsService, MessageType } from '@root/services/_base/crud';
 
 @Injectable()
 export class CartEffects {
@@ -35,6 +36,9 @@ export class CartEffects {
                     switchMap((res: HttpResponse<IShoppingCarts>) =>
                         [CartActions.addToCartSuccess({ cart: res.body }), CartActions.setCart({ cart: res.body })]
                     ),
+                    // tap(()=>{
+                    //     this.layoutUtilsService.showActionNotification("Add To Cart Success", MessageType.Create);
+                    // }),                    
                     catchError(err =>
                         of(CartActions.shoppingCartError({ errorMsg: err.message }))
                     )
@@ -113,6 +117,7 @@ export class CartEffects {
 
     constructor(
         private actions$: Actions,
+        private layoutUtilsService: LayoutUtilsService,
         private cartService: CartService
     ) { }
 }

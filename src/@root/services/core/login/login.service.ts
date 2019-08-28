@@ -3,12 +3,11 @@ import { Injectable } from '@angular/core';
 import { AccountService } from '../auth/account.service';
 import { AuthServerProvider } from '../auth/auth-jwt.service';
 import { JhiTrackerService } from '../tracker/tracker.service';
-
-import * as fromApp from "app/ngrx/app.reducers";
-import { Store } from "@ngrx/store";
+import { Store } from '@ngrx/store';
 import { Observable } from "rxjs/Observable";
 import { People } from '@root/models';
-import * as PeopleActions from 'app/ngrx/people/people.actions';
+import * as fromAuth from 'app/ngrx/auth/reducers';
+import { PeopleActions } from 'app/ngrx/auth/actions';
 
 @Injectable({ providedIn: 'root' })
 export class LoginService {
@@ -19,7 +18,7 @@ export class LoginService {
         private accountService: AccountService,
         private trackerService: JhiTrackerService,
         private authServerProvider: AuthServerProvider,
-        private store: Store<fromApp.AppState>
+        private store: Store<fromAuth.State>
     ) {
         // this.peopleState = this.store.select('people');
 
@@ -32,11 +31,9 @@ export class LoginService {
         const cb = callback || function () { };
 
         return new Promise((resolve, reject) => {
-            this.authServerProvider.login(credentials).subscribe(                
+            this.authServerProvider.login(credentials).subscribe(
                 data => {
-                    console.log('credentials',credentials);
                     this.accountService.identity(true).then(account => {
-                        console.log('login data', account);
                         const tempName = account.firstName == account.lastName ? account.firstName : account.firstName + ' ' + account.lastName;
 
                         const people: People = {
@@ -61,7 +58,7 @@ export class LoginService {
                             validTo: new Date()
                         };
 
-                        this.store.dispatch(new PeopleActions.FetchLoginPeople(people))
+                        this.store.dispatch(PeopleActions.fetchLoginPeople({ people: people }))
 
                         this.trackerService.sendActivity();
                         resolve(data);

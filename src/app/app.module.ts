@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { rootConfig } from 'app/root-config';
 import { NgModule } from '@angular/core';
-import { NgrxModule } from 'app/ngrx/ngrx.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
@@ -23,7 +22,7 @@ import { ErrorHandlerInterceptor } from '@root/blocks/interceptor/errorhandler.i
 import { NotificationInterceptor } from '@root/blocks/interceptor/notification.interceptor';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { NgJhipsterModule } from 'ng-jhipster';
-import { RootProgressBarModule } from '@root/components';
+import { RootProgressBarModule } from '@root/components/progress-bar/progress-bar.module';
 import { ROOT_REDUCERS, metaReducers } from 'app/ngrx';
 import { NgrxCoreModule } from 'app/ngrx/core';
 import { RouterEffects } from 'app/ngrx/core/effects';
@@ -31,6 +30,7 @@ import './vendor.ts';
 import 'hammerjs';
 import { ProductsModule } from 'app/ngrx/products';
 import { CheckoutModule } from 'app/ngrx/checkout';
+import { AuthModule } from 'app/ngrx/auth';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -45,10 +45,6 @@ const routes: Routes = [
   {
     path: 'pages',
     loadChildren: () => import('./views/pages/pages.module').then(m => m.PagesModule)
-  },
-  {
-    path: 'auth',
-    loadChildren: () => import('./views/auth/auth.module').then(m => m.AuthModule)
   },
   {
     path: 'checkout',
@@ -86,7 +82,6 @@ const routes: Routes = [
     LayoutModule,
     RootModule.forRoot(rootConfig),
     HttpClientModule,
-    // NgrxModule,
     StoreModule.forRoot(ROOT_REDUCERS, {
       metaReducers,
       // runtimeChecks: {
@@ -109,7 +104,8 @@ const routes: Routes = [
     RootSharedModule,
     RootProgressBarModule,
     ProductsModule,
-    CheckoutModule
+    CheckoutModule,
+    AuthModule
   ],
   providers: [
     {

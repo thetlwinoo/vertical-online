@@ -1,4 +1,5 @@
 import { RootSharedModule } from '@root/shared.module';
+import { PartialsModule } from 'app/views/partials/partials.module';
 import { NgModule } from '@angular/core';
 import { ProductsRoutingModule } from 'app/ngrx/products/products-routing.module';
 import { EffectsModule } from '@ngrx/effects';
@@ -28,6 +29,7 @@ export const CONTAINERS = [
 @NgModule({
     imports: [
         RootSharedModule,
+        PartialsModule,
         ProductsRoutingModule,
         StoreModule.forFeature(fromProducts.productsFeatureKey, fromProducts.reducers),
 

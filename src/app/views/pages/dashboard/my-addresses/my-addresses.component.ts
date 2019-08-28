@@ -1,10 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import * as fromApp from "app/ngrx/app.reducers";
 import { Store, select } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
-import { Router, ActivatedRoute } from '@angular/router';
 import { Addresses, IAddresses } from '@root/models';
-import { HttpError } from "app/ngrx/app.reducers";
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import { AddressActions } from 'app/ngrx/checkout/actions';
 import { AccountService } from '@root/services/core/auth/account.service';

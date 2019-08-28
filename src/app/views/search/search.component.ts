@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductsService } from "@root/services";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Subscription } from "rxjs/Subscription";
@@ -7,13 +7,7 @@ import { map } from 'rxjs/operators';
 import { ColorFilter, IProducts } from '@root/models';
 import { TreeNode, SelectItem } from 'primeng/api';
 import { RootSidebarService } from '@root/components/sidebar/sidebar.service';
-import { rootAnimations } from '@root/animations';
-import { Pageable } from '@root/models';
-import { LazyLoadEvent } from 'primeng/api';
 import { Store, select } from "@ngrx/store";
-// import * as fromApp from "app/ngrx/app.reducers";
-// import { HttpError } from "app/ngrx/app.reducers";
-// import * as BrowseActions from "app/ngrx/browse/browse.actions";
 
 import { ProductActions } from 'app/ngrx/products/actions';
 import * as fromProducts from 'app/ngrx/products/reducers';
@@ -60,17 +54,11 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   constructor(
     private productService: ProductsService,
-    // private store: Store<fromApp.AppState>,
     private store: Store<fromProducts.State>,
     private router: Router,
     private route: ActivatedRoute,
     private rootSidebarService: RootSidebarService
   ) {
-    // this.browseState = store.pipe(select('browse'));
-    // const actionsSubscription = route.params
-    //   .pipe(map(params => new BrowseActions.SearchProducts({ keyword: params.keyword })))
-    //   .subscribe(action => store.dispatch(action));
-    // this.subscriptions.push(actionsSubscription);
     const actionsSubscription = route.params
       .pipe(map(params => ProductActions.searchProducts({ query: params.keyword })))
       .subscribe(action => store.dispatch(action));
@@ -82,32 +70,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.browseState = this.store.select('browse');
-
-    // const querySubscribe = this.route.params.subscribe((params: Params) => {
-    //   this.keyword = params['keyword'];
-    //   // this.store.dispatch(new BrowseActions.SearchProducts({ keyword: this.keyword }));
-
-    //   this.productService.searchProductAll(this.keyword)
-    //     .take(1)
-    //     .catch(error => {
-    //       this.canFetch = false;
-    //       return Observable.throw(error);
-    //     })
-    //     .subscribe(res => {
-    //       console.log('search result', res.body)
-    //       this.products = res.body;
-    //       this.filteredItems = res.body;
-    //       // this.page++;
-    //       this.getFilters(res.body);
-
-    //       if (res.body.length != 0) {
-    //         this.canFetch = true;
-    //       }
-    //     });
-    // });    
-    // this.subscriptions.push(querySubscribe);
-
     this.sortOptions = [
       { label: 'Price', value: 'unitPrice' },
       { label: 'Top Sales', value: 'sellCount' },
@@ -140,9 +102,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
 
       if (product.productSubCategory) {
-        // const index = uniqueCategories.indexOf(product.productSubCategory);
-        // if (index === -1) uniqueCategories.push(product.productSubCategory);
-
         if (!categoryMap.has(product.productSubCategory.id)) {
           categoryMap.set(product.productSubCategory.id, true);
           uniqueCategories.push(product.productSubCategory);
@@ -164,11 +123,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     console.log('colors', this.colors);
 
-    //category
-    // for (var i = 0; i < uniqueCategories.length; i++) {
-    //   itemCategory.push({ category: uniqueCategories[i] })
-    // }
-    // this.categories = itemCategory;
 
     console.log('categories', uniqueCategories);
     this.generateCategoriesTree(uniqueCategories);
@@ -266,30 +220,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   toggleSidebar(name): void {
     this.rootSidebarService.getSidebar(name).toggleOpen();
-  }
-
-  loadDataLazy(event: LazyLoadEvent): void {
-    this.loading = true; // used to display loading dots in the UI
-    const pageableData: Pageable = {
-      page: event.first / 10,
-      size: event.rows
-    };
-    this.productService.searchProduct(pageableData.page, this.keyword)
-      .take(1)
-      .catch(error => {
-        this.canFetch = false;
-        return Observable.throw(error);
-      })
-      .subscribe(res => {
-        this.products = res.body;
-        this.filteredItems = res.body;
-        // this.page++;
-        this.getFilters(res.body);
-
-        if (res.body.length != 0) {
-          this.canFetch = true;
-        }
-      });
   }
 
   ngOnDestroy(): void {

@@ -1,72 +1,75 @@
 <div class="page-layout blank">
-    <div class="container" style="min-height: 30vh">
-        <div class="card text-center">
-            <div class="card-body">
-                <h2 class="card-title text-success">
-                    <fa-icon [icon]="'check-circle'"></fa-icon>&nbsp;Thank you for your purchase!
-                </h2>
-                <h6 class="card-subtitle mb-2 text-muted">Your order number is <b>{{orders.orderNumber}}</b></h6>
-                <hr class="mt-5 mb-5">
-                <p>Est. 01 Jul 2019</p>
-                <p>For more details, track your delivery status under <b>My Account > My Orders</b>&nbsp;
-                    <button type="button" id="view-orders" class="btn btn-primary"
-                        [routerLink]="['/pages/dashboard/my-orders']">View Orders</button>
-                </p>
-                <p>
-                    <fa-icon [icon]="'envelope'"></fa-icon>&nbsp;&nbsp;We've sent a confirmation email to <a
-                        href="mailto: example@email.com">example@email.com</a> with the order details.
-                </p>
-                <ngb-accordion #a="ngbAccordion" [activeIds]="activeIds" id="ngb-order-summary">
-                    <ngb-panel id="custom-order-summary">
-                        <ng-template ngbPanelHeader let-opened="opened">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <button ngbPanelToggle class="btn btn-link p-0 order-summary-button">
-                                    <h3>Order Summary</h3>
-                                </button>
-                                <button class="btn btn-link p-0 total-due-button" ngbPanelToggle
-                                    *ngIf="!opened"><span>${{orders.totalDue.toFixed(2) | number:'1.2'}}</span></button>&nbsp;&nbsp;
-                                <button class="btn btn-link p-0" ngbPanelToggle>
-                                    <fa-icon [icon]="opened ? 'chevron-up' : 'chevron-down'"></fa-icon>
-                                </button>
-                            </div>
-                        </ng-template>
-                        <ng-template ngbPanelContent>
-                            <table class="table table-borderless" id="order-success-summary">
-                                <tbody>
-                                    <tr>
-                                        <td colspan="3">Subtotal(1 items)</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><span>${{orders.totalDue.toFixed(2) | number:'1.2'}}</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">Shipping Fee</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><span>${{orders.frieight.toFixed(2) | number:'1.2'}}</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">Total Amount</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><span
-                                                class="total-due">${{orders.totalDue.toFixed(2) | number:'1.2'}}</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
+    <div class="success-form-wrapper mb-4">
+        <div class="container" style="min-height: 30vh">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h2 class="card-title text-success">
+                        <fa-icon [icon]="'check-circle'"></fa-icon>&nbsp;Thank you for your purchase!
+                    </h2>
+                    <h6 class="card-subtitle mb-2 text-muted">Your order number is <b>{{orders.orderNumber}}</b></h6>
+                    <hr class="mt-5 mb-5">
+                    <p>Est. 01 Jul 2019</p>
+                    <p>For more details, track your delivery status under <b>My Account > My Orders</b>&nbsp;
+                        <button type="button" id="view-orders" class="btn btn-primary"
+                            [routerLink]="['/pages/dashboard/my-orders']">View Orders</button>
+                    </p>
+                    <p>
+                        <fa-icon [icon]="'envelope'"></fa-icon>&nbsp;&nbsp;We've sent a confirmation email to <a
+                            href="mailto: example@email.com">example@email.com</a> with the order details.
+                    </p>
+                    <ngb-accordion #a="ngbAccordion" [activeIds]="activeIds" id="ngb-order-summary">
+                        <ngb-panel id="custom-order-summary">
+                            <ng-template ngbPanelHeader let-opened="opened">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <button ngbPanelToggle class="btn btn-link p-0 order-summary-button">
+                                        <h3>Order Summary</h3>
+                                    </button>
+                                    <button class="btn btn-link p-0 total-due-button" ngbPanelToggle
+                                        *ngIf="!opened"><span>${{orders.totalDue.toFixed(2) | number:'1.2'}}</span></button>&nbsp;&nbsp;
+                                    <button class="btn btn-link p-0" ngbPanelToggle>
+                                        <fa-icon [icon]="opened ? 'chevron-up' : 'chevron-down'"></fa-icon>
+                                    </button>
+                                </div>
+                            </ng-template>
+                            <ng-template ngbPanelContent>
+                                <table class="table table-borderless" id="order-success-summary">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="3">Subtotal(1 items)</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><span>${{orders.totalDue.toFixed(2) | number:'1.2'}}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">Shipping Fee</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><span>${{orders.frieight.toFixed(2) | number:'1.2'}}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">Total Amount</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><span
+                                                    class="total-due">${{orders.totalDue.toFixed(2) | number:'1.2'}}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
 
-                            </table>
-                            <p class="gst-label">GST included, where applicable</p>
-                        </ng-template>
-                    </ngb-panel>
-                </ngb-accordion>
-                <p class="mt-5">
-                    <button type="button" id="continue-shopping" class="btn btn-warning"
-                        [routerLink]="['/home']">Continue
-                        Shopping</button>
-                </p>
+                                </table>
+                                <p class="gst-label">GST included, where applicable</p>
+                            </ng-template>
+                        </ngb-panel>
+                    </ngb-accordion>
+                    <p class="mt-5">
+                        <button type="button" id="continue-shopping" class="btn btn-warning"
+                            [routerLink]="['/home']">Continue
+                            Shopping</button>
+                    </p>
 
+                </div>
             </div>
         </div>
     </div>
+
 </div>

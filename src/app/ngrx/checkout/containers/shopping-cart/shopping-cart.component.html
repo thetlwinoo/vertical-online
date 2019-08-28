@@ -1,8 +1,9 @@
 <div class="page-layout blank">
-    <cart-details [shoppingCart]="cart$ | async" [itemCount]="itemCount$ | async"
-        [totalQuantity]="totalQuantity$ | async" [cartPrice]="cartPrice$ | async" (add)="addToCart($event)"
-        (reduce)="reduceFromCart($event)" (remove)="removeFromCart($event)" (apply)="applyDiscount($event)">
-    </cart-details>
+    <div class="mb-4">
+        <cart-details [shoppingCart]="cart$ | async" [itemCount]="itemCount$ | async"
+            [totalQuantity]="totalQuantity$ | async" [cartPrice]="cartPrice$ | async" (add)="addToCart($event)"
+            (reduce)="reduceFromCart($event)" (remove)="removeFromCart($event)" (apply)="applyDiscount($event)">
+        </cart-details>
+        <interested-product></interested-product>
+    </div>
 </div>
-<interested-product></interested-product>
-

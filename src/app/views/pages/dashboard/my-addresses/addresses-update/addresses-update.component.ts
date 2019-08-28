@@ -2,14 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BusinessEntityAddress, IAddressTypes, Addresses, AddressTypes } from '@root/models';
 import { JhiAlertService } from 'ng-jhipster';
 import { ActivatedRoute } from '@angular/router';
-import * as fromApp from "app/ngrx/app.reducers";
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { Store } from "@ngrx/store";
 // import * as AddressesActions from "app/store/adresses/addresses.actions";
 import { AddressesService } from '@root/services';
-import { HttpError } from "app/ngrx/app.reducers";
 
 @Component({
   selector: 'app-addresses-update',
@@ -17,7 +15,6 @@ import { HttpError } from "app/ngrx/app.reducers";
   styleUrls: ['./addresses-update.component.scss']
 })
 export class AddressesUpdateComponent implements OnInit, OnDestroy {
-  addressState: Observable<{ addresses: any[], errors: HttpError[], loading: boolean }>;
   addresses: any;
   addressType: any;
   personPhone: any;
@@ -30,7 +27,6 @@ export class AddressesUpdateComponent implements OnInit, OnDestroy {
     protected jhiAlertService: JhiAlertService,
     protected activatedRoute: ActivatedRoute,
     private addressesService: AddressesService,
-    private store: Store<fromApp.AppState>,
   ) { }
 
   ngOnInit() {

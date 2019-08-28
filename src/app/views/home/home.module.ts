@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RootSharedModule } from '@root/shared.module';
+import { PartialsModule } from 'app/views/partials/partials.module';
 import { RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home.component';
@@ -41,6 +42,7 @@ const routes = [
   imports: [
     RouterModule.forChild(routes),
     RootSharedModule,
+    PartialsModule,
     ProductsModule,
     CarouselModule
   ]

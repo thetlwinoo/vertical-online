@@ -6,10 +6,8 @@ import { ResourceSharedLibsModule } from './shared-libs.module';
 import { ResourceSharedCommonModule } from './shared-common.module';
 import { RootDirectivesModule } from '@root/directives/directives';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ProductBoxComponent } from './components/products/product-box/product-box.component';
-import { ProductCardComponent } from './components/products/product-card/product-card.component';
-
-import { JhiLoginModalComponent } from './components';
+import { JhiLoginModalComponent } from '@root/components';
+import { RootSidebarModule } from '@root/components';
 
 @NgModule({
     imports: [
@@ -18,14 +16,12 @@ import { JhiLoginModalComponent } from './components';
         ResourceSharedCommonModule,
         ResourceSharedLibsModule,
         RootDirectivesModule,
-        RootPipesModule
+        RootPipesModule,
+        RootSidebarModule
     ],
     declarations: [
-        ProductBoxComponent,
-        ProductCardComponent,
         JhiLoginModalComponent
     ],
-    entryComponents: [JhiLoginModalComponent],
     providers: [],
     exports: [
         CommonModule,
@@ -33,10 +29,9 @@ import { JhiLoginModalComponent } from './components';
         ResourceSharedCommonModule,
         RootDirectivesModule,
         RootPipesModule,
-        ProductBoxComponent,
-        ProductCardComponent,
-        JhiLoginModalComponent
+        RootSidebarModule
     ],
+    entryComponents: [JhiLoginModalComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class RootSharedModule {

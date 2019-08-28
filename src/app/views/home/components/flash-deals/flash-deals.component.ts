@@ -3,8 +3,6 @@ import { interval, Subject, Subscription } from 'rxjs';
 import { map, takeUntil, filter } from 'rxjs/operators';
 import * as moment from 'moment';
 import { deal } from '@root/config/owl-carousel';
-import { ProductsService } from '@root/services';
-import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { IProducts } from '@root/models';
 import { rootAnimations } from '@root/animations';
 
@@ -22,14 +20,10 @@ export class FlashDealsComponent implements OnInit, OnDestroy {
 
   carousel: any;
   countdown: any;
-  // products: IProducts[];
 
   private _unsubscribeAll: Subject<any>;
-  // private subscriptions: Subscription[] = [];
 
-  constructor(
-    // private productsService: ProductsService
-  ) {
+  constructor() {
     this.countdown = {
       days: '',
       hours: '',
@@ -69,33 +63,12 @@ export class FlashDealsComponent implements OnInit, OnDestroy {
       .subscribe(value => {
         this.countdown = value;
       });
-
-    // this.getFlashDeals();
   }
-
-  // getFlashDeals() {
-  //   const searchSubscription = this.productsService.getNewlyAdded()
-  //     .pipe(
-  //       filter((res: HttpResponse<IProducts[]>) => res.ok),
-  //       map((res: HttpResponse<IProducts[]>) => res.body)
-  //     )
-  //     .subscribe(
-  //       (data: any) => {
-  //         console.log(data)
-  //         this.products = data;
-  //       }
-  //     );
-  //   this.subscriptions.push(searchSubscription);
-  // }
 
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
-
-    // this.subscriptions.forEach(el => {
-    //   if (el) el.unsubscribe();
-    // });
   }
 
 }

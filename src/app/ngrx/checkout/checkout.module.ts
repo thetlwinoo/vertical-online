@@ -1,4 +1,5 @@
 import { RootSharedModule } from '@root/shared.module';
+import { PartialsModule } from 'app/views/partials/partials.module';
 import { NgModule } from '@angular/core';
 import { CheckoutRoutingModule } from 'app/ngrx/checkout/checkout-routing.module';
 import { EffectsModule } from '@ngrx/effects';
@@ -25,22 +26,26 @@ export const COMPONENTS = [
     InterestedProductComponent,
     AddressListComponent,
     NewAddressComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    CreditCardComponent
 ];
 
 export const CONTAINERS = [
     ShoppingCartComponent,
-    OrderFormComponent
+    OrderFormComponent,
+    PaymentFormComponent, 
+    SuccessFormComponent
 ];
 
 @NgModule({
     imports: [
         RootSharedModule,
+        PartialsModule,
         CheckoutRoutingModule,
         StoreModule.forFeature(fromCheckout.checkoutFeatureKey, fromCheckout.reducers),
 
         EffectsModule.forFeature([AddressEffects, CartEffects, OrderEffects, PaymentEffects])
     ],
-    declarations: [COMPONENTS, CONTAINERS, PaymentFormComponent, SuccessFormComponent, CreditCardComponent],
+    declarations: [COMPONENTS, CONTAINERS],
 })
 export class CheckoutModule { }

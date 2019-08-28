@@ -6,15 +6,15 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarNav">
-            <ul class="nav mr-auto">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Seller Centre</a>
+                    <a class="nav-link" href="#">Seller Centre</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Follow us on</a>
                 </li>
             </ul>
-            <ul class="nav">
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <fa-icon icon="bell" class="mr-1"></fa-icon>Notification
@@ -43,11 +43,11 @@
                         <!-- <div class="dropdown-divider"></div> -->
                         <a class="dropdown-item" href="javascript:void(0);"
                             [routerLink]="['/pages/dashboard/my-wishlist']">
-                            <fa-icon [icon]="['far','heart']" class="mr-3"></fa-icon>My Wishlist
+                            <fa-icon [icon]="['far','heart']" class="mr-3"></fa-icon>My Wishlist({{(wishlistCount$ | async)}})
                         </a>
                         <a class="dropdown-item" href="javascript:void(0);"
                             [routerLink]="['/pages/dashboard/my-compare']">
-                            <fa-icon [icon]="['far','bookmark']" class="mr-3"></fa-icon>My Compare
+                            <fa-icon [icon]="['far','bookmark']" class="mr-3"></fa-icon>My Compare({{(compareCount$ | async)}})
                         </a>
                         <a class="dropdown-item" href="javascript:void(0);"
                             [routerLink]="['/pages/dashboard/address-book']">

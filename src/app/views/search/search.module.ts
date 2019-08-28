@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SearchRoutingModule } from './search-routing.module';
 import { SearchComponent } from './search.component';
-import { RootSidebarModule } from '@root/components/sidebar/sidebar.module';
 import { RootSharedModule } from '@root/shared.module';
+import { PartialsModule } from 'app/views/partials/partials.module';
 // import { ProductsModule } from 'app/ngrx/products';
 import { CategoryComponent } from './filter/category/category.component';
 import { CategoryPipe } from './pipe/category.pipe';
@@ -28,7 +28,7 @@ import { RatingComponent } from './filter/rating/rating.component';
     CommonModule,
     SearchRoutingModule,
     RootSharedModule,
-    RootSidebarModule,
+    PartialsModule
     // ProductsModule
   ]
 })

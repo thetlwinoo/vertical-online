@@ -15,7 +15,8 @@ import {
     WishlistService,
     CompareService,
     ReviewsService,
-    BreadcrumbGuard
+    BreadcrumbGuard,
+    LayoutUtilsService
 } from "@root/services";
 import { ConfirmationService } from 'primeng/api';
 
@@ -35,6 +36,7 @@ import { ConfirmationService } from 'primeng/api';
         TokenService,
         PaypalService,
         CreditCardService,
+        LayoutUtilsService,
         // AuthGuardService,
         // NonAuthGuardService,
         AccountApiService,

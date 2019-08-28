@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs/Observable";
-import { HttpError } from 'app/ngrx/app.reducers';
 import { IProducts, AddToCartProps } from '@root/models';
 import { select, Store } from '@ngrx/store';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';

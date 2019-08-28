@@ -23,7 +23,10 @@ import {
     MatCardModule,
     MatGridListModule,
     MatProgressSpinnerModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatProgressBarModule,
+    MatSelectModule,
+    MatSnackBarModule
 } from '@angular/material';
 
 //primeng
@@ -82,6 +85,12 @@ import { CookieModule } from 'ngx-cookie';
         MatGridListModule,
         MatProgressSpinnerModule,
         MatToolbarModule,
+        MatProgressBarModule,
+        MatDialogModule,
+        MatRadioModule,
+        MatSelectModule,
+        MatSnackBarModule,
+        MatInputModule,
 
         TableModule,
         ButtonModule,

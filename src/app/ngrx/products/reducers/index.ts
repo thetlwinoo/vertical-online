@@ -172,6 +172,11 @@ export const getWishlistProducts = createSelector(
     getWishlistState,
     fromWishlist.getProducts
 );
+
+export const getWishlistCount = createSelector(
+    getWishlistState,
+    fromWishlist.getCount
+);
 // export const getProductWishlist = createSelector(
 //     getProductEntities,
 //     getWishlistProductIds,
@@ -212,6 +217,11 @@ export const getCompareProductIds = createSelector(
 export const getCompareProducts = createSelector(
     getCompareState,
     fromWishlist.getProducts
+);
+
+export const getCompareCount = createSelector(
+    getCompareState,
+    fromWishlist.getCount
 );
 
 // export const getProductCompare = createSelector(

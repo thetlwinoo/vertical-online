@@ -40,7 +40,7 @@ export class SelectedProductPageComponent {
     this.isSelectedProductInWishlist$ = store.pipe(select(fromProducts.isSelectedProductInWishlist));
     this.isSelectedProductInCart$ = checkoutStore.pipe(select(fromCheckout.isSelectedProductInCart));
 
-    this.isSelectedProductInCart$.subscribe(data=> console.log('in cart sub',data))
+    this.isSelectedProductInCart$.subscribe(data => console.log('in cart sub', data))
 
     const actionsSubscription = route.params
       .pipe(map(params => CartActions.selectProduct({ id: params.id })))

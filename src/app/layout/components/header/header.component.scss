@@ -13,7 +13,13 @@
         box-sizing: content-box;
 
         .cart-button {
-            font-size: 2em;            
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 2em;
+
+            &:focus,
+            &:hover {
+                color: rgba(255, 255, 255, 0.75);
+            }
         }
 
         .cart-badge {

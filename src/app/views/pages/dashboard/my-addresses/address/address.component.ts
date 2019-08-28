@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { addressReducer } from 'app/ngrx/adresses/addresses.reducer';
 import { Account } from '@root/models';
-import { OuterSubscriber } from 'rxjs/internal-compatibility';
 
 @Component({
   selector: 'dashboard-address',

@@ -12,13 +12,15 @@ export interface State {
     loading: boolean;
     ids: number[];
     products: IProducts[];
+    count: number;
 }
 
 const initialState: State = {
     loaded: false,
     loading: false,
     ids: [],
-    products: []
+    products: [],
+    count: 0
 };
 
 export const reducer = createReducer(
@@ -31,7 +33,8 @@ export const reducer = createReducer(
         loaded: true,
         loading: false,
         ids: products.map(product => product.id),
-        products: products
+        products: products,
+        count: products.length | 0
     })),
     // Supports handing multiple types of actions
     on(
@@ -66,3 +69,6 @@ export const getLoading = (state: State) => state.loading;
 export const getIds = (state: State) => state.ids;
 
 export const getProducts = (state: State) => state.products;
+
+export const getCount = (state: State) => state.count;
+

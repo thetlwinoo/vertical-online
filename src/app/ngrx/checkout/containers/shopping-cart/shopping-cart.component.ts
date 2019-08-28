@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IShoppingCarts } from '@root/models';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import { CartActions } from 'app/ngrx/checkout/actions';
+import { LayoutUtilsService, MessageType } from '@root/services/_base/crud';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -19,6 +20,7 @@ export class ShoppingCartComponent implements OnInit {
   loaded$: Observable<boolean>;
   constructor(
     private store: Store<fromCheckout.State>,
+    private layoutUtilsService: LayoutUtilsService,
   ) {
     this.cart$ = store.pipe(select(fromCheckout.getCartState)) as Observable<IShoppingCarts>;
     this.cartPrice$ = store.pipe(select(fromCheckout.getCartTotalPrice)) as Observable<number>;
@@ -35,7 +37,10 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   addToCart(event) {
+    const _addToCartMessage = "Add To Cart";
+
     this.store.dispatch(CartActions.addToCart({ props: event }));
+    this.layoutUtilsService.showActionNotification(_addToCartMessage, MessageType.Create);
   }
 
   reduceFromCart(event) {

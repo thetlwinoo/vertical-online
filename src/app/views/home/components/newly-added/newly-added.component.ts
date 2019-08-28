@@ -1,11 +1,5 @@
-import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
-
-// import * as fromApp from "app/ngrx/app.reducers";
-// import { Store } from "@ngrx/store";
-// import { Observable } from "rxjs/Observable";
+import { Component, Input } from '@angular/core';
 import { Products, IProducts } from "@root/models";
-// import { Subscription } from "rxjs/Subscription";
-// import * as ShowcaseActions from 'app/ngrx/showcase/showcase.actions';
 import { deal } from '@root/config/owl-carousel';
 import { rootAnimations } from '@root/animations';
 
@@ -19,15 +13,9 @@ export class NewlyAddedComponent {
   @Input() data: IProducts[];
   @Input() loading;
   @Input() error;
-
-  // showcaseState: Observable<{ newlyAdded: IProducts[], mostSelling: IProducts[], interested: IProducts[] }>;
-  // private subscriptions: Subscription[] = [];
-  // isFetched: boolean = false;
   carousel: any;
 
-  constructor(
-    // private store: Store<fromApp.AppState>    
-  ) {
+  constructor() {
     this.carousel = deal;
   }
 }

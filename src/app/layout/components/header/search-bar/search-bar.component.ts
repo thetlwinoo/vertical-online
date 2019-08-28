@@ -1,17 +1,22 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from "rxjs";
-  import { take, filter, map } from 'rxjs/operators';
-import { Router } from "@angular/router";
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, OnDestroy, ɵConsole } from '@angular/core';
+import { Observable, Subscription, Subject, of } from "rxjs";
+import { take, filter, map, takeUntil, debounceTime, distinctUntilChanged, tap, switchMap, catchError, mergeMap } from 'rxjs/operators';
+import { Router, NavigationEnd } from "@angular/router";
 import { ProductsService } from '@root/services';
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { IProducts } from '@root/models';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { NgbTypeaheadConfig, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'search-bar',
   templateUrl: './search-bar.component.html',
-  styleUrls: ['./search-bar.component.scss']
+  styleUrls: ['./search-bar.component.scss'],
+  providers: [NgbTypeaheadConfig]
 })
 export class SearchBarComponent implements OnInit {
+  @ViewChild('instance', { static: true }) instance: NgbTypeahead;
+
   @Input() query = '';
   @Input() searching = false;
   @Input() error = '';
@@ -19,13 +24,18 @@ export class SearchBarComponent implements OnInit {
   @Output() search = new EventEmitter<string>();
   @Output() summit = new EventEmitter<any>();
   // @ViewChild('rootsearch', { static: false }) rootsearch: ElementRef;
+  private _unsubscribeAll: Subject<any>;
   private subscriptions: Subscription[] = [];
 
+  searchForm: FormGroup;
+  searchValue: string = '';
   onfocus: boolean = false;
 
   filteredKeywords: any[] = [];
-  keyword: any;
   page: number = 0;
+
+  _searching = false;
+  searchFailed = false;
 
   defaultKeywords: any[] = [
     {
@@ -65,48 +75,67 @@ export class SearchBarComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private productsService: ProductsService
-  ) { }
+    private productsService: ProductsService,
+    private formBuilder: FormBuilder,
+    config: NgbTypeaheadConfig
+  ) {
+    this.searchForm = this.createSearchForm();
+    // config.showHint = false;
+
+    this._unsubscribeAll = new Subject();
+  }
 
   ngOnInit() {
   }
 
-  filterKeywords(event) {
-    const searchSubscription = this.productsService.searchProduct(this.page, event.query)
-      .pipe(
-        filter((res: HttpResponse<IProducts[]>) => res.ok),
-        map((res: HttpResponse<IProducts[]>) => res.body)
-      )
-      .subscribe(
-        (data: any) => {
-          console.log('data',data)          
-          this.filteredKeywords = data;
-        }
-      );
-    this.subscriptions.push(searchSubscription);
+  createSearchForm(): FormGroup {
+    return this.formBuilder.group({
+      keyword: [this.searchValue],
+    });
   }
 
-  searchProduct(search: string) {
-    if (search.trim().length === 0) {
+  search$ = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.searching = true),
+      switchMap(query => {
+        return this.productsService.searchProduct(this.page, query).pipe(
+          takeUntil(this._unsubscribeAll),
+          filter((res: HttpResponse<IProducts[]>) => res.ok),
+          map((res: HttpResponse<IProducts[]>) => res.body.map(product => product.productName)),
+          tap(() => this.searchFailed = false),
+          catchError(() => {
+            this.searchFailed = true;
+            return of([]);
+          }));
+      }
+      ),
+      tap(() => this._searching = false)
+    )
+
+  onSearch(event) {
+    event.stopPropagation();
+    this.instance.dismissPopup();
+
+    const data = this.searchForm.getRawValue();
+    if (data.keyword.trim().length === 0) {
       return;
     }
-    let url = '/search/' + search;
+    let url = '/search/' + data.keyword;
     this.router.navigate([url]);
   }
 
-  onClickSearch(event) {
-    this.searchProduct(this.keyword.productName ? this.keyword.productName : this.keyword);
-  }
-
-  onKeySearch(event) {
-    if (event.isTrusted && event.key == "Enter") {
-      this.searchProduct(this.keyword.productName ? this.keyword.productName : this.keyword);
-    }
+  onHotKeyChange(value) {
+    this.searchForm.patchValue({ keyword: value });
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(el => {
       if (el) el.unsubscribe();
     });
+
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
   }
 }

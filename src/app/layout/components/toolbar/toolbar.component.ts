@@ -5,13 +5,11 @@ import { Router } from '@angular/router';
 // import { TranslateService } from '@ngx-translate/core';
 import { LoginModalService, AccountService, LoginService } from '@root/services/core';
 import { Observable } from "rxjs/Observable";
-import { Account, Wishlists, Compares } from '@root/models';
+import { Account, Wishlists, Compares, IProducts } from '@root/models';
 import { Subscription } from "rxjs/Subscription";
-import { Store } from "@ngrx/store";
-import * as fromApp from 'app/ngrx/app.reducers';
-import { HttpError } from 'app/ngrx/app.reducers';
-import * as WishlistActions from 'app/ngrx/wishlist/wishlist.actions';
-import * as CompareActions from 'app/ngrx/compare/compare.actions';
+import { Store, select } from "@ngrx/store";
+import * as fromProduct from 'app/ngrx/products/reducers';
+import { WishlistActions,CompareActions } from 'app/ngrx/products/actions';
 import { RootConfigService } from '@root/services';
 import { RootSidebarService } from '@root/components/sidebar/sidebar.service';
 import { Subject } from 'rxjs';
@@ -29,8 +27,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   isMobile: boolean;
   account: Account;
   modalRef: NgbModalRef;
-  wishlistState: Observable<{ wishlists: Wishlists, errors: HttpError[], loading: boolean }>;
-  compareState: Observable<{ compares: Compares, errors: HttpError[], loading: boolean }>;
+  wishlistCount$: Observable<number>;
+  compareCount$: Observable<number>;
   isCollapsed: boolean = true;
 
   rootConfig: any;
@@ -41,8 +39,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   navigation: any;
   selectedLanguage: any;
   userStatusOptions: any[];
-  wishlistCount: number = 0;
-  compareCount: number = 0;
 
   isNavbarCollapsed = true;
 
@@ -57,9 +53,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private router: Router,
     private loginModalService: LoginModalService,
     private eventManager: JhiEventManager,
-    private store: Store<fromApp.AppState>,
+    private store: Store<fromProduct.State>,
     private _platform: Platform
   ) {
+    this.wishlistCount$ = store.pipe(select(fromProduct.getWishlistCount)) as Observable<number>;
+    this.compareCount$ = store.pipe(select(fromProduct.getCompareCount)) as Observable<number>;
     this._unsubscribeAll = new Subject();
   }
 
@@ -83,28 +81,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.registerAuthenticationSuccess();
 
     // Set the selected language from default languages
-    // this.selectedLanguage = _.find(this.languages, { 'id': this._translateService.currentLang });
-
-    this.wishlistState = this.store.select('wishlist');
-    const wishlistSubscription = this.wishlistState.subscribe(data => {
-      if (data && data.wishlists && data.wishlists.wishlistLists) {
-        this.wishlistCount = data.wishlists.wishlistLists.length;
-      }
-      else {
-        this.wishlistCount = 0;
-      }
-    });
-    this.subscriptions.push(wishlistSubscription);
-
-    this.compareState = this.store.select('compare');
-    const compareSubscription = this.compareState.subscribe(data => {
-      if (data && data.compares && data.compares.compareLists) {
-        this.compareCount = data.compares.compareLists.length;
-      } else {
-        this.compareCount = 0;
-      }
-    });
-    this.subscriptions.push(compareSubscription);
+    // this.selectedLanguage = _.find(this.languages, { 'id': this._translateService.currentLang });    
   }
 
   registerAuthenticationSuccess() {
@@ -112,8 +89,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       this.accountService.identity().then(account => {
         if (account) {
           this.account = account;
-          this.store.dispatch(new WishlistActions.FetchWishlist());
-          this.store.dispatch(new CompareActions.FetchCompare());
+          console.log('auth success')
+          this.store.dispatch(WishlistActions.loadWishlist());
+          this.store.dispatch(CompareActions.loadCompare());
         }
       });
     });

@@ -1,12 +1,22 @@
 @import "src/@root/scss/root";
 
-.search-container{
+.search-container {
     display: flex;
     align-items: stretch;
     justify-content: space-between;
-    padding: .3rem;
+    padding: .3rem .3rem .3rem .7rem;
     border-radius: 2px;
     background: #fff;
+
+    .form-control {
+        border: none !important;
+        height: auto !important;
+        padding: 0 !important;
+
+        &:focus {
+            box-shadow: none !important;
+        }
+    }
 }
 
 .search-button {

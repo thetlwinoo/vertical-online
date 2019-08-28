@@ -1,19 +1,19 @@
-<div class="search-wrapper">
-    <div class="search-container">
-        <p-autoComplete class="search-filter" [(ngModel)]="keyword" [suggestions]="filteredKeywords"
-            (completeMethod)="filterKeywords($event)" field="productName" [size]="30" placeholder="keyword search"
-            [minLength]="1" (onKeyUp)="onKeySearch($event)">
-        </p-autoComplete>
-        <button class="search-button bg-dark" (click)="onClickSearch($event);">
-            <fa-icon icon="search"></fa-icon>
-        </button>
+<form #sf autocomplete="off" [formGroup]="searchForm" (submit)="onSearch($event);sf.reset()">
+    <div class="search-wrapper">
+        <div class="search-container">
+            <input #instance="ngbTypeahead" id="keyword-search" type="text" class="form-control" [class.is-invalid]="searchFailed"
+                formControlName="keyword" [ngbTypeahead]="search$" placeholder="keyword search"/>
+            <button class="search-button bg-dark" type="submit">
+                <fa-icon icon="search"></fa-icon>
+            </button>
+        </div>
     </div>
-</div>
-<div class="hot-words d-none d-md-block d-lg-block">
-    <div class="hot-words__list">
-        <a href class="hot-words__item" *ngFor="let item of defaultKeywords;let i=index"
-            (click)="onClick($event,item.keyword)">
-            <span>{{item.keyword}}</span>
-        </a>
+    <div class="hot-words d-none d-md-block d-lg-block">
+        <div class="hot-words__list">
+            <a href="javascript:void(0)" class="hot-words__item" *ngFor="let item of defaultKeywords;let i=index"
+                (click)="onHotKeyChange(item.keyword)">
+                <span>{{item.keyword}}</span>
+            </a>
+        </div>
     </div>
-</div>
+</form>

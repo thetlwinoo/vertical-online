@@ -1,14 +1,10 @@
 <div class="container-fluid">
-  <p-toolbar>
-    <div class="ui-toolbar-group-left">
-    </div>
-    <div class="ui-toolbar-group-right">
-      <button type="button" id="setdefault-button" class="btn btn-primary set-default"
-        [routerLink]="['/pages/dashboard/address-book/new']">
-        <fa-icon [icon]="'plus'"></fa-icon>&nbsp;<span>Add New Address</span>
-      </button>
-    </div>
-  </p-toolbar>
+  <div class="portlet-header d-flex justify-content-end">
+    <button type="button" class="btn btn-primary"
+      [routerLink]="['/pages/dashboard/address-book/new']">
+      <fa-icon [icon]="'plus'"></fa-icon>&nbsp;<span>Add New Address</span>
+    </button>
+  </div>
   <div *ngFor="let addresses of (addresses$ | async) | orderBy:lastModifiedDate ;trackBy: trackId">
     <dashboard-address [addresses]="addresses" [account]="account" (editAddress)="onEditAddress($event)"
       (deleteAddress)="onDeleteAddress($event)" (setDefault)="onSetDefault($event)"></dashboard-address>

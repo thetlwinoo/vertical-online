@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs";
-import { HttpError } from "app/ngrx/app.reducers";
-import { Orders } from '@root/models';
 import { SelectItem } from 'primeng/api';
 import { select, Store } from '@ngrx/store';
-import { IShoppingCarts, IAddresses, IOrders } from '@root/models';
+import { IOrders } from '@root/models';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
-import { AddressActions, OrderActions } from 'app/ngrx/checkout/actions';
+import { OrderActions } from 'app/ngrx/checkout/actions';
 
 @Component({
   selector: 'my-orders',

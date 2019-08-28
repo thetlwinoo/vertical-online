@@ -54,3 +54,12 @@ button:focus {
         text-decoration: none !important;
     }
 }
+
+ngb-typeahead-window{
+    width: 98%;
+    margin-top: 0.3rem !important;
+}
+
+input:-internal-autofill-selected {
+    background-color: none !important;
+}

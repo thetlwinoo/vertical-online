@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
 import { Store } from "@ngrx/store";
-import * as fromApp from "app/ngrx/app.reducers";
-import * as fromAuth from "app/ngrx/auth/auth.reducer";
+// import * as fromApp from "app/ngrx/app.reducers";
+// import * as fromAuth from "app/ngrx/auth/auth.reducer";
 import 'rxjs/add/operator/take';
 import { LoginModalService } from '@root/services/core/login/login-modal.service';
 import { AccountService} from '@root/services/core/auth/account.service';
@@ -17,8 +17,8 @@ export class AuthGuardService implements CanActivate {
   modalRef: NgbModalRef;
 
   constructor(
-    private store: Store<fromApp.AppState>,
-    private router: Router,
+    // private store: Store<fromApp.AppState>,
+    // private router: Router,
     private accountService: AccountService,
     private loginService: LoginService,
     private loginModalService: LoginModalService,

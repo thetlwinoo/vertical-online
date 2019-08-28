@@ -1,2 +1,2 @@
-export * from './login/login.component';
-export * from './progress-bar/progress-bar.module';
+export { JhiLoginModalComponent } from './login/login.component';
+export { RootSidebarModule } from './sidebar/sidebar.module';

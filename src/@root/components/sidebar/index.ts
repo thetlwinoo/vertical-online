@@ -1,0 +1,1 @@
+export { RootSidebarComponent } from './sidebar.component';
