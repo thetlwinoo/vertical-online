@@ -8,7 +8,20 @@
     </ng-container>
 
     <div class="container">
-        <p-breadcrumb [model]="crumbs$ | async" [home]="home" *ngIf="(crumbs$ | async)?.length"></p-breadcrumb>
+        <!-- <p-breadcrumb [model]="crumbs$ | async" [home]="home" *ngIf="(crumbs$ | async)?.length"></p-breadcrumb> -->
+        <nav aria-label="breadcrumb" *ngIf="(crumbs$ | async)?.length">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a routerLink="/home">
+                        <fa-icon icon="home" class="home"></fa-icon>
+                    </a>
+                </li>
+                <li class="breadcrumb-item" *ngFor="let crumb of (crumbs$ | async)">
+                    <fa-icon icon="chevron-right" class="ml-2 mr-3"></fa-icon>
+                    <a href="#">{{crumb.label}}</a>
+                </li>
+            </ol>
+        </nav>
     </div>
 
     <content></content>

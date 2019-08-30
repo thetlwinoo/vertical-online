@@ -110,12 +110,24 @@ export const getSearchResults = createSelector(
 export const getSearchCategoriesFilters = createSelector(
     getSearchResults,
     (products) => {
-        return [...new Set(products.map(item => {
-            return {
-                id: item.productSubCategoryId,
-                name: item.productSubCategoryProductSubCategoryName
-            }
-        }))];
+        return [...new Set(products.map(item => item.productSubCategoryProductSubCategoryName))];
+    }
+)
+
+export const getSearchColorFilters = createSelector(
+    getSearchResults,
+    (products) => {
+        return [...new Set(products.map(item => item.color))].filter(item => item.length > 0);
+    }
+)
+
+export const getSearchPriceFilters = createSelector(
+    getSearchResults,
+    (products) => {
+        return [
+            Math.min.apply(Math, products.map(item => item.unitPrice)),
+            Math.max.apply(Math, products.map(item => item.unitPrice))            
+        ];
     }
 )
 // export const getSearchCategoriesFilters = createSelector(

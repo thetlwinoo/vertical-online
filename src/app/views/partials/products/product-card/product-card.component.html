@@ -16,8 +16,8 @@
             </div>
         </div>
         <img src="assets/images/general/lowest.png" class="product-lowest-guaranteed" *ngIf="lowestPrice">
-        <a [routerLink]="['/products',product.id]" routerLinkActive="active">
-            <div class="square" [style.backgroundImage]="'url('+ product.photo +')'" *ngIf="product.photo;else noimage">
+        <a [routerLink]="['/products',product.id]" routerLinkActive="active" (deferLoad)="product.showPhoto=true">
+            <div class="square" [style.backgroundImage]="'url('+ product.photo +')'" *ngIf="product.photo && product.showPhoto;else noimage">
             </div>
         </a>
         <ng-template #noimage>
@@ -48,16 +48,14 @@
         <div class="price-wrapper">
             <div class="price-spacer">
                 <div class="product-price-wrapper">
-                    <span
-                        class="product-current-price">{{product.unitPrice | currency:productsService?.currency:'symbol'}}</span>
+                    <span class="product-current-price">{{product.unitPrice}}</span>
                 </div>
             </div>
         </div>
         <div class="price-wrapper">
             <div class="price-spacer">
                 <div class="product-price-wrapper">
-                    <span
-                        class="product-price-old">{{product.recommendedRetailPrice | currency:productsService?.currency:'symbol'}}</span>
+                    <span class="product-price-old">{{product.recommendedRetailPrice}}</span>
                     <span class="discount-percentage">-80%</span>
                 </div>
             </div>

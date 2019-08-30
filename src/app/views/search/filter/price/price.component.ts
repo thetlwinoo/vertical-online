@@ -8,17 +8,17 @@ import 'rxjs/add/observable/interval';
   encapsulation: ViewEncapsulation.None
 })
 export class PriceComponent implements OnInit {
-
-  @Input() price;
-  @Input() rangePrice;
-  @Output() priceFilters = new EventEmitter();
+  @Input() min: number;
+  @Input() max: number;
+  @Input() rangePrice: any;
+  @Output() selectedPrices = new EventEmitter();
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   priceChanged(event: any) {
-    this.priceFilters.emit(event.values);
+    this.selectedPrices.emit(event.values);
   }
 
 }

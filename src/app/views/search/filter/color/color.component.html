@@ -1,19 +1,19 @@
-<div class="collection-collapse-block">
-  <h3 class="collapse-block-title" (click)="expand = !expand">colors</h3>
+<div class="collection-collapse-block" *ngIf="filter.length">
+  <h3 class="collapse-block-title" [ngClass]="expand?'expanded':'collapsed'" (click)="expand = !expand">colors</h3>
   <div class="collection-collapse-block-content" *ngIf="expand" [@expandCollapse]>
-    <div class="color-selector">
-      <div class="ui-g">
-        <div class="ui-g-12" *ngFor="let filter of colorsFilters">
-          <p-checkbox name="group1" [value]="filter.color" [label]="filter.color" [(ngModel)]="selectedColors"
-            (onChange)="changedColorFilters.emit(selectedColors)" inputId="ny"></p-checkbox>
-        </div>
+    <div class="color-selector mt-3">
+      <div *ngFor="let item of filter | slice:start:end">
+        <p-checkbox name="group1" [value]="item" [label]="item" [(ngModel)]="selectedItems"
+          (onChange)="selectedColors.emit(selectedItems)" inputId="ny"></p-checkbox>
       </div>
+
+      <button type="button" class="btn btn-secondary btn-sm mt-4" (click)="toggleCollepse(filter.length)"
+        *ngIf="filter.length>10">
+        <span *ngIf="!showInd;else collapse">Show All</span>
+        <ng-template #collapse>
+          <span>Collapse</span>
+        </ng-template>
+      </button>
     </div>
   </div>
 </div>
-<!-- <div class="ui-g">
-  <div class="ui-g-12" *ngFor="let filter of colorsFilters">
-    <p-checkbox name="group1" [value]="filter.color" [label]="filter.color" [(ngModel)]="selectedColors"
-      (onChange)="changedColorFilters.emit(selectedColors)" inputId="ny"></p-checkbox>
-  </div>
-</div> -->

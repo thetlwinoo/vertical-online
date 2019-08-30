@@ -6,9 +6,8 @@
                 <td><i class="pi pi-map-marker"></i></td>
                 <td class="address-title">
                     <span class="contact-person">{{address.contactPerson}}</span>
-                    <button *ngIf="address.addressType" pButton type="button"
-                        label="{{address.addressType?.addressTypeName}}"
-                        class="ui-button-warning default-button address-type"></button>
+                    <button type="button" class="btn btn-secondary btn-sm" *ngIf="address.addressType"
+                        class="ui-button-warning default-button address-type">{{address.addressType?.addressTypeName}}</button>
                 </td>
                 <td>
                     <a [routerLink]="['/pages/dashboard/address-book', address.id, 'edit']">Edit</a>

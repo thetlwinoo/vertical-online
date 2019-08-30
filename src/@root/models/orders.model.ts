@@ -22,7 +22,9 @@ export interface IOrders {
     orderLineLists?: IOrderLines[];
     customerId?: number;
     shipToAddressId?: number;
+    shipToAddress?:any;
     billToAddressId?: number;
+    billToAddress?:any;
     shipMethodShipMethodName?: string;
     shipMethodId?: number;
     currencyRateId?: number;
@@ -52,7 +54,9 @@ export class Orders implements IOrders {
         public orderLineLists?: IOrderLines[],
         public customerId?: number,
         public shipToAddressId?: number,
+        public shipToAddress?:any,
         public billToAddressId?: number,
+        public billToAddress?:any,
         public shipMethodShipMethodName?: string,
         public shipMethodId?: number,
         public currencyRateId?: number,

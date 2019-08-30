@@ -13,6 +13,7 @@ export interface IProductPhoto {
     deleteToken?: string;
     productProductName?: string;
     productId?: number;
+    show?: boolean;
 }
 
 export class ProductPhoto implements IProductPhoto {
@@ -30,8 +31,10 @@ export class ProductPhoto implements IProductPhoto {
         public defaultInd?: boolean,
         public deleteToken?: string,
         public productProductName?: string,
-        public productId?: number
+        public productId?: number,
+        public show?: boolean
     ) {
         this.defaultInd = this.defaultInd || false;
+        this.show = this.show || false;
     }
 }

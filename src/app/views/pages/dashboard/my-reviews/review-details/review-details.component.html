@@ -18,10 +18,10 @@
               <h6 class="mb-2 text-muted">{{reviewLine.product?.productModel.productModelName}}</h6>
 
               <div class="form-group rating-display">
-                <p-rating id="field_productRating_{{i}}" name="productRating_{{i}}"
+                <!-- <p-rating id="field_productRating_{{i}}" name="productRating_{{i}}"
                   [(ngModel)]="reviewLine.productRating" [cancel]="false" stars="5"
                   [iconOnStyle]="{'font-size': '2.2em'}" [iconOffStyle]="{'font-size': '2.2em'}" readonly="true">
-                </p-rating>
+                </p-rating> -->
                 <label for="field_productRating_{{i}}">{{getRatingDescription(reviewLine.productRating)}}</label>
               </div>
 
@@ -80,9 +80,9 @@
           </div>
           <div class="rate-delivery-label">Rate and review delivery service:</div>
           <div class="form-group rating-display">
-            <p-rating name="deliveryRating" id="field_deliveryRating"
+            <!-- <p-rating name="deliveryRating" id="field_deliveryRating"
               [(ngModel)]="orders.orderReview.overAllDeliveryRating" [cancel]="false" stars="5"
-              [iconOnStyle]="{'font-size': '2.2em'}" [iconOffStyle]="{'font-size': '2.2em'}" readonly="true"></p-rating>
+              [iconOnStyle]="{'font-size': '2.2em'}" [iconOffStyle]="{'font-size': '2.2em'}" readonly="true"></p-rating> -->
             <label for="field_deliveryRating">{{getRatingDescription(orders.orderReview.overAllDeliveryRating)}}</label>
           </div>
           <div class="review-container" *ngIf="orders.orderReview.overAllDeliveryReview">

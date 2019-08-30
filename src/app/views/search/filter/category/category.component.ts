@@ -12,16 +12,18 @@ import * as fromProducts from 'app/ngrx/products/reducers';
 @Component({
   selector: 'category',
   templateUrl: './category.component.html',
-  styleUrls: ['./category.component.scss']
+  styleUrls: ['./category.component.scss'],
+  animations: rootAnimations,
 })
 export class CategoryComponent implements OnInit {
 
   @Input() filter: any[] = [];
   @Input() productCategories: any[] = [];
-  @Output() selectedCategories: EventEmitter<any[]> = new EventEmitter<any[]>();
+  @Output() selectedCategories: EventEmitter<any> = new EventEmitter<any>();
 
   categories$: Observable<IProductCategory[]>;
-  selectedFiles: TreeNode[] = [];
+  // selectedFiles: TreeNode[] = [];
+  public selectedItems: any;
   private _unsubscribeAll: Subject<any>;
   expand: boolean;
   start: number = 0;
@@ -55,8 +57,10 @@ export class CategoryComponent implements OnInit {
   toggleCollepse(allLength) {
     this.showInd = !this.showInd;
     this.end = this.showInd ? allLength : 10;
-    console.log(this.showInd,this.end)
-    
+  }
+
+  onChange(event){
+    console.log('cag change',event)
   }
   // nodeChange(event) {
   //   this.selectedCategories.emit(this.selectedFiles);

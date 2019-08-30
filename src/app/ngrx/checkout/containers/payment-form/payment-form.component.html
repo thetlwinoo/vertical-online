@@ -30,8 +30,8 @@
                             <div class="paypal-checkout-wrapper">
                                 <a href="JavaScript:void(0);" (click)="onPaypalCheckout()"><img
                                         src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"></a>
-                                <iframe *ngIf="paypalRedirectUrl" width="100%" height="720"
-                                    [src]="paypalRedirectUrl | safe"></iframe>
+                                <iframe *ngIf="paypalRedirectUrl$ | async" width="100%" height="720"
+                                    [src]="(paypalRedirectUrl$ | async) | safe"></iframe>
                             </div>
 
                         </p-tabPanel>

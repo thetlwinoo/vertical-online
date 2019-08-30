@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './review-details.component.html',
   styleUrls: ['./review-details.component.scss']
 })
-export class ReviewDetailsComponent implements OnInit { 
+export class ReviewDetailsComponent implements OnInit {
   @Input() orders;
   constructor() { }
 
@@ -64,5 +64,9 @@ export class ReviewDetailsComponent implements OnInit {
         break;
       }
     }
+  }
+
+  trackId(index: number, item: any) {
+    return item.id;
   }
 }

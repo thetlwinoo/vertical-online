@@ -1,12 +1,12 @@
 <section id="related-products" class="tools-grey" *ngIf="(relatedProducts$ | async).length">
     <div class="container">
-        <p-carousel headerText="related products" [value]="(relatedProducts$ | async)" [circular]="true" [numVisible]="6"
+        <!-- <p-carousel headerText="related products" [value]="(relatedProducts$ | async)" [circular]="true" [numVisible]="6"
             [pageLinks]="3">
             <ng-template let-product pTemplate="item">
                 <a routerLink="/products/{{product.id}}">
                     <product-box [product]="product" [mode]="'related'"></product-box>
                 </a>
             </ng-template>
-        </p-carousel>
+        </p-carousel> -->
     </div>
 </section>

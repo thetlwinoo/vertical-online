@@ -5,10 +5,10 @@
       <fa-icon [icon]="'plus'"></fa-icon>&nbsp;<span>Add New Address</span>
     </button>
   </div>
-  <div *ngFor="let addresses of (addresses$ | async) | orderBy:lastModifiedDate ;trackBy: trackId">
+  <div *ngFor="let addresses of (addresses$ | async) ;trackBy: trackId">
     <dashboard-address [addresses]="addresses" [account]="account" (editAddress)="onEditAddress($event)"
       (deleteAddress)="onDeleteAddress($event)" (setDefault)="onSetDefault($event)"></dashboard-address>
   </div>
 </div>
-<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" [transitionOptions]="'0ms'" appendTo="body">
-</p-confirmDialog>
+<!-- <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" [transitionOptions]="'0ms'" appendTo="body">
+</p-confirmDialog> -->

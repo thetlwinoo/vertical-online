@@ -10,17 +10,29 @@ import { rootAnimations } from '@root/animations';
   encapsulation: ViewEncapsulation.None
 })
 export class ColorComponent implements OnInit {
-  public selectedColors: any;
+  public selectedItems: any;
   expand: boolean;
   public activeItem: any = '';
 
+  start: number = 0;
+  end: number = 10;
+  showInd: boolean = false;
   // Using Input and Output EventEmitter
-  @Input() colorsFilters: ColorFilter[] = [];
-  @Output() changedColorFilters: EventEmitter<ColorFilter[]> = new EventEmitter<ColorFilter[]>();
+  @Input() filter: any[] = [];
+  @Output() selectedColors: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {
     this.expand = true;
-   }
+  }
 
   ngOnInit() { }
+
+  toggleCollepse(allLength) {
+    this.showInd = !this.showInd;
+    this.end = this.showInd ? allLength : 10;
+  }
+
+  onChange(event){
+    console.log('color change',event)
+  }
 }

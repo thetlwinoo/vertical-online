@@ -154,3 +154,14 @@ export const getPaymentLoading = createSelector(
     fromPayment.getLoading
 );
 
+export const getPaymentCreatePaypal = createSelector(
+    getPaymentState,
+    fromPayment.getCreatePaypal
+);
+
+export const getPaymentPaypalRedirectUrl = createSelector(
+    getPaymentCreatePaypal,
+    (createPaypal)=> createPaypal.redirect_url
+);
+
+

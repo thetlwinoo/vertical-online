@@ -9,14 +9,13 @@
   </div>
 </div>
 
-<p-table id="review-products" [value]="orders | completedReviews:reviewedInd" [paginator]="true" [rows]="5">
+<!-- <p-table id="review-products" [value]="orders | completedReviews:reviewedInd" [paginator]="true" [rows]="5">
   <ng-template pTemplate="body" let-order>
     <tr>
       <td>
         <div class="card" *ngIf="!reviewedInd;else pending">
           <div class="card-body">
-            <h5 class="card-title">Purchased on {{order.orderDate.format("DD MMM YYYY")}}</h5>
-            <!-- <h6 class="card-subtitle mb-2 text-muted">Rate and review purchased product:</h6> -->
+            <h5 class="card-title">Purchased on {{order.orderDate.format("DD MMM YYYY")}}</h5>            
             <div class="row">
               <div class="col-md-7">
                 <div class="reviews-left-wrapper">
@@ -60,4 +59,4 @@
       </td>
     </tr>
   </ng-template>
-</p-table>
+</p-table> -->

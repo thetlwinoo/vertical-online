@@ -29,11 +29,16 @@ export class SearchComponent implements OnInit, OnDestroy {
   public price: any;
   public rangePrice: any = [0, 0];
 
+  public minPrice: number;
+  public maxPrice: number;
+
   products: any[] = [];
   products$: Observable<IProducts[]>;
   // categories$: Observable<IProductCategory[]>;
   links$: Observable<any>;
   categoriesFilter$: Observable<any>;
+  colorFilter$: Observable<any>;
+  priceFilter$: Observable<any>;
   totalItems$: Observable<any>;
   loading$: Observable<boolean>;
   error$: Observable<string>;
@@ -108,11 +113,16 @@ export class SearchComponent implements OnInit, OnDestroy {
     // this.categories$ = store.pipe(select(fromProducts.getFetchCategories));
     this.links$ = store.pipe(select(fromProducts.getSearchLinks));
     this.categoriesFilter$ = store.pipe(select(fromProducts.getSearchCategoriesFilters));
+    this.colorFilter$ = store.pipe(select(fromProducts.getSearchColorFilters));
+    this.priceFilter$ = store.pipe(select(fromProducts.getSearchPriceFilters));
     this.totalItems$ = store.pipe(select(fromProducts.getSearchTotalItems));
     this.loading$ = store.pipe(select(fromProducts.getSearchLoading));
     this.error$ = store.pipe(select(fromProducts.getSearchError));
 
-    this.categoriesFilter$.subscribe(filter=> console.log('cag filter',filter))
+    this.priceFilter$.subscribe(prices => {
+      this.minPrice = prices[0];
+      this.maxPrice = prices[1];
+    })
   }
 
   ngOnInit() {
@@ -236,69 +246,68 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
   }
 
-  private generateCategoriesTree(subCategories) {
-    const categories = [];
-    const map = new Map();
+  // private generateCategoriesTree(subCategories) {
+  //   const categories = [];
+  //   const map = new Map();
 
-    for (const item of subCategories) {
-      const category = item.productCategory;
-      if (!map.has(category.id)) {
-        map.set(category.id, true);    // set any value to Map
-        categories.push({
-          id: category.id,
-          label: category.productCategoryName,
-          data: category.productCategoryName,
-          type: "collapsable",
-          expandedIcon: "fa fa-folder-open",
-          children: []
-        });
-      }
-    }
+  //   for (const item of subCategories) {
+  //     const category = item.productCategory;
+  //     if (!map.has(category.id)) {
+  //       map.set(category.id, true);    // set any value to Map
+  //       categories.push({
+  //         id: category.id,
+  //         label: category.productCategoryName,
+  //         data: category.productCategoryName,
+  //         type: "collapsable",
+  //         expandedIcon: "fa fa-folder-open",
+  //         children: []
+  //       });
+  //     }
+  //   }
 
-    for (const category of categories) {
-      subCategories.map(item => {
-        if (category.id == item.productCategory.id) {
-          category.children.push({
-            id: item.id,
-            label: item.productSubCategoryName,
-            data: item.productSubCategoryName,
-            icon: "fa fa-file-word-o",
-            type: "item",
-            status: "A"
-          })
-        }
-      })
-    }
+  //   for (const category of categories) {
+  //     subCategories.map(item => {
+  //       if (category.id == item.productCategory.id) {
+  //         category.children.push({
+  //           id: item.id,
+  //           label: item.productSubCategoryName,
+  //           data: item.productSubCategoryName,
+  //           icon: "fa fa-file-word-o",
+  //           type: "item",
+  //           status: "A"
+  //         })
+  //       }
+  //     })
+  //   }
 
-    console.log('category', categories)
-    this.categoriesTree = categories;
+  //   console.log('category', categories)
+  //   this.categoriesTree = categories;
+  // }
+
+  onSelectedCategories(items: any) {
+    // const _filter = Array();
+    // categories.map((item, index) => {
+    //   if (item.type == "item") {
+    //     _filter.push(item.label);
+    //   }
+    // });
+    // this.categoriesFilters = _filter;
+
   }
 
-  updateCategories(categories: any[]) {
-    const _filter = Array();
-    categories.map((item, index) => {
-      if (item.type == "item") {
-        _filter.push(item.label);
-      }
-    });
-    this.categoriesFilters = _filter;
-
-    console.log('filter', this.categoriesFilters)
+  public onSelectedColors(colors: any) {
+    // this.colorFilters = colors;
   }
 
-  public updateColorFilters(colors: ColorFilter[]) {
-    this.colorFilters = colors;
-  }
+  public onSelectedPrices(price: any) {
+    // const temp: any[] = [];
+    // this.filteredItems.filter((item: any) => {
+    //   if (item.unitPrice >= price[0] && item.unitPricef <= price[1]) {
+    //     temp.push(item);
+    //   }
+    // });
 
-  public updatePriceFilters(price: any) {
-    const temp: any[] = [];
-    this.filteredItems.filter((item: any) => {
-      if (item.unitPrice >= price[0] && item.unitPricef <= price[1]) {
-        temp.push(item);
-      }
-    });
-
-    this.products = temp;
+    // this.products = temp;
   }
 
   updateCondition(condition: any[]) {

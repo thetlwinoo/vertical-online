@@ -30,7 +30,7 @@ export interface IProducts {
     discontinuedDate?: Moment;
     sellCount?: number;
     productReviewId?: number;
-    productReview?:any;
+    productReview?: any;
     unitPackagePackageTypeName?: string;
     unitPackageId?: number;
     outerPackagePackageTypeName?: string;
@@ -45,6 +45,7 @@ export interface IProducts {
     weightUnitMeasureCodeId?: number;
     productModelProductModelName?: string;
     productModelId?: number;
+    showPhoto?: boolean;
 }
 
 export class Products implements IProducts {
@@ -78,7 +79,7 @@ export class Products implements IProducts {
         public discontinuedDate?: Moment,
         public sellCount?: number,
         public productReviewId?: number,
-        public productReview?:any,
+        public productReview?: any,
         public unitPackagePackageTypeName?: string,
         public unitPackageId?: number,
         public outerPackagePackageTypeName?: string,
@@ -92,9 +93,11 @@ export class Products implements IProducts {
         public weightUnitMeasureCodeUnitMeasureCode?: string,
         public weightUnitMeasureCodeId?: number,
         public productModelProductModelName?: string,
-        public productModelId?: number
+        public productModelId?: number,
+        public showPhoto?: boolean
     ) {
         this.makeFlag = this.makeFlag || false;
         this.finishedGoodsFlag = this.finishedGoodsFlag || false;
+        this.showPhoto = this.showPhoto || false;
     }
 }

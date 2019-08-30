@@ -19,7 +19,7 @@
     <div class="card-footer">
         <div class="footer-wrapper">
             <span class="product-price mr-auto">
-                {{product.unitPrice | currency:productsService?.currency:'symbol'}}
+                {{product.unitPrice}}
             </span>
             <span class="product-sold" *ngIf="mode != 'deal'">
                 {{product.sellCount}} sold

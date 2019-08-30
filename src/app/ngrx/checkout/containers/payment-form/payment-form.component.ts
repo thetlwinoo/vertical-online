@@ -14,6 +14,7 @@ import { PaymentActions } from 'app/ngrx/checkout/actions';
 })
 export class PaymentFormComponent implements OnDestroy {
   private subscriptions: Subscription[] = [];
+  paypalRedirectUrl$: Observable<string>;
   orders: IOrders;
   // private subscriptions: Subscription[] = [];
 
@@ -42,6 +43,8 @@ export class PaymentFormComponent implements OnDestroy {
       .subscribe(action => store.dispatch(action));
 
     this.subscriptions.push(actionsSubscription);
+
+    this.paypalRedirectUrl$ = store.pipe(select(fromCheckout.getPaymentPaypalRedirectUrl)) as Observable<string>;
   }
 
   onPaypalCheckout() {

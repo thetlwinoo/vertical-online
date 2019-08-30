@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { RootSharedModule } from '@root/shared.module';
 
 import {
@@ -30,7 +31,8 @@ import { ProductBoxComponent, ProductCardComponent } from './products';
         ProductCardComponent
     ],
     imports: [
-        RootSharedModule
+        RootSharedModule,
+        RouterModule
     ],
     entryComponents: [
         ActionNotificationComponent,

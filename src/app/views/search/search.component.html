@@ -4,10 +4,12 @@
       <root-sidebar class="sidebar" name="simple-left-sidebar-2" position="left" lockedOpen="gt-md">
         <div class="content">
           <div class="shop-sidebar-wrapper gray-bg-7">
-            <category [filter]="categoriesFilter$ | async" (selectedCategories)="updateCategories($event)"></category>
-            <color [colorsFilters]="colors" (changedColorFilters)="updateColorFilters($event)" *ngIf="colors.length">
+            <category [filter]="categoriesFilter$ | async" (selectedCategories)="onSelectedCategories($event)">
+            </category>
+            <color [filter]="colorFilter$ | async" (selectedColors)="onSelectedColors($event)">
             </color>
-            <price-filter [price]="price" [rangePrice]="rangePrice" (priceFilters)="updatePriceFilters($event)">
+            <price-filter [rangePrice]="priceFilter$ | async" [min]="minPrice" [max]="maxPrice"
+              (selectedPrices)="onSelectedPrices($event)">
             </price-filter>
             <!-- <condition (changeCondition)="updateCondition($event)"></condition> -->
             <rating></rating>
@@ -23,12 +25,12 @@
           </button> -->
         </div>
         <div class="horizontal-content">
-          <div class="horizontal-wrapper" *ngIf="key?.length>0">
+          <!-- <div class="horizontal-wrapper" *ngIf="key?.length>0">
             <div class="horizontal-spacer">
               <h4>Search related to &#34;
                 <span>{{key}}</span>&#34;</h4>
             </div>
-          </div>
+          </div> -->
           <div class="content">
             <div class="d-flex justify-content-center" *ngIf="(loading$ | async);else productlist">
               <div class="spinner-grow" role="status">
