@@ -4,41 +4,69 @@ import { createReducer, on } from '@ngrx/store';
 export const searchFeatureKey = 'search';
 
 export interface State {
-    ids: string[];
+    ids: number[];
     loading: boolean;
     error: string;
-    query: string;
+    keyword: string;
+    links: any;
+    totalItems: any;
 }
 
 const initialState: State = {
     ids: [],
     loading: false,
     error: '',
-    query: '',
+    keyword: '',
+    links: null,
+    totalItems: null
 };
 
 export const reducer = createReducer(
     initialState,
-    on(ProductActions.searchProducts, (state, { query }) => {
-        return query === ''
+    on(ProductActions.searchProductsWithNoPaging, (state, { keyword }) => {
+        return keyword === ''
             ? {
                 ids: [],
                 loading: false,
                 error: '',
-                query,
+                keyword
             }
             : {
                 ...state,
                 loading: true,
                 error: '',
-                query,
+                keyword
             };
     }),
-    on(ProductActions.searchSuccess, (state, { products }) => ({
+    on(ProductActions.searchProductsWithPaging, (state, { query }) => {
+        return !query
+            ? {
+                ids: [],
+                loading: false,
+                error: '',
+                keyword: ''
+            }
+            : {
+                ...state,
+                loading: true,
+                error: '',
+                keyword: query.keyword
+            };
+    }),
+    on(ProductActions.searchWithNoPagingSuccess, (state, { products }) => ({
+        ...state,
         ids: products.map(product => product.id),
         loading: false,
         error: '',
-        query: state.query,
+        keyword: state.keyword
+    })),
+    on(ProductActions.searchWithPagingSuccess, (state, { payload }) => ({
+        ids: payload.products.map(product => product.id),
+        loading: false,
+        error: '',
+        keyword: state.keyword,
+        links: payload.links,
+        totalItems: payload.totalItems
     })),
     on(ProductActions.searchFailure, (state, { errorMsg }) => ({
         ...state,
@@ -49,8 +77,12 @@ export const reducer = createReducer(
 
 export const getIds = (state: State) => state.ids;
 
-export const getQuery = (state: State) => state.query;
+export const getKeyword = (state: State) => state.keyword;
 
 export const getLoading = (state: State) => state.loading;
+
+export const getLinks = (state: State) => state.links;
+
+export const getTotalItems = (state: State) => state.totalItems;
 
 export const getError = (state: State) => state.error;

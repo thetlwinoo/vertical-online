@@ -4,12 +4,12 @@
       <root-sidebar class="sidebar" name="simple-left-sidebar-2" position="left" lockedOpen="gt-md">
         <div class="content">
           <div class="shop-sidebar-wrapper gray-bg-7">
-            <category [categories]="categoriesTree" (selectedCategories)="updateCategories($event)"></category>
+            <category [filter]="categoriesFilter$ | async" (selectedCategories)="updateCategories($event)"></category>
             <color [colorsFilters]="colors" (changedColorFilters)="updateColorFilters($event)" *ngIf="colors.length">
             </color>
             <price-filter [price]="price" [rangePrice]="rangePrice" (priceFilters)="updatePriceFilters($event)">
             </price-filter>
-            <condition (changeCondition)="updateCondition($event)"></condition>
+            <!-- <condition (changeCondition)="updateCondition($event)"></condition> -->
             <rating></rating>
           </div>
         </div>
@@ -30,82 +30,24 @@
             </div>
           </div>
           <div class="content">
-            <p-dataView #dv [value]="products$ | async"
-              [paginator]="true" [rows]="10" paginatorPosition="bottom" filterBy="productName" [sortField]="sortField"
-              [sortOrder]="sortOrder" [layout]="dataViewOptions.layout">
-              <p-header>
-                <div class="ui-helper-clearfix">
-                  <div class="ui-g">
-                    <div class="ui-g-12 ui-md-4">
-                      <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By"
-                        (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
-                    </div>
-                    <div class="ui-g-6 ui-md-4 filter-container">
-                      <div style="position:relative">
-                        <input type="search" pInputText placeholder="Search by name"
-                          (keyup)="dv.filter($event.target.value)">
-                      </div>
-                    </div>
-                    <div class="ui-g-6 ui-md-4" style="text-align:right">
-                      <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
-                    </div>
-                  </div>
-                </div>
-              </p-header>
-              <ng-template let-product pTemplate="listItem">
-                <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
-                  <div class="ui-g-12 ui-md-3" style="text-align:center">
-                    <img [src]="product.photo">
-                  </div>
-                  <div class="ui-g-12 ui-md-8 product-details">
-                    <div class="ui-g">
-                      <div class="ui-g-2 ui-sm-6">Name: </div>
-                      <div class="ui-g-10 ui-sm-6"><b>{{product.name}}</b></div>
-
-                      <div class="ui-g-2 ui-sm-6">Price: </div>
-                      <div class="ui-g-10 ui-sm-6"><b>{{product.price}}</b></div>
-
-                      <div class="ui-g-2 ui-sm-6">Discount: </div>
-                      <div class="ui-g-10 ui-sm-6"><b>{{product.discount}}</b></div>
-
-                      <div class="ui-g-2 ui-sm-6">Short Details: </div>
-                      <div class="ui-g-10 ui-sm-6"><b>{{product.shortDetails}}</b></div>
-                    </div>
-                  </div>
-                  <div class="ui-g-12 ui-md-1 search-icon">
-                    <button pButton type="button" icon="pi pi-search"></button>
-                  </div>
-                </div>
-              </ng-template>
-              <ng-template let-product pTemplate="gridItem">
-                <div style="padding:.5em" class="ui-g-12 ui-md-3">
+            <div class="d-flex justify-content-center" *ngIf="(loading$ | async);else productlist">
+              <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+            <ng-template #productlist>
+              <div class="row list-gutters">
+                <div class="col-xs-6 col-sm-6 col-md-3" *ngFor="let product of (products$ | async)">
                   <a [routerLink]="['/products',product.id]" routerLinkActive="active">
                     <product-card [product]="product" (quickview)="onQuickView($event)"></product-card>
                   </a>
                 </div>
-              </ng-template>
-            </p-dataView>
-
-            <p-dialog appendTo="body" header="Product Details" [(visible)]="displayDialog" [responsive]="true"
-              showEffect="fade" [modal]="true" [style]="{width: '400px'}" (onAfterHide)="onDialogHide()"
-              [contentStyle]="{'overflow':'visible'}">
-              <div class="ui-g" *ngIf="selectedProduct">
-                <div class="ui-g-12" style="text-align:center">
-                  <img [src]="selectedProduct.photo" width="60">
-                </div>
-                <div class="ui-g-4">Name: </div>
-                <div class="ui-g-8">{{selectedProduct.name}}</div>
-
-                <div class="ui-g-4">Price: </div>
-                <div class="ui-g-8">{{selectedProduct.price}}</div>
-
-                <div class="ui-g-4">Discount: </div>
-                <div class="ui-g-8">{{selectedProduct.discount}}</div>
-
-                <div class="ui-g-4">Short Details: </div>
-                <div class="ui-g-8">{{selectedProduct.shortDetails}}</div>
               </div>
-            </p-dialog>
+              <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="(totalItems$|async)" [(page)]="page" [pageSize]="itemsPerPage"
+                  [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+              </div>
+            </ng-template>
           </div>
         </div>
       </div>

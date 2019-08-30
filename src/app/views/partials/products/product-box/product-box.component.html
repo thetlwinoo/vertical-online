@@ -1,11 +1,17 @@
 <div class="card">
-    <div class="square" [style.backgroundImage]="'url('+ product?.photo +')'" *ngIf="product.photo;else noimage">
-    </div>
+    <a [routerLink]="['/products',product.id]" routerLinkActive="active" *ngIf="product.photo;else noimage">
+        <div class="square" [style.backgroundImage]="'url('+ product?.photo +')'">
+        </div>
+    </a>
     <ng-template #noimage>
         <div class="square no-image"></div>
     </ng-template>
     <div class="card-body">
-        <h5 class="card-title">{{product?.productName}}</h5>
+        <h5 class="card-title">
+            <a [routerLink]="['/products',product.id]" routerLinkActive="active">
+                {{product?.productName}}
+            </a>
+        </h5>
         <h6 class="card-subtitle mb-2 text-muted">{{product?.productSubCategory?.productSubCategoryName}}</h6>
         <h6 class="card-subtitle mb-2 text-muted model-name">{{product?.productModel?.productModelName}}</h6>
         <ngb-progressbar type="warning" value="75" *ngIf="mode == 'deal'">{{product.sellCount}} sold</ngb-progressbar>

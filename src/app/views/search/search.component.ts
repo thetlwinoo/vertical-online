@@ -1,16 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ProductsService } from "@root/services";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { Subscription } from "rxjs/Subscription";
-import { Observable } from "rxjs/Observable";
-import { map } from 'rxjs/operators';
-import { ColorFilter, IProducts } from '@root/models';
+import { Observable, Subject, Subscription } from "rxjs";
+import { map, takeUntil, zip } from 'rxjs/operators';
+import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import { ColorFilter, IProducts, IProductCategory } from '@root/models';
 import { TreeNode, SelectItem } from 'primeng/api';
 import { RootSidebarService } from '@root/components/sidebar/sidebar.service';
 import { Store, select } from "@ngrx/store";
 
-import { ProductActions } from 'app/ngrx/products/actions';
+import { ProductActions, FetchActions } from 'app/ngrx/products/actions';
 import * as fromProducts from 'app/ngrx/products/reducers';
+
+import { ITEMS_PER_PAGE } from '@root/constants';
 
 @Component({
   selector: 'app-search',
@@ -18,9 +19,7 @@ import * as fromProducts from 'app/ngrx/products/reducers';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit, OnDestroy {
-  // browseState: Observable<{ products: IProducts[], errors: HttpError[], loading: boolean }>;
-  private subscriptions: Subscription[] = [];
-  // page: number = 0;
+  private _unsubscribeAll: Subject<any>;
   keyword: string;
   canFetch: boolean = false;
   // querySubscribe: Subscription;
@@ -32,6 +31,10 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   products: any[] = [];
   products$: Observable<IProducts[]>;
+  // categories$: Observable<IProductCategory[]>;
+  links$: Observable<any>;
+  categoriesFilter$: Observable<any>;
+  totalItems$: Observable<any>;
   loading$: Observable<boolean>;
   error$: Observable<string>;
   public filteredItems: any[] = [];
@@ -52,89 +55,173 @@ export class SearchComponent implements OnInit, OnDestroy {
   loading: boolean;
   totalRecords: number = 1000;
 
+  eventSubscriber: Subscription;
+  // routeData: any;
+  links: any;
+  totalItems: any;
+  itemsPerPage: any;
+  page: any;
+  predicate: any;
+  previousPage: any;
+  reverse: any;
+
   constructor(
-    private productService: ProductsService,
     private store: Store<fromProducts.State>,
     private router: Router,
-    private route: ActivatedRoute,
-    private rootSidebarService: RootSidebarService
+    private activatedRoute: ActivatedRoute,
+    protected parseLinks: JhiParseLinks,
+    private rootSidebarService: RootSidebarService,
+    protected eventManager: JhiEventManager
   ) {
-    const actionsSubscription = route.params
-      .pipe(map(params => ProductActions.searchProducts({ query: params.keyword })))
+    this._unsubscribeAll = new Subject();
+
+    this.activatedRoute.params
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        zip(this.activatedRoute.data),
+        map((payload) => {
+          const params = payload[0];
+          const data = payload[1];
+
+          this.page = data.pagingParams.page;
+          this.previousPage = data.pagingParams.page;
+          this.reverse = data.pagingParams.ascending;
+          this.predicate = data.pagingParams.predicate;
+          this.keyword = params.keyword;
+
+          return ProductActions.searchProductsWithPaging({
+            query: {
+              page: this.page - 1,
+              size: this.itemsPerPage,
+              sort: this.sort(),
+              'productName.contains': params.keyword,
+              keyword: params.keyword
+            }
+          });
+        })
+      )
       .subscribe(action => store.dispatch(action));
-    this.subscriptions.push(actionsSubscription);
+
+    this.itemsPerPage = ITEMS_PER_PAGE;
 
     this.products$ = store.pipe(select(fromProducts.getSearchResults));
+    // this.categories$ = store.pipe(select(fromProducts.getFetchCategories));
+    this.links$ = store.pipe(select(fromProducts.getSearchLinks));
+    this.categoriesFilter$ = store.pipe(select(fromProducts.getSearchCategoriesFilters));
+    this.totalItems$ = store.pipe(select(fromProducts.getSearchTotalItems));
     this.loading$ = store.pipe(select(fromProducts.getSearchLoading));
     this.error$ = store.pipe(select(fromProducts.getSearchError));
+
+    this.categoriesFilter$.subscribe(filter=> console.log('cag filter',filter))
   }
 
   ngOnInit() {
-    this.sortOptions = [
-      { label: 'Price', value: 'unitPrice' },
-      { label: 'Top Sales', value: 'sellCount' },
-      { label: 'Name', value: 'productName' }
-    ];
+    // this.store.dispatch(FetchActions.fetchCategories());
+    this.registerChangeInProducts();
   }
 
-  public getFilters(products) {
-    var uniqueColors = [];
-    var itemColor = Array();
-
-    var uniqueCategories = [];
-    // var itemCategory = Array();
-    const categoryMap = new Map();
-
-    var minPrice: number = 0;
-    var maxPrice: number = 0;
-
-    products.map((product, index) => {
-
-      if (index == 0) {
-        minPrice = product.unitPrice;
-        maxPrice = product.unitPrice;
+  loadAll() {
+    this.store.dispatch(ProductActions.searchProductsWithPaging({
+      query: {
+        page: this.page - 1,
+        size: this.itemsPerPage,
+        sort: this.sort(),
+        'productName.contains': this.keyword
       }
+    }));
+  }
 
-      if (product.color) {
-        const index = uniqueColors.indexOf(product.color);
-        if (index === -1) uniqueColors.push(product.color);
-      }
+  trackId(index: number, item: IProducts) {
+    return item.id;
+  }
 
+  registerChangeInProducts() {
+    this.eventSubscriber = this.eventManager.subscribe('productsListModification', response => this.loadAll());
+  }
 
-      if (product.productSubCategory) {
-        if (!categoryMap.has(product.productSubCategory.id)) {
-          categoryMap.set(product.productSubCategory.id, true);
-          uniqueCategories.push(product.productSubCategory);
-        }
-      }
+  sort() {
+    const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+    if (this.predicate !== 'id') {
+      result.push('id');
+    }
+    return result;
+  }
 
+  loadPage(page: number) {
+    if (page !== this.previousPage) {
+      this.previousPage = page;
+      this.transition();
+    }
+  }
 
-      if (product.unitPrice) {
-        if (product.unitPrice < minPrice) minPrice = product.unitPrice;
-        if (product.unitPrice > maxPrice) maxPrice = product.unitPrice;
+  transition() {
+    this.router.navigate(['/search/', this.keyword], {
+      queryParams: {
+        page: this.page,
+        size: this.itemsPerPage,
+        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
       }
     });
-
-    //color
-    for (var i = 0; i < uniqueColors.length; i++) {
-      itemColor.push({ color: uniqueColors[i] })
-    }
-    this.colors = itemColor;
-
-    console.log('colors', this.colors);
-
-
-    console.log('categories', uniqueCategories);
-    this.generateCategoriesTree(uniqueCategories);
-
-    this.price = {
-      'minPrice': minPrice,
-      'maxPrice': maxPrice
-    };
-
-    this.rangePrice = [minPrice, maxPrice];
-    console.log('price', this.price);
   }
+
+  // public getFilters(products) {
+  //   var uniqueColors = [];
+  //   var itemColor = Array();
+
+  //   var uniqueCategories = [];
+  //   // var itemCategory = Array();
+  //   const categoryMap = new Map();
+
+  //   var minPrice: number = 0;
+  //   var maxPrice: number = 0;
+
+  //   products.map((product, index) => {
+
+  //     if (index == 0) {
+  //       minPrice = product.unitPrice;
+  //       maxPrice = product.unitPrice;
+  //     }
+
+  //     if (product.color) {
+  //       const index = uniqueColors.indexOf(product.color);
+  //       if (index === -1) uniqueColors.push(product.color);
+  //     }
+
+
+  //     if (product.productSubCategory) {
+  //       if (!categoryMap.has(product.productSubCategory.id)) {
+  //         categoryMap.set(product.productSubCategory.id, true);
+  //         uniqueCategories.push(product.productSubCategory);
+  //       }
+  //     }
+
+
+  //     if (product.unitPrice) {
+  //       if (product.unitPrice < minPrice) minPrice = product.unitPrice;
+  //       if (product.unitPrice > maxPrice) maxPrice = product.unitPrice;
+  //     }
+  //   });
+
+  //   //color
+  //   for (var i = 0; i < uniqueColors.length; i++) {
+  //     itemColor.push({ color: uniqueColors[i] })
+  //   }
+  //   this.colors = itemColor;
+
+  //   console.log('colors', this.colors);
+
+
+  //   console.log('categories', uniqueCategories);
+  //   this.generateCategoriesTree(uniqueCategories);
+
+  //   this.price = {
+  //     'minPrice': minPrice,
+  //     'maxPrice': maxPrice
+  //   };
+
+  //   this.rangePrice = [minPrice, maxPrice];
+  //   console.log('price', this.price);
+  // }
 
   onSortChange(event) {
     let value = event.value;
@@ -223,8 +310,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(el => {
-      if (el) el.unsubscribe();
-    });
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
   }
 }

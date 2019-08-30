@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, OnDestroy, ɵConsole } from '@angular/core';
 import { Observable, Subscription, Subject, of } from "rxjs";
-import { take, filter, map, takeUntil, debounceTime, distinctUntilChanged, tap, switchMap, catchError, mergeMap } from 'rxjs/operators';
-import { Router, NavigationEnd } from "@angular/router";
+import { filter, map, takeUntil, debounceTime, distinctUntilChanged, tap, switchMap, catchError } from 'rxjs/operators';
+import { Router } from "@angular/router";
 import { ProductsService } from '@root/services';
 import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { IProducts } from '@root/models';
@@ -16,25 +16,16 @@ import { NgbTypeaheadConfig, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 })
 export class SearchBarComponent implements OnInit {
   @ViewChild('instance', { static: true }) instance: NgbTypeahead;
-
-  @Input() query = '';
-  @Input() searching = false;
-  @Input() error = '';
-  @Input() keywords: any;
-  @Output() search = new EventEmitter<string>();
-  @Output() summit = new EventEmitter<any>();
-  // @ViewChild('rootsearch', { static: false }) rootsearch: ElementRef;
   private _unsubscribeAll: Subject<any>;
   private subscriptions: Subscription[] = [];
 
   searchForm: FormGroup;
-  searchValue: string = '';
   onfocus: boolean = false;
 
   filteredKeywords: any[] = [];
   page: number = 0;
 
-  _searching = false;
+  searching = false;
   searchFailed = false;
 
   defaultKeywords: any[] = [
@@ -77,11 +68,10 @@ export class SearchBarComponent implements OnInit {
     private router: Router,
     private productsService: ProductsService,
     private formBuilder: FormBuilder,
-    config: NgbTypeaheadConfig
+    // config: NgbTypeaheadConfig
   ) {
     this.searchForm = this.createSearchForm();
     // config.showHint = false;
-
     this._unsubscribeAll = new Subject();
   }
 
@@ -90,7 +80,7 @@ export class SearchBarComponent implements OnInit {
 
   createSearchForm(): FormGroup {
     return this.formBuilder.group({
-      keyword: [this.searchValue],
+      keyword: [''],
     });
   }
 
@@ -99,8 +89,11 @@ export class SearchBarComponent implements OnInit {
       debounceTime(300),
       distinctUntilChanged(),
       tap(() => this.searching = true),
-      switchMap(query => {
-        return this.productsService.searchProduct(this.page, query).pipe(
+      switchMap(query =>
+        this.productsService.search({
+          size: 10,
+          'productName.contains': query
+        }).pipe(
           takeUntil(this._unsubscribeAll),
           filter((res: HttpResponse<IProducts[]>) => res.ok),
           map((res: HttpResponse<IProducts[]>) => res.body.map(product => product.productName)),
@@ -108,22 +101,19 @@ export class SearchBarComponent implements OnInit {
           catchError(() => {
             this.searchFailed = true;
             return of([]);
-          }));
-      }
+          }))
       ),
-      tap(() => this._searching = false)
+      tap(() => this.searching = false)
     )
 
   onSearch(event) {
     event.stopPropagation();
-    this.instance.dismissPopup();
-
     const data = this.searchForm.getRawValue();
+    console.log('data.keyword', data.keyword)
     if (data.keyword.trim().length === 0) {
       return;
     }
-    let url = '/search/' + data.keyword;
-    this.router.navigate([url]);
+    this.router.navigate(['/search/', data.keyword]);
   }
 
   onHotKeyChange(value) {

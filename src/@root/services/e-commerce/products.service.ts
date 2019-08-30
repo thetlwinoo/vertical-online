@@ -15,7 +15,6 @@ export class ProductsService {
     public resourceUrl = SERVER_API_URL + 'api/products';
     public extendUrl = SERVER_API_URL + 'api/products-extend';
     browsePageSize: number = ITEMS_PER_PAGE;
-    searchPageSize: number = 10;
 
     constructor(protected http: HttpClient) { }
 
@@ -70,7 +69,7 @@ export class ProductsService {
             });
     }
 
-    retrieveProduct(id: number): Observable<EntityResponseType> {        
+    retrieveProduct(id: number): Observable<EntityResponseType> {
         return this.http.get<IProducts>(this.extendUrl + '/product', {
             params: new HttpParams().set('id', id.toString()),
             observe: 'response'
@@ -87,7 +86,7 @@ export class ProductsService {
         return this.http.get<IProducts[]>(this.extendUrl + '/recent', { observe: 'response' });
     }
 
-    getMostSelling(): Observable<EntityArrayResponseType> {        
+    getMostSelling(): Observable<EntityArrayResponseType> {
         return this.http.get<IProducts[]>(this.extendUrl + '/mostselling', { observe: 'response' });
     }
 
@@ -99,24 +98,27 @@ export class ProductsService {
         return this.http.get<IProducts[]>(this.extendUrl + '/dailydiscover', { observe: 'response' });
     }
 
-    searchProduct(page: number, keyword: string): Observable<EntityArrayResponseType> {
-        let params = new HttpParams();
-        params = params.append('page', page.toString());
-        params = params.append('keyword', keyword);
-        params = params.append('pageable', 'true');
-        params = params.set('size', this.searchPageSize.toString());
-        console.log('this.extendUrl', this.extendUrl)
-        return this.http.get<IProducts[]>(this.extendUrl + '/search', { params: params, observe: 'response' })
+    // searchProduct(page: number, keyword: string): Observable<EntityArrayResponseType> {
+    //     let params = new HttpParams();
+    //     params = params.append('page', page.toString());
+    //     params = params.append('keyword', keyword);
+    //     params = params.append('pageable', 'true');
+    //     params = params.set('size', this.browsePageSize.toString());
+    //     return this.http.get<IProducts[]>(this.extendUrl + '/search', { params: params, observe: 'response' })
+    //         .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    // }
+
+    search(req?: any): Observable<EntityArrayResponseType> {
+        const options = createRequestOption(req);
+        return this.http
+            .get<IProducts[]>(this.extendUrl + '/search', { params: options, observe: 'response' })
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
-    searchProductAll(keyword: string): Observable<EntityArrayResponseType> {
+    searchAll(keyword: string): Observable<EntityArrayResponseType> {
         let params = new HttpParams();
-        params = params.append('page', '0');
-        params = params.append('size', '0');
-        params = params.append('pageable', 'false');
         params = params.append('keyword', keyword);
-        return this.http.get<IProducts[]>(this.extendUrl + '/search', { params: params, observe: 'response' });
+        return this.http.get<IProducts[]>(this.extendUrl + '/searchall', { params: params, observe: 'response' });
     }
 
     protected convertDateFromClient(products: IProducts): IProducts {

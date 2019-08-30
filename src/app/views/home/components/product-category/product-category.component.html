@@ -15,15 +15,15 @@
             <div class="viwer-body">
                 <div class="content">
                     <owl-carousel-o #owlCategory [options]="carousel.options">
-                        <ng-container class="bundle" *ngFor="let bundle of bundles">
+                        <ng-container class="bundle" *ngFor="let bundle of data">
                             <ng-template carouselSlide>
                                 <div class="category" *ngFor="let category of bundle">
                                     <a routerLink="/pages/shop" routerLinkActive="active">
                                         <div class="category-item">
                                             <img
-                                                src="assets/images/home/product-category/categories/{{category.theme.icon}}.png">
+                                                src="assets/images/home/product-category/categories2/{{category.productCategoryName}}.png">
                                             <div class="title p-2 line-height-1.75 word_wrap">
-                                                {{category.data}}
+                                                {{category.productCategoryName}}
                                             </div>
                                         </div>
                                     </a>

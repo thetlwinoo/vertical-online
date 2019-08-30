@@ -3,9 +3,9 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { asyncScheduler, EMPTY as empty, of } from 'rxjs';
 import { catchError, debounceTime, map, skip, switchMap, takeUntil, filter } from 'rxjs/operators';
-import { IProducts, IReviewLines, IProductPhoto } from '@root/models';
+import { IProducts, IReviewLines, IProductPhoto, IProductCategory, IProductSubCategory } from '@root/models';
 import { FetchActions } from '../actions';
-import { ProductsService, ReviewsService, ProductPhotoService } from '@root/services';
+import { ProductsService, ReviewsService, ProductPhotoService, ProductCategoryService } from '@root/services';
 
 @Injectable()
 export class FetchEffects {
@@ -18,7 +18,7 @@ export class FetchEffects {
                     map((res: HttpResponse<IProducts[]>) =>
                         FetchActions.fetchNewlyAddedSuccess({ newlyAdded: res.body })
                     ),
-                    catchError(err =>                        
+                    catchError(err =>
                         of(FetchActions.fetchFailure({ errorMsg: err.message }))
                     )
                 )
@@ -118,7 +118,41 @@ export class FetchEffects {
                 this.productPhotoService.getProductPhotos(id).pipe(
                     filter((res: HttpResponse<IProductPhoto[]>) => res.ok),
                     map((res: HttpResponse<IProductPhoto[]>) =>
-                        FetchActions.fetchProductPhotoSucess({ photos: res.body })
+                        FetchActions.fetchProductPhotoSuccess({ photos: res.body })
+                    ),
+                    catchError(err =>
+                        of(FetchActions.fetchFailure({ errorMsg: err.message }))
+                    )
+                )
+            )
+        )
+    );
+
+    fetchCategories$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(FetchActions.fetchCategories),
+            switchMap(() =>
+                this.productCategoryService.query().pipe(
+                    filter((res: HttpResponse<IProductCategory[]>) => res.ok),
+                    map((res: HttpResponse<IProductCategory[]>) =>
+                        FetchActions.fetchCategoriesSuccess({ categories: res.body })
+                    ),
+                    catchError(err =>
+                        of(FetchActions.fetchFailure({ errorMsg: err.message }))
+                    )
+                )
+            )
+        )
+    );
+
+    fetchSubCategories$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(FetchActions.fetchSubCategories),
+            switchMap(() =>
+                this.productCategoryService.query().pipe(
+                    filter((res: HttpResponse<IProductSubCategory[]>) => res.ok),
+                    map((res: HttpResponse<IProductSubCategory[]>) =>
+                        FetchActions.fetchSubCategoriesSuccess({ subCategories: res.body })
                     ),
                     catchError(err =>
                         of(FetchActions.fetchFailure({ errorMsg: err.message }))
@@ -131,6 +165,7 @@ export class FetchEffects {
     constructor(
         private actions$: Actions,
         private productsService: ProductsService,
+        private productCategoryService: ProductCategoryService,
         private productPhotoService: ProductPhotoService,
         private reviewsService: ReviewsService
     ) { }

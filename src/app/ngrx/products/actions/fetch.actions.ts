@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IProducts, IReviewLines, IProductPhoto } from '@root/models';
+import { IProducts, IReviewLines, IProductPhoto, IProductCategory, IProductSubCategory } from '@root/models';
 
 //newly added
 export const fetchNewlyAdded = createAction('[Products/API] Fetch Newly Added');
@@ -59,9 +59,23 @@ export const fetchProductPhoto = createAction(
     props<{ id: number }>()
 );
 
-export const fetchProductPhotoSucess = createAction(
+export const fetchProductPhotoSuccess = createAction(
     '[Products/API] Fetch Product Photo Success',
     props<{ photos: IProductPhoto[] }>()
+);
+
+export const fetchCategories = createAction('[Products/API] Fetch Categories');
+
+export const fetchCategoriesSuccess = createAction(
+    '[Products/API] Fetch Categories Success',
+    props<{ categories: IProductCategory[] }>()
+);
+
+export const fetchSubCategories = createAction('[Products/API] Fetch Sub Categories');
+
+export const fetchSubCategoriesSuccess = createAction(
+    '[Products/API] Fetch Sub Categories Success',
+    props<{ subCategories: IProductSubCategory[] }>()
 );
 
 export const fetchFailure = createAction(

@@ -1,6 +1,6 @@
 <div class="home-wrapper mb-4">    
     <slider-banner></slider-banner>
-    <product-category></product-category>
+    <product-category [data]="bundles$ | async"></product-category>
     <flash-deals eventDate="2020-01-01" [data]="newlyAdded$ | async" [loading]="loading$ | async" [error]="error$ | async"></flash-deals>
     <brand-zone></brand-zone>
     <most-popular [data]="mostSelling$ | async" [loading]="loading$ | async" [error]="error$ | async"></most-popular>

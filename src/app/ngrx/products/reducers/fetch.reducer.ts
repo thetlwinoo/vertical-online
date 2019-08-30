@@ -1,6 +1,6 @@
 import { FetchActions } from 'app/ngrx/products/actions';
 import { createReducer, on } from '@ngrx/store';
-import { IProducts, IReviewLines, IProductPhoto } from '@root/models';
+import { IProducts, IReviewLines, IProductPhoto, IProductCategory, IProductSubCategory } from '@root/models';
 
 export const fetchFeatureKey = 'fetch';
 
@@ -12,6 +12,8 @@ export interface State {
     relatedProducts: IProducts[];
     reviewLines: IReviewLines[];
     photos: any[];
+    categories: IProductCategory[];
+    subCategories: IProductSubCategory[];
     loading: boolean;
     error: string;
 }
@@ -24,6 +26,8 @@ const initialState: State = {
     relatedProducts: [],
     reviewLines: [],
     photos: [],
+    categories: [],
+    subCategories: [],
     loading: false,
     error: ''
 };
@@ -38,6 +42,7 @@ export const reducer = createReducer(
         FetchActions.fetchRelated,
         FetchActions.fetchReviewLines,
         FetchActions.fetchProductPhoto,
+        FetchActions.fetchCategories,
         (state) => {
             return {
                 ...state,
@@ -82,11 +87,23 @@ export const reducer = createReducer(
         loading: false,
         error: ''
     })),
-    on(FetchActions.fetchProductPhotoSucess, (state, { photos }) => ({
+    on(FetchActions.fetchProductPhotoSuccess, (state, { photos }) => ({
         ...state,
         photos: photos.map(photo => {
             return { source: photo.originalPhoto, alt: photo.productProductName, title: photo.productProductName };
         }),
+        loading: false,
+        error: ''
+    })),
+    on(FetchActions.fetchCategoriesSuccess, (state, { categories }) => ({
+        ...state,
+        categories: categories,
+        loading: false,
+        error: ''
+    })),
+    on(FetchActions.fetchSubCategoriesSuccess, (state, { subCategories }) => ({
+        ...state,
+        subCategories: subCategories,
         loading: false,
         error: ''
     })),
@@ -96,6 +113,7 @@ export const reducer = createReducer(
         error: errorMsg
     }))
 );
+
 
 export const getNewlyAdded = (state: State) => state.newlyAdded;
 
@@ -110,6 +128,8 @@ export const getRelatedProducts = (state: State) => state.relatedProducts;
 export const getReviewLines = (state: State) => state.reviewLines;
 
 export const getProductPhoto = (state: State) => state.photos;
+
+export const getCategories = (state: State) => state.categories;
 
 export const getLoading = (state: State) => state.loading;
 

@@ -11,6 +11,7 @@ import * as fromProducts from 'app/ngrx/products/reducers/products.reducer';
 import * as fromRoot from 'app/ngrx';
 import * as fromCompare from 'app/ngrx/products/reducers/compare.reducer';
 import * as fromWishlist from 'app/ngrx/products/reducers/wishlist.reducer';
+import { ITEMS_PER_PAGE } from '@root/constants';
 
 export const productsFeatureKey = 'products';
 
@@ -75,13 +76,21 @@ export const getSearchProductIds = createSelector(
     getSearchState,
     fromSearch.getIds
 );
-export const getSearchQuery = createSelector(
+export const getSearchKeyword = createSelector(
     getSearchState,
-    fromSearch.getQuery
+    fromSearch.getKeyword
 );
 export const getSearchLoading = createSelector(
     getSearchState,
     fromSearch.getLoading
+);
+export const getSearchLinks = createSelector(
+    getSearchState,
+    fromSearch.getLinks
+);
+export const getSearchTotalItems = createSelector(
+    getSearchState,
+    fromSearch.getTotalItems
 );
 export const getSearchError = createSelector(
     getSearchState,
@@ -98,6 +107,41 @@ export const getSearchResults = createSelector(
     }
 );
 
+export const getSearchCategoriesFilters = createSelector(
+    getSearchResults,
+    (products) => {
+        return [...new Set(products.map(item => {
+            return {
+                id: item.productSubCategoryId,
+                name: item.productSubCategoryProductSubCategoryName
+            }
+        }))];
+    }
+)
+// export const getSearchCategoriesFilters = createSelector(
+//     getSearchResults,
+//     (products) => {
+//         const _price = [
+//             Math.max.apply(Math, products.map(item => item.unitPrice)),
+//             Math.min.apply(Math, products.map(item => item.unitPrice))
+//         ];
+
+//         const _subCategories = [...new Set(products.map(item => {
+//             return {
+//                 id: item.productSubCategoryId,                
+//                 name: item.productSubCategoryProductSubCategoryName
+//             }
+//         }))];
+
+//         const _colors = [...new Set(products.map(item => item.color))].filter(item => item.length > 0);
+
+//         return {
+//             price: _price,
+//             subCategories: _subCategories,
+//             colors: _colors
+//         }
+//     }
+// )
 //Fetch State
 export const getFetchState = createSelector(
     getProductsState,
@@ -149,6 +193,24 @@ export const getFetchProductPhoto = createSelector(
     fromFetch.getProductPhoto
 );
 
+export const getFetchCategories = createSelector(
+    getFetchState,
+    fromFetch.getCategories
+);
+
+export const getFetchSubCategories = createSelector(
+    getFetchState,
+    fromFetch.getCategories
+);
+
+export const getFetchBundles = createSelector(
+    getFetchCategories,
+    (categories) => {
+        const bundles: any[] = [];
+        while (categories.length) bundles.push(categories.splice(0, 2));
+        return bundles;
+    }
+);
 //Wishlist
 export const getWishlistState = createSelector(
     getProductsState,

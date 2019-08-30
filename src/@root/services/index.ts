@@ -1,5 +1,6 @@
 //e-commerce services
 export * from './e-commerce/products.service';
+export * from './e-commerce/product-category.service';
 export * from './e-commerce/account-api.service';
 export * from './e-commerce/auth-guard.service';
 export * from './e-commerce/cart.service';

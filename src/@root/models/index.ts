@@ -24,3 +24,5 @@ export * from './pageable';
 export * from './product-photo.model';
 export * from './cart-actions.model';
 export * from './payment-actions.model';
+export * from './product-category.model';
+export * from './product-sub-category.model';

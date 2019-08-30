@@ -21,8 +21,12 @@ export const initialState: State = adapter.getInitialState({
 export const reducer = createReducer(
     initialState,
     on(
-        ProductActions.searchSuccess,
+        ProductActions.searchWithNoPagingSuccess,
         (state, { products }) => adapter.addMany(products, state)
+    ),
+    on(
+        ProductActions.searchWithPagingSuccess,
+        (state, { payload }) => adapter.addMany(payload.products, state)
     ),
     on(ProductActions.loadProduct, (state, { product }) => adapter.addOne(product, state)),
     on(ProductActions.selectProduct, (state, { id }) => ({

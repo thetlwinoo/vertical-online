@@ -2,7 +2,7 @@ a:hover {
     text-decoration: none !important;
 }
 
-.dropdown-menu{
+.dropdown-menu {
     z-index: 1030;
 }
 
@@ -20,25 +20,25 @@ a:hover {
 
 @media (min-width: 768px) and (max-width: 991px) {
     .container {
-        &:not(.footer-container){
+        &:not(.footer-container) {
             padding: 0 !important;
-        }   
+        }
     }
 }
 
 @media (max-width: 767px) {
     .container {
-        &:not(.footer-container){
+        &:not(.footer-container) {
             padding: 0 !important;
-        }        
+        }
     }
 }
 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
     .container {
-        &:not(.footer-container){
+        &:not(.footer-container) {
             padding: 0 !important;
-        }   
+        }
     }
 }
 
@@ -55,11 +55,34 @@ button:focus {
     }
 }
 
-ngb-typeahead-window{
+ngb-typeahead-window {
     width: 98%;
     margin-top: 0.3rem !important;
 }
 
 input:-internal-autofill-selected {
     background-color: none !important;
+}
+
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+
+    >.col,
+    >[class*="col-"] {
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
+.list-gutters {
+    margin-right: 0;
+    margin-left: 0;
+
+    >.col,
+    >[class*="col-"] {
+        padding-right: 10px;
+        padding-left: 0;
+        padding-bottom: 10px;
+    }
 }

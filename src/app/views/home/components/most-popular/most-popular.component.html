@@ -13,24 +13,12 @@
                 </button>
             </div>
             <div class="viwer-body">
-                <!-- <div *ngFor="let e of (showcaseState | async).errors">
-                    <div *ngIf="e.errorEffect == 'FETCH_MOST_SELLING'" class=" col-md-12 alert-warning">
-                        <div *ngIf="e.error.status === 400 || e.error.status === 401 ">Problem loading products...</div>
-                        <div *ngIf="e.error.status === 500 || e.error.status === 0 ">Internal server error! Please
-                            contact our
-                            support
-                            team.
-                        </div>
-                    </div>
-                </div> -->
                 <owl-carousel-o #owlMostPopular [options]="carousel.options">
                     <ng-container *ngFor="let product of data">
                         <ng-template carouselSlide>
-                            <a [routerLink]="['/products',product.id]" routerLinkActive="active">
-                                <div class="owl-sub-item">
-                                    <product-box [product]="product" [mode]="'popular'"></product-box>
-                                </div>
-                            </a>
+                            <div class="owl-sub-item">
+                                <product-box [product]="product" [mode]="'popular'"></product-box>
+                            </div>
                         </ng-template>
                     </ng-container>
                 </owl-carousel-o>
@@ -38,24 +26,3 @@
         </div>
     </div>
 </section>
-<!-- <section id="most-popular" class="tools-grey">
-    <div class="container">
-        <div *ngFor="let e of (showcaseState | async).errors">
-            <div *ngIf="e.errorEffect == 'FETCH_MOST_SELLING'" class=" col-md-12 alert-warning">
-                <div *ngIf="e.error.status === 400 || e.error.status === 401 ">Problem loading products...</div>
-                <div *ngIf="e.error.status === 500 || e.error.status === 0 ">Internal server error! Please contact our
-                    support
-                    team.
-                </div>
-            </div>
-        </div>
-        <p-carousel headerText="popular products" [value]="(showcaseState | async).mostSelling" [circular]="true"
-            [numVisible]="6" [pageLinks]="3">
-            <ng-template let-product pTemplate="item">
-                <a [routerLink]="['/products',product.id]" routerLinkActive="active">
-                    <product-box [product]="product" [mode]="'popular'"></product-box>
-                </a>
-            </ng-template>
-        </p-carousel>
-    </div>
-</section> -->

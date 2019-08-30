@@ -16,13 +16,17 @@
             </div>
         </div>
         <img src="assets/images/general/lowest.png" class="product-lowest-guaranteed" *ngIf="lowestPrice">
-        <div class="square" [style.backgroundImage]="'url('+ product.photo +')'" *ngIf="product.photo;else noimage">
-        </div>
+        <a [routerLink]="['/products',product.id]" routerLinkActive="active">
+            <div class="square" [style.backgroundImage]="'url('+ product.photo +')'" *ngIf="product.photo;else noimage">
+            </div>
+        </a>
         <ng-template #noimage>
             <div class="square no-image"></div>
         </ng-template>
         <div class="p-3 word_wrap product-name">
-            {{product.productName | ellipsis:45}}
+            <a [routerLink]="['/products',product.id]" routerLinkActive="active">
+                {{product.productName | ellipsis:45}}
+            </a>
         </div>
         <div class="rating-love">
             <div class="love-spacer">
@@ -33,7 +37,9 @@
             <!-- <p-rating [ngModel]="rating" readonly="true" stars="5" [cancel]="false"></p-rating> -->
             <ngb-rating [(rate)]="rating" [readonly]="true" max="5">
                 <ng-template let-fill="fill" let-index="index">
-                    <span class="star" [class.text-warning]="fill === 100"><fa-icon icon="star"></fa-icon></span>
+                    <span class="star" [class.text-warning]="fill === 100">
+                        <fa-icon icon="star"></fa-icon>
+                    </span>
                 </ng-template>
             </ngb-rating>
             <span class="ml-1 text-muted">({{rating}})</span>

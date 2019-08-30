@@ -1,14 +1,25 @@
-<div class="collection-collapse-block">  
+<div class="collection-collapse-block">
   <h3 class="collapse-block-title" (click)="expand = !expand">category</h3>
-  <div class="collection-collapse-block-content" *ngIf="expand" [@expandCollapse]>
+  <div class="collection-collapse-block-content" *ngIf="expand">
     <div class="collection-category-filter">
       <div class="tree-wrapper">
-        <p-tree [value]="categories" selectionMode="checkroot" [(selection)]="selectedFiles"
-          (onNodeSelect)="nodeChange($event)" (onNodeUnselect)="nodeChange($event)"></p-tree>
+        <!-- <p-tree [value]="categories" selectionMode="checkroot" [(selection)]="selectedFiles"
+          (onNodeSelect)="nodeChange($event)" (onNodeUnselect)="nodeChange($event)"></p-tree> -->
+        <div class="form-check" *ngFor="let item of filter | slice:start:end">
+          <input class="form-check-input" type="checkbox" value="" [id]="item.id">
+          <label class="form-check-label" [for]="item.id">
+            {{item.name}}
+          </label>
+        </div>
+        <button type="button" class="btn btn-secondary btn-sm mt-4" (click)="toggleCollepse(filter.length)"
+          *ngIf="filter.length>10">
+          <span *ngIf="!showInd;else collapse">Show All</span>
+          <ng-template #collapse>
+            <span>Collapse</span>
+          </ng-template>
+        </button>
+        <hr>
       </div>
-      <button mat-button (click)="collapseAll()">clear</button>
     </div>
   </div>
 </div>
-<!-- <p-tree [value]="categories" selectionMode="checkroot" [(selection)]="selectedFiles" (onNodeSelect)="nodeChange($event)"
-  (onNodeUnselect)="nodeChange($event)"></p-tree> -->

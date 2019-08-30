@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-
+import { HttpHeaders } from '@angular/common/http';
 import { IProducts } from '@root/models';
 
 export const loadProduct = createAction(
@@ -7,9 +7,14 @@ export const loadProduct = createAction(
     props<{ product: IProducts }>()
 );
 
-export const searchProducts = createAction(
-    '[Find Product] Search Products',
-    props<{ query: string }>()
+export const searchProductsWithNoPaging = createAction(
+    '[Find Product] Search Products With No Paging',
+    props<{ keyword: string }>()
+);
+
+export const searchProductsWithPaging = createAction(
+    '[Find Product] Search Products With Paging',
+    props<{ query: any }>()
 );
 
 export const selectProduct = createAction(
@@ -17,7 +22,12 @@ export const selectProduct = createAction(
     props<{ id: number }>()
 );
 
-export const searchSuccess = createAction(
+export const searchWithPagingSuccess = createAction(
+    '[Products/API] Search Success',
+    props<{ payload: any }>()
+);
+
+export const searchWithNoPagingSuccess = createAction(
     '[Products/API] Search Success',
     props<{ products: IProducts[] }>()
 );
