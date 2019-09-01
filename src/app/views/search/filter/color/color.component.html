@@ -1,5 +1,5 @@
 <div class="collection-collapse-block" *ngIf="filter.length">
-  <h3 class="collapse-block-title" [ngClass]="expand?'expanded':'collapsed'" (click)="expand = !expand">colors</h3>
+  <h3 class="collapse-block-title" [ngClass]="expand?'expanded':'collapsed'" (click)="expand = !expand">color family</h3>
   <div class="collection-collapse-block-content" *ngIf="expand" [@expandCollapse]>
     <div class="color-selector mt-3">
       <div *ngFor="let item of filter | slice:start:end">

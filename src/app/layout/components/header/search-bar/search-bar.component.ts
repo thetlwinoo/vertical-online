@@ -109,7 +109,6 @@ export class SearchBarComponent implements OnInit {
   onSearch(event) {
     event.stopPropagation();
     const data = this.searchForm.getRawValue();
-    console.log('data.keyword', data.keyword)
     if (data.keyword.trim().length === 0) {
       return;
     }

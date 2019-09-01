@@ -32,24 +32,22 @@
             </div>
           </div> -->
           <div class="content">
-            <div class="d-flex justify-content-center" *ngIf="(loading$ | async);else productlist">
-              <div class="spinner-grow" role="status">
+            <div class="d-flex justify-content-center loading-spinner" *ngIf="loading$ | async">
+              <div class="spinner-border text-danger" role="status">
                 <span class="sr-only">Loading...</span>
               </div>
             </div>
-            <ng-template #productlist>
-              <div class="row list-gutters">
-                <div class="col-xs-6 col-sm-6 col-md-3" *ngFor="let product of (products$ | async)">
-                  <a [routerLink]="['/products',product.id]" routerLinkActive="active">
-                    <product-card [product]="product" (quickview)="onQuickView($event)"></product-card>
-                  </a>
-                </div>
+            <div class="row list-gutters">
+              <div class="col-xs-6 col-sm-6 col-md-3" *ngFor="let product of (products$ | async)">
+                <a [routerLink]="['/products',product.id]" routerLinkActive="active">
+                  <product-card [product]="product" (quickview)="onQuickView($event)"></product-card>
+                </a>
               </div>
-              <div class="row justify-content-center">
-                <ngb-pagination [collectionSize]="(totalItems$|async)" [(page)]="page" [pageSize]="itemsPerPage"
-                  [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
-              </div>
-            </ng-template>
+            </div>
+            <div class="row justify-content-center">
+              <ngb-pagination [collectionSize]="(totalItems$|async)" [(page)]="page" [pageSize]="itemsPerPage"
+                [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
           </div>
         </div>
       </div>

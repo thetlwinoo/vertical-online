@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Observable, Subject, Subscription } from "rxjs";
 import { map, takeUntil, zip } from 'rxjs/operators';
@@ -16,7 +16,8 @@ import { ITEMS_PER_PAGE } from '@root/constants';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any>;
@@ -85,6 +86,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         takeUntil(this._unsubscribeAll),
         zip(this.activatedRoute.data),
         map((payload) => {
+          console.log('payload',payload)
           const params = payload[0];
           const data = payload[1];
 
@@ -93,7 +95,7 @@ export class SearchComponent implements OnInit, OnDestroy {
           this.reverse = data.pagingParams.ascending;
           this.predicate = data.pagingParams.predicate;
           this.keyword = params.keyword;
-
+console.log('search....')
           return ProductActions.searchProductsWithPaging({
             query: {
               page: this.page - 1,
@@ -169,9 +171,10 @@ export class SearchComponent implements OnInit, OnDestroy {
       queryParams: {
         page: this.page,
         size: this.itemsPerPage,
-        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc'),
       }
     });
+    this.loadAll();
   }
 
   // public getFilters(products) {

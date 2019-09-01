@@ -41,9 +41,7 @@ export class CategoryComponent implements OnInit {
     this.activatedRoute.params
       .pipe(
         takeUntil(this._unsubscribeAll),
-        map((params) => {
-          return FetchActions.fetchCategories();
-        })
+        map((params) => FetchActions.fetchCategories())
       )
       .subscribe(action => this.store.dispatch(action));
 
