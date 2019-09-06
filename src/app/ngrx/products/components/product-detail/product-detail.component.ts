@@ -1,7 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IProducts, AddToCartProps } from '@root/models';
 import { AccountService } from '@root/services/core/auth/account.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router'
+import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import * as fromProducts from 'app/ngrx/products/reducers';
+import { FetchActions } from 'app/ngrx/products/actions';
+import { select, Store } from '@ngrx/store';
 
 @Component({
   selector: 'product-detail',
@@ -19,15 +24,21 @@ export class ProductDetailComponent implements OnInit {
   @Output() removeFromWishlist = new EventEmitter<IProducts>();
   @Output() addCart = new EventEmitter<AddToCartProps>();
 
+  actionsSubscription: Subscription;
+  relatedProducts$: Observable<IProducts[]>;
   constructor(
     private accountService: AccountService,
+    private store: Store<fromProducts.State>,
+    public route: ActivatedRoute,
     private router: Router
   ) {
-
+    this.actionsSubscription = route.params
+    .pipe(map(params => FetchActions.fetchRelated({ id: params.id })))
+    .subscribe(action => store.dispatch(action));
   }
 
   ngOnInit() {
-
+    this.relatedProducts$ = this.store.pipe(select(fromProducts.getFetchRelatedProducts)) as Observable<IProducts[]>;
   }
 
   toggleCompare(event, inCompare) {
@@ -80,5 +91,9 @@ export class ProductDetailComponent implements OnInit {
     }
 
     this.router.navigate(['/checkout/cart']);
+  }
+
+  ngOnDestroy() {
+    this.actionsSubscription.unsubscribe();
   }
 }

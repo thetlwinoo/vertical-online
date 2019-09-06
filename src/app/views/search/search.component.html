@@ -4,12 +4,11 @@
       <root-sidebar class="sidebar" name="simple-left-sidebar-2" position="left" lockedOpen="gt-md">
         <div class="content">
           <div class="shop-sidebar-wrapper gray-bg-7">
-            <category [filter]="categoriesFilter$ | async" (selectedCategories)="onSelectedCategories($event)">
+            <category (selectedCategories)="onSelectedCategories($event)">
             </category>
-            <color [filter]="colorFilter$ | async" (selectedColors)="onSelectedColors($event)">
+            <color (selectedColors)="onSelectedColors($event)">
             </color>
-            <price-filter [rangePrice]="priceFilter$ | async" [min]="minPrice" [max]="maxPrice"
-              (selectedPrices)="onSelectedPrices($event)">
+            <price-filter (selectedPriceRange)="onSelectedPriceRange($event)">
             </price-filter>
             <!-- <condition (changeCondition)="updateCondition($event)"></condition> -->
             <rating></rating>
@@ -18,19 +17,20 @@
       </root-sidebar>
       <div class="center">
         <div class="header header-light-grey p-12" fxLayout="row" fxLayoutAlign="start center">
-
-          <!-- <button mat-icon-button class="sidebar-toggle mr-8" fxHide.gt-md
+          <button mat-icon-button class="sidebar-toggle mr-8" fxHide.gt-md
             (click)="toggleSidebar('simple-left-sidebar-2')">
             <mat-icon>menu</mat-icon>
-          </button> -->
+          </button>
         </div>
         <div class="horizontal-content">
-          <!-- <div class="horizontal-wrapper" *ngIf="key?.length>0">
-            <div class="horizontal-spacer">
-              <h4>Search related to &#34;
-                <span>{{key}}</span>&#34;</h4>
-            </div>
-          </div> -->
+          <nav class="nav search-controller">
+            <a class="nav-link" href="#">
+              Search related to
+              <span *ngIf="searchText()">&#34;{{searchText()}}&#34;</span>
+              <span *ngIf="searchText() && category">&#34;|&#34;</span>
+              <span *ngIf="(currentCategory$|async).length">&#34;{{(currentCategory$|async).join(', ')}}&#34;</span>
+            </a>
+          </nav>
           <div class="content">
             <div class="d-flex justify-content-center loading-spinner" *ngIf="loading$ | async">
               <div class="spinner-border text-danger" role="status">
@@ -45,9 +45,23 @@
               </div>
             </div>
             <div class="row justify-content-center">
-              <ngb-pagination [collectionSize]="(totalItems$|async)" [(page)]="page" [pageSize]="itemsPerPage"
-                [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+              <div *ngIf="(products$ | async).length">
+                <ngb-pagination [collectionSize]="(totalItems$|async)" [(page)]="page" [pageSize]="itemsPerPage"
+                  [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+              </div>
             </div>
+          </div>
+        </div>
+        <div class="text-center" *ngIf="!(loading$ | async) && !(products$ | async).length">
+          <div class="jumbotron">
+            <h1 class="display-4">No Result Found</h1>
+            <blockquote class="blockquote">
+              <p class="lead">We're sorry. We cannot find any matches for your search term.</p>
+            </blockquote>
+
+            <p>
+              <fa-icon icon="search" class="search"></fa-icon>
+            </p>
           </div>
         </div>
       </div>

@@ -16,6 +16,7 @@ export * from './e-commerce/order.service';
 export * from './e-commerce/reviews.service';
 export * from './e-commerce/review-lines.service';
 export * from './e-commerce/message.service';
+export * from './e-commerce/product-tags.service';
 
 export * from './common/config.service';
 export * from './common/match-media.service';

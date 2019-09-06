@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Product, CartItem, Orders } from '@root/models';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';

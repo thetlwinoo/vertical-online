@@ -1,14 +1,22 @@
-<ul class="p-0">
-  <li *ngFor="let val of data">
-    <div class="star-wrapper">
-      <ngb-rating [(rate)]="val.star" [readonly]="true" max="5">
-        <ng-template let-fill="fill" let-index="index">
-          <span class="star" [class.text-warning]="fill === 100">
-            <fa-icon icon="star"></fa-icon>
-          </span>
-        </ng-template>
-      </ngb-rating>
+<div class="collection-collapse-block">
+  <h3 class="collapse-block-title" [ngClass]="expand?'expanded':'collapsed'" (click)="expand = !expand">Rating
+  </h3>
+  <div class="collection-collapse-block-content" *ngIf="expand" [@expandCollapse]>
+    <div class="star-container mx-3 mt-4">
+      <ul class="p-0">
+        <li *ngFor="let val of data">
+          <div class="star-wrapper">
+            <ngb-rating [(rate)]="val.star" [readonly]="true" max="5">
+              <ng-template let-fill="fill" let-index="index">
+                <span class="star" [class.text-warning]="fill === 100">
+                  <fa-icon icon="star"></fa-icon>
+                </span>
+              </ng-template>
+            </ngb-rating>
+          </div>
+          <span class="up">& up</span>
+        </li>
+      </ul>
     </div>
-    <span class="up">& up</span>
-  </li>
-</ul>
+  </div>
+</div>

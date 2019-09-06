@@ -30,5 +30,10 @@
       "es2018",
       "dom"
     ]
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": false,
+    "strictInjectionParameters": false,
+    "enableIvy": false
   }
 }

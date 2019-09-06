@@ -131,6 +131,8 @@ export const getProductPhoto = (state: State) => state.photos;
 
 export const getCategories = (state: State) => state.categories;
 
+export const getSubCategories = (state: State) => state.subCategories;
+
 export const getLoading = (state: State) => state.loading;
 
 export const getError = (state: State) => state.error;

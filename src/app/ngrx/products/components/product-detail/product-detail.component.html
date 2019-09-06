@@ -112,6 +112,4 @@
     </div>
 </div>
 <review-product [product]="product"></review-product>
-<related-product [product]="product"></related-product>
-<!-- <reviews-product [product]="product"></reviews-product>
-    <related-products></related-products> -->
+<related-product [relatedProducts]="relatedProducts$ | async"></related-product>

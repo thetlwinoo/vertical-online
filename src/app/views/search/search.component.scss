@@ -1,7 +1,14 @@
 @import "src/@root/scss/root";
 
-:host {    
-    .loading-spinner{
+:host {
+    .jumbotron {
+        .search {
+            font-size: 5rem;
+            color: rgba(141, 141, 141, 0.3);
+        }
+    }
+
+    .loading-spinner {
         position: fixed;
         left: 50%;
         top: 50%;
@@ -23,13 +30,13 @@
         text-transform: uppercase;
     }
 
-    .expansion-title{
+    .expansion-title {
         text-transform: uppercase;
         font-size: 16px;
         color: lighten(#000000, 26.5%);
         font-weight: 600;
     }
-    
+
     .page-layout {
         &.simple {
             &.left-sidebar {
@@ -80,16 +87,24 @@
                             padding: 0;
                         }
 
+                        >.search-controller {
+                            border-bottom: 1px solid #EFF0F5;
+                            margin-bottom: 15px;
 
-                        >.horizontal-wrapper {
-                            >.horizontal-spacer {
-                                >h4 {
-                                    >span {
-                                        color: #ff5722;
-                                    }
-                                }
+                            span {
+                                color: #ff5722;
                             }
                         }
+
+                        // >.horizontal-wrapper {
+                        //     >.horizontal-spacer {
+                        //         >h4 {
+                        //             >span {
+                        //                 color: #ff5722;
+                        //             }
+                        //         }
+                        //     }
+                        // }
 
                         .product-infinitescroll {
                             margin-top: 20px;

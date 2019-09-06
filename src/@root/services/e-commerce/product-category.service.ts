@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from '@root/constants';
 import { createRequestOption } from '@root/utils';
-import { IProductCategory } from '@root/models';
+import { IProductCategory, IProductSubCategory } from '@root/models';
 
 type EntityResponseType = HttpResponse<IProductCategory>;
 type EntityArrayResponseType = HttpResponse<IProductCategory[]>;
@@ -34,5 +34,5 @@ export class ProductCategoryService {
 
     delete(id: number): Observable<HttpResponse<any>> {
         return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-    }
+    }    
 }

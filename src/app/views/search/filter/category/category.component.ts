@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { ProductTags, TagFilter, IProductCategory } from '@root/models';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { IProductCategory } from '@root/models';
 import { TreeNode } from 'primeng/api';
 import { rootAnimations } from '@root/animations';
 import { Observable, Subject, Subscription } from "rxjs";
 import { map, takeUntil, zip } from 'rxjs/operators';
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { FetchActions } from 'app/ngrx/products/actions';
+import { FetchActions } from 'app/ngrx/tags/actions';
 import { Store, select } from "@ngrx/store";
-import * as fromProducts from 'app/ngrx/products/reducers';
+import * as fromTags from 'app/ngrx/tags/reducers';
 
 @Component({
   selector: 'category',
@@ -15,16 +15,16 @@ import * as fromProducts from 'app/ngrx/products/reducers';
   styleUrls: ['./category.component.scss'],
   animations: rootAnimations,
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit, OnDestroy {
 
   @Input() filter: any[] = [];
   @Input() productCategories: any[] = [];
   @Output() selectedCategories: EventEmitter<any> = new EventEmitter<any>();
 
-  categories$: Observable<IProductCategory[]>;
-  // selectedFiles: TreeNode[] = [];
-  public selectedItems: any;
   private _unsubscribeAll: Subject<any>;
+  categories$: Observable<any[]>;
+  selectedFiles: TreeNode[] = [];
+  public selectedItems: any;
   expand: boolean;
   start: number = 0;
   end: number = 10;
@@ -32,7 +32,7 @@ export class CategoryComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private store: Store<fromProducts.State>,
+    private store: Store<fromTags.State>,
   ) {
     this.expand = true;
 
@@ -41,11 +41,24 @@ export class CategoryComponent implements OnInit {
     this.activatedRoute.params
       .pipe(
         takeUntil(this._unsubscribeAll),
-        map((params) => FetchActions.fetchCategories())
+        zip(this.activatedRoute.queryParams),
+        map((payload) => {
+
+          const keyword = payload[0].keyword == '_blank' ? '' : payload[0].keyword;
+          const queryParams = payload[1];
+          this.store.dispatch(FetchActions.selectCategory({ id: queryParams.category }));
+
+          return FetchActions.fetchSubCategoriesByTag({
+            query: {
+              keyword: keyword,
+              category: queryParams.category
+            }
+          });
+        })
       )
       .subscribe(action => this.store.dispatch(action));
 
-    this.categories$ = store.pipe(select(fromProducts.getFetchCategories));
+    this.categories$ = store.pipe(select(fromTags.getCategoriesTree));
   }
 
   ngOnInit() {
@@ -57,12 +70,9 @@ export class CategoryComponent implements OnInit {
     this.end = this.showInd ? allLength : 10;
   }
 
-  onChange(event){
-    console.log('cag change',event)
+  nodeChange(event) {
+    this.selectedCategories.emit(this.selectedFiles);
   }
-  // nodeChange(event) {
-  //   this.selectedCategories.emit(this.selectedFiles);
-  // }
 
   // expandAll() {
   //   this.categories.forEach(node => {
@@ -85,4 +95,8 @@ export class CategoryComponent implements OnInit {
   //   }
   // }
 
+  ngOnDestroy(): void {
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
+  }
 }

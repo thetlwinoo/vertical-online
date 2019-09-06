@@ -30,6 +30,7 @@ import './vendor.ts';
 import 'hammerjs';
 import { ProductsModule } from 'app/ngrx/products';
 import { CheckoutModule } from 'app/ngrx/checkout';
+import { TagsModule } from 'app/ngrx/tags';
 import { AuthModule } from 'app/ngrx/auth';
 
 const routes: Routes = [
@@ -105,6 +106,7 @@ const routes: Routes = [
     RootProgressBarModule,
     ProductsModule,
     CheckoutModule,
+    TagsModule,
     AuthModule
   ],
   providers: [

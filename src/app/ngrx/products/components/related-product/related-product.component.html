@@ -1,12 +1,36 @@
-<section id="related-products" class="tools-grey" *ngIf="(relatedProducts$ | async).length">
+<section id="related-products" class="tools-grey" *ngIf="relatedProducts.length">
     <div class="container">
-        <!-- <p-carousel headerText="related products" [value]="(relatedProducts$ | async)" [circular]="true" [numVisible]="6"
+        <p-carousel headerText="related products" [value]="relatedProducts" [circular]="true" [numVisible]="6"
             [pageLinks]="3">
             <ng-template let-product pTemplate="item">
                 <a routerLink="/products/{{product.id}}">
                     <product-box [product]="product" [mode]="'related'"></product-box>
                 </a>
             </ng-template>
-        </p-carousel> -->
+        </p-carousel>
+        <!-- <div class="viwer-wrapper">
+            <div class="viwer-title">
+                <div class="viwer-title-spacer title">
+                    related products
+                </div>
+                <button type="button" class="btn btn-link" (click)="owlRelatedProducts.prev()">
+                    <fa-icon icon="chevron-circle-left"></fa-icon>
+                </button>
+                <button type="button" class="btn btn-link" (click)="owlRelatedProducts.next()">
+                    <fa-icon icon="chevron-circle-right"></fa-icon>
+                </button>
+            </div>
+            <div class="viwer-body">
+                <owl-carousel-o #owlRelatedProducts [options]="carousel.options">
+                    <ng-container *ngFor="let product of relatedProducts">
+                        <ng-template carouselSlide>
+                            <div class="owl-sub-item">
+                                <product-box [product]="product" [mode]="'related'"></product-box>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+            </div>
+        </div> -->
     </div>
 </section>

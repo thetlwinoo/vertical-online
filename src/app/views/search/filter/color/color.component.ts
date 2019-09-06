@@ -1,6 +1,11 @@
 import { ViewEncapsulation, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ProductColor, ColorFilter } from '@root/models';
 import { rootAnimations } from '@root/animations';
+import { Subject, Observable } from "rxjs";
+import { map, takeUntil, zip } from 'rxjs/operators';
+import { ActivatedRoute } from "@angular/router";
+import { FetchActions } from 'app/ngrx/tags/actions';
+import { Store, select } from "@ngrx/store";
+import * as fromTags from 'app/ngrx/tags/reducers';
 
 @Component({
   selector: 'color',
@@ -10,6 +15,9 @@ import { rootAnimations } from '@root/animations';
   encapsulation: ViewEncapsulation.None
 })
 export class ColorComponent implements OnInit {
+  @Output() selectedColors: EventEmitter<any> = new EventEmitter<any>();
+  private _unsubscribeAll: Subject<any>;
+  colors$: Observable<string[]>;
   public selectedItems: any;
   expand: boolean;
   public activeItem: any = '';
@@ -18,11 +26,36 @@ export class ColorComponent implements OnInit {
   end: number = 10;
   showInd: boolean = false;
   // Using Input and Output EventEmitter
-  @Input() filter: any[] = [];
-  @Output() selectedColors: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() {
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private store: Store<fromTags.State>,
+  ) {
     this.expand = true;
+
+    this._unsubscribeAll = new Subject();
+
+    this.activatedRoute.params
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        zip(this.activatedRoute.queryParams),
+        map((payload) => {
+
+          const keyword = payload[0].keyword == '_blank' ? '' : payload[0].keyword;
+          const queryParams = payload[1];
+
+          return FetchActions.fetchColorsByTag({
+            query: {
+              keyword: keyword,
+              category: queryParams.category
+            }
+          })
+        })
+      )
+      .subscribe(action => this.store.dispatch(action));
+
+    this.colors$ = store.pipe(select(fromTags.getFetchColors));
   }
 
   ngOnInit() { }
@@ -30,9 +63,5 @@ export class ColorComponent implements OnInit {
   toggleCollepse(allLength) {
     this.showInd = !this.showInd;
     this.end = this.showInd ? allLength : 10;
-  }
-
-  onChange(event){
-    console.log('color change',event)
   }
 }

@@ -18,7 +18,8 @@
                         <ng-container class="bundle" *ngFor="let bundle of data">
                             <ng-template carouselSlide>
                                 <div class="category" *ngFor="let category of bundle">
-                                    <a routerLink="/pages/shop" routerLinkActive="active">
+                                    <a [routerLink]="['/search','_blank']" routerLinkActive="active"
+                                        [queryParams]="{category: category.id}">
                                         <div class="category-item">
                                             <img
                                                 src="assets/images/home/product-category/categories2/{{category.productCategoryName}}.png">

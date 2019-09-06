@@ -55,6 +55,7 @@ export class ProductEffects {
                         skip(1)
                     );
 
+                    console.log('final query',query)
                     return this.productsService.search(query).pipe(
                         takeUntil(nextSearch$),
                         filter((res: HttpResponse<IProducts[]>) => res.ok),

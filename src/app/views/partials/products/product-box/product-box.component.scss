@@ -28,7 +28,8 @@
         background-position: center;
 
         &.no-image {
-            background-image: url('assets/images/noimage.png');
+            background-image: url('assets/images/no-image.svg');
+            opacity:0.1;
         }
     }
 

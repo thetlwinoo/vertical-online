@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ProductTags, TagFilter } from '@root/models';
 declare var $: any;
 import { TreeNode } from 'primeng/api';
 

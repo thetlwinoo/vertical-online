@@ -1,5 +1,3 @@
-export * from './product';
-export * from './cart-item';
 export * from './orders.model';
 export * from './order-lines.model';
 export * from './common';
@@ -26,3 +24,4 @@ export * from './cart-actions.model';
 export * from './payment-actions.model';
 export * from './product-category.model';
 export * from './product-sub-category.model';
+export * from './product-tags.model';

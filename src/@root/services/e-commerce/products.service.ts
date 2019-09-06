@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_FORMAT, ITEMS_PER_PAGE, SERVER_API_URL } from '@root/constants';
 import { createRequestOption } from '@root/utils';
-import { IProducts } from '@root/models';
+import { IProducts, IProductSubCategory } from '@root/models';
 
 type EntityResponseType = HttpResponse<IProducts>;
 type EntityArrayResponseType = HttpResponse<IProducts[]>;
@@ -98,16 +98,6 @@ export class ProductsService {
         return this.http.get<IProducts[]>(this.extendUrl + '/dailydiscover', { observe: 'response' });
     }
 
-    // searchProduct(page: number, keyword: string): Observable<EntityArrayResponseType> {
-    //     let params = new HttpParams();
-    //     params = params.append('page', page.toString());
-    //     params = params.append('keyword', keyword);
-    //     params = params.append('pageable', 'true');
-    //     params = params.set('size', this.browsePageSize.toString());
-    //     return this.http.get<IProducts[]>(this.extendUrl + '/search', { params: params, observe: 'response' })
-    //         .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
-    // }
-
     search(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http
@@ -119,6 +109,35 @@ export class ProductsService {
         let params = new HttpParams();
         params = params.append('keyword', keyword);
         return this.http.get<IProducts[]>(this.extendUrl + '/searchall', { params: params, observe: 'response' });
+    }
+
+    relatedCategories(keyword: string, category: string): Observable<HttpResponse<IProductSubCategory[]>> {
+        let params = new HttpParams();
+
+        params = params.append('keyword', keyword ? keyword : '');
+        params = params.append('category', category ? category : '');
+        return this.http.get<IProductSubCategory[]>(this.extendUrl + '/related/categories', { params: params, observe: 'response' });
+    }
+
+    relatedColors(keyword: string, category: string): Observable<HttpResponse<string[]>> {
+        let params = new HttpParams();
+        params = keyword ? params.append('keyword', keyword) : params;
+        params = category ? params.append('category', category) : params;
+        return this.http.get<string[]>(this.extendUrl + '/related/colors', { params: params, observe: 'response' });
+    }
+
+    relatedBrands(keyword: string, category: string): Observable<HttpResponse<string[]>> {
+        let params = new HttpParams();
+        params = params.append('keyword', keyword ? keyword : '');
+        params = params.append('category', category ? category : '');
+        return this.http.get<string[]>(this.extendUrl + '/related/brands', { params: params, observe: 'response' });
+    }
+
+    relatedPriceRange(keyword: string, category: string): Observable<HttpResponse<any[]>> {
+        let params = new HttpParams();
+        params = keyword ? params.append('keyword', keyword) : params;
+        params = category ? params.append('category', category) : params;
+        return this.http.get<string[]>(this.extendUrl + '/related/pricerange', { params: params, observe: 'response' });
     }
 
     protected convertDateFromClient(products: IProducts): IProducts {

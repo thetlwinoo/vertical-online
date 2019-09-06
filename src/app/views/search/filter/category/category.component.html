@@ -1,9 +1,11 @@
-<div class="collection-collapse-block" *ngIf="filter.length">
+<div class="collection-collapse-block">
   <h3 class="collapse-block-title" [ngClass]="expand?'expanded':'collapsed'" (click)="expand = !expand">category</h3>
   <div class="collection-collapse-block-content" *ngIf="expand" [@expandCollapse]>
     <div class="collection-category-filter">
       <div class="tree-wrapper mt-3">
-        <div *ngFor="let item of filter | slice:start:end">
+        <p-tree [value]="categories$ | async" selectionMode="single" [(selection)]="selectedFiles"
+          (onNodeSelect)="nodeChange($event)" (onNodeUnselect)="nodeChange($event)"></p-tree>
+        <!-- <div *ngFor="let item of filter | slice:start:end">
           <p-checkbox name="group1" [value]="item" [label]="item" [(ngModel)]="selectedItems"
             (onChange)="selectedCategories.emit(selectedItems)" inputId="ny"></p-checkbox>
         </div>
@@ -13,7 +15,7 @@
           <ng-template #collapse>
             <span>Collapse</span>
           </ng-template>
-        </button>
+        </button> -->
       </div>
     </div>
   </div>

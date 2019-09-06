@@ -27,13 +27,18 @@ export interface State extends fromRoot.State {
     [productsFeatureKey]: ProductsState;
 }
 
+// export interface TagsState {
+//     [fromTags.tagsFeatureKey]: fromTags.State;
+//     [fromSearchTags.searchFeatureKey]: fromSearchTags.State;
+// }
+
 export function reducers(state: ProductsState | undefined, action: Action) {
     return combineReducers({
         [fromSearch.searchFeatureKey]: fromSearch.reducer,
         [fromProducts.productsFeatureKey]: fromProducts.reducer,
         [fromFetch.fetchFeatureKey]: fromFetch.reducer,
         [fromCompare.compareFeatureKey]: fromCompare.reducer,
-        [fromWishlist.wishlistFeatureKey]: fromWishlist.reducer,
+        [fromWishlist.wishlistFeatureKey]: fromWishlist.reducer
     })(state, action);
 }
 
@@ -107,53 +112,30 @@ export const getSearchResults = createSelector(
     }
 );
 
-export const getSearchCategoriesFilters = createSelector(
-    getSearchResults,
-    (products) => {
-        return [...new Set(products.map(item => item.productSubCategoryProductSubCategoryName))];
-    }
-)
-
-export const getSearchColorFilters = createSelector(
-    getSearchResults,
-    (products) => {
-        return [...new Set(products.map(item => item.color))].filter(item => item.length > 0);
-    }
-)
-
-export const getSearchPriceFilters = createSelector(
-    getSearchResults,
-    (products) => {
-        return [
-            Math.min.apply(Math, products.map(item => item.unitPrice)),
-            Math.max.apply(Math, products.map(item => item.unitPrice))            
-        ];
-    }
-)
 // export const getSearchCategoriesFilters = createSelector(
 //     getSearchResults,
 //     (products) => {
-//         const _price = [
-//             Math.max.apply(Math, products.map(item => item.unitPrice)),
-//             Math.min.apply(Math, products.map(item => item.unitPrice))
-//         ];
-
-//         const _subCategories = [...new Set(products.map(item => {
-//             return {
-//                 id: item.productSubCategoryId,                
-//                 name: item.productSubCategoryProductSubCategoryName
-//             }
-//         }))];
-
-//         const _colors = [...new Set(products.map(item => item.color))].filter(item => item.length > 0);
-
-//         return {
-//             price: _price,
-//             subCategories: _subCategories,
-//             colors: _colors
-//         }
+//         return [...new Set(products.map(item => item.productSubCategoryProductSubCategoryName))];
 //     }
 // )
+
+// export const getSearchColorFilters = createSelector(
+//     getSearchResults,
+//     (products) => {
+//         return [...new Set(products.map(item => item.color))].filter(item => item.length > 0);
+//     }
+// )
+
+// export const getSearchPriceFilters = createSelector(
+//     getSearchResults,
+//     (products) => {
+//         return [
+//             Math.min.apply(Math, products.map(item => item.unitPrice)),
+//             Math.max.apply(Math, products.map(item => item.unitPrice))
+//         ];
+//     }
+// )
+
 //Fetch State
 export const getFetchState = createSelector(
     getProductsState,
@@ -212,7 +194,7 @@ export const getFetchCategories = createSelector(
 
 export const getFetchSubCategories = createSelector(
     getFetchState,
-    fromFetch.getCategories
+    fromFetch.getSubCategories
 );
 
 export const getFetchBundles = createSelector(

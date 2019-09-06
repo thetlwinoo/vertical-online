@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { ProductsRoutingModule } from 'app/ngrx/products/products-routing.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-
+import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ProductEffects, CompareEffects, WishlistEffects, FetchEffects } from 'app/ngrx/products/effects';
 import * as fromProducts from 'app/ngrx/products/reducers';
 import { ViewProductPageComponent } from './containers/view-product-page/view-product-page.component';
@@ -27,13 +27,14 @@ export const CONTAINERS = [
 ];
 
 @NgModule({
-    imports: [
+    imports: [        
         RootSharedModule,
         PartialsModule,
-        ProductsRoutingModule,
+        ProductsRoutingModule,        
         StoreModule.forFeature(fromProducts.productsFeatureKey, fromProducts.reducers),
 
-        EffectsModule.forFeature([ProductEffects, FetchEffects, CompareEffects, WishlistEffects])
+        EffectsModule.forFeature([ProductEffects, FetchEffects, CompareEffects, WishlistEffects]),
+        CarouselModule
     ],
     declarations: [COMPONENTS, CONTAINERS],
 })

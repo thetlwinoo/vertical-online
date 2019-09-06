@@ -3,13 +3,14 @@ import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Observable, Subject, Subscription } from "rxjs";
 import { map, takeUntil, zip } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
-import { ColorFilter, IProducts, IProductCategory } from '@root/models';
+import { IProducts, IProductCategory, IProductSubCategory } from '@root/models';
 import { TreeNode, SelectItem } from 'primeng/api';
 import { RootSidebarService } from '@root/components/sidebar/sidebar.service';
 import { Store, select } from "@ngrx/store";
-
+import _ from 'lodash';
 import { ProductActions, FetchActions } from 'app/ngrx/products/actions';
 import * as fromProducts from 'app/ngrx/products/reducers';
+import * as fromTags from 'app/ngrx/tags/reducers';
 
 import { ITEMS_PER_PAGE } from '@root/constants';
 
@@ -17,11 +18,16 @@ import { ITEMS_PER_PAGE } from '@root/constants';
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any>;
-  keyword: string;
+  keyword: string = null;
+  category: string = null;
+  selectedCategories: any = null;
+  selectedColors: string[] = [];
+  selectedPriceRange: number[] = [];
+  subCategoryIds: number[];
   canFetch: boolean = false;
   // querySubscribe: Subscription;
   public categories: any[] = [];
@@ -30,22 +36,20 @@ export class SearchComponent implements OnInit, OnDestroy {
   public price: any;
   public rangePrice: any = [0, 0];
 
-  public minPrice: number;
-  public maxPrice: number;
+  // public minPrice: number;
+  // public maxPrice: number;
 
   products: any[] = [];
   products$: Observable<IProducts[]>;
-  // categories$: Observable<IProductCategory[]>;
   links$: Observable<any>;
-  categoriesFilter$: Observable<any>;
-  colorFilter$: Observable<any>;
-  priceFilter$: Observable<any>;
+  currentCategory$: Observable<string[]>;
   totalItems$: Observable<any>;
+  subCategories$: Observable<number[]>;
   loading$: Observable<boolean>;
   error$: Observable<string>;
   public filteredItems: any[] = [];
 
-  public colorFilters: ColorFilter[] = [];
+  public colorFilters: any[] = [];
   public categoriesFilters: any[] = [];
   public priceFilters: any[] = [];
 
@@ -73,6 +77,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<fromProducts.State>,
+    private tagStore: Store<fromTags.State>,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     protected parseLinks: JhiParseLinks,
@@ -80,67 +85,45 @@ export class SearchComponent implements OnInit, OnDestroy {
     protected eventManager: JhiEventManager
   ) {
     this._unsubscribeAll = new Subject();
+    this.itemsPerPage = ITEMS_PER_PAGE;
+    this.subCategories$ = tagStore.pipe(select(fromTags.getSubCategoriesIds));
 
     this.activatedRoute.params
       .pipe(
         takeUntil(this._unsubscribeAll),
-        zip(this.activatedRoute.data),
+        zip(this.activatedRoute.data, this.activatedRoute.queryParams),
         map((payload) => {
-          console.log('payload',payload)
           const params = payload[0];
           const data = payload[1];
+          const queryParams = payload[2];
 
           this.page = data.pagingParams.page;
           this.previousPage = data.pagingParams.page;
           this.reverse = data.pagingParams.ascending;
           this.predicate = data.pagingParams.predicate;
-          this.keyword = params.keyword;
-console.log('search....')
-          return ProductActions.searchProductsWithPaging({
-            query: {
-              page: this.page - 1,
-              size: this.itemsPerPage,
-              sort: this.sort(),
-              'productName.contains': params.keyword,
-              keyword: params.keyword
-            }
-          });
+
+          this.keyword = params.keyword || '';
+          this.category = queryParams.category || '';
+
+          return ProductActions.searchProductsWithPaging({ query: this.getQuery() });
         })
       )
       .subscribe(action => store.dispatch(action));
 
-    this.itemsPerPage = ITEMS_PER_PAGE;
-
     this.products$ = store.pipe(select(fromProducts.getSearchResults));
-    // this.categories$ = store.pipe(select(fromProducts.getFetchCategories));
     this.links$ = store.pipe(select(fromProducts.getSearchLinks));
-    this.categoriesFilter$ = store.pipe(select(fromProducts.getSearchCategoriesFilters));
-    this.colorFilter$ = store.pipe(select(fromProducts.getSearchColorFilters));
-    this.priceFilter$ = store.pipe(select(fromProducts.getSearchPriceFilters));
+    this.currentCategory$ = tagStore.pipe(select(fromTags.getSelectedCategory));
     this.totalItems$ = store.pipe(select(fromProducts.getSearchTotalItems));
     this.loading$ = store.pipe(select(fromProducts.getSearchLoading));
     this.error$ = store.pipe(select(fromProducts.getSearchError));
-
-    this.priceFilter$.subscribe(prices => {
-      this.minPrice = prices[0];
-      this.maxPrice = prices[1];
-    })
   }
 
   ngOnInit() {
-    // this.store.dispatch(FetchActions.fetchCategories());
     this.registerChangeInProducts();
   }
 
   loadAll() {
-    this.store.dispatch(ProductActions.searchProductsWithPaging({
-      query: {
-        page: this.page - 1,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-        'productName.contains': this.keyword
-      }
-    }));
+    this.store.dispatch(ProductActions.searchProductsWithPaging({ query: this.getQuery() }));
   }
 
   trackId(index: number, item: IProducts) {
@@ -149,6 +132,43 @@ console.log('search....')
 
   registerChangeInProducts() {
     this.eventSubscriber = this.eventManager.subscribe('productsListModification', response => this.loadAll());
+  }
+
+  searchText() {
+    return this.keyword && this.keyword !== '_blank' ? this.keyword : null;
+  }
+
+  getQuery() {
+    let query = {
+      page: this.page - 1,
+      size: this.itemsPerPage,
+      sort: this.sort()
+    };
+
+    if (this.keyword && this.keyword != '_blank') {
+      _.assign(query, { 'productName.contains': this.keyword });
+    }
+
+    if (this.selectedCategories) {
+      switch (this.selectedCategories.type) {
+        case 'item':
+          _.assign(query, { 'productSubCategoryId.equals': this.selectedCategories.id }); break;
+        case 'collapsable':
+          _.assign(query, { 'productSubCategoryId.in': this.selectedCategories.children.map(item => item.id) }); break;
+      }
+    } else {
+      this.subCategories$.pipe(takeUntil(this._unsubscribeAll)).subscribe(ids => _.assign(query, { 'productSubCategoryId.in': ids }));
+    }
+
+    if (this.selectedColors.length) {
+      _.assign(query, { 'color.in': this.selectedColors });
+    }
+
+    if (this.selectedPriceRange.length) {
+      _.assign(query, { 'unitPrice.greaterOrEqualThan': this.selectedPriceRange[0], 'unitPrice.lessThan': this.selectedPriceRange[1] });
+    }
+
+    return query;
   }
 
   sort() {
@@ -167,74 +187,21 @@ console.log('search....')
   }
 
   transition() {
+    let paging = {
+      page: this.page,
+      size: this.itemsPerPage,
+      sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+    }
+
+    if (this.category) {
+      _.assign(paging, { category: this.category })
+    }
+
     this.router.navigate(['/search/', this.keyword], {
-      queryParams: {
-        page: this.page,
-        size: this.itemsPerPage,
-        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc'),
-      }
+      queryParams: paging
     });
     this.loadAll();
   }
-
-  // public getFilters(products) {
-  //   var uniqueColors = [];
-  //   var itemColor = Array();
-
-  //   var uniqueCategories = [];
-  //   // var itemCategory = Array();
-  //   const categoryMap = new Map();
-
-  //   var minPrice: number = 0;
-  //   var maxPrice: number = 0;
-
-  //   products.map((product, index) => {
-
-  //     if (index == 0) {
-  //       minPrice = product.unitPrice;
-  //       maxPrice = product.unitPrice;
-  //     }
-
-  //     if (product.color) {
-  //       const index = uniqueColors.indexOf(product.color);
-  //       if (index === -1) uniqueColors.push(product.color);
-  //     }
-
-
-  //     if (product.productSubCategory) {
-  //       if (!categoryMap.has(product.productSubCategory.id)) {
-  //         categoryMap.set(product.productSubCategory.id, true);
-  //         uniqueCategories.push(product.productSubCategory);
-  //       }
-  //     }
-
-
-  //     if (product.unitPrice) {
-  //       if (product.unitPrice < minPrice) minPrice = product.unitPrice;
-  //       if (product.unitPrice > maxPrice) maxPrice = product.unitPrice;
-  //     }
-  //   });
-
-  //   //color
-  //   for (var i = 0; i < uniqueColors.length; i++) {
-  //     itemColor.push({ color: uniqueColors[i] })
-  //   }
-  //   this.colors = itemColor;
-
-  //   console.log('colors', this.colors);
-
-
-  //   console.log('categories', uniqueCategories);
-  //   this.generateCategoriesTree(uniqueCategories);
-
-  //   this.price = {
-  //     'minPrice': minPrice,
-  //     'maxPrice': maxPrice
-  //   };
-
-  //   this.rangePrice = [minPrice, maxPrice];
-  //   console.log('price', this.price);
-  // }
 
   onSortChange(event) {
     let value = event.value;
@@ -249,68 +216,22 @@ console.log('search....')
     }
   }
 
-  // private generateCategoriesTree(subCategories) {
-  //   const categories = [];
-  //   const map = new Map();
-
-  //   for (const item of subCategories) {
-  //     const category = item.productCategory;
-  //     if (!map.has(category.id)) {
-  //       map.set(category.id, true);    // set any value to Map
-  //       categories.push({
-  //         id: category.id,
-  //         label: category.productCategoryName,
-  //         data: category.productCategoryName,
-  //         type: "collapsable",
-  //         expandedIcon: "fa fa-folder-open",
-  //         children: []
-  //       });
-  //     }
-  //   }
-
-  //   for (const category of categories) {
-  //     subCategories.map(item => {
-  //       if (category.id == item.productCategory.id) {
-  //         category.children.push({
-  //           id: item.id,
-  //           label: item.productSubCategoryName,
-  //           data: item.productSubCategoryName,
-  //           icon: "fa fa-file-word-o",
-  //           type: "item",
-  //           status: "A"
-  //         })
-  //       }
-  //     })
-  //   }
-
-  //   console.log('category', categories)
-  //   this.categoriesTree = categories;
-  // }
-
-  onSelectedCategories(items: any) {
-    // const _filter = Array();
-    // categories.map((item, index) => {
-    //   if (item.type == "item") {
-    //     _filter.push(item.label);
-    //   }
-    // });
-    // this.categoriesFilters = _filter;
-
+  onSelectedCategories(item: any) {
+    this.page = 1;
+    this.selectedCategories = item;
+    this.transition();
   }
 
   public onSelectedColors(colors: any) {
-    // this.colorFilters = colors;
+    this.page = 1;
+    this.selectedColors = colors;
+    this.transition();
   }
 
-  public onSelectedPrices(price: any) {
-    // const temp: any[] = [];
-    // this.filteredItems.filter((item: any) => {
-    //   if (item.unitPrice >= price[0] && item.unitPricef <= price[1]) {
-    //     temp.push(item);
-    //   }
-    // });
-
-    // this.products = temp;
+  public onSelectedPriceRange(price: any) {
+    this.page = 1;
+    this.selectedPriceRange = price;
+    this.transition();
   }
 
   updateCondition(condition: any[]) {

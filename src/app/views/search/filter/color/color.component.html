@@ -1,19 +1,20 @@
-<div class="collection-collapse-block" *ngIf="filter.length">
-  <h3 class="collapse-block-title" [ngClass]="expand?'expanded':'collapsed'" (click)="expand = !expand">color family</h3>
+<div class="collection-collapse-block" *ngIf="(colors$ | async).length">
+  <h3 class="collapse-block-title" [ngClass]="expand?'expanded':'collapsed'" (click)="expand = !expand">color family
+  </h3>
   <div class="collection-collapse-block-content" *ngIf="expand" [@expandCollapse]>
-    <div class="color-selector mt-3">
-      <div *ngFor="let item of filter | slice:start:end">
+    <div class="color-selector mx-3 mt-4">
+      <div *ngFor="let item of (colors$ | async) | slice:0:10">
         <p-checkbox name="group1" [value]="item" [label]="item" [(ngModel)]="selectedItems"
           (onChange)="selectedColors.emit(selectedItems)" inputId="ny"></p-checkbox>
       </div>
 
-      <button type="button" class="btn btn-secondary btn-sm mt-4" (click)="toggleCollepse(filter.length)"
+      <!-- <button type="button" class="btn btn-secondary btn-sm mt-4" (click)="toggleCollepse(filter.length)"
         *ngIf="filter.length>10">
         <span *ngIf="!showInd;else collapse">Show All</span>
         <ng-template #collapse>
           <span>Collapse</span>
         </ng-template>
-      </button>
+      </button> -->
     </div>
   </div>
 </div>
