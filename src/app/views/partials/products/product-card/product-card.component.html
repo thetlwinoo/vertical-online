@@ -17,16 +17,20 @@
         </div>
         <img src="assets/images/general/lowest.png" class="product-lowest-guaranteed" *ngIf="lowestPrice">
         <a [routerLink]="['/products',product.id]" routerLinkActive="active" (deferLoad)="product.showPhoto=true">
-            <div class="square" [style.backgroundImage]="'url('+ product.photo +')'" *ngIf="product.photo && product.showPhoto;else noimage">
+            <div class="square" [style.backgroundImage]="'url('+ product.photo +')'"
+                *ngIf="product.photo && product.showPhoto;else noimage">
             </div>
         </a>
         <ng-template #noimage>
             <div class="square no-image"></div>
         </ng-template>
-        <div class="p-3 word_wrap product-name">
+        <div class="product-name-wrapper p-3">
             <a [routerLink]="['/products',product.id]" routerLinkActive="active">
-                {{product.productName | ellipsis:45}}
+                <div class="word_wrap product-name">
+                    {{product.productName | ellipsis:45}}
+                </div>
             </a>
+
         </div>
         <div class="rating-love">
             <div class="love-spacer">
