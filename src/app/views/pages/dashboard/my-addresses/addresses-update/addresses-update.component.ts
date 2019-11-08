@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BusinessEntityAddress, IAddressTypes, Addresses, AddressTypes } from '@root/models';
+import { BusinessEntityAddress, IAddressTypes, Addresses, AddressTypes } from '@epm/models';
 import { JhiAlertService } from 'ng-jhipster';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
@@ -7,7 +7,7 @@ import { Observable, Subscription } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { Store } from "@ngrx/store";
 // import * as AddressesActions from "app/store/adresses/addresses.actions";
-import { AddressesService } from '@root/services';
+import { AddressesService } from '@epm/services';
 
 @Component({
   selector: 'app-addresses-update',

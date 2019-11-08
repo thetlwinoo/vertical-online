@@ -1,6 +1,6 @@
 import { ViewEncapsulation, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { rootAnimations } from '@root/animations';
+import { rootAnimations } from '@epm/animations';
 
 @Component({
   selector: 'rating',

@@ -1,4 +1,4 @@
-import { IProducts } from '@root/models';
+import { IProducts } from '@epm/models';
 import {
     createSelector,
     createFeatureSelector,
@@ -11,7 +11,7 @@ import * as fromProducts from 'app/ngrx/products/reducers/products.reducer';
 import * as fromRoot from 'app/ngrx';
 import * as fromCompare from 'app/ngrx/products/reducers/compare.reducer';
 import * as fromWishlist from 'app/ngrx/products/reducers/wishlist.reducer';
-import { ITEMS_PER_PAGE } from '@root/constants';
+import { ITEMS_PER_PAGE } from '@epm/constants';
 
 export const productsFeatureKey = 'products';
 

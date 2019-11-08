@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IOrders } from '@root/models';
+import { IOrders } from '@epm/models';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

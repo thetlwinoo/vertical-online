@@ -8,8 +8,8 @@ import {
     WishlistActions,
     SelectedProductPageActions,
 } from 'app/ngrx/products/actions';
-import { IProducts } from '@root/models';
-import { WishlistService } from '@root/services';
+import { IProducts } from '@epm/models';
+import { WishlistService } from '@epm/services';
 
 @Injectable()
 export class WishlistEffects {

@@ -3,8 +3,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 // import { JhiLanguageService } from 'ng-jhipster';
 
-import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from '@root/constants';
-import { LoginModalService } from '@root/services/core/login/login-modal.service';
+import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from '@epm/constants';
+import { LoginModalService } from '@epm/services/core/login/login-modal.service';
 import { Register } from './register.service';
 
 @Component({

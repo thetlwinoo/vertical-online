@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IProducts, IReviewLines, IProductPhoto, IProductCategory, IProductSubCategory } from '@root/models';
+import { IProducts, IReviewLines, IProductPhoto, IProductCategory, IProductSubCategory } from '@epm/models';
 
 //newly added
 export const fetchNewlyAdded = createAction('[Products/API] Fetch Newly Added');

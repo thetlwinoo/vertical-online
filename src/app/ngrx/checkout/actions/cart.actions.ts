@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IShoppingCarts, AddToCartProps, ReduceFromCartProps } from '@root/models';
+import { IShoppingCarts, AddToCartProps, ReduceFromCartProps } from '@epm/models';
 
 export const addToCart = createAction(
     '[ShoppingCarts/API] Add To Cart',

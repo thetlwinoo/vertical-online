@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BreadcrumbGuard } from '@root/services';
+import { BreadcrumbGuard } from '@epm/services';
 
 import {
     ViewProductPageComponent,

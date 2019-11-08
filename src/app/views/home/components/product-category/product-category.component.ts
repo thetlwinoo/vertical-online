@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { category } from '@root/config/owl-carousel';
-import { rootAnimations } from '@root/animations';
-import { IProductCategory } from '@root/models';
+import { category } from '@epm/config/owl-carousel';
+import { rootAnimations } from '@epm/animations';
+import { IProductCategory } from '@epm/models';
 
 @Component({
   selector: 'product-category',

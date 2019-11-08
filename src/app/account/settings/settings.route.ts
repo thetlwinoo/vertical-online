@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-import { UserRouteAccessService } from '@root/services/core/auth/user-route-access.service';
+import { UserRouteAccessService } from '@epm/services/core/auth/user-route-access.service';
 import { SettingsComponent } from './settings.component';
 
 export const settingsRoute: Route = {

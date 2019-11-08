@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IProducts } from '@root/models';
+import { IProducts } from '@epm/models';
 
 export const addProductSuccess = createAction(
     '[Wishlist/API] Add Product Success',

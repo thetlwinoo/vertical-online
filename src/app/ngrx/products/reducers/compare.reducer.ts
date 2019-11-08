@@ -3,7 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import {
     CompareActions
 } from 'app/ngrx/products/actions';
-import { IProducts } from '@root/models';
+import { IProducts } from '@epm/models';
 
 export const compareFeatureKey = 'compare';
 

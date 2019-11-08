@@ -4,9 +4,9 @@ import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { Router, NavigationExtras } from '@angular/router';
-import { IProducts, IOrders, Orders, OrderLines } from '@root/models';
-import { ReviewsService } from '@root/services';
-import { AccountService } from '@root/services/core/auth/account.service';
+import { IProducts, IOrders, Orders, OrderLines } from '@epm/models';
+import { ReviewsService } from '@epm/services';
+import { AccountService } from '@epm/services/core/auth/account.service';
 import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 @Component({

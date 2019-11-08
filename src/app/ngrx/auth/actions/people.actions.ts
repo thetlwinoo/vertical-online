@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IPeople } from '@root/models';
+import { IPeople } from '@epm/models';
 
 export const fetchLoginPeople = createAction(
     '[People/API] Fetch Login People',

@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, Renderer, ElementRef } from '@angular/core';
-import { EMAIL_NOT_FOUND_TYPE } from '@root/constants';
+import { EMAIL_NOT_FOUND_TYPE } from '@epm/constants';
 import { PasswordResetInitService } from './password-reset-init.service';
 
 @Component({

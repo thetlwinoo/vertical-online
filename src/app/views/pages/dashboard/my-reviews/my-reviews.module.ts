@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RootSharedModule } from '@root/shared.module';
+import { RootSharedModule } from '@epm/shared.module';
 import { CompletedReviewsPipe } from './completed-reviews.pipe';
 
 import {

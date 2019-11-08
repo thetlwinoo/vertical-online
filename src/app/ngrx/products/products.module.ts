@@ -1,4 +1,4 @@
-import { RootSharedModule } from '@root/shared.module';
+import { RootSharedModule } from '@epm/shared.module';
 import { PartialsModule } from 'app/views/partials/partials.module';
 import { NgModule } from '@angular/core';
 import { ProductsRoutingModule } from 'app/ngrx/products/products-routing.module';

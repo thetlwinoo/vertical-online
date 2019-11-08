@@ -3,9 +3,9 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { asyncScheduler, EMPTY as empty, of } from 'rxjs';
 import { catchError, debounceTime, map, skip, switchMap, takeUntil, filter } from 'rxjs/operators';
-import { IProductCategory, IProductSubCategory } from '@root/models';
+import { IProductCategory, IProductSubCategory } from '@epm/models';
 import { FetchActions } from '../actions';
-import { ProductsService } from '@root/services';
+import { ProductsService } from '@epm/services';
 
 @Injectable()
 export class FetchEffects {

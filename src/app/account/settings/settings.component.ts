@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // import { JhiLanguageService } from 'ng-jhipster';
 
-import { AccountService } from '@root/services/core/auth/account.service';
+import { AccountService } from '@epm/services/core/auth/account.service';
 
 @Component({
     selector: 'jhi-settings',

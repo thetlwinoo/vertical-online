@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IProducts, AddToCartProps } from '@root/models';
-import { AccountService } from '@root/services/core/auth/account.service';
+import { IProducts, AddToCartProps } from '@epm/models';
+import { AccountService } from '@epm/services/core/auth/account.service';
 import { Router, ActivatedRoute } from '@angular/router'
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';

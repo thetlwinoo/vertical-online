@@ -4,9 +4,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { catchError, map, switchMap, filter, mergeMap, tap } from 'rxjs/operators';
-import { IAddresses } from '@root/models';
+import { IAddresses } from '@epm/models';
 import { AddressActions } from '../actions';
-import { AddressesService } from '@root/services';
+import { AddressesService } from '@epm/services';
 
 @Injectable()
 export class AddressEffects {

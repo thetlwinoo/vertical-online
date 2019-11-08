@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { rootAnimations } from '@root/animations';
+import { rootAnimations } from '@epm/animations';
 
 @Component({
   selector: 'brand-zone',

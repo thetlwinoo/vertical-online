@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RootSharedModule } from '@root/shared.module';
+import { RootSharedModule } from '@epm/shared.module';
 import { PartialsModule } from 'app/views/partials/partials.module';
 import { RouterModule } from '@angular/router';
 
@@ -14,7 +14,7 @@ import { NewlyAddedComponent } from './components/newly-added/newly-added.compon
 import { SubBannerComponent } from './components/sub-banner/sub-banner.component';
 import { DailyDiscoverComponent } from './components/daily-discover/daily-discover.component';
 import { ProductsModule } from 'app/ngrx/products';
-import { BreadcrumbGuard } from '@root/services';
+import { BreadcrumbGuard } from '@epm/services';
 
 const routes = [
   {

@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IProductCategory, IProductSubCategory } from '@root/models';
+import { IProductCategory, IProductSubCategory } from '@epm/models';
 
 export const selectCategory = createAction(
     '[Product Tags/API] Select Category',

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs";
 import { SelectItem } from 'primeng/api';
 import { select, Store } from '@ngrx/store';
-import { IOrders } from '@root/models';
+import { IOrders } from '@epm/models';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import { OrderActions } from 'app/ngrx/checkout/actions';
 

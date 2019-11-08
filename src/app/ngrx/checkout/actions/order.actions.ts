@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IOrders } from '@root/models';
+import { IOrders } from '@epm/models';
 
 export const fetchOrder = createAction('[Orders/API] Fetch Order');
 

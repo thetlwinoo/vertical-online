@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IOrders, CreatePaypalProps, CompletePaypalProps, StripeProps } from '@root/models';
+import { IOrders, CreatePaypalProps, CompletePaypalProps, StripeProps } from '@epm/models';
 
 export const createPaypal = createAction(
     '[Payment/API] Create Paypal',

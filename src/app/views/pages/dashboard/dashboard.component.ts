@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RootSidebarService } from '@root/components/sidebar/sidebar.service';
-import { AccountService } from '@root/services/core/auth/account.service';
+import { RootSidebarService } from '@epm/components/sidebar/sidebar.service';
+import { AccountService } from '@epm/services/core/auth/account.service';
 import { Observable, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { IProducts } from '@root/models';
+import { IProducts } from '@epm/models';
 import * as fromProducts from 'app/ngrx/products/reducers';
 import { FetchActions } from 'app/ngrx/products/actions';
 

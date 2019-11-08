@@ -1,6 +1,6 @@
 import { FetchActions } from 'app/ngrx/products/actions';
 import { createReducer, on } from '@ngrx/store';
-import { IProducts, IReviewLines, IProductPhoto, IProductCategory, IProductSubCategory } from '@root/models';
+import { IProducts, IReviewLines, IProductPhoto, IProductCategory, IProductSubCategory } from '@epm/models';
 
 export const fetchFeatureKey = 'fetch';
 

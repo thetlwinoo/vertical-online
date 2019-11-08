@@ -4,7 +4,7 @@ import { groupBy, flatMap } from 'rxjs/operators';
 import {
     CartActions
 } from 'app/ngrx/checkout/actions';
-import { IShoppingCarts } from '@root/models';
+import { IShoppingCarts } from '@epm/models';
 import { identifierModuleUrl } from '@angular/compiler';
 
 export const cartFeatureKey = 'cart';

@@ -3,7 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import {
     PeopleActions
 } from 'app/ngrx/auth/actions';
-import { IPeople } from '@root/models';
+import { IPeople } from '@epm/models';
 
 export const peopleFeatureKey = 'people';
 

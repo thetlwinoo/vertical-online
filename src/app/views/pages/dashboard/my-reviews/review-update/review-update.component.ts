@@ -1,11 +1,11 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CloudinaryModel, Orders, Reviews, IOrderLines, IReviews, IProducts, Products } from '@root/models';
+import { CloudinaryModel, Orders, Reviews, IOrderLines, IReviews, IProducts, Products } from '@epm/models';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
-import { ReviewsService, ReviewLinesService, ProductsService, OrderService } from '@root/services';
+import { ReviewsService, ReviewLinesService, ProductsService, OrderService } from '@epm/services';
 
 @Component({
   selector: 'app-review-update',

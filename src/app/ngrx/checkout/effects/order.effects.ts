@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, filter, mergeMap, tap, takeLast, flatMap, last } from 'rxjs/operators';
-import { IOrders } from '@root/models';
+import { IOrders } from '@epm/models';
 import { OrderActions, CartActions } from '../actions';
-import { OrderService } from '@root/services';
+import { OrderService } from '@epm/services';
 
 @Injectable()
 export class OrderEffects {

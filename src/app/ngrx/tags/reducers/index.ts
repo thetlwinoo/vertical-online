@@ -1,4 +1,4 @@
-import { IProductTags } from '@root/models';
+import { IProductTags } from '@epm/models';
 import {
     createSelector,
     createFeatureSelector,
