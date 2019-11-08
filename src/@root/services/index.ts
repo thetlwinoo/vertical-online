@@ -23,4 +23,4 @@ export * from './common/match-media.service';
 export * from './common/breadcrumb-guard.service';
 export * from './common/breadcrumb.service';
 
-export * from './_base/crud'
+export * from './_base/crud';
