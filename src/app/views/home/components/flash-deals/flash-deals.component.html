@@ -28,7 +28,17 @@
                     <h2 class="title-inner3">Flash Deals</h2>
                     <div class="line"></div>
                 </div>
-                <owl-carousel-o #owlFlashDeals [options]="carousel.options">
+                <owl-carousel-o #owlFlashDeals [options]="carousel.options" *ngIf="loading">
+                    <ng-container *ngFor="let ghost of ghosts">
+                        <ng-template carouselSlide>
+                            <div class="owl-sub-item">
+                                <ghost-item></ghost-item>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+
+                <owl-carousel-o #owlFlashDeals [options]="carousel.options" [@fadeIn]="data.length">
                     <ng-container *ngFor="let product of data">
                         <ng-template carouselSlide>
                             <div class="owl-sub-item">

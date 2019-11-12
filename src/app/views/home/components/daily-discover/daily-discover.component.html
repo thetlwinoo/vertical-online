@@ -12,7 +12,14 @@
             </div>
             <div class="viwer-body">
                 <div class="content">
-                    <div class="product-wrapper">
+                    <div class="product-wrapper" *ngIf="loading">
+                        <div class="product-item product-box" *ngFor="let ghost of ghosts">
+                            <div #productcard class="card-preview">
+                                <ghost-item></ghost-item>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-wrapper" [@fadeIn]="data.length">
                         <div class="product-item product-box" *ngFor="let item of data">
                             <div #productcard class="card-preview">
                                 <product-card [product]="item"></product-card>

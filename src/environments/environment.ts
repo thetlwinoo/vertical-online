@@ -5,10 +5,10 @@
 export const environment = {
   production: false,
   serverApi: {
-    baseUrl: 'http://localhost:8080/'
+    baseUrl: 'https://system.zezawar.com/'
   },
   client: {
-    baseUrl: 'http://localhost:4200'
+    baseUrl: 'http://localhost:4200/'
   },
   socketConfig: {
     url: 'http://localhost:3000/',

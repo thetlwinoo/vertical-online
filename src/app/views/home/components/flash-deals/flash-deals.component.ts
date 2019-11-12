@@ -20,6 +20,7 @@ export class FlashDealsComponent implements OnInit, OnDestroy {
 
   carousel: any;
   countdown: any;
+  ghosts = [];
 
   private _unsubscribeAll: Subject<any>;
 
@@ -31,6 +32,7 @@ export class FlashDealsComponent implements OnInit, OnDestroy {
       seconds: ''
     };
     this.carousel = deal;
+    this.ghosts = new Array(10);
     this._unsubscribeAll = new Subject();
   }
 

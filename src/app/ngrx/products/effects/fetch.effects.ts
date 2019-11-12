@@ -132,7 +132,9 @@ export class FetchEffects {
         this.actions$.pipe(
             ofType(FetchActions.fetchCategories),
             switchMap(() =>
-                this.productCategoryService.query().pipe(
+                this.productCategoryService.query({
+                    'parentId.specified': false
+                }).pipe(
                     filter((res: HttpResponse<IProductCategory[]>) => res.ok),
                     map((res: HttpResponse<IProductCategory[]>) =>
                         FetchActions.fetchCategoriesSuccess({ categories: res.body })

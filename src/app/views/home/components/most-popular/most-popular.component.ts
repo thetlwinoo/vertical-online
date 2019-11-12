@@ -7,16 +7,19 @@ import { rootAnimations } from '@epm/animations';
   selector: 'most-popular',
   templateUrl: './most-popular.component.html',
   styleUrls: ['./most-popular.component.scss'],
-  animations: rootAnimations
+  animations: rootAnimations,
 })
 export class MostPopularComponent{
   @Input() data: IProducts[];
   @Input() loading;
   @Input() error;
   carousel: any;
+  ghosts = [];
+
   constructor(
   ) {
     this.carousel = deal;
+    this.ghosts = new Array(10);
   }
 
 }

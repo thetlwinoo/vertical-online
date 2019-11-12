@@ -13,8 +13,15 @@ export interface State {
     reviewLines: IReviewLines[];
     photos: any[];
     categories: IProductCategory[];
-    subCategories: IProductSubCategory[];
-    loading: boolean;
+    newlyAddedLoading: boolean;
+    mostSellingLoading: boolean;
+    interestedLoading: boolean;
+    dailyDiscoverLoading: boolean;
+    relatedProductsLoading: boolean;
+    reviewLinesLoading: boolean;
+    photosLoading: boolean;
+    categoriesLoading: boolean;
+    fetchLoading: boolean;
     error: string;
 }
 
@@ -27,8 +34,15 @@ const initialState: State = {
     reviewLines: [],
     photos: [],
     categories: [],
-    subCategories: [],
-    loading: false,
+    newlyAddedLoading: false,
+    mostSellingLoading: false,
+    interestedLoading: false,
+    dailyDiscoverLoading: false,
+    relatedProductsLoading: false,
+    reviewLinesLoading: false,
+    photosLoading: false,
+    categoriesLoading: false,
+    fetchLoading: false,
     error: ''
 };
 
@@ -46,7 +60,15 @@ export const reducer = createReducer(
         (state) => {
             return {
                 ...state,
-                loading: true,
+                newlyAddedLoading: true,
+                mostSellingLoading: true,
+                interestedLoading: true,
+                dailyDiscoverLoading: true,
+                relatedProductsLoading: true,
+                reviewLinesLoading: true,
+                photosLoading: true,
+                categoriesLoading: true,
+                fetchLoading: true,
                 error: ''
             };
         }
@@ -54,37 +76,37 @@ export const reducer = createReducer(
     on(FetchActions.fetchNewlyAddedSuccess, (state, { newlyAdded }) => ({
         ...state,
         newlyAdded: newlyAdded,
-        loading: false,
+        newlyAddedLoading: false,
         error: ''
     })),
     on(FetchActions.fetchMostSellingSuccess, (state, { mostSelling }) => ({
         ...state,
         mostSelling: mostSelling,
-        loading: false,
+        mostSellingLoading: false,
         error: ''
     })),
     on(FetchActions.fetchInterestedSuccess, (state, { interested }) => ({
         ...state,
         interested: interested,
-        loading: false,
+        interestedLoading: false,
         error: ''
     })),
     on(FetchActions.fetchDailyDiscoverSuccess, (state, { dailyDiscover }) => ({
         ...state,
         dailyDiscover: dailyDiscover,
-        loading: false,
+        dailyDiscoverLoading: false,
         error: ''
     })),
     on(FetchActions.fetchRelatedSuccess, (state, { related }) => ({
         ...state,
         relatedProducts: related,
-        loading: false,
+        relatedProductsLoading: false,
         error: ''
     })),
     on(FetchActions.fetchReviewLinesSuccess, (state, { reviewLines }) => ({
         ...state,
         reviewLines: reviewLines,
-        loading: false,
+        reviewLinesLoading: false,
         error: ''
     })),
     on(FetchActions.fetchProductPhotoSuccess, (state, { photos }) => ({
@@ -92,24 +114,18 @@ export const reducer = createReducer(
         photos: photos.map(photo => {
             return { source: photo.originalPhoto, alt: photo.productProductName, title: photo.productProductName };
         }),
-        loading: false,
+        photosLoading: false,
         error: ''
     })),
     on(FetchActions.fetchCategoriesSuccess, (state, { categories }) => ({
         ...state,
         categories: categories,
-        loading: false,
-        error: ''
-    })),
-    on(FetchActions.fetchSubCategoriesSuccess, (state, { subCategories }) => ({
-        ...state,
-        subCategories: subCategories,
-        loading: false,
+        categoriesLoading: false,
         error: ''
     })),
     on(FetchActions.fetchFailure, (state, { errorMsg }) => ({
         ...state,
-        loading: false,
+        fetchLoading: false,
         error: errorMsg
     }))
 );
@@ -131,8 +147,22 @@ export const getProductPhoto = (state: State) => state.photos;
 
 export const getCategories = (state: State) => state.categories;
 
-export const getSubCategories = (state: State) => state.subCategories;
+export const getNewlyAddedLoading = (state: State) => state.newlyAddedLoading;
 
-export const getLoading = (state: State) => state.loading;
+export const getMostSellingLoading = (state: State) => state.mostSellingLoading;
+
+export const getInterestedLoading = (state: State) => state.interestedLoading;
+
+export const getDailyDiscoverLoading = (state: State) => state.dailyDiscoverLoading;
+
+export const getRelatedProductsLoading = (state: State) => state.relatedProductsLoading;
+
+export const getReviewLinesLoading = (state: State) => state.reviewLinesLoading;
+
+export const getPhotosLoading = (state: State) => state.photosLoading;
+
+export const getCategoriesLoading = (state: State) => state.categoriesLoading;
+
+export const getFetchLoading = (state: State) => state.fetchLoading;
 
 export const getError = (state: State) => state.error;

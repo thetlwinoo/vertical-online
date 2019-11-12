@@ -9,7 +9,8 @@ import {
     FetchEntityDialogComponent,
     UpdateStatusDialogComponent
 } from './content/crud';
-import { ProductBoxComponent, ProductCardComponent } from './products';
+import { ProductBoxComponent, ProductCardComponent, GhostItemComponent } from './products';
+
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import { ProductBoxComponent, ProductCardComponent } from './products';
         FetchEntityDialogComponent,
         UpdateStatusDialogComponent,
         ProductBoxComponent,
-        ProductCardComponent
+        ProductCardComponent,
+        GhostItemComponent
     ],
     exports: [
         ActionNotificationComponent,
@@ -28,7 +30,8 @@ import { ProductBoxComponent, ProductCardComponent } from './products';
         FetchEntityDialogComponent,
         UpdateStatusDialogComponent,
         ProductBoxComponent,
-        ProductCardComponent
+        ProductCardComponent,
+        GhostItemComponent
     ],
     imports: [
         RootSharedModule,

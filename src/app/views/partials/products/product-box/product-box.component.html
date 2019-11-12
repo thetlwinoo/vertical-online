@@ -7,13 +7,14 @@
         <div class="square no-image"></div>
     </ng-template>
     <div class="card-body">
-        <h5 class="card-title">
+        <h5 class="card-title block-with-text">
             <a [routerLink]="['/products',product.id]" routerLinkActive="active">
                 {{product?.productName}}
             </a>
         </h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{product?.productSubCategory?.productSubCategoryName}}</h6>
-        <h6 class="card-subtitle mb-2 text-muted model-name">{{product?.productModel?.productModelName}}</h6>
+        <!-- <p class="block-with-text">{{product?.productName}}</p> -->
+        <h6 class="card-subtitle mb-2 text-muted">{{product?.productCategory?.name}}</h6>
+        <h6 class="card-subtitle mb-2 text-muted model-name">{{product?.productBrand?.productBrandName}}</h6>
         <ngb-progressbar type="warning" value="75" *ngIf="mode == 'deal'">{{product.sellCount}} sold</ngb-progressbar>
     </div>
     <div class="card-footer">

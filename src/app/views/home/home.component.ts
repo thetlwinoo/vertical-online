@@ -16,7 +16,10 @@ export class HomeComponent implements OnInit {
   interested$: Observable<IProducts[]>;
   dailyDiscover$: Observable<IProducts[]>;
   bundles$: Observable<any[]>;
-  loading$: Observable<boolean>;
+  newlyAddedLoading$: Observable<boolean>;
+  mostSellingLoading$: Observable<boolean>;
+  interestedLoading$: Observable<boolean>;
+  dailyDiscoverLoading$: Observable<boolean>;
   error$: Observable<string>;
   bundles: any[] = [];
 
@@ -28,7 +31,11 @@ export class HomeComponent implements OnInit {
     this.interested$ = store.pipe(select(fromProducts.getFetchInterested));
     this.dailyDiscover$ = store.pipe(select(fromProducts.getFetchDailyDiscover));
     this.bundles$ = store.pipe(select(fromProducts.getFetchBundles));
-    this.loading$ = store.pipe(select(fromProducts.getFetchLoading));
+    
+    this.newlyAddedLoading$ = store.pipe(select(fromProducts.getFetchNewlyAddedLoading));
+    this.mostSellingLoading$ = store.pipe(select(fromProducts.getFetchMostSellingLoading));
+    this.interestedLoading$ = store.pipe(select(fromProducts.getFetchInterestedLoading));
+    this.dailyDiscoverLoading$ = store.pipe(select(fromProducts.getFetchDailyDiscoverLoading));
     this.error$ = store.pipe(select(fromProducts.getFetchError));
   }
 

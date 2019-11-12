@@ -7,15 +7,17 @@ import { rootAnimations } from '@epm/animations';
   selector: 'newly-added',
   templateUrl: './newly-added.component.html',
   styleUrls: ['./newly-added.component.scss'],
-  animations: rootAnimations
+  animations: rootAnimations,
 })
 export class NewlyAddedComponent {
   @Input() data: IProducts[];
   @Input() loading;
   @Input() error;
   carousel: any;
+  ghosts = [];
 
   constructor() {
     this.carousel = deal;
+    this.ghosts = new Array(10);
   }
 }

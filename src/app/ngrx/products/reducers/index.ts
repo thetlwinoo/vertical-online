@@ -149,7 +149,7 @@ export const getFetchError = createSelector(
 
 export const getFetchLoading = createSelector(
     getFetchState,
-    fromFetch.getLoading
+    fromFetch.getFetchLoading
 );
 
 export const getFetchNewlyAdded = createSelector(
@@ -157,9 +157,19 @@ export const getFetchNewlyAdded = createSelector(
     fromFetch.getNewlyAdded
 );
 
+export const getFetchNewlyAddedLoading = createSelector(
+    getFetchState,
+    fromFetch.getNewlyAddedLoading
+);
+
 export const getFetchMostSelling = createSelector(
     getFetchState,
     fromFetch.getMostSelling
+);
+
+export const getFetchMostSellingLoading = createSelector(
+    getFetchState,
+    fromFetch.getMostSellingLoading
 );
 
 export const getFetchInterested = createSelector(
@@ -167,9 +177,19 @@ export const getFetchInterested = createSelector(
     fromFetch.getInterested
 );
 
+export const getFetchInterestedLoading = createSelector(
+    getFetchState,
+    fromFetch.getInterestedLoading
+);
+
 export const getFetchDailyDiscover = createSelector(
     getFetchState,
     fromFetch.getDailyDiscover
+);
+
+export const getFetchDailyDiscoverLoading = createSelector(
+    getFetchState,
+    fromFetch.getDailyDiscoverLoading
 );
 
 export const getFetchRelatedProducts = createSelector(
@@ -177,9 +197,19 @@ export const getFetchRelatedProducts = createSelector(
     fromFetch.getRelatedProducts
 );
 
+export const getFetchRelatedProductsLoading = createSelector(
+    getFetchState,
+    fromFetch.getRelatedProductsLoading
+);
+
 export const getFetchReviewLines = createSelector(
     getFetchState,
     fromFetch.getReviewLines
+);
+
+export const getFetchReviewLinesLoading = createSelector(
+    getFetchState,
+    fromFetch.getReviewLinesLoading
 );
 
 export const getFetchProductPhoto = createSelector(
@@ -187,14 +217,19 @@ export const getFetchProductPhoto = createSelector(
     fromFetch.getProductPhoto
 );
 
+export const getFetchPhotosLoading = createSelector(
+    getFetchState,
+    fromFetch.getPhotosLoading
+);
+
 export const getFetchCategories = createSelector(
     getFetchState,
     fromFetch.getCategories
 );
 
-export const getFetchSubCategories = createSelector(
+export const getFetchCategoriesLoading = createSelector(
     getFetchState,
-    fromFetch.getSubCategories
+    fromFetch.getCategoriesLoading
 );
 
 export const getFetchBundles = createSelector(

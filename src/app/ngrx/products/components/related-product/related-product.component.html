@@ -1,7 +1,6 @@
 <section id="related-products" class="tools-grey" *ngIf="relatedProducts.length">
     <div class="container">
-        <p-carousel headerText="related products" [value]="relatedProducts" [circular]="true" [numVisible]="6"
-            [pageLinks]="3">
+        <p-carousel headerText="related products" [value]="relatedProducts" [circular]="true" [numVisible]="6">
             <ng-template let-product pTemplate="item">
                 <a routerLink="/products/{{product.id}}">
                     <product-box [product]="product" [mode]="'related'"></product-box>

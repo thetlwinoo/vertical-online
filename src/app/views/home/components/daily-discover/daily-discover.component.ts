@@ -13,4 +13,9 @@ export class DailyDiscoverComponent {
   @Input() data: IProducts[];
   @Input() loading;
   @Input() error;
+  ghosts = [];
+
+  constructor() {
+    this.ghosts = new Array(18);
+  }
 }
