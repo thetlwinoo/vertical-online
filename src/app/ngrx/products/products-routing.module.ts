@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BreadcrumbGuard } from '@epm/services';
 
-import {
-    ViewProductPageComponent,
-} from 'app/ngrx/products/containers';
+import { ViewProductPageComponent } from 'app/ngrx/products/containers';
 import { ProductExistsGuard } from 'app/ngrx/products/guards';
 
 export const routes: Routes = [

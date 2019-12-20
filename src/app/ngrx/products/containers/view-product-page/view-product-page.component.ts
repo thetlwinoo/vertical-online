@@ -4,7 +4,7 @@ import { ProductActions } from 'app/ngrx/products/actions';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-product-page',
@@ -17,12 +17,15 @@ export class ViewProductPageComponent implements OnDestroy {
   actionsSubscription: Subscription;
 
   constructor(store: Store<fromProducts.State>, route: ActivatedRoute) {
-    this.actionsSubscription = route.params
-      .pipe(map(params => ProductActions.selectProduct({ id: params.id })))
-      .subscribe(action => store.dispatch(action))
+    console.log('view product page');
+    // this.actionsSubscription = route.params
+    //   .pipe(map(params => ProductActions.selectProduct({ id: params.id })))
+    //   .subscribe(action => store.dispatch(action))
   }
 
   ngOnDestroy() {
-    this.actionsSubscription.unsubscribe();
+    if (this.actionsSubscription) {
+      this.actionsSubscription.unsubscribe();
+    }
   }
 }

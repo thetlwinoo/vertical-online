@@ -1,30 +1,59 @@
 <div class="card">
-    <a [routerLink]="['/products',product.id]" routerLinkActive="active" *ngIf="product.photo;else noimage">
-        <div class="square" [style.backgroundImage]="'url('+ product?.photo +')'">
+  <a
+    [routerLink]="['/products', product.id]"
+    routerLinkActive="active"
+    *ngIf="defaultImage; else noimage"
+  >
+    <div
+      class="square"
+      [style.backgroundImage]="'url(' + defaultImage + ')'"
+    ></div>
+  </a>
+  <ng-template #noimage>
+    <div class="square no-image"></div>
+  </ng-template>
+  <div class="card-body">
+    <div class="flex-row-container">
+      <div class="flex-row-wrapper">
+        <div
+          class="d-flex flex-row bd-highlight mb-1"
+        >
+          <div class="p-1 bd-highlight" *ngFor="let stockItemDTO of product?.stockItemsDTOList | slice:0:4">
+            <a href="javascript:void(0);" (click)="changeStockItem(stockItemDTO)"
+              ><div
+                class="small-img" [class.active]="defaultImage == stockItemDTO.thumbnailUrl"
+                [style.backgroundImage]="'url(' + stockItemDTO.thumbnailUrl + ')'"
+              ></div
+            ></a>
+          </div>
         </div>
-    </a>
-    <ng-template #noimage>
-        <div class="square no-image"></div>
-    </ng-template>
-    <div class="card-body">
-        <h5 class="card-title block-with-text">
-            <a [routerLink]="['/products',product.id]" routerLinkActive="active">
-                {{product?.productName}}
-            </a>
-        </h5>
-        <!-- <p class="block-with-text">{{product?.productName}}</p> -->
-        <h6 class="card-subtitle mb-2 text-muted">{{product?.productCategory?.name}}</h6>
-        <h6 class="card-subtitle mb-2 text-muted model-name">{{product?.productBrand?.productBrandName}}</h6>
-        <ngb-progressbar type="warning" value="75" *ngIf="mode == 'deal'">{{product.sellCount}} sold</ngb-progressbar>
+      </div>
     </div>
-    <div class="card-footer">
-        <div class="footer-wrapper">
-            <span class="product-price mr-auto">
-                {{product.unitPrice}}
-            </span>
-            <span class="product-sold" *ngIf="mode != 'deal'">
-                {{product.sellCount}} sold
-            </span>
-        </div>
+
+    <h5 class="card-title block-with-text">
+      <a [routerLink]="['/products', product.id]" routerLinkActive="active">
+        {{ product?.name }}
+      </a>
+    </h5>
+    <!-- <p class="block-with-text">{{product?.productName}}</p> -->
+    <h6 class="card-subtitle mb-2 text-muted">
+      {{ product?.productCategoryName }}
+    </h6>
+    <h6 class="card-subtitle mb-2 text-muted model-name">
+      {{ product?.productBrandName }}
+    </h6>
+    <ngb-progressbar type="warning" value="75" *ngIf="mode == 'deal'"
+      >{{ product.sellCount }} sold</ngb-progressbar
+    >
+  </div>
+  <div class="card-footer">
+    <div class="footer-wrapper">
+      <span class="product-price mr-auto">
+        {{ defaultUnitPrice }}
+      </span>
+      <span class="product-sold" *ngIf="mode != 'deal'">
+        {{ product.sellCount }} sold
+      </span>
     </div>
+  </div>
 </div>

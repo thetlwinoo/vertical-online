@@ -232,6 +232,16 @@ export const getFetchCategoriesLoading = createSelector(
     fromFetch.getCategoriesLoading
 );
 
+export const getFetchStockItems = createSelector(
+    getFetchState,
+    fromFetch.getStockItems
+);
+
+export const getFetchStockItemsLoading = createSelector(
+    getFetchState,
+    fromFetch.getStockItemsLoading
+);
+
 export const getFetchBundles = createSelector(
     getFetchCategories,
     (categories) => {

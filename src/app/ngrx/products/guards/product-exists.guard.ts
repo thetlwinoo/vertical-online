@@ -42,19 +42,18 @@ export class ProductExistsGuard implements CanActivate {
             map(productEntity => ProductActions.loadProduct({ product: productEntity })),
             tap(action => this.store.dispatch(action)),
             map(product => !!product),
-            catchError(() => {
+            catchError((err) => {
                 this.router.navigate(['/404']);
+                console.log('false',err)
                 return of(false);
             })
         );
     }
 
     hasProduct(id: number): Observable<boolean> {
-        console.log('hasProduct',id)
         return this.hasProductInStore(id).pipe(
             switchMap(inStore => {
                 if (inStore) {
-                    console.log('instore')
                     return of(inStore);
                 }
 
@@ -67,6 +66,6 @@ export class ProductExistsGuard implements CanActivate {
         // return this.waitForCollectionToLoad().pipe(
         //     switchMap(() => this.hasProduct(route.params['id']))
         // );
-        return this.hasProduct(route.params['id']);
+        return this.hasProduct(route.params['id']);        
     }
 }

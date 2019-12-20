@@ -6,17 +6,21 @@ import { rootAnimations } from '@epm/animations';
 @Component({
   selector: 'related-product',
   templateUrl: './related-product.component.html',
-  styleUrls: ['./related-product.component.scss'],
+  styleUrls: ['./related-product.component.scss'],  
   animations: rootAnimations
 })
 export class RelatedProductComponent {
   // @Input() product: IProducts;
   @Input() relatedProducts: IProducts[];
+  @Input() loading;
+  @Input() error;
 
   carousel: any;
+  ghosts = [];
 
   constructor(
   ) {
     this.carousel = deal;
+    this.ghosts = new Array(10);
   }
 }

@@ -1,6 +1,6 @@
 import { FetchActions } from 'app/ngrx/products/actions';
 import { createReducer, on } from '@ngrx/store';
-import { IProducts, IReviewLines, IProductPhoto, IProductCategory, IProductSubCategory } from '@epm/models';
+import { IProducts, IReviewLines, IProductPhoto, IProductCategory, IProductSubCategory, IStockItems } from '@epm/models';
 
 export const fetchFeatureKey = 'fetch';
 
@@ -12,6 +12,7 @@ export interface State {
     relatedProducts: IProducts[];
     reviewLines: IReviewLines[];
     photos: any[];
+    stockItems: IStockItems[];
     categories: IProductCategory[];
     newlyAddedLoading: boolean;
     mostSellingLoading: boolean;
@@ -21,6 +22,7 @@ export interface State {
     reviewLinesLoading: boolean;
     photosLoading: boolean;
     categoriesLoading: boolean;
+    stockItemsLoading: boolean;
     fetchLoading: boolean;
     error: string;
 }
@@ -33,6 +35,7 @@ const initialState: State = {
     relatedProducts: [],
     reviewLines: [],
     photos: [],
+    stockItems: [],
     categories: [],
     newlyAddedLoading: false,
     mostSellingLoading: false,
@@ -42,6 +45,7 @@ const initialState: State = {
     reviewLinesLoading: false,
     photosLoading: false,
     categoriesLoading: false,
+    stockItemsLoading: false,
     fetchLoading: false,
     error: ''
 };
@@ -57,6 +61,7 @@ export const reducer = createReducer(
         FetchActions.fetchReviewLines,
         FetchActions.fetchProductPhoto,
         FetchActions.fetchCategories,
+        FetchActions.fetchStockItems,
         (state) => {
             return {
                 ...state,
@@ -68,6 +73,7 @@ export const reducer = createReducer(
                 reviewLinesLoading: true,
                 photosLoading: true,
                 categoriesLoading: true,
+                stockItemsLoading: true,
                 fetchLoading: true,
                 error: ''
             };
@@ -123,6 +129,12 @@ export const reducer = createReducer(
         categoriesLoading: false,
         error: ''
     })),
+    on(FetchActions.fetchStockItemsSuccess, (state, { stockItems }) => ({
+        ...state,
+        stockItems: stockItems,
+        stockItemsLoading: false,
+        error: ''
+    })),
     on(FetchActions.fetchFailure, (state, { errorMsg }) => ({
         ...state,
         fetchLoading: false,
@@ -162,6 +174,10 @@ export const getReviewLinesLoading = (state: State) => state.reviewLinesLoading;
 export const getPhotosLoading = (state: State) => state.photosLoading;
 
 export const getCategoriesLoading = (state: State) => state.categoriesLoading;
+
+export const getStockItems = (state: State) => state.stockItems;
+
+export const getStockItemsLoading = (state: State) => state.stockItemsLoading;
 
 export const getFetchLoading = (state: State) => state.fetchLoading;
 

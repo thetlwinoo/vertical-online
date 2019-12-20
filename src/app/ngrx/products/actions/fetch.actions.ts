@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IProducts, IReviewLines, IProductPhoto, IProductCategory, IProductSubCategory } from '@epm/models';
+import { IProducts, IReviewLines, IProductPhoto, IProductCategory, IProductSubCategory, IStockItems } from '@epm/models';
 
 //newly added
 export const fetchNewlyAdded = createAction('[Products/API] Fetch Newly Added');
@@ -57,6 +57,16 @@ export const fetchReviewLinesSuccess = createAction(
 export const fetchProductPhoto = createAction(
     '[Products/API] Fetch Product Photo',
     props<{ id: number }>()
+);
+
+export const fetchStockItems = createAction(
+    '[Products/API] Fetch Stock Items',
+    props<{ id: number }>()
+);
+
+export const fetchStockItemsSuccess = createAction(
+    '[Products/API] Fetch Stock Items Success',
+    props<{ stockItems: IStockItems[] }>()
 );
 
 export const fetchProductPhotoSuccess = createAction(

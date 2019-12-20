@@ -1,69 +1,104 @@
 <div id="product-card">
-    <div class="product-card-wrapper">
-        <div class="product-left-badge-wrapper">
-            <div class="product-left-badge horizontal-badge">
-                <!-- <i class="product-svg-icon icon ion-md-checkmark"></i> -->
-                <fa-icon icon="check" class="icon"></fa-icon>
-                preferred
-            </div>
-        </div>
-        <div class="product-badge-wrapper">
-            <div class="product-badge product-badge-fixed-width product-badge-promotion">
-                <div class="product-badge-promotion-label-wrapper">
-                    <span class="percent">14%</span>
-                    <span class="product-badge-promotion-label-wrapper-off">off</span>
-                </div>
-            </div>
-        </div>
-        <img src="assets/images/general/lowest.png" class="product-lowest-guaranteed" *ngIf="lowestPrice">
-        <a [routerLink]="['/products',product.id]" routerLinkActive="active" (deferLoad)="product.showPhoto=true">
-            <div class="square" [style.backgroundImage]="'url('+ product.photo +')'"
-                *ngIf="product.photo && product.showPhoto;else noimage">
-            </div>
-        </a>
-        <ng-template #noimage>
-            <div class="square no-image"></div>
-        </ng-template>
-        <div class="product-name-wrapper p-3">
-            <a [routerLink]="['/products',product.id]" routerLinkActive="active">
-                <div class="word_wrap product-name">
-                    {{product.productName}}
-                </div>
-            </a>
-
-        </div>
-        <div class="rating-love">
-            <div class="love-spacer">
-                <!-- <i class="icon ion-md-heart-empty s-16 amber-fg"></i> -->
-                <fa-icon [icon]="['fas','heart']" class="text-warning"></fa-icon>
-                <span class="text-muted">(51)</span>
-            </div>
-            <!-- <p-rating [ngModel]="rating" readonly="true" stars="5" [cancel]="false"></p-rating> -->
-            <ngb-rating [(rate)]="rating" [readonly]="true" max="5">
-                <ng-template let-fill="fill" let-index="index">
-                    <span class="star" [class.text-warning]="fill === 100">
-                        <fa-icon icon="star"></fa-icon>
-                    </span>
-                </ng-template>
-            </ngb-rating>
-            <span class="ml-1 text-muted">({{rating}})</span>
-        </div>
-        <!-- <div class="card-divider"></div> -->
-        <div class="price-wrapper">
-            <div class="price-spacer">
-                <div class="product-price-wrapper">
-                    <span class="product-current-price">{{product.unitPrice}}</span>
-                </div>
-            </div>
-        </div>
-        <div class="price-wrapper">
-            <div class="price-spacer">
-                <div class="product-price-wrapper">
-                    <span class="product-price-old">{{product.recommendedRetailPrice}}</span>
-                    <span class="discount-percentage">-80%</span>
-                </div>
-            </div>
-            <fa-icon icon="truck" class="text-muted"></fa-icon>
-        </div>
+  <div class="product-card-wrapper">
+    <div class="product-left-badge-wrapper">
+      <div class="product-left-badge horizontal-badge">
+        <!-- <i class="product-svg-icon icon ion-md-checkmark"></i> -->
+        <fa-icon icon="check" class="icon"></fa-icon>
+        preferred
+      </div>
     </div>
+    <div class="product-badge-wrapper">
+      <div
+        class="product-badge product-badge-fixed-width product-badge-promotion"
+      >
+        <div class="product-badge-promotion-label-wrapper">
+          <span class="percent">14%</span>
+          <span class="product-badge-promotion-label-wrapper-off">off</span>
+        </div>
+      </div>
+    </div>
+    <img
+      src="assets/images/general/lowest.png"
+      class="product-lowest-guaranteed"
+      *ngIf="lowestPrice"
+    />
+    <a
+      [routerLink]="['/products', product.id]"
+      routerLinkActive="active"
+      (deferLoad)="product.showPhoto = true"
+    >
+      <div
+        class="square"
+        [style.backgroundImage]="'url(' + defaultImage + ')'"
+        *ngIf="defaultImage && product.showPhoto; else noimage"
+      ></div>
+    </a>
+    <ng-template #noimage>
+      <div class="square no-image"></div>
+    </ng-template>
+
+    <div class="flex-row-container">
+      <div class="flex-row-wrapper">
+        <div
+          class="d-flex flex-row bd-highlight"          
+        >
+          <div
+            class="p-1 bd-highlight"
+            *ngFor="let stockItemDTO of product?.stockItemsDTOList | slice: 0:4"
+          >
+            <a href="javascript:void(0);" (click)="changeStockItem(stockItemDTO)"
+              ><div
+                class="small-img"
+                [class.active]="defaultImage == stockItemDTO.thumbnailUrl"
+                [style.backgroundImage]="'url(' + stockItemDTO.thumbnailUrl + ')'"
+              ></div
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-name-wrapper px-3">
+      <a [routerLink]="['/products', product.id]" routerLinkActive="active">
+        <div class="word_wrap product-name">
+          {{ product.name }}
+        </div>
+      </a>
+    </div>
+    <div class="rating-love">
+      <div class="love-spacer">
+        <!-- <i class="icon ion-md-heart-empty s-16 amber-fg"></i> -->
+        <fa-icon [icon]="['fas', 'heart']" class="text-warning"></fa-icon>
+        <span class="text-muted">(51)</span>
+      </div>
+      <!-- <p-rating [ngModel]="rating" readonly="true" stars="5" [cancel]="false"></p-rating> -->
+      <ngb-rating [(rate)]="rating" [readonly]="true" max="5">
+        <ng-template let-fill="fill" let-index="index">
+          <span class="star" [class.text-warning]="fill === 100">
+            <fa-icon icon="star"></fa-icon>
+          </span>
+        </ng-template>
+      </ngb-rating>
+      <span class="ml-1 text-muted">({{ rating }})</span>
+    </div>
+    <!-- <div class="card-divider"></div> -->
+    <div class="price-wrapper">
+      <div class="price-spacer">
+        <div class="product-price-wrapper">
+          <span class="product-current-price">{{defaultUnitPrice }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="price-wrapper">
+      <div class="price-spacer">
+        <div class="product-price-wrapper">
+          <span class="product-price-old">{{
+                defaultRecommendedRetailPrice
+          }}</span>
+          <span class="discount-percentage">-80%</span>
+        </div>
+      </div>
+      <fa-icon icon="truck" class="text-muted"></fa-icon>
+    </div>
+  </div>
 </div>

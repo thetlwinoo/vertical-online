@@ -3,16 +3,16 @@
         <div class="row">
             <div class="col-md-5 col-sm-12 col-xs-12">
                 <div class="wrapper">
-                    <product-gallery></product-gallery>
+                    <product-gallery [product]="product"></product-gallery>
                 </div>
             </div>
             <div class="col-md-7 rtl-text" *ngIf="product">
                 <div class="wrapper">
                     <div class="right-column">
                         <div class="product-description">
-                            <span>{{ product.productSubCategoryProductSubCategoryName }}</span>
+                            <span>{{ product.productCategoryName }}</span>
                             <h1>{{ product.productName}}</h1>
-                            <p> {{ product.productModelProductModelName }}</p>
+                            <p> {{ product.productBrandName }}</p>
                         </div>
 
                         <div class="product-reviews">
@@ -112,4 +112,4 @@
     </div>
 </div>
 <review-product [product]="product"></review-product>
-<related-product [relatedProducts]="relatedProducts$ | async"></related-product>
+<related-product [relatedProducts]="relatedProducts$ | async" [loading]="relatedProductsLoading$ | async" [error]="error$ | async"></related-product>

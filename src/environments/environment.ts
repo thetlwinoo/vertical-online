@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   serverApi: {
-    baseUrl: 'https://system.zezawar.com/'
+    baseUrl: 'http://localhost:8080/'
   },
   client: {
     baseUrl: 'http://localhost:4200/'

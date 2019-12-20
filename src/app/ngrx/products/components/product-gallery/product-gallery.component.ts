@@ -16,6 +16,10 @@ export class ProductGalleryComponent implements OnInit, OnDestroy {
   photos$: Observable<any>;
   actionsSubscription: Subscription;
 
+  @Input() product;
+
+  images:any[];
+
   constructor(
     private store: Store<fromProducts.State>,
     public route: ActivatedRoute
@@ -29,6 +33,15 @@ export class ProductGalleryComponent implements OnInit, OnDestroy {
     this.photos$ = this.store.pipe(select(fromProducts.getFetchProductPhoto)) as Observable<any[]>;
   }
 
+  ngAfterViewInit(){
+    console.log('this.prod',this.product)
+    if(this.product){
+      this.product.stockItemsDTOList.map(stockItem=>{
+        this.images.push({ source: stockItem.thumbnailUrl, alt: stockItem.name, title: stockItem.name });
+      });
+      console.log('this.images',this.images)
+    }
+  }
   ngOnDestroy(): void {
     this.actionsSubscription.unsubscribe();
   }

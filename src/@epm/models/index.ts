@@ -25,3 +25,7 @@ export * from './payment-actions.model';
 export * from './product-category.model';
 export * from './product-sub-category.model';
 export * from './product-tags.model';
+export * from './stock-items.model';
+export * from './dangerous-goods.model';
+export * from './photos.model';
+export * from './special-deals.model';

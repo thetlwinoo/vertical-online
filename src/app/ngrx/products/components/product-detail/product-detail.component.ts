@@ -26,6 +26,8 @@ export class ProductDetailComponent implements OnInit {
 
   actionsSubscription: Subscription;
   relatedProducts$: Observable<IProducts[]>;
+  relatedProductsLoading$: Observable<boolean>;
+  error$: Observable<string>;
   constructor(
     private accountService: AccountService,
     private store: Store<fromProducts.State>,
@@ -39,6 +41,8 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit() {
     this.relatedProducts$ = this.store.pipe(select(fromProducts.getFetchRelatedProducts)) as Observable<IProducts[]>;
+    this.relatedProductsLoading$ = this.store.pipe(select(fromProducts.getFetchRelatedProductsLoading));
+    this.error$ = this.store.pipe(select(fromProducts.getFetchError));
   }
 
   toggleCompare(event, inCompare) {
