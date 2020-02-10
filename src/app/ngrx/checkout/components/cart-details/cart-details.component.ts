@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IShoppingCarts, AddToCartProps, ReduceFromCartProps } from '@epm/models';
+import { IShoppingCarts, AddToCartProps, ReduceFromCartProps } from '@eps/models';
 
 @Component({
   selector: 'cart-details',

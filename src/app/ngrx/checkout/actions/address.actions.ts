@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IAddresses } from '@epm/models';
+import { IAddresses } from '@eps/models';
 
 export const fetchAddresses = createAction('[Addresses/API] Fetch Addresses');
 

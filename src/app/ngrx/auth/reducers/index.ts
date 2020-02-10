@@ -1,4 +1,4 @@
-import { IPeople } from '@epm/models';
+import { IPeople } from '@eps/models';
 import {
     createSelector,
     createFeatureSelector,

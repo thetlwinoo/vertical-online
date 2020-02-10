@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs/Observable";
-import { IProducts, AddToCartProps } from '@epm/models';
+import { IProducts, AddToCartProps } from '@eps/models';
 import { select, Store } from '@ngrx/store';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import * as fromProduct from 'app/ngrx/products/reducers';

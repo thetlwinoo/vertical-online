@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription, of, forkJoin, zip } from 'rxjs';
-import { IProducts, IProductPhoto } from '@epm/models';
+import { IProducts, IProductPhoto } from '@eps/models';
 import * as fromProducts from 'app/ngrx/products/reducers';
 import { FetchActions } from 'app/ngrx/products/actions';
 import { ActivatedRoute } from '@angular/router';

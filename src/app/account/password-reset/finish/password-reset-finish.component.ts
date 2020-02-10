@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, Renderer, ElementRef } from '@angular
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 
-import { LoginModalService } from '@epm/services/core/login/login-modal.service';
+import { LoginModalService } from '@eps/services/core/login/login-modal.service';
 import { PasswordResetFinishService } from './password-reset-finish.service';
 
 @Component({

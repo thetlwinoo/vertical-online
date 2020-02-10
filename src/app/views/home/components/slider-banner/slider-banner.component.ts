@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
-import { banner2 } from '@epm/config/owl-carousel';
+import { banner2 } from '@eps/config/owl-carousel';
 
 @Component({
   selector: 'slider-banner',

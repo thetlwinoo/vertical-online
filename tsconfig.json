@@ -15,8 +15,8 @@
       "@angular/*": [
         "node_modules/@angular/*"
       ],
-      "@epm": [
-        "@epm/"
+      "@eps": [
+        "@eps/"
       ],
       "@app/env": [
         "environments/environment"

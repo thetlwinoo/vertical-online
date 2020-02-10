@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 // import { ResourceSharedModule } from 'app/shared';
-// import { BreadcrumbInitializedGuard } from '@epm/services/breadcrumb-initialized-guard.service';
+// import { BreadcrumbInitializedGuard } from '@eps/services/breadcrumb-initialized-guard.service';
 
 import {
   PasswordStrengthBarComponent,

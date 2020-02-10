@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, filter, mergeMap, tap } from 'rxjs/operators';
 import { PaymentActions } from '../actions';
-import { PaypalService, CreditCardService } from '@epm/services';
+import { PaypalService, CreditCardService } from '@eps/services';
 import { Router } from '@angular/router';
 
 @Injectable()

@@ -4,7 +4,7 @@ import { DashboardComponent } from './dashboard.component';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { BreadcrumbGuard } from '@epm/services';
+import { BreadcrumbGuard } from '@eps/services';
 
 @Injectable({ providedIn: 'root' })
 export class MyDashboardResolve implements Resolve<String> {

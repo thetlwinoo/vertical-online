@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Subscription, Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { IShoppingCarts, IAddresses, IOrders } from '@epm/models';
+import { IShoppingCarts, IAddresses, IOrders } from '@eps/models';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import { AddressActions, OrderActions } from 'app/ngrx/checkout/actions';
 import * as moment from 'moment';

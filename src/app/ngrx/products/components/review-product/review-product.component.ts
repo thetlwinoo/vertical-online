@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy } from '@a
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Subscription } from "rxjs/Subscription";
-import { IProducts, ReviewLines } from '@epm/models';
+import { IProducts, ReviewLines } from '@eps/models';
 import * as fromProducts from 'app/ngrx/products/reducers';
 import { FetchActions } from 'app/ngrx/products/actions';
 import { ActivatedRoute } from '@angular/router';

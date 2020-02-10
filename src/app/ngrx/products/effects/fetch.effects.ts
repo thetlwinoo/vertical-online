@@ -18,7 +18,7 @@ import {
   IProductCategory,
   IProductSubCategory,
   IStockItems
-} from "@epm/models";
+} from "@eps/models";
 import { FetchActions } from "../actions";
 import {
   ProductsService,
@@ -26,7 +26,7 @@ import {
   ProductPhotoService,
   ProductCategoryService,
   StockItemsService
-} from "@epm/services";
+} from "@eps/services";
 
 @Injectable()
 export class FetchEffects {

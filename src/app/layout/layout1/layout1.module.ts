@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RootSharedModule } from '@epm/shared.module';
+import { RootSharedModule } from '@eps/shared.module';
 import { ToolbarModule } from 'app/layout/components/toolbar/toolbar.module';
 import { HeaderModule } from 'app/layout/components/header/header.module';
 import { ContentModule } from 'app/layout/components/content/content.module';

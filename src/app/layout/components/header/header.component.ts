@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
-import { AccountService } from '@epm/services/core';
+import { AccountService } from '@eps/services/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { IShoppingCarts } from '@epm/models';
+import { IShoppingCarts } from '@eps/models';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import { CartActions } from 'app/ngrx/checkout/actions';
 

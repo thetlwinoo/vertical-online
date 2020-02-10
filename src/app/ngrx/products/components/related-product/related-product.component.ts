@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { IProducts } from '@epm/models';
-import { deal } from '@epm/config/owl-carousel';
-import { rootAnimations } from '@epm/animations';
+import { IProducts } from '@eps/models';
+import { deal } from '@eps/config/owl-carousel';
+import { rootAnimations } from '@eps/animations';
 
 @Component({
   selector: 'related-product',

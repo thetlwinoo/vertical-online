@@ -1,10 +1,10 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { IShoppingCarts } from '@epm/models';
+import { IShoppingCarts } from '@eps/models';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import { CartActions } from 'app/ngrx/checkout/actions';
-import { LayoutUtilsService, MessageType } from '@epm/services/_base/crud';
+import { LayoutUtilsService, MessageType } from '@eps/services/_base/crud';
 
 @Component({
   selector: 'app-shopping-cart',

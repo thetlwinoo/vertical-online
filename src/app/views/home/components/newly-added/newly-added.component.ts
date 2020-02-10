@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Products, IProducts } from "@epm/models";
-import { deal } from '@epm/config/owl-carousel';
-import { rootAnimations } from '@epm/animations';
+import { Products, IProducts } from "@eps/models";
+import { deal } from '@eps/config/owl-carousel';
+import { rootAnimations } from '@eps/animations';
 
 @Component({
   selector: 'newly-added',

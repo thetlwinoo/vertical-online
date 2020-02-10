@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
-import { Addresses, IAddresses } from '@epm/models';
+import { Addresses, IAddresses } from '@eps/models';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import { AddressActions } from 'app/ngrx/checkout/actions';
-import { AccountService } from '@epm/services/core/auth/account.service';
+import { AccountService } from '@eps/services/core/auth/account.service';
 import { ConfirmationService } from 'primeng/api';
 
 @Component({

@@ -3,7 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import {
     WishlistActions
 } from 'app/ngrx/products/actions';
-import { IProducts } from '@epm/models';
+import { IProducts } from '@eps/models';
 
 export const wishlistFeatureKey = 'wishlist';
 

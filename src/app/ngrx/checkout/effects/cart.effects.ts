@@ -3,10 +3,10 @@ import { HttpResponse } from '@angular/common/http';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, filter, mergeMap, tap } from 'rxjs/operators';
-import { IShoppingCarts } from '@epm/models';
+import { IShoppingCarts } from '@eps/models';
 import { CartActions } from '../actions';
-import { CartService } from '@epm/services';
-import { LayoutUtilsService, MessageType } from '@epm/services/_base/crud';
+import { CartService } from '@eps/services';
+import { LayoutUtilsService, MessageType } from '@eps/services/_base/crud';
 
 @Injectable()
 export class CartEffects {

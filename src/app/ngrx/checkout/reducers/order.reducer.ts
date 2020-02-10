@@ -3,7 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import {
     OrderActions
 } from 'app/ngrx/checkout/actions';
-import { IOrders } from '@epm/models';
+import { IOrders } from '@eps/models';
 
 export const orderFeatureKey = 'order';
 

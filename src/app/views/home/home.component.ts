@@ -3,7 +3,7 @@ import { FetchActions } from 'app/ngrx/products/actions';
 import * as fromProducts from 'app/ngrx/products/reducers';
 import { Store, select } from "@ngrx/store";
 import { Observable } from "rxjs/Observable";
-import { IProducts, IProductCategory } from '@epm/models';
+import { IProducts, IProductCategory } from '@eps/models';
 
 @Component({
   selector: 'app-home',

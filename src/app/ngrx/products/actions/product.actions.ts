@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { HttpHeaders } from '@angular/common/http';
-import { IProducts } from '@epm/models';
+import { IProducts } from '@eps/models';
 
 export const loadProduct = createAction(
     '[Product Exists Guard] Load Product',

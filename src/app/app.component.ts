@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 import { Router, NavigationEnd } from "@angular/router";
-import { RootConfigService } from '@epm/services';
+import { RootConfigService } from '@eps/services';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,7 @@ import { RootConfigService } from '@epm/services';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'epm-online';
+  title = 'eps-online';
   rootConfig: any;
   private _unsubscribeAll: Subject<any>;
 

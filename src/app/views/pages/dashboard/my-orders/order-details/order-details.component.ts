@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { AddressesService } from '@epm/services';
-import { Orders, IOrders, IAddresses } from '@epm/models';
+import { AddressesService } from '@eps/services';
+import { Orders, IOrders, IAddresses } from '@eps/models';
 import { filter, map } from 'rxjs/operators';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 

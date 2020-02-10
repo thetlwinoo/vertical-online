@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IProducts } from '@epm/models';
+import { IProducts } from '@eps/models';
 
 export const addProductSuccess = createAction(
     '[Compare/API] Add Product Success',

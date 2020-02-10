@@ -3,16 +3,16 @@ import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Observable, Subject, Subscription } from "rxjs";
 import { map, takeUntil, zip } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
-import { IProducts, IProductCategory, IProductSubCategory } from '@epm/models';
+import { IProducts, IProductCategory, IProductSubCategory } from '@eps/models';
 import { TreeNode, SelectItem } from 'primeng/api';
-import { RootSidebarService } from '@epm/components/sidebar/sidebar.service';
+import { RootSidebarService } from '@eps/components/sidebar/sidebar.service';
 import { Store, select } from "@ngrx/store";
 import _ from 'lodash';
 import { ProductActions, FetchActions } from 'app/ngrx/products/actions';
 import * as fromProducts from 'app/ngrx/products/reducers';
 import * as fromTags from 'app/ngrx/tags/reducers';
 
-import { ITEMS_PER_PAGE } from '@epm/constants';
+import { ITEMS_PER_PAGE } from '@eps/constants';
 
 @Component({
   selector: 'app-search',

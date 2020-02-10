@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { cartFeatureKey } from '../../reducers/cart.reducer';
-import { IOrders } from '@epm/models';
+import { IOrders } from '@eps/models';
 
 @Component({
   selector: 'order-details',

@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
-import { IOrders, CreatePaypalProps, CompletePaypalProps, StripeProps } from '@epm/models';
+import { IOrders, CreatePaypalProps, CompletePaypalProps, StripeProps } from '@eps/models';
 import { Store, select } from '@ngrx/store';
 import { PaymentActions } from 'app/ngrx/checkout/actions';
 

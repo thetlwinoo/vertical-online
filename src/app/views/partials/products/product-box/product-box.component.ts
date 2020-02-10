@@ -5,7 +5,7 @@ import {
   OnInit,
   AfterViewInit
 } from "@angular/core";
-import { IProducts, IStockItems } from "@epm/models";
+import { IProducts, IStockItems } from "@eps/models";
 
 import { FetchActions } from "app/ngrx/products/actions";
 import * as fromProducts from "app/ngrx/products/reducers";

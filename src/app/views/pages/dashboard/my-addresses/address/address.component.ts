@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Account } from '@epm/models';
+import { Account } from '@eps/models';
 
 @Component({
   selector: 'dashboard-address',

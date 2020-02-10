@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Account, IOrders } from '@epm/models';
+import { Account, IOrders } from '@eps/models';
 import { SelectItem } from 'primeng/api';
-import { CreditCardService } from '@epm/services';
+import { CreditCardService } from '@eps/services';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({

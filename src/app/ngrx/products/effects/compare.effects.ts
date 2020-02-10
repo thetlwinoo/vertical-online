@@ -8,8 +8,8 @@ import {
     CompareActions,
     SelectedProductPageActions,
 } from 'app/ngrx/products/actions';
-import { IProducts } from '@epm/models';
-import { ProductCompareStorageService } from '@epm/services/core';
+import { IProducts } from '@eps/models';
+import { ProductCompareStorageService } from '@eps/services/core';
 
 @Injectable()
 export class CompareEffects {

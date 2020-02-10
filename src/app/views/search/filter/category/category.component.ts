@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation, OnDestroy } from '@angular/core';
-import { IProductCategory } from '@epm/models';
+import { IProductCategory } from '@eps/models';
 import { TreeNode } from 'primeng/api';
-import { rootAnimations } from '@epm/animations';
+import { rootAnimations } from '@eps/animations';
 import { Observable, Subject, Subscription } from "rxjs";
 import { map, takeUntil, zip } from 'rxjs/operators';
 import { ActivatedRoute, Params, Router } from "@angular/router";

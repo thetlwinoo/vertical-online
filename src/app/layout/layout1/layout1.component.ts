@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { MenuItem } from 'primeng/api';
-import { BreadcrumbService } from '@epm/services';
+import { BreadcrumbService } from '@eps/services';
 
 @Component({
   selector: 'app-layout1',

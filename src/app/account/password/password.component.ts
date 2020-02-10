@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AccountService } from '@epm/services/core/auth/account.service';
+import { AccountService } from '@eps/services/core/auth/account.service';
 import { PasswordService } from './password.service';
 
 @Component({

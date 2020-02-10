@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-import { UserRouteAccessService } from '@epm/services/core/auth/user-route-access.service';
+import { UserRouteAccessService } from '@eps/services/core/auth/user-route-access.service';
 import { PasswordComponent } from './password.component';
 
 export const passwordRoute: Route = {

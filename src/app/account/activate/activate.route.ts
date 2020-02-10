@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 
 import { ActivateComponent } from './activate.component';
-// import { BreadcrumbInitializedGuard } from '@epm/services/breadcrumb-initialized-guard.service';
+// import { BreadcrumbInitializedGuard } from '@eps/services/breadcrumb-initialized-guard.service';
 
 export const activateRoute: Route = {
     path: 'activate',
