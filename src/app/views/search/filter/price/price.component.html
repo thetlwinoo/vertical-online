@@ -1,15 +1,12 @@
-<div class="collection-collapse-block" *ngIf="minPrice<maxPrice">
-    <h3 class="collapse-block-title" [ngClass]="expand?'expanded':'collapsed'" (click)="expand = !expand">price range
-    </h3>
-    <div class="collection-collapse-block-content" *ngIf="expand" [@expandCollapse]>
+<vs-panel [title]="title | uppercase" *ngIf="minPrice<maxPrice">
+    <div body class="content-wrapper">
         <div class="price-wrapper mx-3 mt-4">
-            <p-slider [(ngModel)]="priceRange" [min]="minPrice" [max]="maxPrice" [range]="true"
-                (onSlideEnd)="priceChanged($event)">
-            </p-slider>
+            <nz-slider nzRange [(ngModel)]="priceRange" [nzMax]="maxPrice" [nzMin]="minPrice"
+                (nzOnAfterChange)="priceChanged()"></nz-slider>
             <div class="display-price">
                 <span>min: ${{priceRange[0] | number}}</span>
                 <span>max: ${{priceRange[1] | number}}</span>
             </div>
         </div>
     </div>
-</div>
+</vs-panel>

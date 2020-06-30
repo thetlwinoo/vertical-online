@@ -1,15 +1,24 @@
+import { KeycloakConfig } from 'keycloak-angular';
+
+const keycloakConfig: KeycloakConfig = {
+  url: 'https://auth.rangoon-tech.com/auth',
+  realm: 'jhipster',
+  clientId: 'web_app',
+};
+
 export const environment = {
   production: true,
+  keycloak: keycloakConfig,
   serverApi: {
-    baseUrl: 'https://system.zezawar.com/'
+    url: 'https://system.zezawar.com/',
   },
   client: {
-    baseUrl: 'https://www.zezawar.com/'
+    baseUrl: 'https://www.zezawar.com/',
   },
   socketConfig: {
     url: 'https://system.zezawar.com/',
     opts: {
-      transports: ['websocket']
-    }
-  }
+      transports: ['websocket'],
+    },
+  },
 };

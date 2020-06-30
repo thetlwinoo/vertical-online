@@ -1,6 +1,6 @@
 // Angular
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
 	selector: 'kt-fetch-entity-dialog',
@@ -16,7 +16,7 @@ export class FetchEntityDialogComponent {
 	constructor(
 		public dialogRef: MatDialogRef<FetchEntityDialogComponent>,
 		@Inject(MAT_DIALOG_DATA) public data: any
-	) {}
+	) { }
 
 	/**
 	 * Close dialog with false result

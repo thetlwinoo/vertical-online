@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
-import { Wishlists } from "@eps/models";
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
+import { Wishlists, IStockItems } from '@eps/models';
 import { SERVER_API_URL } from '@eps/constants';
 import { IWishlists, IProducts } from '@eps/models';
 import { Observable } from 'rxjs';
@@ -10,39 +10,37 @@ type EntityArrayResponseType = HttpResponse<IProducts[]>;
 
 @Injectable()
 export class WishlistService {
-  extendUrl: string = SERVER_API_URL + 'api/wishlist-extend';
+  extendUrl: string = SERVER_API_URL + 'services/vscommerce/api/wishlists-extend';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   fetchWishlist(): Observable<EntityResponseType> {
     return this.http.get<IWishlists>(this.extendUrl + '/fetch', { observe: 'response' });
   }
 
-  fetchWishlistProducts(): Observable<EntityArrayResponseType> {
+  fetchWishlistStockItems(): Observable<EntityArrayResponseType> {
     return this.http.get<IProducts[]>(this.extendUrl + '/fetch/products', { observe: 'response' });
   }
 
-  isInWishlist(productId: number) {
+  isInWishlist(id: number): Observable<boolean> {
     let params = new HttpParams();
-    params = params.set('productId', productId.toString());
-    return this.http.get<Boolean>(this.extendUrl + '/check', {
-      params: params
+    params = params.set('stockItemId', id.toString());
+    return this.http.get<boolean>(this.extendUrl + '/check', {
+      params,
     });
   }
 
-  addToWishlist(productId: number) {
-    return this.http.post<Wishlists>(this.extendUrl + '/add', productId);
+  addToWishlist(id: number): Observable<HttpResponse<IStockItems>> {
+    return this.http.post<HttpResponse<IStockItems>>(this.extendUrl + '/add', id);
   }
 
-  removeFromWishlist(id: number) {
-    return this.http.delete<Wishlists>(this.extendUrl + '/remove', {
-      params: new HttpParams().set('id', id.toString())
-    })
+  removeFromWishlist(id: number): Observable<HttpResponse<IStockItems>> {
+    return this.http.delete<HttpResponse<IStockItems>>(this.extendUrl + '/remove', {
+      params: new HttpParams().set('id', id.toString()),
+    });
   }
 
-  emptyWishlist() {
-    return this.http.delete(this.extendUrl + '/remove');
+  emptyWishlist(): void {
+    this.http.delete(this.extendUrl + '/remove');
   }
-
 }

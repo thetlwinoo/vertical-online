@@ -1,0 +1,143 @@
+<div class="bank-transfer-content" *ngIf="!uploadInd;else upload">
+    <p>
+        Use Internet Banking or ATM to transfer the payment amount to either
+        one of the following ZEZAWAR's accounts.
+    </p>
+
+    <nz-list nzItemLayout="horizontal" [nzLoading]="loading" *ngIf="bankList.length >0;else emptyList">
+        <nz-list-item *ngFor="let item of bankList">
+            <nz-list-item-meta [nzAvatar]="item.bankLogo">
+                <nz-list-item-meta-title>
+                    <span>{{ item.accountType }}</span>
+                </nz-list-item-meta-title>
+                <nz-list-item-meta-description>
+                    <p>Account Name : {{ item.accountName | uppercase }}</p>
+                    <p>Account No : <b>{{ item.accountNo }}</b></p>
+                </nz-list-item-meta-description>
+            </nz-list-item-meta>
+            <ul nz-list-item-actions>
+                <nz-list-item-action>
+                    <span nz-typography nzCopyable [nzCopyText]="item.accountNo"></span>
+                </nz-list-item-action>
+            </ul>
+        </nz-list-item>
+    </nz-list>
+    <ng-template #emptyList>
+        <nz-list-empty *ngIf="bankList.length === 0"></nz-list-empty>
+    </ng-template>
+
+    <div>
+        <p>For Internet Banking, please insert your Zezawar username into
+            "Your
+            Initials" [AYA] or "My Initials" [KBZ]</p>
+        <p>Please upload picture of Internet Banking confirmation page/ATM
+            receipt by [date]</p>
+    </div>
+
+    <button nz-button nzType="danger" [nzSize]="'large'" nzBlock (click)="uploadInd = true;resetForm($event)">I have
+        receipt. Upload
+        now.</button>
+    <button nz-button nzType="default" [nzSize]="'large'" nzBlock [routerLink]="['/pages/dashboard/my-orders']">I do not
+        have receipt.
+        Upload
+        later.</button>
+</div>
+
+<ng-template #upload>
+    <form nz-form [formGroup]="bankTransferForm" (ngSubmit)="submitForm()">
+        <div class="payment-wrapper">
+
+            <div class="upload-title">
+                <a nz-button nzType="link" (click)="uploadInd=false">
+                    <i nz-icon nzType="left" nzTheme="outline"></i>
+                </a>
+                <h6>Upload Receipt</h6>
+            </div>
+
+            <div>
+                <p>
+                    Upload a photo of your receipt from ATM or a screenshot of your reveipt from internet banking.
+                    ZEZAWAR
+                    will verify your payment within 3 working days.
+                </p>
+            </div>
+            <div class="upload-receipt">
+                <nz-upload class="avatar-uploader" [nzAction]="blobUrl + 'upload'" nzListType="picture-card"
+                    [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event)">
+                    <ng-container *ngIf="!receiptImageUrl">
+                        <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+                        <div class="ant-upload-text">Upload</div>
+                    </ng-container>
+                    <img *ngIf="receiptImageUrl" [src]="blobUrl + receiptImageUrl + '/thumbnail'" style="width: 100%"
+                        nz-popover [nzPopoverContent]="contentTemplate" nzPopoverPlacement="rightTop" />
+                </nz-upload>
+
+                <ng-template #contentTemplate><img width="300" [src]="blobUrl + receiptImageUrl + '/original'">
+                </ng-template>
+            </div>
+
+            <div class="upload-receipt-description">
+                <div>Select Bank Transfer Receipt</div>
+                <div>File size: maximum 2 MB</div>
+                <div>File extension: .JPEG, .PNG</div>
+            </div>
+
+
+            <nz-list nzBordered class="upload-info-list">
+                <nz-list-item>
+                    <span>Name as in bank account</span>
+
+                    <div>
+                        <nz-form-item>
+                            <nz-form-control nzHasFeedback>
+                                <input style="width: 200px !important" nz-input placeholder="Your full name"
+                                    formControlName="nameInBankAccount" />
+                            </nz-form-control>
+                        </nz-form-item>
+
+                    </div>
+
+                </nz-list-item>
+
+                <nz-list-item>
+                    <span>Date of Transfer</span>
+
+                    <div>
+                        <nz-form-item>
+                            <nz-form-control nzHasFeedback>
+                                <nz-date-picker style="width: 200px" formControlName="dateOfTransfer">
+                                </nz-date-picker>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                </nz-list-item>
+
+                <nz-list-item>
+                    <span>Transfer To</span>
+
+                    <div>
+                        <nz-form-item>
+                            <nz-form-control nzHasFeedback>
+                                <nz-select style="width: 200px" nzPlaceHolder="Select Bank" formControlName="bankName">
+                                    <nz-option [nzLabel]="option.bankName" [nzValue]="option.bankName"
+                                        *ngFor="let option of bankList">
+                                    </nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                    </div>
+                </nz-list-item>
+
+                <nz-list-item>
+                    <span>Amount Transferred(MMK)</span>
+                    {{amount | currency}}
+                </nz-list-item>
+            </nz-list>
+
+            <button class="mt-2" type="submit" nz-button [nzSize]="'large'" nzType="danger" nzBlock>Confirm
+                Order</button>
+        </div>
+    </form>
+</ng-template>

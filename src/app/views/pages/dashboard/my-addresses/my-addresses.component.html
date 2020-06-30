@@ -1,14 +1,43 @@
-<div class="container-fluid">
-  <div class="portlet-header d-flex justify-content-end">
-    <button type="button" class="btn btn-primary"
-      [routerLink]="['/pages/dashboard/address-book/new']">
-      <fa-icon [icon]="'plus'"></fa-icon>&nbsp;<span>Add New Address</span>
+<vs-panel [title]="'My Address List'">
+  <div extra>
+    <button nz-button nzType="default" [nzSize]="'small'" [routerLink]="['/pages/dashboard/address-book/new']" nzDanger>
+      <i nz-icon nzType="plus" nzTheme="outline"></i>&nbsp;<span>Add New</span>
     </button>
   </div>
-  <div *ngFor="let addresses of (addresses$ | async) ;trackBy: trackId">
-    <dashboard-address [addresses]="addresses" [account]="account" (editAddress)="onEditAddress($event)"
-      (deleteAddress)="onDeleteAddress($event)" (setDefault)="onSetDefault($event)"></dashboard-address>
+  <div body class="content-wrapper">
+    <nz-list nzItemLayout="horizontal" [nzLoading]="loading">
+      <nz-list-item *ngFor="let item of (addresses$ | async)">
+        <ng-container>
+          <nz-list-item-meta>
+            <nz-list-item-meta-title>
+              <a href="javascript:void(0)" class="mr-2">{{ item.contactPerson }}</a>
+              <nz-tag [nzColor]="'orange'">{{item.addressTypeName}}</nz-tag>
+            </nz-list-item-meta-title>
+            <nz-list-item-meta-description>
+              {{ item.addressLine1 }}, {{item.addressLine2}}, {{item.city}}, {{item.postalCode}}
+            </nz-list-item-meta-description>
+          </nz-list-item-meta>
+          <ul nz-list-item-actions>
+            <nz-list-item-action><a [routerLink]="['/pages/dashboard/address-book', item.id, 'edit']">edit</a>
+            </nz-list-item-action>
+            <nz-list-item-action><a nz-popconfirm nzPopconfirmTitle="Are you sure delete?"
+                nzPopconfirmPlacement="bottom" (nzOnConfirm)="confirm(item)" (nzOnCancel)="cancel()">delete</a>
+            </nz-list-item-action>
+          </ul>
+        </ng-container>
+        <nz-skeleton *ngIf="loading" [nzAvatar]="true" [nzActive]="true" [nzTitle]="false" [nzLoading]="true">
+        </nz-skeleton>
+      </nz-list-item>
+      <nz-list-empty *ngIf="(addresses$ | async).length === 0"></nz-list-empty>
+    </nz-list>
   </div>
-</div>
-<!-- <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" [transitionOptions]="'0ms'" appendTo="body">
-</p-confirmDialog> -->
+</vs-panel>
+
+<!-- <nz-card nzTitle="My Addresses" [nzExtra]="extraTemplate">
+  
+</nz-card>
+<ng-template #extraTemplate>
+  <button type="button" class="btn btn-primary" [routerLink]="['/pages/dashboard/address-book/new']">
+    <fa-icon [icon]="'plus'"></fa-icon>&nbsp;<span>Add New Address</span>
+  </button>
+</ng-template> -->

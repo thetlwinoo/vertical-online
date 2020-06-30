@@ -9,8 +9,7 @@
               <span class="title">{{addresses.contactPerson}}</span>
               <button type="button" *ngIf="addresses.addressType"
                 class="btn btn-outline-warning default-button">{{addresses.addressType?.addressTypeName}}</button>
-              <button type="button" class="btn btn-outline-warning btn-sm default-button" *ngIf="addresses.defaultInd"
-                label="Default">Default</button>
+              <nz-tag [nzColor]="'#2db7f5'" *ngIf="addresses.defaultInd">default</nz-tag>
             </td>
           </tr>
           <tr>
@@ -29,36 +28,25 @@
             <td><span class="label">PostalCode</span></td>
             <td>{{addresses.postalCode}}</td>
           </tr>
-          <!-- <tr>
-                  <td><span class="label">StateProvince</span></td>
-                  <td>{{addresses.stateProvince?.stateProvinceName}}</td>
-                </tr> -->
         </table>
       </div>
       <div class="ui-grid-col-4">
         <table style="float:right;" id="address-control">
           <tr>
             <td>
-              <!-- <a href="JavaScript:void(0);">Edit</a> -->
-              <!-- <button pButton type="button" label="Edit" class="ui-button-secondary" [routerLink]="['/pages/dashboard/address-book', addresses.id, 'edit']"></button> -->
               <button type="button" id="edit-button" class="btn btn-secondary btn-sm"
                 [routerLink]="['/pages/dashboard/address-book', addresses.id, 'edit']">
                 <fa-icon [icon]="'edit'"></fa-icon>&nbsp;<span>Edit</span>
               </button>
-              <!-- <a href="JavaScript:void(0);" (click)="deleteAddress.emit(addresses)">Delete</a> -->
-              <!-- <button pButton type="button" label="Delete" class="ui-button-secondary ml-1"
-                      (click)="deleteAddress.emit(addresses)" [disabled]="addresses.defaultInd"></button> -->
               <button type="button" id="delete-button" class="btn btn-secondary btn-sm ml-2"
-                (click)="deleteAddress.emit(addresses)" [disabled]="addresses.defaultInd">
+                [disabled]="addresses.defaultInd" nz-popconfirm nzPopconfirmTitle="Are you sure delete?"
+                nzPopconfirmPlacement="bottom" (nzOnConfirm)="confirm(addresses)" (nzOnCancel)="cancel()">
                 <fa-icon [icon]="'trash-alt'"></fa-icon>&nbsp;<span>Delete</span>
               </button>
             </td>
           </tr>
           <tr>
             <td>
-              <!-- <button pButton type="button" label="Set As Default" icon="pi pi-bookmark" class="ui-button-secondary"
-                      [disabled]="addresses.defaultInd" (click)="setDefault.emit(addresses)"></button> -->
-
               <button type="button" id="setdefault-button" class="btn btn-primary btn-sm set-default"
                 (click)="setDefault.emit(addresses)" [disabled]="addresses.defaultInd">
                 <fa-icon [icon]="'map-marked-alt'"></fa-icon>&nbsp;<span>Set As Default</span>

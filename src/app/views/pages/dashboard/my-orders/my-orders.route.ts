@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { UserRouteAccessService } from '@eps/services/core/auth/user-route-access.service';
+import { UserRouteAccessService } from '@eps/core';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { MyOrdersComponent } from './my-orders.component';
@@ -11,40 +11,43 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
 
 @Injectable({ providedIn: 'root' })
 export class MyOrdersResolve implements Resolve<Orders> {
-    constructor(private service: OrderService) { }
+  constructor(private service: OrderService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Orders> {
-        const id = route.params['id'] ? route.params['id'] : null;
-        if (id) {
-            return this.service.getOrder(id).pipe(
-                filter((response: HttpResponse<Orders>) => response.ok),
-                map((orders: HttpResponse<Orders>) => orders.body)
-            );
-        }
-        return of(new Orders());
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Orders> {
+    const id = route.params.id ? route.params.id : null;
+    if (id) {
+      return this.service.getOrder(id).pipe(
+        filter((res: HttpResponse<Orders>) => res.ok),
+        map((res: HttpResponse<Orders>) => {
+          res.body.orderDetails = JSON.parse(res.body.orderDetails);
+          return res.body;
+        })
+      );
     }
+    return of(new Orders());
+  }
 }
 
 export const myOrdersRoute: Routes = [
-    {
-        path: '',
-        component: MyOrdersComponent,
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'My Orders'
-        },
-        canActivate: [UserRouteAccessService]
+  {
+    path: '',
+    component: MyOrdersComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'My Orders',
     },
-    {
-        path: ':id/view',
-        component: OrderDetailsComponent,
-        resolve: {
-            orders: MyOrdersResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'Order Details'
-        },
-        canActivate: [UserRouteAccessService]
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: ':id/view',
+    component: OrderDetailsComponent,
+    resolve: {
+      orders: MyOrdersResolve,
     },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'Order Details',
+    },
+    canActivate: [UserRouteAccessService],
+  },
 ];

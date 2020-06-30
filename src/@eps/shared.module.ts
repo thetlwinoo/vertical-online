@@ -1,38 +1,16 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { RootPipesModule } from '@eps/pipes';
+import { NgModule } from '@angular/core';
 import { ResourceSharedLibsModule } from './shared-libs.module';
-import { ResourceSharedCommonModule } from './shared-common.module';
-import { RootDirectivesModule } from '@eps/directives/directives';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { JhiLoginModalComponent } from '@eps/components';
-import { RootSidebarModule } from '@eps/components';
+import { VSPanelComponent } from './components/panel/panel.component';
+import { VSPanelListComponent } from './components/panel-list/panel-list.component';
+import { VSAddressesUpdateComponent } from './components/addresses-update/addresses-update.component';
+
+export const VS_COMPONENTS = [VSPanelComponent, VSPanelListComponent, VSAddressesUpdateComponent];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FlexLayoutModule,
-        ResourceSharedCommonModule,
-        ResourceSharedLibsModule,
-        RootDirectivesModule,
-        RootPipesModule,
-        RootSidebarModule
-    ],
-    declarations: [
-        JhiLoginModalComponent
-    ],
-    providers: [],
-    exports: [
-        CommonModule,
-        FlexLayoutModule,
-        ResourceSharedCommonModule,
-        RootDirectivesModule,
-        RootPipesModule,
-        RootSidebarModule
-    ],
-    entryComponents: [JhiLoginModalComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [ResourceSharedLibsModule],
+  declarations: [...VS_COMPONENTS],
+  providers: [],
+  exports: [ResourceSharedLibsModule, ...VS_COMPONENTS],
+  entryComponents: [VSAddressesUpdateComponent],
 })
-export class RootSharedModule {
-}
+export class RootSharedModule {}

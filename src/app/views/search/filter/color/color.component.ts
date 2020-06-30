@@ -1,10 +1,10 @@
-import { ViewEncapsulation, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ViewEncapsulation, Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/core';
 import { rootAnimations } from '@eps/animations';
-import { Subject, Observable } from "rxjs";
+import { Subject, Observable } from 'rxjs';
 import { map, takeUntil, zip } from 'rxjs/operators';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 import { FetchActions } from 'app/ngrx/tags/actions';
-import { Store, select } from "@ngrx/store";
+import { Store, select } from '@ngrx/store';
 import * as fromTags from 'app/ngrx/tags/reducers';
 
 @Component({
@@ -12,45 +12,32 @@ import * as fromTags from 'app/ngrx/tags/reducers';
   templateUrl: './color.component.html',
   styleUrls: ['./color.component.scss'],
   animations: rootAnimations,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-export class ColorComponent implements OnInit {
+export class ColorComponent implements OnInit, OnDestroy {
   @Output() selectedColors: EventEmitter<any> = new EventEmitter<any>();
-  private _unsubscribeAll: Subject<any>;
   colors$: Observable<string[]>;
-  public selectedItems: any;
-  expand: boolean;
-  public activeItem: any = '';
+  title = 'color family';
 
-  start: number = 0;
-  end: number = 10;
-  showInd: boolean = false;
-  // Using Input and Output EventEmitter
+  private unsubscribeAll: Subject<any> = new Subject();
 
-
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private store: Store<fromTags.State>,
-  ) {
-    this.expand = true;
-
-    this._unsubscribeAll = new Subject();
+  constructor(private activatedRoute: ActivatedRoute, private store: Store<fromTags.State>) {
+    // this.expand = true;
 
     this.activatedRoute.params
       .pipe(
-        takeUntil(this._unsubscribeAll),
+        takeUntil(this.unsubscribeAll),
         zip(this.activatedRoute.queryParams),
-        map((payload) => {
-
-          const keyword = payload[0].keyword == '_blank' ? '' : payload[0].keyword;
+        map(payload => {
+          const keyword = payload[0].keyword === '_blank' ? '' : payload[0].keyword;
           const queryParams = payload[1];
 
           return FetchActions.fetchColorsByTag({
             query: {
-              keyword: keyword,
-              category: queryParams.category
-            }
-          })
+              keyword,
+              category: queryParams.category,
+            },
+          });
         })
       )
       .subscribe(action => this.store.dispatch(action));
@@ -58,10 +45,10 @@ export class ColorComponent implements OnInit {
     this.colors$ = store.pipe(select(fromTags.getFetchColors));
   }
 
-  ngOnInit() { }
+  ngOnInit(): void {}
 
-  toggleCollepse(allLength) {
-    this.showInd = !this.showInd;
-    this.end = this.showInd ? allLength : 10;
+  ngOnDestroy(): void {
+    this.unsubscribeAll.next();
+    this.unsubscribeAll.complete();
   }
 }

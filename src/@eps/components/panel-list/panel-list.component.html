@@ -1,0 +1,20 @@
+<div class="vs-panel-list__hd">
+    <div class="vs-panel-list__hd-wrapper">
+        <ng-container>
+            <div class="title" *ngIf="title">
+                <span>{{ title }}</span>
+            </div>
+
+            <div class="sub-title" *ngIf="subTitle">
+                <span>{{subTitle}}</span>
+            </div>
+
+        </ng-container>
+    </div>
+    <div class="vs-panel-list__hd-extra">
+        <ng-content select="[extra]"></ng-content>
+    </div>
+</div>
+<div class="vs-panel-list__bd">
+    <ng-content select="[body]"></ng-content>
+</div>

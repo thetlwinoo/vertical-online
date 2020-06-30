@@ -1,4 +1,4 @@
-<div class="page-layout blank">
+<!-- <div class="page-layout blank">
   <div class="container">
     <div class="page-layout simple left-sidebar inner-scroll">
 
@@ -10,20 +10,80 @@
 
       <div class="center" rootPerfectScrollbar>
         <div class="header root-navy-50 p-24" fxLayout="row" fxLayoutAlign="start center">
-
-          <!-- <button mat-icon-button class="sidebar-toggle mr-8" fxHide.gt-md
-            (click)="toggleSidebar('simple-left-sidebar-2')">
-            <mat-icon>menu</mat-icon>
-          </button> -->
-
           <h3 class="m-0">{{pageTitle}}</h3>
-
         </div>
-
         <div class="content">
           <router-outlet></router-outlet>
         </div>
       </div>
     </div>
   </div>
+</div> -->
+<div class="container">
+  <nz-breadcrumb>
+    <nz-breadcrumb-item>
+      <a>Home</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a>Dashboard</a>
+    </nz-breadcrumb-item>
+  </nz-breadcrumb>
+</div>
+
+<div class="container">
+  <nz-layout>
+    <nz-sider [nzTheme]="'light'" nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+      <!-- <div class="title"><span><i nz-icon nzType="check-circle" class="mr-1"></i>Hello,
+          {{account.login | uppercase }}</span></div> -->
+      <!-- <nz-affix [nzOffsetTop]="90"> -->
+      <!-- <div class="logo"></div> -->
+      <ul nz-menu [nzTheme]="'light'" nzMode="inline">
+        <li nz-menu-item [routerLink]="['/pages/dashboard/my-profile']" [routerLinkActive]="['ant-menu-item-selected']">
+          <i nz-icon nzType="user"></i>
+          <span>My Profile</span>
+        </li>
+        <li nz-menu-item [routerLink]="['/pages/dashboard/my-payment-options']"
+          [routerLinkActive]="['ant-menu-item-selected']">
+          <i nz-icon nzType="wallet"></i>
+          <span>Payment Options</span>
+        </li>
+        <li nz-menu-item [routerLink]="['/pages/dashboard/address-book']"
+          [routerLinkActive]="['ant-menu-item-selected']">
+          <i nz-icon nzType="home"></i>
+          <span>Address Book</span>
+        </li>
+        <li nz-menu-item [routerLink]="['/pages/dashboard/my-wishlist']"
+          [routerLinkActive]="['ant-menu-item-selected']">
+          <i nz-icon nzType="heart"></i>
+          <span>My Wishlist</span>
+        </li>
+        <li nz-menu-item [routerLink]="['/pages/dashboard/my-compare']" [routerLinkActive]="['ant-menu-item-selected']">
+          <i nz-icon nzType="column-width"></i>
+          <span>My Compare</span>
+        </li>
+        <li nz-menu-item [routerLink]="['/pages/dashboard/my-reviews']" [routerLinkActive]="['ant-menu-item-selected']">
+          <i nz-icon nzType="comment"></i>
+          <span>My Reviews</span>
+        </li>
+        <li nz-menu-item [routerLink]="['/pages/dashboard/my-orders']" [routerLinkActive]="['ant-menu-item-selected']">
+          <i nz-icon nzType="solution"></i>
+          <span>My Orders</span>
+        </li>
+      </ul>
+      <!-- </nz-affix> -->
+
+    </nz-sider>
+    <nz-layout>
+      <!-- <nz-header>
+        <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+          (click)="isCollapsed = !isCollapsed"></i>
+      </nz-header> -->
+      <nz-content>
+        <div class="inner-content">
+          <router-outlet></router-outlet>
+        </div>
+      </nz-content>
+      <!-- <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer> -->
+    </nz-layout>
+  </nz-layout>
 </div>

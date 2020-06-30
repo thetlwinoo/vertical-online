@@ -1,20 +1,26 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
-  <title>NgStorefront</title>
+  <title>ZEZAWAR.COM</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Muli:300,400,600,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </head>
+
 <body>
   <app-root></app-root>
-  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-    <script type="text/javascript">
-        Stripe.setPublishableKey('pk_test_ThH63aYHIpd2qDzNdEA6fbHW00vwByCJPA');
-    </script>
+  <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
+  <script type="text/javascript">
+    // Stripe.setPublishableKey('pk_test_ThH63aYHIpd2qDzNdEA6fbHW00vwByCJPA');
+    var stripe = Stripe('pk_test_ThH63aYHIpd2qDzNdEA6fbHW00vwByCJPA'); // use your test publishable key
+    var elements = stripe.elements();
+  </script>
 </body>
+
 </html>

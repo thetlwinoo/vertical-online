@@ -1,115 +1,172 @@
-<div class="container" *ngIf="product">
-    <div class="details-wrapper">
-        <div class="row">
-            <div class="col-md-5 col-sm-12 col-xs-12">
-                <div class="wrapper">
-                    <product-gallery [product]="product"></product-gallery>
-                </div>
-            </div>
-            <div class="col-md-7 rtl-text" *ngIf="product">
-                <div class="wrapper">
-                    <div class="right-column">
-                        <div class="product-description">
-                            <span>{{ product.productCategoryName }}</span>
-                            <h1>{{ product.productName}}</h1>
-                            <p> {{ product.productBrandName }}</p>
-                        </div>
+<div class="container" *ngIf="productDetails">
+    <div nz-row [nzGutter]="16" class="product-details">
+        <div nz-col class="gutter-row" ngXs="24" ngSm="24" ngMd="10" nzLg="10" nzXl="10">
+            <product-gallery [stockItem]="currentStockItem"></product-gallery>
+        </div>
+        <div nz-col class="gutter-row" ngXs="24" ngSm="24" ngMd="14" nzLg="14" nzXl="14">
+            <nz-list class="reviews-bar" [nzBordered]="false" [nzLoading]="!product">
+                <nz-list-item>
+                    <nz-list-item-meta>
+                        <nz-list-item-meta-title>
+                            <span>{{ productDetails.productCategoryName }}</span>
+                        </nz-list-item-meta-title>
+                        <nz-list-item-meta-description>
+                            <h3>{{ currentStockItem?.name}}</h3>
+                            <p class="m-0-p">{{ productDetails.productBrandName }}</p>
+                        </nz-list-item-meta-description>
+                    </nz-list-item-meta>
+                </nz-list-item>
 
-                        <div class="product-reviews">
-                            <div class="review-left">
-                                <ngb-rating [(rate)]="rating" [readonly]="true" max="5">
-                                    <ng-template let-fill="fill" let-index="index">
-                                        <span class="star" [class.text-warning]="fill === 100">
-                                            <fa-icon icon="star"></fa-icon>
-                                        </span>
-                                    </ng-template>
-                                </ngb-rating>
-                                <a style="margin-left:5px;" href="JavaScript:void(0);"><span>4 Ratings</span></a>
-                                <span style="margin:0 5px;">|</span>
-                                <a href="JavaScript:void(0);"><span>10 Answered Question</span></a>
-                            </div>
-                            <div class="review-right">
-                                <button class="btn btn-link" aria-label="share via" (click)="onShareVia($event)"
-                                    ngbTooltip="Share Via">
-                                    <fa-icon icon="share"></fa-icon>
+                <nz-list-item>
+                    <ng-container>
+                        <nz-list-item-meta>
+                            <nz-list-item-meta-title>
+                                <nz-rate [(ngModel)]="productDetails.ratings.overallRating" nzDisabled></nz-rate>
+                                <span class="ant-rate-text">{{ productDetails.ratings.totalRating }} Ratings |
+                                    {{(questions$ | async).length}}
+                                    Answered
+                                    Question</span>
+                            </nz-list-item-meta-title>
+                        </nz-list-item-meta>
+                        <ul nz-list-item-actions class="user-activities">
+                            <nz-list-item-action>
+                                <button nz-button nzType="default" nzShape="circle">
+                                    <i nz-icon nzType="share-alt"></i>
                                 </button>
-                                <button class="btn btn-link" aria-label="compare"
-                                    (click)="toggleCompare(product,inCompare)" ngbTooltip="Compare">
-                                    <fa-icon [icon]="[inCompare?'fas':'far','bookmark']"></fa-icon>
+                            </nz-list-item-action>
+                            <nz-list-item-action>
+                                <button nz-button [nzType]="inCompare?'primary':'default'" nzShape="circle"
+                                    [nzDanger]="inCompare" (click)="toggleCompare(currentStockItem,inCompare)">
+                                    <i nz-icon nzType="copy"></i>
                                 </button>
-                                <button class="btn btn-link" aria-label="wishlist"
-                                    (click)="toggleWishlist(product,inWishlist)" ngbTooltip="Wishlist">
-                                    <fa-icon [icon]="[inWishlist?'fas':'far','heart']"></fa-icon>
+                            </nz-list-item-action>
+                            <nz-list-item-action>
+                                <button nz-button [nzType]="inWishlist?'primary':'default'" nzShape="circle"
+                                    [nzDanger]="inWishlist" (click)="toggleWishlist(currentStockItem,inWishlist)">
+                                    <i nz-icon nzType="heart"></i>
                                 </button>
-                            </div>
-                        </div>
-                        <div class="product-brand">
-                            Brand : {{product.brand}}
-                        </div>
-
-                        <div class="product-price">
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <span class="unit-price">${{ product.unitPrice }}</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div style="display: inline-flex;">
-                                        <span class="retail-price">${{ product.recommendedRetailPrice }}</span>
-                                        <span class="discount-percent" style="margin-left: 5px;">-15%</span>
+                            </nz-list-item-action>
+                        </ul>
+                    </ng-container>
+                </nz-list-item>
+                <!-- <nz-list-item>
+                    <ng-container>
+                        <nz-list-item-meta>
+                            <nz-list-item-meta-title>
+                                Brand : {{product.productBrandName}}
+                            </nz-list-item-meta-title>
+                        </nz-list-item-meta>
+                    </ng-container>
+                </nz-list-item> -->
+                <nz-list-item>
+                    <ng-container>
+                        <nz-list-item-meta>
+                            <nz-list-item-meta-title>
+                                <span class="unit-price">{{ currentStockItem?.unitPrice | currency }}</span>
+                                <span
+                                    class="retail-price">{{ currentStockItem?.recommendedRetailPrice | currency }}</span>
+                                <span class="discount-percent" style="margin-left: 5px;">-15%</span>
+                            </nz-list-item-meta-title>
+                        </nz-list-item-meta>
+                    </ng-container>
+                </nz-list-item>
+                <nz-list-item>
+                    <ng-container>
+                        <nz-list-item-meta>
+                            <nz-list-item-meta-title>
+                                <span>Color Family : {{currentStockItem?.productAttributeName}}</span>
+                            </nz-list-item-meta-title>
+                        </nz-list-item-meta>
+                    </ng-container>
+                </nz-list-item>
+                <nz-list-item>
+                    <ng-container>
+                        <div class="flex-row-container">
+                            <div class="flex-row-wrapper">
+                                <div class="d-flex flex-row bd-highlight mb-1">
+                                    <div class="p-1 bd-highlight"
+                                        *ngFor="let stockItem of productDetails.stockItemList">
+                                        <a href="javascript:void(0);" (click)="onChangeStockItem(stockItem)">
+                                            <div class="small-img"
+                                                [class.active]="currentStockItem?.id === stockItem.id"
+                                                [style.backgroundImage]="'url(' + blobUrl + stockItem.thumbnailUrl + ')'">
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="product-configuration">
-                            <div class="product-color">
-                                <span>Color</span>
-
-                                <div class="color-choose">
-                                    <div>
-                                        <input data-image="red" type="radio" id="red" name="color" value="red" checked>
-                                        <label for="red"><span></span></label>
-                                    </div>
-                                    <div>
-                                        <input data-image="blue" type="radio" id="blue" name="color" value="blue">
-                                        <label for="blue"><span></span></label>
-                                    </div>
-                                    <div>
-                                        <input data-image="black" type="radio" id="black" name="color" value="black">
-                                        <label for="black"><span></span></label>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="cable-config">
-                                <span>Quantity</span>
-
-                                <div class="cable-choose">
-                                    <input #amount type="number" placeholder="Amount" min="1" value="1">
-                                </div>
-                                <a (click)="open(faq)">How to contact support?</a>
-                            </div>
-                        </div>
-
-                        <div class="product-details-control">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button type="button" class="btn btn-warning" (click)="buyNow(product,amount,inCart)">Buy
-                                        Now</button>
-                                    <button type="button" class="btn btn-danger ml-2" (click)="addToCart(product,amount)">Add To
-                                        Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+                    </ng-container>
+                </nz-list-item>
+                <nz-list-item>
+                    <ng-container>
+                        <nz-list-item-meta>
+                            <nz-list-item-meta-title>
+                                <span class="mr-2">Quantity</span>
+                                <nz-input-number [(ngModel)]="quantity" [nzMin]="1"
+                                    [nzMax]="currentStockItem?.quantityOnHand" [nzStep]="1">
+                                </nz-input-number>
+                                <a class="ml-2" (click)="open(faq)">How to contact support?</a>
+                            </nz-list-item-meta-title>
+                        </nz-list-item-meta>
+                    </ng-container>
+                </nz-list-item>
+                <nz-list-item>
+                    <nz-tag [nzColor]="'#f50'" *ngIf="currentStockItem?.quantityOnHand <= 0">Out Of Stock</nz-tag>
+                </nz-list-item>
+                <nz-list-item>
+                    <ng-container>
+                        <ul nz-list-item-actions class="product-detail-actions">
+                            <nz-list-item-action>
+                                <button nz-button nzType="default" nzDanger [nzSize]="'large'"
+                                    (click)="buyNow(currentStockItem,inCart)"
+                                    [disabled]="currentStockItem?.quantityOnHand <= 0">Buy
+                                    Now</button>
+                            </nz-list-item-action>
+                            <nz-list-item-action>
+                                <button nz-button nzType="primary" nzDanger [nzSize]="'large'"
+                                    (click)="addToCart(currentStockItem,inCart)"
+                                    [disabled]="currentStockItem?.quantityOnHand <= 0">Add To
+                                    Cart</button>
+                            </nz-list-item-action>
+                        </ul>
+                    </ng-container>
+                </nz-list-item>
+            </nz-list>
         </div>
     </div>
+
+    <section>
+        <vs-panel [title]="'Product Details of ' + currentStockItem?.name">
+            <div body class="content-wrapper">
+                {{productDetails.longDescription}}
+            </div>
+        </vs-panel>
+
+        <vs-panel [title]="'Highlights'">
+            <div body class="content-wrapper">
+                {{productDetails.highlights}}
+            </div>
+        </vs-panel>
+
+        <vs-panel [title]="'What In The Box'">
+            <div body class="content-wrapper">
+                {{productDetails.whatInTheBox}}
+            </div>
+        </vs-panel>
+    </section>
+    <section>
+        <review-product [ratings]="productDetails?.ratings" [reviews]="productDetails?.reviewList || []"
+            [productName]="productDetails?.productName">
+        </review-product>
+    </section>
+
+    <section>
+        <questions-product [product]="product"></questions-product>
+    </section>
+
+    <section>
+        <related-product [relatedProducts]="productDetails?.relatedList" [loading]="productDetailsLoading">
+        </related-product>
+    </section>
 </div>
-<review-product [product]="product"></review-product>
-<related-product [relatedProducts]="relatedProducts$ | async" [loading]="relatedProductsLoading$ | async" [error]="error$ | async"></related-product>

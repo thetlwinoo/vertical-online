@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark d-none d-sm-block" [ngClass]="isMobile?'':'bg-dark'">
+<nav class="navbar navbar-expand-lg navbar-dark d-none d-sm-block" [ngClass]="isMobile?'':'bg-primary'">
     <div class="container" [ngSwitch]="isAuthenticated()">
         <!-- <a class="navbar-brand" href="#">Navbar</a> -->
         <button class="navbar-toggler" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed"
@@ -11,7 +11,15 @@
                     <a class="nav-link" href="#">Seller Centre</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Follow us on</a>
+                    <div class="follow-us">
+                        <a class="nav-link" href="#">Follow us on</a>
+                        <a class="nav-link" target="_blank" href="https://www.facebook.com/ZeZaWarMyanmar"><i nz-icon
+                                nzType="facebook" nzTheme="fill"></i></a>
+                        <a class="nav-link" target="_blank" href="https://www.instagram.com/zezawar.myanmar/"><i nz-icon
+                                nzType="instagram" nzTheme="fill"></i></a>
+                        <a class="nav-link" target="_blank" href="https://twitter.com/zezawar9"><i nz-icon
+                                nzType="twitter-square" nzTheme="fill"></i></a>
+                    </div>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -29,6 +37,7 @@
                 <li class="nav-item dropdown" ngbDropdown *ngSwitchCase="true">
                     <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button"
                         ngbDropdownToggle>
+                        <fa-icon icon="user" class="mr-1"></fa-icon>
                         {{account.login | titlecase }}'s Account
                     </a>
                     <div class="dropdown-menu" ngbDropdownMenu>
@@ -43,17 +52,21 @@
                         <!-- <div class="dropdown-divider"></div> -->
                         <a class="dropdown-item" href="javascript:void(0);"
                             [routerLink]="['/pages/dashboard/my-wishlist']">
-                            <fa-icon [icon]="['far','heart']" class="mr-3"></fa-icon>My Wishlist({{(wishlistCount$ | async)}})
+                            <fa-icon [icon]="['far','heart']" class="mr-3"></fa-icon>My
+                            Wishlist({{(wishlistCount$ | async)}})
                         </a>
                         <a class="dropdown-item" href="javascript:void(0);"
                             [routerLink]="['/pages/dashboard/my-compare']">
-                            <fa-icon [icon]="['far','bookmark']" class="mr-3"></fa-icon>My Compare({{(compareCount$ | async)}})
+                            <fa-icon [icon]="['far','bookmark']" class="mr-3"></fa-icon>My
+                            Compare({{(compareCount$ | async)}})
                         </a>
                         <a class="dropdown-item" href="javascript:void(0);"
                             [routerLink]="['/pages/dashboard/address-book']">
                             <fa-icon [icon]="['far','address-book']" class="mr-3"></fa-icon>Address Book
                         </a>
-                        <a class="dropdown-item" href="javascript:void(0);" (click)="logout()"><fa-icon [icon]="['fas','sign-out-alt']" class="mr-3"></fa-icon>Logout</a>
+                        <a class="dropdown-item" href="javascript:void(0);" (click)="logout()">
+                            <fa-icon [icon]="['fas','sign-out-alt']" class="mr-3"></fa-icon>Logout
+                        </a>
                     </div>
                 </li>
             </ul>

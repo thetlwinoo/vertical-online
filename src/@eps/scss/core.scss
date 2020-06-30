@@ -2,34 +2,28 @@
 @import 'partials/bootstrap-variables';
 @import '~bootstrap/scss/bootstrap';
 
-@import "~animate.css/animate.min.css";
+@import '~animate.css/animate.min.css';
 
-@import "~primeicons/primeicons.css";
-@import "~primeng/resources/themes/nova-light/theme.css";
-@import "~primeng/resources/primeng.min.css";
-@import "~primeflex/primeflex.scss";
+@import 'root';
 
-@import "root";
-
-@import "theme";
+@import 'theme';
 
 @include mat-core();
 
-@import "partials/variables";
-@import "partials/normalize";
+@import 'partials/variables';
+@import 'partials/normalize';
 // @import "partials/scrollbars";
 // @import "partials/helpers";
-@import "partials/components";
-@import "partials/general";
-@import "partials/icons";
-@import "partials/colors";
-@import "partials/material";
-@import "partials/angular-material-fix";
-@import "partials/bootstrap-fix";
-@import "partials/primeng-fix";
-@import "partials/typography";
-@import "partials/page-layouts";
-@import "partials/custom";
+@import 'partials/components';
+@import 'partials/general';
+@import 'partials/icons';
+@import 'partials/colors';
+@import 'partials/material';
+@import 'partials/angular-material-fix';
+@import 'partials/bootstrap-fix';
+@import 'partials/typography';
+@import 'partials/page-layouts';
+@import 'partials/custom';
 @import 'partials/custom-responsive';
 
-@import "partials/plugins/plugins";
+@import 'partials/plugins/plugins';

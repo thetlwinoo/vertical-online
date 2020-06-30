@@ -1,226 +1,193 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CloudinaryModel, Orders, Reviews, IOrderLines, IReviews, IProducts, Products } from '@eps/models';
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
+import { IPhotos, Photos, IOrderLines, IOrders, IOrderPackages } from '@eps/models';
+import { Observable, Observer, Subject } from 'rxjs';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
-import { ReviewsService, ReviewLinesService, ProductsService, OrderService } from '@eps/services';
+import { PhotosService, OrderService } from '@eps/services';
+import { select, Store } from '@ngrx/store';
+import { OrderLineActions, OrderActions, OrderPackageActions } from 'app/ngrx/checkout/actions';
+import * as fromCheckout from 'app/ngrx/checkout/reducers';
+import { SERVER_API_URL } from '@eps/constants';
+import { UploadFile } from 'ng-zorro-antd/upload';
+import { ImageUtils } from '@eps/services';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { AccountService } from '@eps/core';
+import { Account } from '@eps/core/user/account.model';
+import { filter, map, takeUntil } from 'rxjs/operators';
+import { HttpResponse } from '@angular/common/http';
+import * as moment from 'moment';
+import { ReviewsProps, ReviewLinesProps } from '@eps/models/order-package-actions.model';
 
 @Component({
   selector: 'app-review-update',
   templateUrl: './review-update.component.html',
-  styleUrls: ['./review-update.component.scss']
+  styleUrls: ['./review-update.component.scss'],
 })
-export class ReviewUpdateComponent implements OnInit {
-  productRate = 5;
-  deliveryRate = 0;
-  checked1: boolean = false;
-  selectedFace: String = null;
-  reviewPhoto: any = null;
-  orders: any;
-  isSaving: boolean;
+export class ReviewUpdateComponent implements OnInit, OnDestroy {
+  public resourceUrl = SERVER_API_URL + 'services/vscommerce/api/photos';
+  public extendUrl = SERVER_API_URL + 'services/vscommerce/api/photos-extend';
+  public blobUrl = SERVER_API_URL + 'services/cloudblob/api/images-extend/';
+
+  orderPackage$: Observable<IOrderPackages>;
+  orderPackage: IOrderPackages;
+  orderLines$: Observable<IOrderLines[]>;
+  saveOrderLineListSuccess$: Observable<boolean>;
+  public orderLines: any[] = [];
+  account: Account;
+  fileTypes = 'image/png,image/jpeg';
+  completedReview = true;
+  previewImage: string | undefined = '';
+  previewVisible = false;
+  responseImageId = null;
+  private unsubscribe$: Subject<any> = new Subject();
 
   constructor(
-    private router: Router,
     protected dataUtils: JhiDataUtils,
+    protected imageUtils: ImageUtils,
     protected jhiAlertService: JhiAlertService,
-    protected reviewsService: ReviewsService,
-    protected reviewLinesService: ReviewLinesService,
-    // protected productsService: ProductsService,
+    protected orderService: OrderService,
     protected elementRef: ElementRef,
-    protected activatedRoute: ActivatedRoute,
-    private productService: ProductsService,
-    private orderService: OrderService
-  ) { }
+    private accountService: AccountService,
+    private store: Store<fromCheckout.State>,
+    private msg: NzMessageService,
+    private photosService: PhotosService
+  ) {
+    this.orderLines$ = store.pipe(select(fromCheckout.getOrderLinesFetched));
+    this.orderPackage$ = store.pipe(select(fromCheckout.getSelectedOrderPackage));
+    this.saveOrderLineListSuccess$ = store.pipe(select(fromCheckout.getSaveOrderLineListSuccess));
+  }
 
-  ngOnInit() {
-    this.isSaving = false;
-    this.activatedRoute.data.subscribe(({ orders }) => {
-      console.log('reviews orders', orders)
-      this.orders = orders;
+  ngOnInit(): void {
+    this.orderPackage$.pipe(takeUntil(this.unsubscribe$)).subscribe(res => {
+      this.orderPackage = { ...res };
+      console.log('ORDER PACKAGE', res);
+    });
+
+    this.orderLines$.pipe(takeUntil(this.unsubscribe$)).subscribe((data: IOrderLines[]) => {
+      this.orderLines = [];
+      data.map(item => {
+        this.orderLines.push({ ...item });
+      });
+      console.log('orders lines', this.orderLines);
+    });
+
+    this.accountService.identity().subscribe(account => {
+      this.account = account;
+    });
+
+    // this.saveOrderLineListSuccess$.pipe(takeUntil(this.unsubscribe$)).subscribe(success => {
+    //   console.log('success', success);
+    //   if (success) {
+
+    //     this.store.dispatch(OrderLineActions.fetchOrderLines({ orderPackageId: this.orderPackage.id }));
+    //     this.msg.success('You have successfully reviewed');
+    //   }
+    // });
+  }
+
+  submitForm(): void {
+    // console.log('submit', this.orderPackage, this.orderLines);
+
+    const lineReviewList: ReviewLinesProps[] = [];
+
+    this.orderLines.map(lineItem => {
+      if (!lineItem.lineRating) {
+        this.completedReview = false;
+      }
+
+      const lineReviewObject: ReviewLinesProps = {
+        id: lineItem.id,
+        lineRating: lineItem.lineRating,
+        lineReview: lineItem.lineReview,
+        reviewImageId: lineItem.reviewImageId,
+      };
+
+      lineReviewList.push(lineReviewObject);
+    });
+
+    const props: ReviewsProps = {
+      id: this.orderPackage.id,
+      completedReview: this.completedReview,
+      customerReviewedOn: moment(),
+      deliveryRating: this.orderPackage.deliveryRating,
+      deliveryReview: this.orderPackage.deliveryReview,
+      reviewAsAnonymous: this.orderPackage.reviewAsAnonymous,
+      sellerRating: this.orderPackage.sellerRating,
+      sellerReview: this.orderPackage.sellerReview,
+      lineReviewList,
+    };
+
+    this.store.dispatch(OrderPackageActions.saveReviews({ props }));
+
+    // this.store.dispatch(OrderLineActions.saveOrderLineList({ orderLineList: this.orderLines }));
+  }
+
+  beforeUpload = (file: UploadFile, _fileList: UploadFile[]) =>
+    new Observable((observer: Observer<boolean>) => {
+      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+      if (!isJpgOrPng) {
+        this.msg.error('You can only upload JPG file!');
+        observer.complete();
+        return;
+      }
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isLt2M) {
+        this.msg.error('Image must smaller than 2MB!');
+        observer.complete();
+        return;
+      }
+      observer.next(isJpgOrPng && isLt2M);
+      observer.complete();
+    });
+
+  handleChange(info: { file: UploadFile }, entity): void {
+    switch (info.file.status) {
+      case 'uploading':
+        entity.loading = true;
+        break;
+      case 'done':
+        const photos: IPhotos = new Photos();
+        photos.thumbnailUrl = info.file.response.thumbUrl;
+        photos.originalUrl = info.file.response.url;
+        photos.blobId = info.file.response.id;
+
+        this.photosService
+          .create(photos)
+          .pipe(
+            takeUntil(this.unsubscribe$),
+            filter((res: HttpResponse<IPhotos>) => res.ok),
+            map((res: HttpResponse<IPhotos>) => res.body)
+          )
+          .subscribe(res => {
+            entity.reviewImageId = res.id;
+            entity.reviewImageThumbnailUrl = res.thumbnailUrl;
+          });
+        break;
+      case 'error':
+        this.msg.error('Network error');
+        entity.loading = false;
+        break;
+    }
+  }
+
+  handlePreview = async (file: UploadFile) => {
+    if (!file.url && !file.preview) {
+      file.preview = await this.getBase64(file.originFileObj);
+    }
+    this.previewImage = file.url || file.preview;
+    this.previewVisible = true;
+  };
+
+  getBase64(file: File): Promise<string | ArrayBuffer | null> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
     });
   }
 
-  public onUploadCompleted(event) {
-    if (event[0]) {
-      const reviewPhoto: any = new Object();
-      const uploadEvent = event[0];
-      const cloudinaryModel: CloudinaryModel = new CloudinaryModel();
-      cloudinaryModel.cloud_name = 'www-pixsurf-com';
-      cloudinaryModel.transformations = "c_thumb,w_200,g_face"
-      cloudinaryModel.resource_type = uploadEvent.data.resource_type;
-      cloudinaryModel.type = uploadEvent.data.type;
-      cloudinaryModel.public_id = uploadEvent.data.public_id;
-      cloudinaryModel.version = uploadEvent.data.version;
-      cloudinaryModel.format = uploadEvent.data.format;
-    }
-  }
-
-  private generatePhoto(cloudinary: CloudinaryModel) {
-    let url = 'http://res.cloudinary.com/';
-    url = url + cloudinary.cloud_name + '/';
-    url = url + cloudinary.resource_type + '/';
-    url = url + cloudinary.type + '/';
-    url = url + cloudinary.transformations + '/';
-    url = url + 'v' + cloudinary.version + '/';
-    url = url + cloudinary.public_id;
-    url = url + '.' + cloudinary.format;
-
-    console.log('thumb nail url', url);
-    return url;
-  }
-
-  onDeleteReviewPhoto(event) {
-    // console.log('on delete product photo', event);
-    this.router.navigate(['/', 'manage-images', { outlets: { popup: this.reviewPhoto.id + '/delete' } }]);
-  }
-
-  byteSize(field) {
-    return this.dataUtils.byteSize(field);
-  }
-
-  openFile(contentType, field) {
-    return this.dataUtils.openFile(contentType, field);
-  }
-
-  setFileData(event, entity, field, isImage) {
-    this.dataUtils.setFileData(event, entity, field, isImage);
-  }
-
-  clearInputImage(event, field: string, fieldContentType: string, idInput: string) {
-    this.dataUtils.clearInputImage(event, this.elementRef, field, fieldContentType, idInput);
-  }
-
-  previousState() {
-    window.history.back();
-  }
-
-  save() {
-    this.isSaving = true;
-
-    if (this.orders.orderReview.id !== undefined) {
-      // this.orders.orderReview.orderId = this.orders.id;
-      this.subscribeToSaveResponse(this.reviewsService.updateExtend(this.orders.orderReview, this.orders.id));
-    } else {
-      this.subscribeToSaveResponse(this.reviewsService.createExtend(this.orders.orderReview));
-    }
-  }
-
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<any>>) {
-    result.subscribe((res: HttpResponse<any>) => this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
-  }
-
-  protected onSaveSuccess(event) {
-    const totalCount: number = this.orders.orderLineLists.length;
-    let completedReviewsCount: number = 0;
-    if (this.orders.orderReview) {
-      this.orders.orderReview.reviewLists.map((reviewLine, index) => {
-        if (reviewLine.productRating && reviewLine.productReview) {
-          completedReviewsCount += 1;
-        }
-
-        reviewLine.reviewId = event.id;
-        reviewLine.productId = reviewLine.product.id;
-
-        if (reviewLine.id !== undefined) {
-          this.subscribeToSaveProductReviewsResponse(this.reviewLinesService.update(reviewLine), totalCount, ++index, completedReviewsCount);
-        } else {
-          this.subscribeToSaveProductReviewsResponse(this.reviewLinesService.create(reviewLine), totalCount, ++index, completedReviewsCount);
-        }
-      });
-    }
-
-  }
-
-  protected subscribeToSaveProductReviewsResponse(result: Observable<HttpResponse<any>>, totalCount: number, count: number, completedReviewsCount: number) {
-    result.subscribe((res: HttpResponse<any>) => this.onSaveProductReviewsSuccess(res.body, totalCount, count, completedReviewsCount), (res: HttpErrorResponse) => this.onSaveError());
-  }
-
-  protected onSaveProductReviewsSuccess(event, totalCount: number, count: number, completedReviewsCount: number) {
-    if (totalCount == count) {
-      if (completedReviewsCount == totalCount) {
-        this.reviewsService.completedReviews(this.orders.id).subscribe((res: HttpResponse<any>) => this.onCompletedReviews(res), (res: HttpErrorResponse) => this.onSaveError())
-      }
-      else {
-        this.isSaving = false;
-        this.previousState();
-      }
-    }
-  }
-
-  protected onCompletedReviews(event) {
-    console.log('on completed reviews', event);
-    this.isSaving = false;
-    this.previousState();
-  }
-
-  protected onSaveError() {
-    this.isSaving = false;
-  }
-
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
-  }
-
-  trackProductsById(index: number, item: any) {
-    return item.id;
-  }
-
-  trackId(index: number, item: IOrderLines) {
-    return item.id;
-  }
-
-  onSelectFace(event) {
-    this.selectedFace = event;
-  }
-
-  getRatingDescription(id: number) {
-    switch (id) {
-      case 1: {
-        return "Extremely Bad";
-        break;
-      }
-      case 2: {
-        return "Dissatisfied";
-        break;
-      }
-      case 3: {
-        return "Fair";
-        break;
-      }
-      case 4: {
-        return "Satisfied";
-        break;
-      }
-      case 5: {
-        return "Delighted";
-        break;
-      }
-      default: {
-        return "";
-        break;
-      }
-    }
-  }
-  getSellerRatingDescription(id: number) {
-    switch (id) {
-      case 1: {
-        return "Negative";
-        break;
-      }
-      case 2: {
-        return "Neutral";
-        break;
-      }
-      case 3: {
-        return "Positive";
-        break;
-      }
-      default: {
-        return "";
-        break;
-      }
-    }
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

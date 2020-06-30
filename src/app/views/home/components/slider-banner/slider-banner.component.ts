@@ -4,49 +4,56 @@ import { banner2 } from '@eps/config/owl-carousel';
 @Component({
   selector: 'slider-banner',
   templateUrl: './slider-banner.component.html',
-  styleUrls: ['./slider-banner.component.scss']
+  styleUrls: ['./slider-banner.component.scss'],
 })
 export class SliderBannerComponent implements OnInit {
+  @Input() categories;
+  @Input() loading;
+
   carousel: any;
-  categories = [
+  currentMenuIndex: any;
+
+  features = [
     {
-      "label": "Sales",
-      "icon": "bc1.png"
+      label: 'Grocery Mart',
+      icon: 'grocery_mart.svg',
     },
     {
-      "label": "Brand Collection",
-      "icon": "bc2.png"
+      label: 'Flash Deal',
+      icon: 'flash_deal.svg',
     },
     {
-      "label": "BieeRoot Special",
-      "icon": "bc3.png"
+      label: 'Cashback',
+      icon: 'cash_back.svg',
     },
     {
-      "label": "Seller Vouchers",
-      "icon": "bc4.png"
+      label: 'Collect Voucher',
+      icon: 'collect_voucher.svg',
     },
     {
-      "label": "Discount Coupons",
-      "icon": "bc5.png"
+      label: 'Online Store',
+      icon: 'online_store.svg',
     },
     {
-      "label": "Coin Rewards",
-      "icon": "bc6.jpg"
+      label: 'Brand Collection',
+      icon: 'brand_collection.svg',
     },
     {
-      "label": "Gold Seller",
-      "icon": "bc7.png"
+      label: 'Made In Myanmar',
+      icon: 'made_in_myanmar.svg',
     },
     {
-      "label": "Express Shop",
-      "icon": "bc8.png"
-    }
+      label: 'Free Shipping',
+      icon: 'free_shipping.svg',
+    },
   ];
   constructor() {
     this.carousel = banner2;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit(): void {}
 
+  change(value: boolean): void {
+    console.log(value);
+  }
 }

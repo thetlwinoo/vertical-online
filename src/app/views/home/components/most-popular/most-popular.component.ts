@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { Products, IProducts } from '@eps/models';
 import { deal } from '@eps/config/owl-carousel';
 import { rootAnimations } from '@eps/animations';
@@ -7,19 +7,19 @@ import { rootAnimations } from '@eps/animations';
   selector: 'most-popular',
   templateUrl: './most-popular.component.html',
   styleUrls: ['./most-popular.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   animations: rootAnimations,
 })
-export class MostPopularComponent{
+export class MostPopularComponent {
   @Input() data: IProducts[];
   @Input() loading;
   @Input() error;
   carousel: any;
   ghosts = [];
+  title = 'popular products';
 
-  constructor(
-  ) {
+  constructor() {
     this.carousel = deal;
     this.ghosts = new Array(10);
   }
-
 }

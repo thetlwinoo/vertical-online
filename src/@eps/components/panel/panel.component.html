@@ -1,0 +1,20 @@
+<div class="vs-panel__hd">
+    <div *ngIf="title" class="vs-panel__hd-title">
+        <ng-container>{{ title }}</ng-container>
+    </div>
+    <div class="vs-panel__hd-extra">
+        <!-- <ng-container>{{ extra }}</ng-container> -->
+        <ng-content select="[extra]"></ng-content>
+    </div>
+</div>
+<div class="vs-panel__bd" [class.show-more-wrapper]="more" [class.show-more]="show">
+    <ng-content select="[body]"></ng-content>
+</div>
+<div class="vs-panel__ft" *ngIf="more">
+    <!-- <nz-back-top [nzTemplate]="tpl" [nzTarget]="vsBody" (nzOnClick)="toggle()">
+    <ng-template #tpl>
+        <button nz-button nzType="primary">{{ show ? 'Show less': 'Show More' }}</button>
+    </ng-template>
+</nz-back-top> -->
+    <button nz-button nzType="default" (click)="toggle()">{{ show ? 'Show less': 'Show More' }}</button>
+</div>

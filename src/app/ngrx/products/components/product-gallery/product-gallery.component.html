@@ -1,2 +1,27 @@
-<p-galleria [images]="(photos$|async)" panelWidth="auto" panelHeight="470" [showCaption]="false" [autoPlay]="false">
-</p-galleria>
+<div class="gallery-wrapper" *ngIf="stockItem.photoList">
+    <div class="gallery-preview-wrapper">
+        <div class="gallery-preview" *ngIf="selectedPhoto">
+            <img [src]="blobUrl + selectedPhoto.blobId + '/original'" class="img-fluid" alt="Responsive image">
+        </div>
+    </div>
+
+    <div class="gallery-images mt-2">
+        <owl-carousel-o #owlSlider [options]="options" [@fadeIn]="stockItem.photoList?.length">
+            <ng-container *ngFor="let photo of stockItem.photoList">
+                <ng-template carouselSlide>
+                    <div class="slider ml-1">
+                        <img [src]="blobUrl + photo.blobId + '/thumbnail'" [attr.alt]="'alt'"
+                            class="img-thumbnail rounded sub-image" (click)="selectedPhoto = photo"
+                            [class.active]="selectedPhoto?.id === photo.id">
+                    </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+        <button type="button" class="btn btn-secondary nav-button nav-left " (click)="owlSlider.prev()">
+            <fa-icon icon="chevron-left"></fa-icon>
+        </button>
+        <button type="button" class="btn btn-secondary nav-button nav-right" (click)="owlSlider.next()">
+            <fa-icon icon="chevron-right"></fa-icon>
+        </button>
+    </div>
+</div>

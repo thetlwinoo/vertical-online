@@ -1,150 +1,104 @@
-<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Delivered on {{orders.orderDate.format("DD MMM YYYY")}}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">Rate and review purchased product:</h6>
-      <div class="row review-products-list">
-        <div class="col-md-7">
-          <div class="reviews-left-wrapper"
-            *ngFor="let reviewLine of orders.orderReview.reviewLists;let i = index;trackBy: trackId">
-            <div class="media mt-4">
-              <img *ngIf="reviewLine.product.photo;else noimage" src="{{reviewLine.product.photo}}" alt=""
+<vs-panel [title]="'Write Reviews'">
+  <div body class="content-wrapper">
+    <div nz-row [nzGutter]="16">
+      <div nz-col class="gutter-row" [nzXs]="24" [nzLg]="16">
+        <div class="inner-box" *ngIf="orderPackage">
+          <!-- <h6 nz-typography>Delivered on {{ order.orderDate | date:'medium' }}</h6> -->
+          <span>Rate and review purchased product:</span>
+          <nz-skeleton [nzAvatar]="true" [nzParagraph]="{ rows: 4 }"
+            *ngIf="orderLines.length === 0;else showReviewLines"></nz-skeleton>
+          <ng-template #showReviewLines>
+            <div class="media mt-4" *ngFor="let item of orderLines; let i = index;">
+
+              <img *ngIf="item.thumbnailUrl;else noimage" [src]="blobUrl + item.thumbnailUrl" alt=""
                 class="mr-3 product" />
               <ng-template #noimage>
-                <img src="assets/images/noimage.png" alt="no image preview" class="mr-3 product">
+                <img src="assets/images/noimage.svg" alt="no image preview" class="mr-3 product">
               </ng-template>
 
               <div class="media-body">
-                <h5 class="mt-0">{{reviewLine.product.productName}}</h5>
-                <h6 class="mb-2 text-muted">{{reviewLine.product.productModelProductModelName}}</h6>
-
-                <div class="form-group rating-display">
-                  <p-rating id="field_productRating_{{i}}" name="productRating_{{i}}"
-                    [(ngModel)]="reviewLine.productRating" [cancel]="false" stars="5"
-                    [iconOnStyle]="{'font-size': '2.2em'}" [iconOffStyle]="{'font-size': '2.2em'}"></p-rating>
-                  <label for="field_productRating_{{i}}">{{getRatingDescription(reviewLine.productRating)}}</label>
-                </div>
-
-                <div class="form-group">
-                  <label for="field_productReview_{{i}}">Review detail</label>
-                  <textarea class="form-control review-text" rows="3" name="productReview_{{i}}"
-                    id="field_productReview_{{i}}" [(ngModel)]="reviewLine.productReview"
-                    placeholder="What do you think of this product?"></textarea>
-                </div>
-
-                <div>
-                  <input hidden type="file" accept="image/*" id="fileupload" #fileInput [style.display]="'none'"
-                    (change)="setFileData($event, reviewLine, 'photo', true)" />
-                  <div class="review-image" *ngIf="!reviewLine.photo;else preview">
-                    <span>
-                      <!--  -->
-                      <div class="image-upload-btn" (click)="fileInput.click()">
-                        <fa-icon icon="image" class="next-icon next-icon-add next-icon-medium upload-btn-icon">
-                        </fa-icon>
-                        <p class="upload-text">Upload Photo</p>
-                      </div>
-                    </span>
-                  </div>
-                  <ng-template #preview>
-                    <div>
-                      <a (click)="clearInputImage(reviewLine,'photo', 'photoContentType', 'fileImage')"
-                        class="pull-left">
-                        <fa-icon [icon]="'times-circle'"></fa-icon>
-                    </a>
-                    </div>
-                    <div class="image-preview">
-                      <img [src]="'data:' + reviewLine.photoContentType + ';base64,' + reviewLine.photo"
-                        style="max-height: 100px;" alt="reviewLines image" draggable="false" />
-                    </div>
-                  </ng-template>
+                <h6 class="mt-0">{{item.stockItemName}}</h6>
+                <p *ngIf="item.supplierName">Sold By : {{item.supplierName}}</p>
+                <nz-rate [(ngModel)]="item.lineRating" [nzDisabled]="orderPackage.completedReview"></nz-rate>
+                <p class="mt-2">Review Detail</p>
+                <textarea rows="3" nz-input [(ngModel)]="item.lineReview"
+                  placeholder="What do you think of this product?" [disabled]="orderPackage.completedReview"></textarea>
+                <div class="clearfix">
+                  <nz-upload class="avatar-uploader mt-2" [nzAction]="blobUrl + 'upload'" nzListType="picture-card"
+                    [nzShowUploadList]="false" [nzFileType]="fileTypes" [nzBeforeUpload]="beforeUpload"
+                    (nzChange)="handleChange($event,item)" [nzPreview]="handlePreview" [nzLimit]="1"
+                    [nzDisabled]="orderPackage.completedReview">
+                    <ng-container *ngIf="!item.reviewImageId">
+                      <i class="upload-icon" nz-icon [nzType]="item.loading ? 'loading' : 'plus'"></i>
+                      <div class="ant-upload-text">Upload</div>
+                    </ng-container>
+                    <img *ngIf="item.reviewImageId" [src]="blobUrl + item.reviewImageThumbnailUrl"
+                      style="width: 100%" />
+                  </nz-upload>
                 </div>
               </div>
             </div>
-          </div>
-
-        </div>
-        <div class="col-md-5">
-          <div class="reviews-right-wrapper">
-            <div>
-              Sold by XXX
-            </div>
-            <div>
-              Rate and review your seller:
-            </div>
-            <div class="rate-face">
-              <div id="seller-rating">
-                <div class="table">
-                  <ul id="horizontal-list">
-                    <li>
-                      <a href="JavaScript:Void(0);">
-                        <fa-icon [icon]="[orders.orderReview.overAllSellerRating == 1?'fas':'far', 'frown']"
-                          (click)="orders.orderReview.overAllSellerRating = 1;">
-                        </fa-icon>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="JavaScript:Void(0);" class="ml-3 mr-3">
-                        <fa-icon [icon]="[orders.orderReview.overAllSellerRating == 2?'fas':'far', 'meh']"
-                          (click)="orders.orderReview.overAllSellerRating = 2;">
-                        </fa-icon>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="JavaScript:Void(0);">
-                        <fa-icon [icon]="[orders.orderReview.overAllSellerRating == 3?'fas':'far', 'smile']"
-                          (click)="orders.orderReview.overAllSellerRating = 3;">
-                        </fa-icon>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <label for="seller-rating">{{getSellerRatingDescription(orders.orderReview.overAllSellerRating)}}</label>
-            </div>
-            <div class="write-reviews-seller mb-5">
-              <div class="form-group">
-                <label for="field_sellerReview">Review detail</label>
-                <textarea name="sellerReview" id="field_sellerReview"
-                  [(ngModel)]="orders.orderReview.overAllSellerReview" class="form-control review-text" rows="3"
-                  placeholder="How is your overall experience with the seller?"></textarea>
-              </div>
-            </div>
-            <div class="rate-delivery-label">Rate and review delivery service:</div>
-            <div class="form-group rating-display">
-              <p-rating name="deliveryRating" id="field_deliveryRating"
-                [(ngModel)]="orders.orderReview.overAllDeliveryRating" [cancel]="false" stars="5"
-                [iconOnStyle]="{'font-size': '2.2em'}" [iconOffStyle]="{'font-size': '2.2em'}"></p-rating>
-              <label
-                for="field_deliveryRating">{{getRatingDescription(orders.orderReview.overAllDeliveryRating)}}</label>
-            </div>
-            <div>
-              <div class="form-group">
-                <label for="field_deliveryReview">Review detail</label>
-                <textarea name="deliveryReview" id="field_deliveryReview"
-                  [(ngModel)]="orders.orderReview.overAllDeliveryReview" class="form-control review-text" rows="3"
-                  placeholder="How is your overall delivery experience?"></textarea>
-              </div>
-            </div>
-          </div>
-
+          </ng-template>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="review-submit-wrapper mt-5">
-            <div class="review-as mt-4">
-              <span>Review as XXXX </span>
-              <!-- <p-inputSwitch name="reviewAsAnonymous" id="field_reviewAsAnonymous"
-                [(ngModel)]="orders.orderReview.reviewAsAnonymous" class="ml-4 mr-4"></p-inputSwitch> -->
-              <span>Anonymous</span>
-            </div>
-            <div class="review-submit mt-4">
-              <button type="submit" class="btn btn-warning" id="save-review"
-                [disabled]="editForm.form.invalid">SUBMIT</button>
-            </div>
-          </div>
+      <div nz-col class="gutter-row" [nzXs]="24" [nzLg]="8">
+        <div class="inner-box">
+          <nz-skeleton [nzAvatar]="true" [nzParagraph]="{ rows: 4 }" *ngIf="!orderPackage;else showReviews">
+          </nz-skeleton>
+          <ng-template #showReviews>
+            <div></div>
+            <nz-list nzItemLayout="vertical" [nzSplit]="false" nzHeader="Sold By {{orderPackage.supplierName}}">
+              <nz-list-item>
+                <nz-list-item-meta>
+                  <nz-list-item-meta-title>
+                    Rate and review your seller:
+                  </nz-list-item-meta-title>
+                  <nz-list-item-meta-description>
+                    <nz-rate [(ngModel)]="orderPackage.sellerRating" [nzDisabled]="orderPackage.completedReview">
+                    </nz-rate>
+                    <p class="mt-2">Review Detail</p>
+                    <textarea rows="3" nz-input [(ngModel)]="orderPackage.sellerReview"
+                      placeholder="How is your overall experience with the seller?"
+                      [disabled]="orderPackage.completedReview"></textarea>
+                  </nz-list-item-meta-description>
+                </nz-list-item-meta>
+              </nz-list-item>
+
+              <nz-list-item>
+                <nz-list-item-meta>
+                  <nz-list-item-meta-title>
+                    Rate and review delivery service:
+                  </nz-list-item-meta-title>
+                  <nz-list-item-meta-description>
+                    <nz-rate [(ngModel)]="orderPackage.deliveryRating" [nzDisabled]="orderPackage.completedReview">
+                    </nz-rate>
+                    <p class="mt-2">Review Detail</p>
+                    <textarea rows="3" nz-input [(ngModel)]="orderPackage.deliveryReview"
+                      placeholder="How is your overall delivery experience?"
+                      [disabled]="orderPackage.completedReview"></textarea>
+                  </nz-list-item-meta-description>
+                </nz-list-item-meta>
+              </nz-list-item>
+              <nz-list-item>
+                <span>Review as {{orderPackage.reviewAsAnonymous ? 'annoymous': account.login}}</span>
+                <nz-switch [(ngModel)]="orderPackage.reviewAsAnonymous" [nzDisabled]="orderPackage.completedReview">
+                </nz-switch>
+              </nz-list-item>
+              <nz-list-item>
+                <button nz-button nzType="primary" [nzSize]="'large'" nzDanger nzBlock (click)="submitForm()"
+                  [disabled]="orderPackage.completedReview">Submit</button>
+              </nz-list-item>
+            </nz-list>
+          </ng-template>
+
         </div>
       </div>
     </div>
   </div>
-</form>
+</vs-panel>
+<nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+  (nzOnCancel)="previewVisible = false">
+  <ng-template #modalContent>
+    <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+  </ng-template>
+</nz-modal>

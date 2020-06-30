@@ -1,74 +1,270 @@
-<div class="container" style="min-height: 30vh">
-    <div class="row">
-        <div class="col-sm-12 col-md-8">
-            <div class="address-list-wrapper">
-                <div *ngIf="(addresses.length && !addNewAddressInd);else newaddress">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <address-list [address]="default"></address-list>
+<div class="container">
+    <div nz-row [nzGutter]="16">
+        <div nz-col [nzXs]="24" [nzLg]="16">
+            <nz-space nzDirection="vertical">
+                <nz-space-item>
+                    <div class="list-title">
+                        <div>
+                            <span>{{shoppingCart.cart?.cartString.selectedQuantity}} ITEMS</span>
                         </div>
                     </div>
-                </div>
-                <ng-template #newaddress>
-                    <new-address [noOfAddress]="addresses.length" (cancel)="onCancel($event)"></new-address>
-                </ng-template>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-4">
-            <div class="card" id="order-summary">
-                <div class="card-body">
-                    <h5 class="card-title font-weight-bold">Order Summary</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Sub Total - {{totalQuantity}} item(s)</h6>
+                </nz-space-item>
 
-                    <div class="item p-2 pl-4">
-                        <!-- <div class="row pricing" *ngIf="currentRoute != 'payment'">
-                                    <div class="col-md-4 col-4">
-                                        <span>Cart</span>
-                                    </div>
-                                    <div class="col-md-8 col-8 mr-auto">
-                                        <p class="price p-0 m-0">${{cartPrice.toFixed(2) | number:'1.2' }}</p>
+                <nz-space-item
+                    *ngFor="let data of shoppingCart.cart?.packageDetails | orderBy: 'supplier_id';let i=index;">
+                    <vs-panel title="Package {{i+1}} of {{shoppingCart.cart?.packageDetails.length}}">
+                        <div extra>
+                            <span class="supplier">Shipped by <b>{{data.packageName}}</b></span>
+                        </div>
+                        <div body class="content-wrapper">
+                            <div class="shipping-methods">
+                                <div nz-row [nzGutter]="16">
+                                    <div nz-col [nzXs]="24" [nzLg]="8"
+                                        *ngFor="let shipMethod of data.suppliersDeliveryMethod | orderBy: 'deliveryMethodId';let i=index;">
+                                        <nz-card nzHoverable class="shipping-card"
+                                            (click)="onChangeDeliveryMethod(shipMethod.deliveryMethodId,shipMethod.deliveryMethodId === data.shoppingItems[0].deliveryMethodId,shoppingCart.cart?.id,data.supplierId)">
+                                            <nz-list nzItemLayout="horizontal">
+                                                <nz-list-item>
+                                                    <nz-list-item-meta>
+                                                        <nz-list-item-meta-avatar>
+                                                            <img width="20" [src]="'/assets/icons/selected.svg'"
+                                                                *ngIf="shipMethod.deliveryMethodId === data.shoppingItems[0].deliveryMethodId;else unselected">
+                                                            <ng-template #unselected>
+                                                                <img width="20" [src]="'/assets/icons/unselect.svg'">
+                                                            </ng-template>
+                                                        </nz-list-item-meta-avatar>
+                                                        <nz-list-item-meta-title>
+                                                            <div>{{shipMethod.shippingFee |currency}}</div>
+                                                            <div>{{shipMethod.deliveryMethodName}}</div>
+                                                        </nz-list-item-meta-title>
+                                                        <nz-list-item-meta-description>
+                                                            <div class="est-arrival">
+                                                                Est.Arrival:
+                                                                {{getShortDate(shipMethod.expectedMinArrivalDays)}}
+                                                                -
+                                                                {{getShortDate(shipMethod.expectedMaxArrivalDays)}}
+                                                            </div>
+                                                        </nz-list-item-meta-description>
+                                                    </nz-list-item-meta>
+                                                </nz-list-item>
+                                            </nz-list>
+                                        </nz-card>
                                     </div>
                                 </div>
-                                <div class="row pricing" *ngIf="currentRoute != 'payment'">
-                                    <div class="col-md-4 col-4">
-                                        <span>Cargo</span>
-                                    </div>
-                                    <div class="col-md-8 col-8 mr-auto">
-                                        <p class="price p-0 m-0">
-                                            ${{shoppingCart.cart.totalCargoPrice.toFixed(2) | number:'1.2' }}</p>
-                                    </div>
-                                </div>
-                                <div *ngIf="shoppingCart.cart.specialDeals != null" class="row pricing">
-                                    <div class="col-md-4 col-4">
-                                        <span>Discount</span>
-                                    </div>
-                                    <div class="col-md-8 col-8 mr-auto">
-                                        <p class="price  p-0 m-0">{{shoppingCart.cart.specialDeals.discountPercentage}}%
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row pricing">
-                                    <div class="col-md-4 col-4">
-                                        <span>Total</span>
-                                    </div>
-                                    <div class="col-md-8 col-8 mr-auto">
-                                        <p class="price p-0 m-0 total-price" style="font-weight: bold">${{shoppingCart.cart.totalPrice.toFixed(2) |
-                                                                        number:'1.2' }}</p>
-                                    </div>
-                                </div> -->
-                    </div>
-
-                    <div class=" p-2 pl-4">
-                        <div class="row p-2 mt-3">
-                            <div class="col-md-12 col-12 mr-auto">
-                                <button type="button" class="btn btn-warning w-100" (click)="post.emit(default.id)"
-                                    style="margin-top: 5px;" [disabled]="addresses.length <= 0">PLACE
-                                    ORDER</button>
                             </div>
+
+                            <nz-list>
+                                <nz-list-item *ngFor="let item of data.shoppingItems | orderBy: 'id'">
+                                    <ng-container>
+                                        <nz-list-item-meta>
+                                            <nz-list-item-meta-avatar>
+                                                <img width="80" [src]="blobUrl + item.blobId + '/thumbnail'">
+                                            </nz-list-item-meta-avatar>
+                                            <nz-list-item-meta-title>
+                                                <a href
+                                                    [routerLink]="['/products/',item.productId]">{{ item.stockItemName }}</a>
+                                            </nz-list-item-meta-title>
+                                            <nz-list-item-meta-description>
+                                                <div class="cart-price">
+                                                    <span class="price-label">Price : </span>
+                                                    <span class="item-price">{{ item.unitPrice | currency }}</span>
+                                                </div>
+
+                                                <div class="cart-controller">
+                                                    <a nz-button nzType="link" (click)="onRemoveItem(item.id)"
+                                                        nzTooltipTitle="Remove" nzTooltipPlacement="bottom" nz-tooltip>
+                                                        <i nz-icon nzType="delete"></i>
+                                                    </a>
+                                                </div>
+                                            </nz-list-item-meta-description>
+                                        </nz-list-item-meta>
+                                        <div class="quantity">
+                                            Qty : {{item.quantity}}
+                                        </div>
+                                    </ng-container>
+                                </nz-list-item>
+                            </nz-list>
                         </div>
-                    </div>
+                    </vs-panel>
+                </nz-space-item>
+            </nz-space>
+        </div>
+        <div nz-col [nzXs]="24" [nzLg]="8">
+            <vs-panel [title]="'Shipping & Biling'">
+                <div body class="content-wrapper">
+                    <nz-list class="address-list" *ngIf="deliveryAddress">
+                        <nz-list-item>
+                            <nz-list-item-meta>
+                                <nz-list-item-meta-title>
+                                    <div class="line-title">
+                                        <span class="mr-2"><i nz-icon nzType="environment" nzTheme="outline"></i>
+                                            &nbsp;{{deliveryAddress?.contactPerson}}</span>
+                                        <nz-tag [nzColor]="'orange'">{{deliveryAddress.addressTypeName}}</nz-tag>
+                                    </div>
+                                </nz-list-item-meta-title>
+                                <nz-list-item-meta-description>
+                                    <nz-space nzDirection="vertical" [nzSize]="2">
+                                        <nz-space-item>
+                                            <span>{{deliveryAddress?.addressLine1}},
+                                                {{deliveryAddress?.addressLine2}}</span>
+                                        </nz-space-item>
+                                        <nz-space-item>
+                                            <span>{{deliveryAddress?.city}}</span>
+                                        </nz-space-item>
+                                    </nz-space>
+                                </nz-list-item-meta-description>
+                            </nz-list-item-meta>
+                            <nz-list-item-extra>
+                                <a (click)="createAddressModal(true)">
+                                    Edit
+                                </a>
+                            </nz-list-item-extra>
+                        </nz-list-item>
+                        <nz-list-item>
+                            <nz-list-item-meta>
+                                <nz-list-item-meta-title>
+                                    <div class="line-title">
+                                        <span class="mr-2" *ngIf="customer?.billToAddressSameAsDeliveryAddress"><i
+                                                nz-icon nzType="book" nzTheme="outline"></i>
+                                            &nbsp;Bill to the same address</span>
+                                        <div class="line-title" *ngIf="!customer?.billToAddressSameAsDeliveryAddress">
+                                            <span class="mr-2"><i nz-icon nzType="book" nzTheme="outline"></i>
+                                                &nbsp;{{billingAddress?.contactPerson}}</span>
+                                            <nz-tag [nzColor]="'orange'">{{billingAddress.addressTypeName}}</nz-tag>
+                                        </div>
+                                    </div>
+                                </nz-list-item-meta-title>
+                                <nz-list-item-meta-description *ngIf="!customer?.billToAddressSameAsDeliveryAddress">
+                                    <nz-space nzDirection="vertical" [nzSize]="2">
+                                        <nz-space-item>
+                                            <span>{{billingAddress?.addressLine1}},
+                                                {{billingAddress?.addressLine2}}</span>
+                                        </nz-space-item>
+                                        <nz-space-item>
+                                            <span>{{billingAddress?.city}}</span>
+                                        </nz-space-item>
+                                    </nz-space>
+                                </nz-list-item-meta-description>
+                            </nz-list-item-meta>
+                            <nz-list-item-extra>
+                                <a (click)="createAddressModal(false)">
+                                    Edit
+                                </a>
+                            </nz-list-item-extra>
+                        </nz-list-item>
+                        <nz-list-item>
+                            <nz-list-item-meta>
+                                <nz-list-item-meta-title>
+                                    <div class="line-title">
+                                        <span class="mr-2" *ngIf="!editContact;else editContactTemplate"><i nz-icon
+                                                nzType="mobile" nzTheme="outline"></i>
+                                            &nbsp;{{deliveryAddress?.contactNumber}}</span>
+                                        <ng-template #editContactTemplate>
+                                            <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
+                                                <input #inputContact type="text" nz-input
+                                                    placeholder="Enter Contact Number" [(ngModel)]="contactNumber" />
+                                            </nz-input-group>
+                                            <ng-template #suffixButton>
+                                                <button nz-button nzType="primary" nzSearch
+                                                    (click)="onEditContact(inputContact.value)">Save</button>
+                                            </ng-template>
+                                        </ng-template>
+                                    </div>
+                                </nz-list-item-meta-title>
+                            </nz-list-item-meta>
+                            <nz-list-item-extra *ngIf="!editContact">
+                                <a (click)="editContact = true">
+                                    Edit
+                                </a>
+                            </nz-list-item-extra>
+                        </nz-list-item>
+                        <nz-list-item>
+                            <nz-list-item-meta>
+                                <nz-list-item-meta-title>
+                                    <div class="line-title">
+                                        <span class="mr-2" *ngIf="!editEmail;else editEmailTemplate"><i nz-icon
+                                                nzType="mail" nzTheme="outline"></i>
+                                            &nbsp;{{deliveryAddress?.contactEmailAddress}}</span>
+                                        <ng-template #editEmailTemplate>
+                                            <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
+                                                <input #inputEmail type="text" nz-input
+                                                    placeholder="Enter Contact Email" [(ngModel)]="contactEmail" />
+                                            </nz-input-group>
+                                            <ng-template #suffixButton>
+                                                <button nz-button nzType="primary" nzSearch
+                                                    (click)="onEditEmail(inputEmail.value)">Save</button>
+                                            </ng-template>
+                                        </ng-template>
+                                    </div>
+                                </nz-list-item-meta-title>
+                            </nz-list-item-meta>
+                            <nz-list-item-extra *ngIf="!editEmail">
+                                <a (click)="editEmail = true">
+                                    Edit
+                                </a>
+                            </nz-list-item-extra>
+                        </nz-list-item>
+                    </nz-list>
                 </div>
-            </div>
+            </vs-panel>
+            <vs-panel [title]="'Order Summary'">
+                <div body class="content-wrapper">
+                    <nz-list class="summary-list">
+                        <nz-list-item>
+                            <nz-list-item-meta>
+                                <nz-list-item-meta-title>
+                                    Subtotal ({{shoppingCart.cart?.cartString?.selectedQuantity}} items)
+                                </nz-list-item-meta-title>
+                            </nz-list-item-meta>
+                            <nz-list-item-extra>
+                                <span class="price">{{ cartPrice | currency }}</span>
+                            </nz-list-item-extra>
+                        </nz-list-item>
+                        <nz-list-item>
+                            <nz-list-item-meta>
+                                <nz-list-item-meta-title>
+                                    Shipping Fee
+                                </nz-list-item-meta-title>
+                            </nz-list-item-meta>
+                            <nz-list-item-extra>
+                                <span class="price">{{ shoppingCart.cart?.totalShippingFee | currency }}</span>
+                            </nz-list-item-extra>
+                        </nz-list-item>
+                        <nz-list-item *ngIf="shoppingCart.specialDeals">
+                            <nz-list-item-meta>
+                                <nz-list-item-meta-title>
+                                    Discount
+                                </nz-list-item-meta-title>
+                            </nz-list-item-meta>
+                            <nz-list-item-extra>
+                                <span class="price">{{ shoppingCart.specialDeals.discountPercentage }}</span>
+                            </nz-list-item-extra>
+                        </nz-list-item>
+                        <nz-list-item>
+                            <nz-list-item-meta>
+                                <nz-list-item-meta-title>
+                                    Total
+                                </nz-list-item-meta-title>
+                            </nz-list-item-meta>
+                            <nz-list-item-extra>
+                                <span class="price total-price">{{ shoppingCart.cart?.totalPrice | currency }}</span>
+                            </nz-list-item-extra>
+                        </nz-list-item>
+                        <nz-list-item>
+                            <nz-list-item-meta>
+                                <nz-list-item-meta-title>
+                                </nz-list-item-meta-title>
+                            </nz-list-item-meta>
+                            <nz-list-item-extra>
+                                <small class="gst">GST included, where applicable</small>
+                            </nz-list-item-extra>
+                        </nz-list-item>
+                    </nz-list>
+                    <button class="place-order" nz-button nzType="primary" nzBlock nzDanger
+                        (click)="post.emit(deliveryAddress?.id)">PLACE
+                        ORDER</button>
+                </div>
+            </vs-panel>
         </div>
     </div>
 </div>

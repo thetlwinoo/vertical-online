@@ -1,42 +1,87 @@
-<form [formGroup]="paymentForm" (ngSubmit)="onSubmit($event)">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="payment-options">
-                    <ul>
-                        <li><a href><img src="assets/icons/visa.png"></a></li>
-                        <li><a href><img src="assets/icons/master.png"></a></li>
-                        <li><a href><img src="assets/icons/amex.png"></a></li>
-                    </ul>
+<div *ngIf="cardError" style="color:red">
+    {{ cardError }}
+</div>
+
+<form nz-form [formGroup]="paymentForm" (ngSubmit)="createStripeToken()">
+    <nz-card [nzBordered]="false">
+        <div class="card-body">
+            <div nz-row nzJustify="center" nzAlign="start" [nzGutter]="[0, 8]">
+                <div nz-col nzXs="24" nzLg="16">
+                    <nz-form-item>
+                        <nz-form-control nzHasFeedback nzErrorTip="Input is required">
+                            <input nz-input name="name-on-card" formControlName="nameOnCard" placeholder="Name On Card"
+                                required />
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <div class="card-info-wrapper ant-input">
+                        <div id="card-info" #cardInfo></div>
+                    </div>
+                </div>
+
+                <div nz-col nzXs="24" nzLg="16">
+                    <button type="submit" nz-button [nzSize]="'large'" nzType="danger" nzBlock>Pay
+                        Now</button>
                 </div>
             </div>
-            <div class="col-md-12">
-                <h3 class="card-number">* Card number</h3>
-                <p-inputMask autoClear="true" mask="9999-9999-9999-9999" slotChar=" " id="card-number"
-                    placeholder="Card number" formControlName="cardNumber"></p-inputMask>
-            </div>
-            <div class="col-md-12">
-                <h3 class="name-on-card">* Name on card</h3>
-                <input id="name-on-card" type="text" size="30" pInputText placeholder="Name on card"
-                    formControlName="nameOnCard">
-            </div>
-            <div class="col-md-6">
-                <h3 class="expiry-date">* Expiry Date</h3>
-                <p-inputMask mask="99/99" placeholder="MM/YY" slotChar="MM/YY" formControlName="cardExpiry">
-                </p-inputMask>
-            </div>
-            <div class="col-md-6">
-                <h3 class="expiry-date">* CVV</h3>
-                <p-inputMask mask="999" placeholder="CVV" slotChar="CVV" formControlName="cardCVV"></p-inputMask>
-            </div>
-            <div class="col-md-12">
-                <p-checkbox name="groupname" label="Save Card"></p-checkbox>
-                <p><span class="save-card-message">Information is encrypted and securely stored.</span></p>
-            </div>
-            <div class="col-md-6">
-                <button type="button submit" class="btn btn-warning"
-                    style="width:100%">Pay Now</button>
-            </div>
         </div>
-    </div>
+    </nz-card>
 </form>
+
+<!-- <div class="form-wrapper px-3">
+    <form nz-form [formGroup]="paymentForm" (ngSubmit)="onSubmit($event)">
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="card-number-1">Card Number</nz-form-label>
+            <nz-form-control [nzSm]="12" [nzXs]="24" nzHasFeedback nzErrorTip="Input is required">                
+                <nz-input-group nzCompact>
+                    <input nz-input name="card-number-1" formControlName="cardNumber1" style="width:70px;" maxlength="4"
+                        minlength="4" required />
+                    <input type="text" disabled nz-input placeholder="-"
+                        style="width: 10px; border-left: 0px; pointer-events: none; background-color: rgb(255, 255, 255);padding: 4px 0px;" />
+                    <input nz-input name="card-number-2" formControlName="cardNumber2"
+                        style="width:70px;text-align: center; border-left: 0px;" maxlength="4" minlength="4" required />
+                    <input type="text" disabled nz-input placeholder="-"
+                        style="width: 10px; border-left: 0px; pointer-events: none; background-color: rgb(255, 255, 255);padding: 4px 0px;" />
+                    <input nz-input name="card-number-3" formControlName="cardNumber3"
+                        style="width:70px;text-align: center; border-left: 0px;" maxlength="4" minlength="4" required />
+                    <input type="text" disabled nz-input placeholder="-"
+                        style="width: 10px; border-left: 0px; pointer-events: none; background-color: rgb(255, 255, 255);padding: 4px 0px;" />
+                    <input nz-input name="card-number-4" formControlName="cardNumber4"
+                        style="width:70px;text-align: center; border-left: 0px;" maxlength="4" minlength="4" required />
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="card-number-1">Cardholder Name</nz-form-label>
+            <nz-form-control [nzSm]="12" [nzXs]="24" nzHasFeedback nzErrorTip="Input is required">
+                <input nz-input name="name-on-card" formControlName="nameOnCard" placeholder="Enter Name" required
+                    style="width:306px;" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="card-number-1">Expiry Date</nz-form-label>
+            <nz-form-control [nzSm]="12" [nzXs]="24" nzHasFeedback nzErrorTip="Input is required">
+                <nz-input-group nzCompact>
+                    <input nz-input placeholder="MM" name="expiry-month" formControlName="cardExpiryMonth"
+                        style="width:60px;" maxlength="2" minlength="2" required />
+                    <input type="text" disabled nz-input placeholder="/"
+                        style="width: 10px; border-left: 0px; pointer-events: none; background-color: rgb(255, 255, 255);padding: 4px 0px;" />
+                    <input nz-input placeholder="YY" name="expiry-year" formControlName="cardExpiryYear"
+                        style="width:60px;text-align: center; border-left: 0px;" maxlength="2" minlength="2" required />
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="card-number-1">CVV</nz-form-label>
+            <nz-form-control [nzSm]="12" [nzXs]="24" nzHasFeedback nzErrorTip="Input is required">
+                <input nz-input name="card-cvv" formControlName="cardCVV" style="width:80px;" maxlength="3"
+                    minlength="3" required />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control>
+                <button nz-button [nzSize]="'large'" nzType="danger" nzBlock>Pay Now</button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div> -->

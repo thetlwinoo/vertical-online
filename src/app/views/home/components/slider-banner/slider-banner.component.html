@@ -1,22 +1,75 @@
 <div class="container">
     <section id="slider-banner" class="p-0">
         <div class="main-banner">
-            <div class="p-grid p-nogutter">
-                <div class="p-col-12 p-sm-12 p-lg-4 sub-banner-wrapper d-none d-md-block d-lg-block">
-                    <div class="p-grid p-nogutter sub-banner">
-                        <div class="p-col-12">
-                            <a href="#">
-                                <div class="sub-banner1"></div>
-                            </a>
+            <div nz-row>
+                <div nz-col class="gutter-row sub-banner-wrapper" [nzXs]="24" [nzSm]="24" [nzMd]="5">
+                    <div nz-row class="sub-banner">
+                        <div nz-col class="gutter-row pb-8" [nzSpan]="24">
+                            <div class="category-list" *ngIf="!loading;else skelton">
+                                <!-- <ul nz-list [nzDataSource]="categories" nzSize="small" class="side-nav-list" nz-element
+                                    #navlist="nzElement">
+                                    <li nz-list-item *ngFor="let item of categories ; let i = index" nz-popover
+                                        [nzPopoverContent]="contentTemplate" nzPopoverPlacement="rightTop"
+                                        [nzPopoverOrigin]="navlist.elementRef" (mouseenter)="currentMenuIndex = i"
+                                        [class.active]="currentMenuIndex === i">
+                                        <div>
+                                            <i class="iconfont icon-{{item.iconFont}} mr-2"></i>
+                                            <span>{{item.name}}</span>
+                                        </div>
+
+                                        <i nz-icon nzType="caret-right" nzTheme="outline"></i>
+
+                                        <ng-template #contentTemplate>
+                                            <ul nz-list [nzDataSource]="item.children" nzSize="small"
+                                                class="side-nav-list">
+                                                <li nz-list-item *ngFor="let child of item.children">
+                                                    <span>{{child.name}}</span>
+                                                </li>
+                                            </ul>
+                                        </ng-template>
+                                    </li>
+                                </ul> -->
+                                <ul nz-menu [nzMode]="'vertical'">
+                                    <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: categories }">
+                                    </ng-container>
+                                    <ng-template #menuTpl let-menus>
+                                        <ng-container *ngFor="let menu of menus">
+                                            <li *ngIf="!menu.children" nz-menu-item [nzPaddingLeft]="menu.level * 24"
+                                                [nzDisabled]="menu.disabled" [nzSelected]="menu.selected"
+                                                [routerLink]="['/search','_blank']" routerLinkActive="active"
+                                                [queryParams]="{category: menu.id}">
+                                                <i nz-icon [nzType]="menu.icon" *ngIf="menu.icon"></i>
+                                                <span>{{ menu.name }}</span>
+                                            </li>
+                                            <li *ngIf="menu.children" nz-submenu [nzTitle]="titleTemplate"
+                                                [nzPaddingLeft]="menu.level * 24" [nzDisabled]="menu.disabled">
+                                                <ul>
+                                                    <ng-container
+                                                        *ngTemplateOutlet="menuTpl; context: { $implicit: menu.children }">
+                                                    </ng-container>
+                                                </ul>
+                                            </li>
+                                            <ng-template #titleTemplate>
+                                                <i
+                                                    class="iconfont icon-{{menu.iconFont}} mr-2"></i><span>{{menu.name}}</span>
+                                            </ng-template>
+                                        </ng-container>
+                                    </ng-template>
+                                </ul>
+                            </div>
+                            <ng-template #skelton>
+                                <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 5 }">
+                                </nz-skeleton>
+                            </ng-template>
                         </div>
-                        <div class="p-col-12">
+                        <!-- <div nz-col class="gutter-row" [nzSpan]="24">
                             <a href="#">
                                 <div class="sub-banner2"></div>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
-                <div class="p-col-12 p-sm-12 p-lg-8 main-banner-wrapper">
+                <div nz-col class="gutter-row main-banner-wrapper" [nzXs]="24" [nzSm]="24" [nzMd]="19">
                     <owl-carousel-o #owlElement [options]="carousel.options" class="owl-dot-style-2">
                         <ng-container class="main-slider" *ngFor="let banner of carousel.slides;let i = index">
                             <ng-template carouselSlide>
@@ -34,12 +87,12 @@
         </div>
 
         <div class="content">
-            <div class="p-grid p-justify-between p-nogutter category-container">
-                <div class="p-col-3 p-sm-3 p-lg-1 category-wrapper p-nogutter" *ngFor="let category of categories">
-                    <div class="category">
-                        <img src="assets/images/home/slider-banner/categories/{{category.icon}}">
-                        <div class="title p-2 line-height-1.75">
-                            {{category.label}}
+            <div nz-row [nzGutter]="5">
+                <div nz-col class="gutter-row" [nzXs]="6" [nzSm]="6" [nzMd]="3" *ngFor="let item of features">
+                    <div class="inner-box">
+                        <img src="assets/images/home/slider-banner/categories/{{item.icon}}">
+                        <div class="card-item-title">
+                            {{item.label}}
                         </div>
                     </div>
                 </div>

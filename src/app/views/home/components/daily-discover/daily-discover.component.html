@@ -1,33 +1,25 @@
-<section id="daily-discover">
-    <div class="viwer-area">
-        <div class="container">
-            <div class="viwer-title">
-                <div class="viwer-title-spacer title">
-                    daily discover
+<vs-panel [title]="title | uppercase">
+    <div extra>
+        <!-- <button nz-button [nzSize]="'small'" nzType="default" (click)="seeAll()">            
+        </button> -->
+        <a nz-button nzType="link" nzDanger (click)="seeAll()">
+            <i nz-icon nzType="fullscreen" style="font-size: 1.1em;"></i>See All
+        </a>
+    </div>
+    <div body class="content-wrapper">
+        <div class="product-wrapper" *ngIf="loading">
+            <div class="product-item product-box" *ngFor="let ghost of ghosts">
+                <div #productcard class="card-preview">
+                    <ghost-item></ghost-item>
                 </div>
-                <button type="button" class="btn btn-link">
-                    <span>see all</span>
-                    <fa-icon icon="expand-arrows-alt" class="ml-2"></fa-icon>
-                </button>
             </div>
-            <div class="viwer-body">
-                <div class="content">
-                    <div class="product-wrapper" *ngIf="loading">
-                        <div class="product-item product-box" *ngFor="let ghost of ghosts">
-                            <div #productcard class="card-preview">
-                                <ghost-item></ghost-item>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-wrapper" [@fadeIn]="data.length">
-                        <div class="product-item product-box" *ngFor="let item of data">
-                            <div #productcard class="card-preview">
-                                <product-card [product]="item"></product-card>
-                            </div>
-                        </div>
-                    </div>
+        </div>
+        <div class="product-wrapper" [@fadeIn]="data.length">
+            <div class="product-item product-box" *ngFor="let item of data">
+                <div #productcard class="card-preview">
+                    <product-card [product]="item"></product-card>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</vs-panel>

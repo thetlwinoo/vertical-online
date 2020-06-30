@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { Products, IProducts } from "@eps/models";
+import { Component, OnInit, Input, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Products, IProducts } from '@eps/models';
 import 'rxjs/add/operator/filter';
 import { rootAnimations } from '@eps/animations';
 
@@ -7,15 +7,19 @@ import { rootAnimations } from '@eps/animations';
   selector: 'daily-discover',
   templateUrl: './daily-discover.component.html',
   styleUrls: ['./daily-discover.component.scss'],
-  animations: rootAnimations
+  encapsulation: ViewEncapsulation.None,
+  animations: rootAnimations,
 })
 export class DailyDiscoverComponent {
   @Input() data: IProducts[];
   @Input() loading;
   @Input() error;
   ghosts = [];
+  title = 'daily discover';
 
   constructor() {
     this.ghosts = new Array(18);
   }
+
+  seeAll(): void {}
 }

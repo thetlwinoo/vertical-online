@@ -10,20 +10,18 @@ import { map } from 'rxjs/operators';
   selector: 'app-view-product-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './view-product-page.component.html',
-  styleUrls: ['./view-product-page.component.scss']
+  styleUrls: ['./view-product-page.component.scss'],
 })
 export class ViewProductPageComponent implements OnDestroy {
-
   actionsSubscription: Subscription;
 
   constructor(store: Store<fromProducts.State>, route: ActivatedRoute) {
-    console.log('view product page');
-    // this.actionsSubscription = route.params
-    //   .pipe(map(params => ProductActions.selectProduct({ id: params.id })))
-    //   .subscribe(action => store.dispatch(action))
+    this.actionsSubscription = route.params
+      .pipe(map(params => ProductActions.selectProduct({ id: params.id })))
+      .subscribe(action => store.dispatch(action));
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.actionsSubscription) {
       this.actionsSubscription.unsubscribe();
     }

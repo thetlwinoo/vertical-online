@@ -1,39 +1,42 @@
-<section id="product-category">
-    <div class="container">
-        <div class="viwer-wrapper">
-            <div class="viwer-title">
-                <div class="viwer-title-spacer title">
-                    categories
-                </div>
-                <button type="button" class="btn btn-link" (click)="owlCategory.prev()">
-                    <fa-icon icon="chevron-circle-left"></fa-icon>
-                </button>
-                <button type="button" class="btn btn-link" (click)="owlCategory.next()">
-                    <fa-icon icon="chevron-circle-right"></fa-icon>
-                </button>
-            </div>
-            <div class="viwer-body">
-                <div class="content">
-                    <owl-carousel-o #owlCategory [options]="carousel.options">
-                        <ng-container class="bundle" *ngFor="let bundle of data">
-                            <ng-template carouselSlide>
-                                <div class="category" *ngFor="let category of bundle">
-                                    <a [routerLink]="['/search','_blank']" routerLinkActive="active"
-                                        [queryParams]="{category: category.id}">
-                                        <div class="category-item">
-                                            <img
-                                                src="assets/images/home/product-category/categories2/{{category.name}}.png">
-                                            <div class="title p-2 line-height-1.75 word_wrap">
-                                                {{category.name}}
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </ng-template>
-                        </ng-container>
-                    </owl-carousel-o>
-                </div>
-            </div>
-        </div>
+<vs-panel [title]="title | uppercase">
+    <div extra>
+        <nz-space>
+            <nz-space-item>
+                <a nz-button nzType="link" nzDanger (click)="owl.prev()">
+                    <i nz-icon nzType="left-square" nzTheme="fill" style="font-size: 1.5em;"></i>
+                </a>
+            </nz-space-item>
+            <nz-space-item>
+                <a nz-button nzType="link" nzDanger (click)="owl.next()">
+                    <i nz-icon nzType="right-square" nzTheme="fill" style="font-size: 1.5em;"></i>
+                </a>
+            </nz-space-item>
+        </nz-space>
     </div>
-</section>
+    <div body class="content-wrapper">
+        <owl-carousel-o #owl [options]="carousel.options">
+            <ng-container *ngIf="bundles.length > 0;else skelton">
+                <ng-template carouselSlide *ngFor="let bundle of bundles">
+                    <div class="category" *ngFor="let category of bundle">
+                        <a [routerLink]="['/search','_blank']" routerLinkActive="active"
+                            [queryParams]="{category: category.id}">
+                            <nz-card class="category-card" nzHoverable [nzCover]="coverTemplate">
+                                <nz-card-meta [nzDescription]="descriptionTemplate">
+                                </nz-card-meta>
+                            </nz-card>
+                            <ng-template #coverTemplate>
+                                <img alt="example" [src]="blobUrl + category.iconThumbnailUrl" />
+                            </ng-template>
+                            <ng-template #descriptionTemplate>
+                                <span class="card-item-title">{{category.name}}</span>
+                            </ng-template>
+                        </a>
+                    </div>
+                </ng-template>
+            </ng-container>
+            <ng-template #skelton>
+                <nz-skeleton></nz-skeleton>
+            </ng-template>
+        </owl-carousel-o>
+    </div>
+</vs-panel>

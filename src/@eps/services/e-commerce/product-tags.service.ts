@@ -11,28 +11,28 @@ type EntityArrayResponseType = HttpResponse<IProductTags[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ProductTagsService {
-    public resourceUrl = SERVER_API_URL + 'api/product-tags';
+  public resourceUrl = SERVER_API_URL + 'services/vscommerce/api/product-tags';
 
-    constructor(protected http: HttpClient) {}
+  constructor(protected http: HttpClient) {}
 
-    create(productTags: IProductTags): Observable<EntityResponseType> {
-        return this.http.post<IProductTags>(this.resourceUrl, productTags, { observe: 'response' });
-    }
+  create(productTags: IProductTags): Observable<EntityResponseType> {
+    return this.http.post<IProductTags>(this.resourceUrl, productTags, { observe: 'response' });
+  }
 
-    update(productTags: IProductTags): Observable<EntityResponseType> {
-        return this.http.put<IProductTags>(this.resourceUrl, productTags, { observe: 'response' });
-    }
+  update(productTags: IProductTags): Observable<EntityResponseType> {
+    return this.http.put<IProductTags>(this.resourceUrl, productTags, { observe: 'response' });
+  }
 
-    find(id: number): Observable<EntityResponseType> {
-        return this.http.get<IProductTags>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-    }
+  find(id: number): Observable<EntityResponseType> {
+    return this.http.get<IProductTags>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
 
-    query(req?: any): Observable<EntityArrayResponseType> {
-        const options = createRequestOption(req);
-        return this.http.get<IProductTags[]>(this.resourceUrl, { params: options, observe: 'response' });
-    }
+  query(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IProductTags[]>(this.resourceUrl, { params: options, observe: 'response' });
+  }
 
-    delete(id: number): Observable<HttpResponse<any>> {
-        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-    }
+  delete(id: number): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
 }

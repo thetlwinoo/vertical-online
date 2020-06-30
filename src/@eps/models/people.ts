@@ -1,68 +1,72 @@
+import { Moment } from 'moment';
+import { Gender } from './gender.model';
+
 export interface IPeople {
-    id?: any;
-    fullName?: string;
-    preferredName?: string;
-    searchName?: string;
-    isPermittedToLogon?: boolean;
-    logonName?: string;
-    isExternalLogonProvider?: boolean;
-    isSystemUser?: boolean;
-    isEmployee?: boolean;
-    isSalesPerson?: boolean;
-    isGuestUser?: boolean;
-    emailPromotion?: number;
-    userPreferences?: string;
-    phoneNumber?: string;
-    emailAddress?: string;
-    photo?: string;
-    customFields?: string;
-    otherLanguages?: string;
-    validFrom?: Date;
-    validTo?: Date;
+  id?: number;
+  fullName?: string;
+  preferredName?: string;
+  searchName?: string;
+  gender?: Gender;
+  dateOfBirth?: Moment;
+  isPermittedToLogon?: boolean;
+  logonName?: string;
+  isExternalLogonProvider?: boolean;
+  isSystemUser?: boolean;
+  isEmployee?: boolean;
+  isSalesPerson?: boolean;
+  isGuestUser?: boolean;
+  emailPromotion?: boolean;
+  userPreferences?: string;
+  phoneNumber?: string;
+  emailAddress?: string;
+  customFields?: string;
+  otherLanguages?: string;
+  userId?: string;
+  validFrom?: Moment;
+  validTo?: Moment;
+  profileThumbnailUrl?: string;
+  profileId?: number;
+  cartId?: number;
+  wishlistId?: number;
+  compareId?: number;
 }
 
 export class People implements IPeople {
-    constructor(
-        public id?: any,
-        public fullName?: string,
-        public preferredName?: string,
-        public searchName?: string,
-        public isPermittedToLogon?: boolean,
-        public logonName?: string,
-        public isExternalLogonProvider?: boolean,
-        public isSystemUser?: boolean,
-        public isEmployee?: boolean,
-        public isSalesPerson?: boolean,
-        public isGuestUser?: boolean,
-        public emailPromotion?: number,
-        public userPreferences?: string,
-        public phoneNumber?: string,
-        public emailAddress?: string,
-        public photo?: string,
-        public customFields?: string,
-        public otherLanguages?: string,
-        public validFrom?: Date,
-        public validTo?: Date
-    ) {
-        this.id = id ? id : null;
-        this.fullName = fullName ? fullName : null;
-        this.preferredName = preferredName ? preferredName : null;
-        this.searchName = searchName ? searchName : null;
-        this.isPermittedToLogon = isPermittedToLogon ? isPermittedToLogon : false;
-        this.logonName = logonName ? logonName : null;
-        this.isExternalLogonProvider = isExternalLogonProvider ? isExternalLogonProvider : false;
-        this.isSystemUser = isSystemUser ? isSystemUser : false;
-        this.isEmployee = isEmployee ? isEmployee : false;
-        this.isSalesPerson = isSalesPerson ? isSalesPerson : false;
-        this.isGuestUser = isGuestUser ? isGuestUser : false;
-        this.emailPromotion = emailPromotion ? emailPromotion : null;
-        this.userPreferences = userPreferences ? userPreferences : null;
-        this.phoneNumber = phoneNumber ? phoneNumber : null;
-        this.emailAddress = emailAddress ? emailAddress : null;
-        this.photo = photo ? photo : null;
-        this.customFields = customFields ? customFields : null;
-        this.otherLanguages = otherLanguages ? otherLanguages : null;
-        this.validFrom = validFrom ? validFrom : new Date();
-        this.validTo = validTo ? validTo : new Date();
-    }
+  constructor(
+    public id?: number,
+    public fullName?: string,
+    public preferredName?: string,
+    public searchName?: string,
+    public gender?: Gender,
+    public dateOfBirth?: Moment,
+    public isPermittedToLogon?: boolean,
+    public logonName?: string,
+    public isExternalLogonProvider?: boolean,
+    public isSystemUser?: boolean,
+    public isEmployee?: boolean,
+    public isSalesPerson?: boolean,
+    public isGuestUser?: boolean,
+    public emailPromotion?: boolean,
+    public userPreferences?: string,
+    public phoneNumber?: string,
+    public emailAddress?: string,
+    public customFields?: string,
+    public otherLanguages?: string,
+    public userId?: string,
+    public validFrom?: Moment,
+    public validTo?: Moment,
+    public profileThumbnailUrl?: string,
+    public profileId?: number,
+    public cartId?: number,
+    public wishlistId?: number,
+    public compareId?: number
+  ) {
+    this.isPermittedToLogon = this.isPermittedToLogon || false;
+    this.isExternalLogonProvider = this.isExternalLogonProvider || false;
+    this.isSystemUser = this.isSystemUser || false;
+    this.isEmployee = this.isEmployee || false;
+    this.isSalesPerson = this.isSalesPerson || false;
+    this.isGuestUser = this.isGuestUser || false;
+    this.emailPromotion = this.emailPromotion || false;
+  }
 }

@@ -4,58 +4,48 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { defer, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, filter } from 'rxjs/operators';
 
-import {
-    WishlistActions,
-    SelectedProductPageActions,
-} from 'app/ngrx/products/actions';
-import { IProducts } from '@eps/models';
+import { WishlistActions, SelectedStockItemPageActions } from 'app/ngrx/products/actions';
+import { IStockItems } from '@eps/models';
 import { WishlistService } from '@eps/services';
 
 @Injectable()
 export class WishlistEffects {
-    loadWishlist$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(WishlistActions.loadWishlist),
-            switchMap(() =>
-                this.wishlistService.fetchWishlistProducts().pipe(
-                    filter((res: HttpResponse<IProducts[]>) => res.ok),
-                    map((res: HttpResponse<IProducts[]>) =>
-                        WishlistActions.loadProductsSuccess({ products: res.body })
-                    ),
-                    catchError(error =>
-                        of(WishlistActions.loadProductsFailure({ error }))
-                    )
-                )
-            )
+  loadWishlist$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(WishlistActions.loadWishlist),
+      switchMap(() =>
+        this.wishlistService.fetchWishlistStockItems().pipe(
+          filter((res: HttpResponse<IStockItems[]>) => res.ok),
+          map((res: HttpResponse<IStockItems[]>) => WishlistActions.loadStockItemsSuccess({ stockItems: res.body })),
+          catchError(error => of(WishlistActions.loadStockItemsFailure({ error })))
         )
-    );
+      )
+    )
+  );
 
-    addProductToWishlist$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(SelectedProductPageActions.addProductToWishlist),
-            mergeMap(({ product }) =>
-                this.wishlistService.addToWishlist(product.id).pipe(
-                    map(() => WishlistActions.addProductSuccess({ product })),
-                    catchError(() => of(WishlistActions.addProductFailure({ product })))
-                )
-            )
+  addStockItemToWishlist$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SelectedStockItemPageActions.addStockItemToWishlist),
+      mergeMap(({ stockItem }) =>
+        this.wishlistService.addToWishlist(stockItem.id).pipe(
+          switchMap(() => [WishlistActions.addStockItemSuccess({ stockItem }), WishlistActions.loadWishlist()]),
+          catchError(() => of(WishlistActions.addStockItemFailure({ stockItem })))
         )
-    );
+      )
+    )
+  );
 
-    removeProductFromWishlist$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(SelectedProductPageActions.removeProductFromWishlist),
-            mergeMap(({ product }) =>
-                this.wishlistService.removeFromWishlist(product.id).pipe(
-                    map(() => WishlistActions.removeProductSuccess({ product })),
-                    catchError(() => of(WishlistActions.removeProductFailure({ product })))
-                )
-            )
+  removeStockItemFromWishlist$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SelectedStockItemPageActions.removeStockItemFromWishlist),
+      mergeMap(({ stockItem }) =>
+        this.wishlistService.removeFromWishlist(stockItem.id).pipe(
+          switchMap(() => [WishlistActions.removeStockItemSuccess({ stockItem }), WishlistActions.loadWishlist()]),
+          catchError(() => of(WishlistActions.removeStockItemFailure({ stockItem })))
         )
-    );
+      )
+    )
+  );
 
-    constructor(
-        private actions$: Actions,
-        private wishlistService: WishlistService
-    ) { }
+  constructor(private actions$: Actions, private wishlistService: WishlistService) {}
 }

@@ -1,25 +1,75 @@
-<div class="wishlist-section">
-  <div class="row item" *ngFor="let product of (products$ | async)">
+<vs-panel [title]="'My Wishlist List'">
+  <div body class="content-wrapper">
+    <nz-list class="demo-loadmore-list" [nzLoading]="loading$ | async">
+      <nz-list-item *ngFor="let item of (wishlistItems$ | async)">
+        <ng-container *ngIf="loaded$ | async">
+          <nz-list-item-meta>
+            <nz-list-item-meta-avatar>
+              <img width="80" [src]="blobUrl + item.thumbnailUrl">
+            </nz-list-item-meta-avatar>
+            <nz-list-item-meta-title>
+              <a [routerLink]="['/products/',item.productId]">{{ item.name }}</a>
+            </nz-list-item-meta-title>
+            <nz-list-item-meta-description>
+              <p>Price : {{ item.unitPrice }}</p>
+              <nz-tag [nzColor]="'#87d068'" *ngIf="item.quantityOnHand > 0;else outofstock">In Stock</nz-tag>
+              <ng-template #outofstock>
+                <nz-tag [nzColor]="'#f50'">Out Of Stock</nz-tag>
+              </ng-template>
+            </nz-list-item-meta-description>
+          </nz-list-item-meta>
+          <ul nz-list-item-actions>
+            <nz-list-item-action>
+              <a (click)="addToCart(item)">
+                <i nz-icon nzType="shopping-cart" style="margin-right: 8px;"></i> Add to cart
+              </a>
+            </nz-list-item-action>
+            <nz-list-item-action>
+              <a (click)="removeFromWishlist(item)">
+                <i nz-icon nzType="delete" style="margin-right: 8px;"></i> Delete
+              </a>
+            </nz-list-item-action>
+          </ul>
+        </ng-container>
+        <nz-skeleton *ngIf="loading$ | async " [nzAvatar]="true" [nzActive]="true" [nzTitle]="false" [nzLoading]="true">
+        </nz-skeleton>
+      </nz-list-item>
+      <nz-list-empty *ngIf="(wishlistItems$ | async).length === 0" [nzNoResult]="contentTpl"></nz-list-empty>
+      <ng-template #contentTpl>
+        <nz-space nzDirection="vertical">
+          <nz-space-item>
+            <img [src]="'https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg'">
+          </nz-space-item>
+          <nz-space-item>
+            <span> Empty in wishlist list </span>
+          </nz-space-item>
+        </nz-space>
+      </ng-template>
+    </nz-list>
+  </div>
+</vs-panel>
+<!-- <div class="wishlist-section">
+  <div class="row item" *ngFor="let stockItem of (stockItems$ | async)">
     <div class="col-md-1 buttons">
-      <div *ngIf="($loading | async)" class="loader" style="font-size: 6px; top:25%"></div>
-      <button type="button" class="close" aria-label="Close" *ngIf="(loaded$ | async)" (click)="removeFromWishlist(product)"
-        placement="bottom" ngbTooltip="Remove from wishlist">
+      <div *ngIf="(loading$ | async)" class="loader" style="font-size: 6px; top:25%"></div>
+      <button type="button" class="close" aria-label="Close" *ngIf="(loaded$ | async)"
+        (click)="removeFromWishlist(stockItem)" placement="bottom" ngbTooltip="Remove from wishlist">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="col-md-3 image">
-      <img *ngIf="product.photo;else noimage" src="{{product.photo}}" alt="" [routerLink]="['/products',product.id]" />
+    <div class="col-md-2 image">
+      <img *ngIf="stockItem.thumbnailUrl;else noimage" [src]="getDefaultImageUrl(stockItem.thumbnailUrl)" alt=""
+        [routerLink]="['/products',stockItem.productId]" />
       <ng-template #noimage>
         <img src="assets/images/noimage.png" alt="no image preview">
       </ng-template>
     </div>
 
-    <div class="col-md-3 description">
+    <div class="col-md-4 description">
       <span style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; cursor: pointer"
-        [routerLink]="['/products',product.id]">
-        {{product.productName}}
+        [routerLink]="['/products',stockItem.productId]">
+        {{stockItem.name}}
       </span>
-      <span>{{product.productSubCategoryProductSubCategoryName}}</span>
     </div>
 
     <div class="col-md-3">
@@ -30,16 +80,16 @@
 
     <div class="col-md-1 price">
       <div class="item-price">
-        <span>${{product.unitPrice.toFixed(2) | number:'1.2'}}</span>
+        <span>${{stockItem.unitPrice.toFixed(2) | number:'1.2'}}</span>
       </div>
     </div>
 
     <div class="col-md-1">
       <div class="add-cart">
-        <button type="button" id="add-cart" class="btn btn-warning" (click)="addToCart(product)">
+        <button type="button" id="add-cart" class="btn btn-warning" (click)="addToCart(stockItem)">
           <fa-icon [icon]="'cart-plus'"></fa-icon>
-        </button>        
+        </button>
       </div>
     </div>
   </div>
-</div>
+</div> -->

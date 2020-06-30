@@ -1,6 +1,6 @@
 // Angular
 import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { MAT_SNACK_BAR_DATA } from '@angular/material';
+import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 // RxJS
 import { delay } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -33,7 +33,7 @@ export class ActionNotificationComponent implements OnInit {
 		this.data.snackBar.dismiss();
 	}
 
-  	public onDismiss() {
+	public onDismiss() {
 		this.data.snackBar.dismiss();
 	}
 }

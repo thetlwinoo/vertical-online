@@ -1,49 +1,56 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { Observable, Subscription, of, forkJoin, zip } from 'rxjs';
-import { IProducts, IProductPhoto } from '@eps/models';
-import * as fromProducts from 'app/ngrx/products/reducers';
-import { FetchActions } from 'app/ngrx/products/actions';
+import { Component, OnInit, Input, ViewEncapsulation, OnChanges } from '@angular/core';
+import { IPhotos } from '@eps/models';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { SERVER_API_URL } from '@eps/constants';
+import { rootAnimations } from '@eps/animations';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'product-gallery',
   templateUrl: './product-gallery.component.html',
-  styleUrls: ['./product-gallery.component.scss']
+  styleUrls: ['./product-gallery.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  animations: rootAnimations,
 })
-export class ProductGalleryComponent implements OnInit, OnDestroy {
-  photos$: Observable<any>;
-  actionsSubscription: Subscription;
+export class ProductGalleryComponent implements OnInit, OnChanges {
+  @Input() stockItem: any;
 
-  @Input() product;
+  public resourceUrl = SERVER_API_URL + 'services/vscommerce/api/photos';
+  public extendUrl = SERVER_API_URL + 'services/vscommerce/api/photos-extend';
+  public blobUrl = SERVER_API_URL + 'services/cloudblob/api/images-extend/';
 
-  images:any[];
+  images: any[] = [];
+  selectedPhoto: IPhotos;
 
-  constructor(
-    private store: Store<fromProducts.State>,
-    public route: ActivatedRoute
-  ) {
-    this.actionsSubscription = route.params
-      .pipe(map(params => FetchActions.fetchProductPhoto({ id: params.id })))
-      .subscribe(action => store.dispatch(action));
+  options: OwlOptions = {
+    loop: true,
+    nav: false,
+    lazyLoad: true,
+    autoplay: false,
+    dots: false,
+    autoplayTimeout: 5000,
+    items: 5,
+    // responsive: {
+    //   0: {
+    //     items: 4,
+    //   },
+    //   576: {
+    //     items: 5,
+    //   },
+    //   768: {
+    //     items: 5,
+    //   },
+    //   992: {
+    //     items: 5,
+    //   },
+    // },
+  };
+
+  constructor(public route: ActivatedRoute) {}
+
+  ngOnInit(): void {}
+
+  ngOnChanges(): void {
+    this.selectedPhoto = this.stockItem.photoList[0];
   }
-
-  ngOnInit() {
-    this.photos$ = this.store.pipe(select(fromProducts.getFetchProductPhoto)) as Observable<any[]>;
-  }
-
-  ngAfterViewInit(){
-    console.log('this.prod',this.product)
-    if(this.product){
-      this.product.stockItemsDTOList.map(stockItem=>{
-        this.images.push({ source: stockItem.thumbnailUrl, alt: stockItem.name, title: stockItem.name });
-      });
-      console.log('this.images',this.images)
-    }
-  }
-  ngOnDestroy(): void {
-    this.actionsSubscription.unsubscribe();
-  }
-
 }

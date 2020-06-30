@@ -1,85 +1,50 @@
-<div class="container footer-container">
-    <div class="row">
-        <div class="col-sm-12 col-md-5 mb-30">
-            <!-- <h3 class="title m_title">
-                ZEZAWAR
-            </h3> -->
-
-            <div class="sbs">
-                <ul class="menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about-us.html">About us</a></li>
-                    <li><a href="our-team.html">Our team</a></li>
-                    <li><a href="faq.html">F.A.Q</a></li>
-                    <li><a href="styles-typography.html">Template styles</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="careers.html">Career</a></li>
-                    <li><a href="process.html">Jobs</a></li>
-                    <li><a href="contact-us.html">Contact</a></li>
-                </ul>
+<div class="footer-banner">
+    <!-- <img src="assets/footer/footer.svg"> -->
+    <div class="container footer-container footer-banner-cover newsletter">
+        <div nz-row [nzGutter]="0" class="newsletter-row">
+            <div nz-col class="gutter-row newsletter__title-wrapper" [nzXs]="{ span: 24 }" [nzLg]="{ span: 12 }">
+                <span class="newsletter__title">Join us to receive $15 OFF on your first purchase over $100</span>
             </div>
-        </div>
-
-        <div class="col-sm-12 col-md-4 mb-30">
-            <div class="newsletter-signup">
-                <h3 class="title m_title">
-                    NEWSLETTER SIGNUP
-                </h3>
-
-                <!-- <p>
-                    By subscribing to our mailing list you will always be update with the latest news from us.
-                </p> -->
-
-                <form target="_blank" novalidate>
-                    <input type="email" value="" name="EMAIL" class="nl-email form-control" id="mce-EMAIL"
-                        placeholder="your.address@email.com" required>
-                    <input type="submit" name="subscribe" class="nl-submit" id="mc-embedded-subscribe" value="JOIN US">
-                    <div style="position: absolute; left: -5000px;">
-                        <input type="text" name="b_xxxxxxxxxxxxxxxxxxxCUSTOMxxxxxxxxx" value="">
-                    </div>
-                </form>
-
-                <div id="notification_container"></div>
-
-                <p>
-                    We never spam!
-                </p>
-            </div>
-        </div>
-
-        <div class="col-sm-12 col-md-3 mb-30">
-            <h3 class="title m_title">
-                GET IN TOUCH
-            </h3>
-
-            <div class="contact-details">
-                <p>
-                    <strong>T (212) 555 55 00</strong><br>
-                    Email: <a href="#">sales@zezawar.com</a>
-                </p>
-
-                <p>
-                    Zezawar Company LTD<br>
-                    Street nr 100, 4536534, Chicago, US
-                </p>
-
-                <p>
-                    <a href="#" target="_blank">
-                        <i class="icon-map-marker white-icon"></i>
-                        Open in Google Maps
-                    </a>
-                </p>
+            <div nz-col class="gutter-row" [nzXs]="{ span: 24}" [nzLg]="{ span: 12 }">
+                <nz-input-group nzSearch nzSize="medinum" [nzAddOnAfter]="suffixButton">
+                    <input type="text" nz-input placeholder="your.address@email.com" />
+                </nz-input-group>
+                <ng-template #suffixButton>
+                    <button nz-button nzType="primary" nzSize="medinum" nzSearch>JOIN US</button>
+                </ng-template>
             </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-sm-12 col-md-6">
+</div>
+<div class="container footer-container">
+    <div nz-row [nzGutter]="0">
+        <div nz-col class="gutter-row" [nzLg]="4" *ngFor="let item of data">
+            <nz-list nzItemLayout="horizontal" [nzSplit]="false" [nzSize]="'small'">
+                <nz-list-header>{{item.title | uppercase}}</nz-list-header>
+                <nz-list-item *ngFor="let child of item.children">
+                    <nz-list-item-meta>
+                        <nz-list-item-meta-title>
+                            <a [href]="child.url?child.url:'javascript:void(0)'"
+                                [target]="child.url?'_blank':''">{{child.title | titlecase}}</a>
+                        </nz-list-item-meta-title>
+                    </nz-list-item-meta>
+                </nz-list-item>
+            </nz-list>
+        </div>
+    </div>
+    <div nz-row [nzGutter]="0">
+        <div nz-col class="gutter-row" [nzLg]="12">
+            <!-- <a class="twitter-timeline" data-theme="light"
+                href="https://twitter.com/zezawar9?ref_src=twsrc%5Etfw">Tweets by TwitterDev</a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <ngx-twitter-timeline [data]="{sourceType: 'url', url: 'https://twitter.com/zezawar9?ref_src=twsrc%5Etfw'}"
+                [opts]="twitterOptions">
+            </ngx-twitter-timeline> -->
             <div class="twitterFeed">
                 <div class="tweets" id="twitterFeed"><small>Please wait whilst our latest tweets load</small></div>
-                <a href="https://twitter.com/Hogash" class="twitter-follow-button" data-show-count="false">Follow
+                <a href="https://twitter.com/zezawar9?ref_src=twsrc%5Etfw" class="twitter-follow-button"
+                    data-show-count="false">Follow
                     @zezawar</a>
-                <!-- twitter script -->
                 <script>
                     ! function (d, s, id) {
                         var js, fjs = d.getElementsByTagName(s)[0];
@@ -91,11 +56,10 @@
                         }
                     }(document, "script", "twitter-wjs");
                 </script>
-                <!--/ twitter script -->
             </div>
         </div>
 
-        <div class="col-sm-12 col-md-6 mb-30">
+        <div nz-col class="gutter-row" [nzLg]="12">
             <div class="social-share social-share d-flex justify-content-end">
                 <div class="fb-like d-flex align-self-center" data-href="https://www.facebook.com/hogash.themeforest"
                     data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
@@ -132,22 +96,22 @@
             <div class="payments-links d-flex">
                 <ul class="ml-auto mt-20">
                     <li>
-                        <a href="#">
+                        <a href="javascript:void(0)">
                             <fa-icon [icon]="['fab','cc-paypal']"></fa-icon>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="javascript:void(0)">
                             <fa-icon [icon]="['fab','cc-visa']"></fa-icon>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="javascript:void(0)">
                             <fa-icon [icon]="['fab','cc-mastercard']"></fa-icon>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="javascript:void(0)">
                             <fa-icon [icon]="['fab','cc-amex']"></fa-icon>
                         </a>
                     </li>
@@ -155,31 +119,20 @@
             </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="bottom clearfix">
-                <ul class="social-icons sc--clean clearfix">
-                    <li class="title">GET SOCIAL</li>
-                    <li><a href="#" target="_self" title="Facebook">
-                            <fa-icon [icon]="['fab','facebook-f']"></fa-icon>
-                        </a></li>
-                    <li><a href="#" target="_self" title="Twitter">
-                            <fa-icon [icon]="['fab','twitter']"></fa-icon>
-                        </a></li>
-                    <li><a href="#" target="_self" title="Dribbble">
-                            <fa-icon [icon]="['fab','dribbble']"></fa-icon>
-                        </a></li>
-                    <li><a href="#" target="_self" title="Google Plus">
-                            <fa-icon [icon]="['fab','google-plus-g']"></fa-icon>
-                        </a></li>
-                </ul>
-
-                <div class="copyright">
-                    <a href="index.html"><img src="/assets/logo/zezawar.svg" alt="Zezawar Demo"></a>
-                    <p>©2019 zezawar.com all rights reserved.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    <nz-divider></nz-divider>
+    <nz-list nzItemLayout="horizontal" class="footer-copyright">
+        <nz-list-item>
+            <nz-list-item-meta>
+                <nz-list-item-meta-title>
+                    <span>&copy; 2020 zezawar.com</span>
+                </nz-list-item-meta-title>
+            </nz-list-item-meta>
+            Available Cities :
+            <ul nz-list-item-actions>
+                <nz-list-item-action><a href="javascript:void(0)">Yangon</a></nz-list-item-action>
+                <nz-list-item-action><a href="javascript:void(0)">Mandalay</a></nz-list-item-action>
+                <nz-list-item-action><a href="javascript:void(0)">Hinthata</a></nz-list-item-action>
+            </ul>
+        </nz-list-item>
+    </nz-list>
 </div>

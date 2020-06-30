@@ -1,4 +1,111 @@
-<div class="row">
+<nz-list nzBordered *ngIf="orders">
+  <nz-list-item>
+    <ng-container>
+      <nz-list-item-meta>
+        <nz-list-item-meta-title>
+          <span>Order #{{orders.customerPurchaseOrderNumber}}</span>
+          <div class="left-place-on">Placed on {{orders.orderDate | date :'medium' }}</div>
+        </nz-list-item-meta-title>
+
+        <!-- <nz-list-item-meta-description>
+        {{ item.description }}
+      </nz-list-item-meta-description> -->
+
+      </nz-list-item-meta>
+      <nz-list-item-extra>
+        <span>Total: </span>
+        <span>{{orders.totalDue | currency}}</span>
+      </nz-list-item-extra>
+    </ng-container>
+  </nz-list-item>
+</nz-list>
+
+<section *ngFor="let orderPackage of orders.orderDetails;let i = index;">
+  <vs-panel title="Package #{{(i+1).toString()}} ({{orderPackage.orderLinesList[0].supplierName | uppercase}})">
+    <div body>
+      <nz-table class="no-hover-row" #stockItemTable [nzData]="orderPackage.orderLinesList" [nzHideOnSinglePage]="true">
+        <tbody>
+          <tr *ngFor="let data of stockItemTable.data">
+            <td><img width="50" [src]="blobUrl + data.thumbnailUrl"></td>
+            <td>{{data.description}} x {{data.quantity}}</td>
+            <td>
+              <span>{{data.unitPrice | currency}}</span>
+            </td>
+            <td>
+              <a href [routerLink]="['/pages/dashboard/my-reviews']">Write Review</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </vs-panel>
+</section>
+
+<section>
+  <div nz-row [nzGutter]="16">
+    <div nz-col class="gutter-row" [nzXs]="24" [nzLg]="12">
+      <div class="inner-box">
+        <nz-card nzTitle="Shipping Address" [nzSize]="'small'" *ngIf="shipToAddress">
+          <p>{{shipToAddress.contactPerson}}</p>
+          <p>{{shipToAddress.addressLine1}}, {{shipToAddress.addressLine2}}</p>
+          <p>{{shipToAddress.postalCode}}, {{shipToAddress.city}}</p>
+        </nz-card>
+      </div>
+    </div>
+    <div nz-col class="gutter-row" [nzXs]="24" [nzLg]="12">
+      <div class="inner-box">
+        <nz-card nzTitle="Billing Address" [nzSize]="'small'" *ngIf="billToAddress">
+          <p>{{billToAddress.contactPerson}}</p>
+          <p>{{billToAddress.addressLine1}}, {{billToAddress.addressLine2}}</p>
+          <p>{{billToAddress.postalCode}}, {{billToAddress.city}}</p>
+        </nz-card>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <vs-panel [title]="'Total Summary'">
+    <div body class="content-wrapper">
+      <nz-list nzBordered>
+        <nz-list-item>
+          <ng-container>
+            <nz-list-item-meta>
+              <nz-list-item-meta-title>
+                <span>Sub Total</span>
+              </nz-list-item-meta-title>
+
+              <nz-list-item-meta-description>
+              </nz-list-item-meta-description>
+            </nz-list-item-meta>
+            <nz-list-item-extra>
+              <span></span>
+              <span>{{orders.totalDue | currency}}</span>
+            </nz-list-item-extra>
+          </ng-container>
+        </nz-list-item>
+        <nz-list-item>
+          <ng-container>
+            <nz-list-item-meta>
+              <nz-list-item-meta-title>
+                <span>Shipping Fee</span>
+              </nz-list-item-meta-title>
+
+              <nz-list-item-meta-description>
+              </nz-list-item-meta-description>
+            </nz-list-item-meta>
+            <nz-list-item-extra>
+              <span></span>
+              <span>{{orders.totalShippingFee | currency}}</span>
+            </nz-list-item-extra>
+          </ng-container>
+        </nz-list-item>
+      </nz-list>
+    </div>
+  </vs-panel>
+</section>
+
+<!-- <div class="row">
   <div class="col-md-12">
     <p-card class="order-details">
       <div class="top-bar-wrapper">
@@ -114,9 +221,6 @@
       </table>
     </p-card>
   </div>
-  <!-- <div class="col-md-6">
-    
-  </div> -->
   <div class="col-md-6">
     <p-card class="order-details total-summary" header="Total Summary">
       <table>
@@ -143,4 +247,4 @@
       </p-footer>
     </p-card>
   </div>
-</div>
+</div> -->

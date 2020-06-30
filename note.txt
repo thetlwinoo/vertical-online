@@ -1,0 +1,1 @@
+angular.json --> "serve">"options"> "proxyConfig": "src/proxy.conf.js"

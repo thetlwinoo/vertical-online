@@ -7,8 +7,7 @@
         <ng-container *ngTemplateOutlet="header"></ng-container>
     </ng-container>
 
-    <div class="container">
-        <!-- <p-breadcrumb [model]="crumbs$ | async" [home]="home" *ngIf="(crumbs$ | async)?.length"></p-breadcrumb> -->
+    <!-- <div class="container">
         <nav aria-label="breadcrumb" *ngIf="(crumbs$ | async)?.length">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
@@ -22,7 +21,7 @@
                 </li>
             </ol>
         </nav>
-    </div>
+    </div> -->
 
     <content></content>
 
@@ -43,7 +42,7 @@
 </ng-template>
 
 <ng-template #footer>
-    <footer id="footer" data-footer-style="1" class="bg-dark"></footer>
+    <footer id="footer" data-footer-style="1"></footer>
 </ng-template>
 
 <ng-template #footerFixed>

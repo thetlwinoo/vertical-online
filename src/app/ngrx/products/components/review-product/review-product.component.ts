@@ -1,145 +1,95 @@
 import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { Subscription } from "rxjs/Subscription";
-import { IProducts, ReviewLines } from '@eps/models';
+import { Observable, Subject } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
+import { IProducts, ReviewLines, IReviewLines, IOrderLines, IPeople } from '@eps/models';
 import * as fromProducts from 'app/ngrx/products/reducers';
+import * as fromAuth from 'app/ngrx/auth/reducers';
 import { FetchActions } from 'app/ngrx/products/actions';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { SERVER_API_URL } from '@eps/constants';
+import { map, takeUntil } from 'rxjs/operators';
+import { formatDistance } from 'date-fns';
 
 @Component({
   selector: 'review-product',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './review-product.component.html',
-  styleUrls: ['./review-product.component.scss']
+  styleUrls: ['./review-product.component.scss'],
 })
 export class ReviewProductComponent implements OnInit, OnDestroy {
-  @Input() product: IProducts;
-  reviewLines$: Observable<ReviewLines[]>;
-  private subscriptions: Subscription[] = [];
+  @Input() productName: string;
+  @Input() ratings: any;
+  @Input() reviews: any[];
 
-  average: number = 5;
+  people$: Observable<IPeople>;
+  people: IPeople;
+
+  public blobUrl = SERVER_API_URL + 'services/cloudblob/api/images-extend/';
+
+  average = 5;
   ratingObject: any = {};
 
-  data: any[] = [];
+  stars = [5, 4, 3, 2, 1];
 
-  constructor(
-    private store: Store<fromProducts.State>,
-    public route: ActivatedRoute
-  ) {
-    const actionsSubscription = route.params
-      .pipe(map(params => FetchActions.fetchReviewLines({ id: params.id })))
-      .subscribe(action => store.dispatch(action));
-    this.subscriptions.push(actionsSubscription);
+  private unsubscribe$: Subject<any> = new Subject();
+
+  constructor(private store: Store<fromProducts.State>, public route: ActivatedRoute, private authStore: Store<fromAuth.State>) {
+    this.people$ = this.authStore.pipe(select(fromAuth.getPeopleFetched));
   }
 
-  ngOnInit() {
-    this.reviewLines$ = this.store.pipe(select(fromProducts.getFetchReviewLines)) as Observable<ReviewLines[]>;
-
-    this.data = [
-      {
-        star: 5,
-        progress: 0,
-        percent: 0
-      },
-      {
-        star: 4,
-        progress: 0,
-        percent: 0
-      },
-      {
-        star: 3,
-        progress: 0,
-        percent: 0
-      },
-      {
-        star: 2,
-        progress: 0,
-        percent: 0
-      },
-      {
-        star: 1,
-        progress: 0,
-        percent: 0
-      }
-    ];
-
-    const reviewLinesSubscription = this.reviewLines$.subscribe(res => {
-
-      let allRating = 0, count = 0;
-
-      this.ratingObject = {
-        fiveStars: 0,
-        fourStars: 0,
-        threeStars: 0,
-        twoStars: 0,
-        oneStar: 0,
-        overAllRating: 0,
-        ratingCount: 0,
-      };
-
-      res.map(data => {
-        allRating += data.productRating;
-        count += 1;
-        switch (data.productRating) {
-          case 5:
-            this.ratingObject.fiveStars += 1; break;
-          case 4:
-            this.ratingObject.fourStars += 1; break;
-          case 3:
-            this.ratingObject.threeStars += 1; break;
-          case 2:
-            this.ratingObject.twoStars += 1; break;
-          case 1:
-            this.ratingObject.oneStar += 1; break;
-          default: break;
-        }
-      });
-
-      this.ratingObject.overAllRating = Math.ceil(allRating / count);
-      this.ratingObject.ratingCount = count;
-
-      this.data.map(i => {
-        switch (i.star) {
-          case 5:
-            i.percent = this.ratingObject.fiveStars | 0;
-            i.progress = i.percent > 0 ? 100 : 0; break;
-          case 4:
-            i.percent = this.ratingObject.fourStars | 0;
-            i.progress = i.percent > 0 ? 100 : 0; break;
-          case 3:
-            i.percent = this.ratingObject.threeStars | 0;
-            i.progress = i.percent > 0 ? 100 : 0; break;
-          case 2:
-            i.percent = this.ratingObject.twoStars | 0;
-            i.progress = i.percent > 0 ? 100 : 0; break;
-          case 1:
-            i.percent = this.ratingObject.oneStar | 0;
-            i.progress = i.percent > 0 ? 100 : 0; break;
-          default:
-            i.percent = 0;
-            i.progress = 0; break;
-        }
-      })
+  ngOnInit(): void {
+    this.people$.pipe(takeUntil(this.unsubscribe$)).subscribe(item => {
+      this.people = item;
     });
-    this.subscriptions.push(reviewLinesSubscription);
   }
 
-  private getDiffDays(date: Date) {
+  getPercentage(val): number {
+    switch (val) {
+      case 5:
+        return this.ratings.fiveStarsPercentage;
+        break;
+      case 4:
+        return this.ratings.fourStarsPercentage;
+        break;
+      case 3:
+        return this.ratings.threeStarsPercentage;
+        break;
+      case 2:
+        return this.ratings.twoStarsPercentage;
+        break;
+      case 1:
+        return this.ratings.oneStarsPercentage;
+        break;
+    }
+  }
 
-    var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-    var currentDate = new Date();
-    var reviewedDate = new Date(date);
-
-    var diffDays = Math.round(Math.abs((currentDate.getTime() - reviewedDate.getTime()) / (oneDay)));
-
-    return diffDays;
+  getRate(val): number {
+    switch (val) {
+      case 5:
+        return this.ratings.fiveStars;
+        break;
+      case 4:
+        return this.ratings.fourStars;
+        break;
+      case 3:
+        return this.ratings.threeStars;
+        break;
+      case 2:
+        return this.ratings.twoStars;
+        break;
+      case 1:
+        return this.ratings.oneStars;
+        break;
+    }
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(el => {
-      if (el) el.unsubscribe();
-    });
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
+  getDistanceDate(date): string {
+    return formatDistance(new Date(), new Date(date));
   }
 }

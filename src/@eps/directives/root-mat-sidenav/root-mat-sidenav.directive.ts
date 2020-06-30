@@ -1,5 +1,5 @@
 import { Directive, Input, OnInit, HostListener, OnDestroy, HostBinding } from '@angular/core';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav } from '@angular/material/sidenav';
 import { MediaObserver } from '@angular/flex-layout';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -10,8 +10,7 @@ import { RootMatSidenavHelperService } from '@eps/directives/root-mat-sidenav/ro
 @Directive({
     selector: '[rootMatSidenavHelper]'
 })
-export class RootMatSidenavHelperDirective implements OnInit, OnDestroy
-{
+export class RootMatSidenavHelperDirective implements OnInit, OnDestroy {
     @HostBinding('class.mat-is-locked-open')
     isLockedOpen: boolean;
 
@@ -37,8 +36,7 @@ export class RootMatSidenavHelperDirective implements OnInit, OnDestroy
         private _rootMatSidenavHelperService: RootMatSidenavHelperService,
         private _matSidenav: MatSidenav,
         private _mediaObserver: MediaObserver
-    )
-    {
+    ) {
         // Set the defaults
         this.isLockedOpen = true;
 
@@ -53,19 +51,16 @@ export class RootMatSidenavHelperDirective implements OnInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         // Register the sidenav to the service
         this._rootMatSidenavHelperService.setSidenav(this.rootMatSidenavHelper, this._matSidenav);
 
-        if ( this._mediaObserver.isActive(this.matIsLockedOpen) )
-        {
+        if (this._mediaObserver.isActive(this.matIsLockedOpen)) {
             this.isLockedOpen = true;
             this._matSidenav.mode = 'side';
             this._matSidenav.toggle(true);
         }
-        else
-        {
+        else {
             this.isLockedOpen = false;
             this._matSidenav.mode = 'over';
             this._matSidenav.toggle(false);
@@ -74,14 +69,12 @@ export class RootMatSidenavHelperDirective implements OnInit, OnDestroy
         this._rootMatchMediaService.onMediaChange
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(() => {
-                if ( this._mediaObserver.isActive(this.matIsLockedOpen) )
-                {
+                if (this._mediaObserver.isActive(this.matIsLockedOpen)) {
                     this.isLockedOpen = true;
                     this._matSidenav.mode = 'side';
                     this._matSidenav.toggle(true);
                 }
-                else
-                {
+                else {
                     this.isLockedOpen = false;
                     this._matSidenav.mode = 'over';
                     this._matSidenav.toggle(false);
@@ -92,8 +85,7 @@ export class RootMatSidenavHelperDirective implements OnInit, OnDestroy
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
@@ -103,8 +95,7 @@ export class RootMatSidenavHelperDirective implements OnInit, OnDestroy
 @Directive({
     selector: '[rootMatSidenavToggler]'
 })
-export class RootMatSidenavTogglerDirective
-{
+export class RootMatSidenavTogglerDirective {
     @Input()
     rootMatSidenavToggler: string;
 
@@ -114,8 +105,7 @@ export class RootMatSidenavTogglerDirective
      * @param {RootMatSidenavHelperService} _rootMatSidenavHelperService
      */
     constructor(
-        private _rootMatSidenavHelperService: RootMatSidenavHelperService)
-    {
+        private _rootMatSidenavHelperService: RootMatSidenavHelperService) {
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -126,8 +116,7 @@ export class RootMatSidenavTogglerDirective
      * On click
      */
     @HostListener('click')
-    onClick(): void
-    {
+    onClick(): void {
         this._rootMatSidenavHelperService.getSidenav(this.rootMatSidenavToggler).toggle();
     }
 }

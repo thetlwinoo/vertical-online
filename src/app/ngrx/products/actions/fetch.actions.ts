@@ -1,94 +1,70 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IProducts, IReviewLines, IProductPhoto, IProductCategory, IProductSubCategory, IStockItems } from '@eps/models';
+import { IProducts, IProductCategory, IStockItems, IPhotos, IOrderLines } from '@eps/models';
+import { ProductDocument } from '@eps/models/product-document.model';
 
-//newly added
+// newly added
 export const fetchNewlyAdded = createAction('[Products/API] Fetch Newly Added');
 
-export const fetchNewlyAddedSuccess = createAction(
-    '[Products/API] Fetch Newly Added Success',
-    props<{ newlyAdded: IProducts[] }>()
-);
+export const fetchNewlyAddedSuccess = createAction('[Products/API] Fetch Newly Added Success', props<{ newlyAdded: IProducts[] }>());
 
-//most selling
+// most selling
 export const fetchMostSelling = createAction('[Products/API] Fetch Most Selling');
 
-export const fetchMostSellingSuccess = createAction(
-    '[Products/API] Fetch Most Selling Success',
-    props<{ mostSelling: IProducts[] }>()
-);
+export const fetchMostSellingSuccess = createAction('[Products/API] Fetch Most Selling Success', props<{ mostSelling: IProducts[] }>());
 
-//interested
+// interested
 export const fetchInterested = createAction('[Products/API] Fetch Interested');
 
-export const fetchInterestedSuccess = createAction(
-    '[Products/API] Fetch Interested Success',
-    props<{ interested: IProducts[] }>()
-);
+export const fetchInterestedSuccess = createAction('[Products/API] Fetch Interested Success', props<{ interested: IProducts[] }>());
 
-//daily discover
+// daily discover
 export const fetchDailyDiscover = createAction('[Products/API] Fetch Daily Discover');
 
 export const fetchDailyDiscoverSuccess = createAction(
-    '[Products/API] Fetch Daily Discover Success',
-    props<{ dailyDiscover: IProducts[] }>()
+  '[Products/API] Fetch Daily Discover Success',
+  props<{ dailyDiscover: IProducts[] }>()
 );
 
-export const fetchRelated = createAction(
-    '[Products/API] Fetch Related Product',
-    props<{ id: number }>()
+export const fetchRelated = createAction('[Products/API] Fetch Related Product', props<{ id: number }>());
+
+export const fetchReviewLines = createAction('[Products/API] Fetch Review Lines', props<{ id: number }>());
+
+export const fetchRelatedSuccess = createAction('[Products/API] Fetch Related Success', props<{ products: IProducts[] }>());
+
+export const fetchStockItems = createAction('[Products/API] Fetch Stock Items', props<{ productId: number }>());
+
+export const fetchStockItemsSuccess = createAction('[Products/API] Fetch Stock Items Success', props<{ stockItems: IStockItems[] }>());
+
+export const fetchReviewsDetails = createAction('[Products/API] Fetch Review Details', props<{ productId: number }>());
+
+export const fetchReviewsDetailsSuccess = createAction(
+  '[Products/API] Fetch Review Details Success',
+  props<{ reviewDetails: IOrderLines[] }>()
 );
 
-export const fetchReviewLines = createAction(
-    '[Products/API] Fetch Review Lines',
-    props<{ id: number }>()
+export const fetchProductDocument = createAction('[Products/API] Fetch Product Document', props<{ productId: number }>());
+
+export const fetchProductDocumentSuccess = createAction(
+  '[Products/API] Fetch Product Document Success',
+  props<{ productDocument: ProductDocument }>()
 );
 
-export const fetchRelatedSuccess = createAction(
-    '[Products/API] Fetch Related Success',
-    props<{ related: IProducts[] }>()
-);
+export const fetchPhotos = createAction('[Products/API] Fetch Photos', props<{ stockItemId: number }>());
 
-export const fetchReviewLinesSuccess = createAction(
-    '[Products/API] Fetch Review Lines Success',
-    props<{ reviewLines: IReviewLines[] }>()
-);
+export const fetchPhotosSuccess = createAction('[Products/API] Fetch Photos Success', props<{ photos: IPhotos[] }>());
 
-export const fetchProductPhoto = createAction(
-    '[Products/API] Fetch Product Photo',
-    props<{ id: number }>()
-);
-
-export const fetchStockItems = createAction(
-    '[Products/API] Fetch Stock Items',
-    props<{ id: number }>()
-);
-
-export const fetchStockItemsSuccess = createAction(
-    '[Products/API] Fetch Stock Items Success',
-    props<{ stockItems: IStockItems[] }>()
-);
-
-export const fetchProductPhotoSuccess = createAction(
-    '[Products/API] Fetch Product Photo Success',
-    props<{ photos: IProductPhoto[] }>()
-);
+// export const fetchProductPhotoSuccess = createAction('[Products/API] Fetch Product Photo Success', props<{ photos: IProductPhoto[] }>());
 
 export const fetchCategories = createAction('[Products/API] Fetch Categories');
 
-export const fetchCategoriesSuccess = createAction(
-    '[Products/API] Fetch Categories Success',
-    props<{ categories: IProductCategory[] }>()
+export const fetchCategoriesSuccess = createAction('[Products/API] Fetch Categories Success', props<{ categories: IProductCategory[] }>());
+
+export const fetchCategoriesTree = createAction('[Products/API] Fetch Categories Tree');
+
+export const fetchCategoriesTreeSuccess = createAction(
+  '[Products/API] Fetch Categories Tree Success',
+  props<{ categoriesTree: IProductCategory[] }>()
 );
 
-export const fetchSubCategories = createAction('[Products/API] Fetch Sub Categories');
-
-export const fetchSubCategoriesSuccess = createAction(
-    '[Products/API] Fetch Sub Categories Success',
-    props<{ subCategories: IProductSubCategory[] }>()
-);
-
-export const fetchFailure = createAction(
-    '[Products/API] Fetch Failure',
-    props<{ errorMsg: string }>()
-);
+export const fetchFailure = createAction('[Products/API] Fetch Failure', props<{ errorMsg: string }>());

@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Products, IProducts } from "@eps/models";
+import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Products, IProducts } from '@eps/models';
 import { deal } from '@eps/config/owl-carousel';
 import { rootAnimations } from '@eps/animations';
 
@@ -7,6 +7,7 @@ import { rootAnimations } from '@eps/animations';
   selector: 'newly-added',
   templateUrl: './newly-added.component.html',
   styleUrls: ['./newly-added.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   animations: rootAnimations,
 })
 export class NewlyAddedComponent {
@@ -15,6 +16,7 @@ export class NewlyAddedComponent {
   @Input() error;
   carousel: any;
   ghosts = [];
+  title = 'newly added';
 
   constructor() {
     this.carousel = deal;

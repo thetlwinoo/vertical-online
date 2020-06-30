@@ -1,0 +1,124 @@
+@import '~ng-zorro-antd/ng-zorro-antd.less';
+@import '@eps/icon-fonts/side-cag-sets/iconfont.css';
+// @import '~ng-zorro-antd/style/entry.less';
+// @import '~ng-zorro-antd/list/style/entry.less';
+.category-card {
+  .ant-card-body {
+    padding: 0 !important;
+  }
+}
+
+.order-success-collapse {
+  .ant-collapse-header {
+    font-size: 1.2em;
+    font-weight: 500;
+    color: #43484d;
+  }
+}
+
+.shipping-card {
+  .ant-card-body {
+    padding: 0.5em !important;
+  }
+
+  .ant-list-item {
+    padding: 0 !important;
+  }
+}
+
+.category-list {
+  overflow: auto;
+  .ant-menu-vertical > .ant-menu-submenu {
+    padding-bottom: 0 !important;
+
+    &.ant-menu-submenu-vertical {
+      .ant-menu-submenu-arrow {
+        display: none;
+      }
+    }
+
+    &.ant-menu-submenu-active {
+      color: #ff4438;
+      .ant-menu-submenu-arrow {
+        color: #ff4438;
+        display: block !important;
+      }
+    }
+
+    > .ant-menu-submenu-title {
+      height: 25px !important;
+      line-height: 25px !important;
+      padding-left: 0px !important;
+
+      &:hover {
+        color: #ff4438;
+        background-color: #fafafa;
+      }
+    }
+  }
+
+  .ant-menu-submenu-vertical > .ant-menu-submenu-title {
+    .ant-menu-submenu-arrow::before,
+    .ant-menu-submenu-arrow::after {
+      background-image: linear-gradient(to right, #ff4438, #ff4438) !important;
+    }
+  }
+}
+
+.cdk-overlay-container {
+  .ant-menu-item {
+    height: 25px !important;
+    line-height: 25px !important;
+  }
+}
+
+ul.ant-list-item-action {
+  li > a {
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.ant-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ant-pagination-item-link {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+ul.side-nav-list {
+  li.ant-list-item {
+    padding: 2px 16px !important;
+    border-bottom: none !important;
+    > i {
+      display: none;
+    }
+
+    &:hover,
+    &.active {
+      color: #ff4438;
+      background-color: #fafafa;
+      cursor: pointer;
+
+      > i {
+        display: block;
+      }
+    }
+  }
+}
+
+nz-table.no-hover-row {
+  .ant-table-tbody > tr.ant-table-row:hover > td {
+    background: none !important;
+  }
+}
+
+.ant-form-item-has-feedback .ant-input {
+  padding-right: 0 !important;
+}

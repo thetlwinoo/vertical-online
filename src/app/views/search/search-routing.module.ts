@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SearchComponent } from "./search.component";
+import { SearchComponent } from './search.component';
 import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
 
 const routes: Routes = [
@@ -18,17 +18,17 @@ const routes: Routes = [
     path: ':keyword',
     component: SearchComponent,
     resolve: {
-      pagingParams: JhiResolvePagingParams
+      pagingParams: JhiResolvePagingParams,
     },
     data: {
-      crumbs: []
+      crumbs: [],
     },
-    canActivate: []
-  }
+    canActivate: [],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class SearchRoutingModule { }
+export class SearchRoutingModule {}

@@ -1,8 +1,22 @@
 <div class="page-layout blank">
+    <div class="container">
+        <nz-breadcrumb>
+            <nz-breadcrumb-item>
+                <a href [routerLink]="'/'">Home</a>
+            </nz-breadcrumb-item>
+            <nz-breadcrumb-item>
+                Shopping Cart
+            </nz-breadcrumb-item>
+        </nz-breadcrumb>
+    </div>
+
     <div class="mb-4">
         <cart-details [shoppingCart]="cart$ | async" [itemCount]="itemCount$ | async"
-            [totalQuantity]="totalQuantity$ | async" [cartPrice]="cartPrice$ | async" (add)="addToCart($event)"
-            (reduce)="reduceFromCart($event)" (remove)="removeFromCart($event)" (apply)="applyCode($event)">
+            [totalQuantity]="totalQuantity$ | async" [cartPrice]="cartPrice$ | async" [loading]="loading$ | async"
+            (add)="addToCart($event)" (reduce)="reduceFromCart($event)" (remove)="removeFromCart($event)"
+            (removeList)="removeListFromCart($event)" (changed)="changedAddToOrder($event)"
+            (changedAll)="changedOrderAll($event)" (changedPackage)="changedPackageAll($event)"
+            (apply)="applyCode($event)">
         </cart-details>
         <interested-product></interested-product>
     </div>

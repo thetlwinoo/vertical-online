@@ -1,37 +1,41 @@
-import { OnInit, Component, ViewEncapsulation, Input, OnDestroy, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { OnInit, Component, ViewEncapsulation, Input, OnDestroy, Output, EventEmitter, OnChanges } from '@angular/core';
+import { SERVER_API_URL } from '@eps/constants';
+
+interface StockItemObj {
+  stockItemId: number;
+  unitPrice: number;
+  recommendedRetailPrice: number;
+  thumbnail: string;
+}
 
 @Component({
   selector: 'product-card',
   templateUrl: './product-card.component.html',
-  styleUrls: ['./product-card.component.scss']
+  styleUrls: ['./product-card.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
-export class ProductCardComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ProductCardComponent implements OnInit, OnDestroy, OnChanges {
   @Input() product;
   @Output() quickview = new EventEmitter<any>();
 
-  defaultImage: String;
-  defaultUnitPrice: number;
-  defaultRecommendedRetailPrice: number;
+  public resourceUrl = SERVER_API_URL + 'services/vscommerce/api/photos';
+  public extendUrl = SERVER_API_URL + 'services/vscommerce/api/photos-extend';
+  public blobUrl = SERVER_API_URL + 'services/cloudblob/api/images-extend/';
+
+  selectedItem: StockItemObj;
 
   title;
-  rating: number = 4;
-  lowestPrice: boolean = false;
-  constructor() { }
+  rating = 4;
+  lowestPrice = false;
+  constructor() {}
 
-  ngOnInit() {
+  ngOnInit(): void {}
+
+  ngOnChanges(): void {
+    if (this.product && this.product.productDetails.length > 0) {
+      this.selectedItem = this.product.productDetails[0];
+    }
   }
 
-  ngAfterViewInit() {    
-    this.defaultImage = this.product.stockItemsDTOList[0].thumbnailUrl;
-    this.defaultUnitPrice = this.product.stockItemsDTOList[0].unitPrice;
-    this.defaultRecommendedRetailPrice = this.product.stockItemsDTOList[0].recommendedRetailPrice;
-  }
-
-  ngOnDestroy() {}
-
-  changeStockItem(stockItem) {
-    this.defaultImage = stockItem.thumbnailUrl;
-    this.defaultUnitPrice = stockItem.unitPrice;
-    this.defaultRecommendedRetailPrice = stockItem.recommendedRetailPrice;
-  }
+  ngOnDestroy(): void {}
 }

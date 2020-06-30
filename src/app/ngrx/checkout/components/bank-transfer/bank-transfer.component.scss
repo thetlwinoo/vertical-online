@@ -1,0 +1,56 @@
+bank-transfer {
+  nz-form-item {
+    margin: 0 !important;
+  }
+
+  .account-no {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .payment-wrapper {
+    background-color: #ffffff;
+    padding: 16px;
+
+    .upload-title {
+      display: flex;
+      align-items: center;
+
+      a,
+      h6 {
+        margin: 0 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    .upload-receipt {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      nz-upload {
+        width: auto !important;
+      }
+    }
+
+    .upload-receipt-description {
+      display: block;
+      text-align: center;
+    }
+
+    .upload-info-list {
+      input {
+        width: auto !important;
+      }
+
+      .select-bank > a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}

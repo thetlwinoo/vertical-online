@@ -4,16 +4,17 @@ import { DashboardComponent } from './dashboard.component';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { BreadcrumbGuard } from '@eps/services';
 
 @Injectable({ providedIn: 'root' })
-export class MyDashboardResolve implements Resolve<String> {
-  constructor() { }
+export class MyDashboardResolve implements Resolve<string> {
+  constructor() {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): String {
-    console.log('Resolve', route.data.pageTitle)
-    if (route.data.pageTitle) return route.data.pageTitle;
-    else return "";
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): string {
+    if (route.data.pageTitle) {
+      return route.data.pageTitle;
+    } else {
+      return '';
+    }
   }
 }
 
@@ -25,140 +26,163 @@ const routes = [
     //   title: MyDashboardResolve
     // },
     data: {
-      crumbs: [{
-        label: 'Dashboard'
-      }],
+      crumbs: [
+        {
+          label: 'Dashboard',
+        },
+      ],
       authorities: ['ROLE_USER'],
-      pageTitle: 'Dashboard'
+      pageTitle: 'Dashboard',
     },
-    canActivate: [BreadcrumbGuard],
+    canActivate: [],
     children: [
       {
         path: 'my-orders',
         loadChildren: () => import('./my-orders/my-orders.module').then(m => m.MyOrdersModule),
         resolve: {
-          title: MyDashboardResolve
+          title: MyDashboardResolve,
         },
         data: {
-          crumbs: [{
-            label: 'Dashboard'
-          }, {
-            label: 'My Orders'
-          }],
+          crumbs: [
+            {
+              label: 'Dashboard',
+            },
+            {
+              label: 'My Orders',
+            },
+          ],
           authorities: ['ROLE_USER'],
-          pageTitle: 'My Orders'
+          pageTitle: 'My Orders',
         },
-        canActivate: [BreadcrumbGuard]
+        canActivate: [],
       },
       {
         path: 'my-reviews',
         loadChildren: () => import('./my-reviews/my-reviews.module').then(m => m.MyReviewsModule),
         resolve: {
-          title: MyDashboardResolve
+          title: MyDashboardResolve,
         },
         data: {
-          crumbs: [{
-            label: 'Dashboard'
-          }, {
-            label: 'My Reviews'
-          }],
+          crumbs: [
+            {
+              label: 'Dashboard',
+            },
+            {
+              label: 'My Reviews',
+            },
+          ],
           authorities: ['ROLE_USER'],
-          pageTitle: 'My Reviews'
+          pageTitle: 'My Reviews',
         },
-        canActivate: [BreadcrumbGuard]
+        canActivate: [],
       },
       {
         path: 'my-profile',
         loadChildren: () => import('./my-profile/my-profile.module').then(m => m.MyProfileModule),
         resolve: {
-          title: MyDashboardResolve
+          title: MyDashboardResolve,
         },
         data: {
-          crumbs: [{
-            label: 'Dashboard'
-          }, {
-            label: 'My Profile'
-          }],
+          crumbs: [
+            {
+              label: 'Dashboard',
+            },
+            {
+              label: 'My Profile',
+            },
+          ],
           authorities: ['ROLE_USER'],
-          pageTitle: 'My Profile'
+          pageTitle: 'My Profile',
         },
-        canActivate: [BreadcrumbGuard]
+        canActivate: [],
       },
       {
         path: 'my-wishlist',
-        loadChildren: () => import('./my-wishlist/my-wishlist.module').then(m => m.MyWishlistModule),        
+        loadChildren: () => import('./my-wishlist/my-wishlist.module').then(m => m.MyWishlistModule),
         resolve: {
-          title: MyDashboardResolve
+          title: MyDashboardResolve,
         },
         data: {
-          crumbs: [{
-            label: 'Dashboard'
-          }, {
-            label: 'My Wishlist'
-          }],
+          crumbs: [
+            {
+              label: 'Dashboard',
+            },
+            {
+              label: 'My Wishlist',
+            },
+          ],
           authorities: ['ROLE_USER'],
-          pageTitle: 'My Wishlist'
+          pageTitle: 'My Wishlist',
         },
-        canActivate: [BreadcrumbGuard]
+        canActivate: [],
       },
       {
         path: 'my-compare',
-        loadChildren: () => import('./my-compare/my-compare.module').then(m => m.MyCompareModule),        
+        loadChildren: () => import('./my-compare/my-compare.module').then(m => m.MyCompareModule),
         resolve: {
-          title: MyDashboardResolve
+          title: MyDashboardResolve,
         },
         data: {
-          crumbs: [{
-            label: 'Dashboard'
-          }, {
-            label: 'My Compoare'
-          }],
+          crumbs: [
+            {
+              label: 'Dashboard',
+            },
+            {
+              label: 'My Compoare',
+            },
+          ],
           authorities: ['ROLE_USER'],
-          pageTitle: 'My Compare'
+          pageTitle: 'My Compare',
         },
-        canActivate: [BreadcrumbGuard]
+        canActivate: [],
       },
       {
         path: 'address-book',
-        loadChildren: () => import('./my-addresses/my-addresses.module').then(m => m.MyAddressesModule),        
+        loadChildren: () => import('./my-addresses/my-addresses.module').then(m => m.MyAddressesModule),
         resolve: {
-          title: MyDashboardResolve
+          title: MyDashboardResolve,
         },
         data: {
-          crumbs: [{
-            label: 'Dashboard'
-          }, {
-            label: 'Address Book'
-          }],
+          crumbs: [
+            {
+              label: 'Dashboard',
+            },
+            {
+              label: 'Address Book',
+            },
+          ],
           authorities: ['ROLE_USER'],
-          pageTitle: 'Address Book'
+          pageTitle: 'Address Book',
         },
-        canActivate: [BreadcrumbGuard]
+        canActivate: [],
       },
       {
         path: 'my-payment-options',
-        loadChildren: () => import('./my-payment-options/my-payment-options.module').then(m => m.MyPaymentOptionsModule),        
+        loadChildren: () => import('./my-payment-options/my-payment-options.module').then(m => m.MyPaymentOptionsModule),
         resolve: {
-          title: MyDashboardResolve
+          title: MyDashboardResolve,
         },
         data: {
-          crumbs: [{
-            label: 'Dashboard'
-          }, {
-            label: 'Payment Options'
-          }],
+          crumbs: [
+            {
+              label: 'Dashboard',
+            },
+            {
+              label: 'Payment Options',
+            },
+          ],
           authorities: ['ROLE_USER'],
-          pageTitle: 'My Payment Options'
+          pageTitle: 'My Payment Options',
         },
-        canActivate: [BreadcrumbGuard]
-      }
-    ]
-  }
+        canActivate: [],
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: []
+  providers: [],
 })
-export class DashboardRoutingModule { }
+export class DashboardRoutingModule {}

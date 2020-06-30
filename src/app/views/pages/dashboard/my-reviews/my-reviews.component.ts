@@ -1,110 +1,108 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { Router, NavigationExtras } from '@angular/router';
-import { IProducts, IOrders, Orders, OrderLines } from '@eps/models';
-import { ReviewsService } from '@eps/services';
-import { AccountService } from '@eps/services/core/auth/account.service';
+import { IProducts, IOrders } from '@eps/models';
+import { ReviewsService, OrderService, OrderLinesService } from '@eps/services';
+import { AccountService } from '@eps/core';
+import { SERVER_API_URL } from '@eps/constants';
 import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+// import * as _ from 'lodash';
+import { select, Store } from '@ngrx/store';
+import { OrderActions } from 'app/ngrx/checkout/actions';
+import * as fromCheckout from 'app/ngrx/checkout/reducers';
 
 @Component({
   selector: 'app-my-reviews',
   templateUrl: './my-reviews.component.html',
-  styleUrls: ['./my-reviews.component.scss']
+  styleUrls: ['./my-reviews.component.scss'],
 })
-export class MyReviewsComponent implements OnInit {
-  navReviews: any[];
-  activeNav: string;
-
-  reviewedInd: boolean = false;
-  // orderedProducts: any[];
+export class MyReviewsComponent implements OnInit, OnDestroy {
+  orders$: Observable<IOrders[]>;
+  orderLoading$: Observable<boolean>;
   orders: IOrders[];
+
   currentAccount: any;
   eventSubscriber: Subscription;
+  completedReview = false;
+  public blobUrl = SERVER_API_URL + 'services/cloudblob/api/images-extend/';
+  private unsubscribe$: Subject<any> = new Subject();
 
   constructor(
     protected reviewsService: ReviewsService,
+    protected ordersService: OrderService,
+    protected orderLinesService: OrderLinesService,
     protected jhiAlertService: JhiAlertService,
     protected dataUtils: JhiDataUtils,
     protected eventManager: JhiEventManager,
     protected accountService: AccountService,
+    private store: Store<fromCheckout.State>,
     private router: Router
-  ) { }
-
-  loadAll() {
-    this.reviewsService
-      .getOrderedProducts()
-      .pipe(
-        filter((res: HttpResponse<IOrders[]>) => res.ok),
-        map((res: HttpResponse<IOrders[]>) => res.body)
-      )
-      .subscribe((res: any[]) => {
-        this.orders = res;
-        console.log('reviews products', this.orders);
-      },
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+  ) {
+    this.orders$ = store.pipe(select(fromCheckout.getOrderFetched));
+    this.orderLoading$ = store.pipe(select(fromCheckout.getOrderLoading));
   }
 
-  ngOnInit() {
-    this.navReviews = [
-      {
-        label: 'To Be Reviewed',
-        reviewed: false
-      },
-      {
-        label: 'History',
-        reviewed: true
-      }
-    ];
-    this.activeNav = this.navReviews[0];
+  loadAll(): void {
+    this.store.dispatch(OrderActions.fetchOrder(null));
+  }
 
+  ngOnInit(): void {
     this.loadAll();
-    this.accountService.identity().then(account => {
-      if (account) {
-        this.currentAccount = account;
-      }
+
+    this.accountService
+      .identity()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(account => {
+        if (account) {
+          this.currentAccount = account;
+        }
+      });
+
+    this.orders$.pipe(takeUntil(this.unsubscribe$)).subscribe(res => {
+      this.orders = res;
     });
-    this.registerChangeInReviews();
+
+    // this.registerChangeInReviews();
   }
 
-  onChangeNav(event) {
-    this.activeNav = event;
-    this.reviewedInd = event.reviewed;
+  ngOnDestroy(): void {
+    // this.eventManager.destroy(this.eventSubscriber);
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
-  ngOnDestroy() {
-    this.eventManager.destroy(this.eventSubscriber);
-  }
-
-  trackId(index: number, item: IProducts) {
+  trackId(index: number, item: IProducts): number {
     return item.id;
   }
 
-  byteSize(field) {
+  byteSize(field): string {
     return this.dataUtils.byteSize(field);
   }
 
-  openFile(contentType, field) {
+  openFile(contentType, field): void {
     return this.dataUtils.openFile(contentType, field);
   }
 
-  registerChangeInReviews() {
-    this.eventSubscriber = this.eventManager.subscribe('reviewsListModification', response => this.loadAll());
-  }
+  // registerChangeInReviews(): void {
+  //   this.eventSubscriber = this.eventManager.subscribe('reviewsListModification', response => this.loadAll());
+  // }
 
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
-  }
-
-  onClickReview(orderId: number) {
-    let navigationExtras: NavigationExtras = {
-      queryParams: { 'orderId': orderId }
+  onClickReview(orderId: number): void {
+    const navigationExtras: NavigationExtras = {
+      queryParams: { orderId },
       // fragment: 'anchor'
     };
-    console.log('navigationExtras', navigationExtras)
-    this.router.navigate(['/pages/dashboard/my-reviews/new'], navigationExtras);
+    console.log('navigationExtras', navigationExtras);
+    this.router.navigate(['/pages/dashboard/my-reviews/write-reviews'], navigationExtras);
+  }
+
+  selectedChanged(event): void {
+    this.completedReview = event === 1 ? true : false;
+  }
+
+  protected onError(errorMessage: string): void {
+    this.jhiAlertService.error(errorMessage, null, null);
   }
 }

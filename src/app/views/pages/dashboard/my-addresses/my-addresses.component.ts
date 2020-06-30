@@ -1,76 +1,92 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store, select } from "@ngrx/store";
-import { Observable, Subscription } from "rxjs";
-import { Addresses, IAddresses } from '@eps/models';
+import { Store, select } from '@ngrx/store';
+import { Observable, Subscription, Subject } from 'rxjs';
+import { Addresses, IAddresses, IPeople } from '@eps/models';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
+import * as fromAuth from 'app/ngrx/auth/reducers';
 import { AddressActions } from 'app/ngrx/checkout/actions';
-import { AccountService } from '@eps/services/core/auth/account.service';
-import { ConfirmationService } from 'primeng/api';
+import { AccountService } from '@eps/core';
+import { Account } from '@eps/core/user/account.model';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-my-addresses',
   templateUrl: './my-addresses.component.html',
-  styleUrls: ['./my-addresses.component.scss']
+  styleUrls: ['./my-addresses.component.scss'],
 })
 export class MyAddressesComponent implements OnInit, OnDestroy {
   account: Account;
   addresses$: Observable<IAddresses[]>;
   addressSubscription: Subscription;
-  addNewAddressInd: boolean = false;
+  people$: Observable<IPeople>;
+  people: IPeople;
+  addNewAddressInd = false;
+  loading = false;
+
+  private unsubscribe$: Subject<any> = new Subject();
 
   constructor(
     private store: Store<fromCheckout.State>,
+    private authStore: Store<fromAuth.State>,
     private accountService: AccountService,
-    private confirmationService: ConfirmationService
+    private nzMessageService: NzMessageService
   ) {
-    this.addresses$ = store.pipe(select(fromCheckout.getAddressesFetched)) as Observable<IAddresses[]>;
+    this.addresses$ = store.pipe(select(fromCheckout.getAddressesFetched));
+    this.people$ = authStore.pipe(select(fromAuth.getPeopleFetched));
   }
 
-  ngOnInit() {
-    console.log('add init')
-    this.store.dispatch(AddressActions.fetchAddresses());
+  ngOnInit(): void {
+    this.people$.pipe(takeUntil(this.unsubscribe$)).subscribe(item => {
+      this.people = item;
+      if (this.people) {
+        this.store.dispatch(AddressActions.fetchAddresses({ query: { 'personId.equals': this.people.id } }));
+      }
+    });
 
-    this.accountService.identity().then((account: Account) => {
+    this.accountService.identity().subscribe(account => {
       this.account = account;
     });
   }
 
-  onAddNewAddress(event) {
+  onAddNewAddress(event): void {
     this.addNewAddressInd = true;
   }
 
-  onEditAddress(event) {
+  onEditAddress(event): void {}
 
-  }
-
-  onSetDefault(event) {
-    console.log(event)
-    if (event) {
-      this.store.dispatch(AddressActions.setDefault({ id: event.id }));
+  onSetDefault(event: IAddresses): void {
+    if (event && !event.defaultInd) {
+      this.store.dispatch(AddressActions.setDefault({ props: { addressId: event.id, isShippingAddress: true, peopleId: this.people.id } }));
     }
   }
 
-  onDeleteAddress(event) {
-    this.confirmationService.confirm({
-      message: 'Are you sure that you want to delete?',
-      accept: () => {
-        this.store.dispatch(AddressActions.removeAddress({ address: event }));
-      }
-    });
+  cancel(): void {
+    this.nzMessageService.info('click cancel');
   }
 
-  trackId(index: number, item: IAddresses) {
+  confirm(event): void {
+    this.store.dispatch(AddressActions.removeAddress({ address: event }));
+  }
+
+  onDeleteAddress(event): void {
+    this.store.dispatch(AddressActions.removeAddress({ address: event }));
+  }
+
+  trackId(index: number, item: IAddresses): number {
     return item.id;
   }
 
-  onCancel(event) {
+  onCancel(event): void {
     this.addNewAddressInd = false;
   }
 
-  onCreateCompleted(event) {
+  onCreateCompleted(event): void {
     this.addNewAddressInd = false;
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

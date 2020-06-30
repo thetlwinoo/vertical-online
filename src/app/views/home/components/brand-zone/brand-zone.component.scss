@@ -1,104 +1,75 @@
-@import "src/@eps/scss/root";
+@import 'src/@eps/scss/root';
 
-:host {
+brand-zone {
+  .brand-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background: white;
 
-    .viwer-area {
-        position: relative;
-        z-index: 4;
-        // padding-bottom: 20px;
+    .brand-item {
+      border-right: 1px solid rgba(0, 0, 0, 0.05);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      // border: none;
+      display: flex;
+      align-items: flex-start;
+      background: transparent;
+      padding: 1px;
 
-        .viwer-title {
-            align-content: center;
-            align-items: center;
-            display: flex;
-            justify-content: center;
-            padding: 0 8px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-            margin-bottom: 5px;
-            position: relative;
-            z-index: 2;
+      flex: 0 0 10%;
+      max-width: 10%;
 
-            .viwer-title-spacer {
-                flex: 1 1 auto;
+      @include media-breakpoint('sm') {
+        flex: 0 0 25%;
+        max-width: 25%;
+      }
 
-                &.title {
-                    text-transform: uppercase;
-                    font-weight: 500;
-                }
-            }
+      @include media-breakpoint('md') {
+        flex: 0 0 25%;
+        max-width: 25%;
+      }
+
+      @include media-breakpoint('xs') {
+        flex: 0 0 25%;
+        max-width: 25%;
+      }
+
+      .card-preview {
+        display: flex;
+
+        .root-card {
+          max-width: auto !important;
+          min-width: auto !important;
         }
 
-        .content {
-            .brand-list {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: flex-start;
-                align-items: flex-start;
-                background: white;
+        .brand-list {
+          padding: 0.5em;
+          img {
+            transform: scale(1);
+            transition: 0.5s;
+          }
 
-                .brand-item {
-                    border-right: 1px solid rgba(0, 0, 0, .05);
-                    border-bottom: 1px solid rgba(0, 0, 0, .05);
-                    // border: none;
-                    display: flex;
-                    align-items: flex-start;
-                    background: transparent;
-                    padding: 1px;
-
-                    flex: 0 0 10%;
-                    max-width: 10%;
-
-                    @include media-breakpoint("sm") {
-                        flex: 0 0 25%;
-                        max-width: 25%;
-                    }
-
-                    @include media-breakpoint("md") {
-                        flex: 0 0 25%;
-                        max-width: 25%;
-                    }
-
-                    @include media-breakpoint("xs") {
-                        flex: 0 0 25%;
-                        max-width: 25%;
-                    }
-
-                    .card-preview {
-                        display: flex;
-
-                        .root-card {
-                            max-width: auto !important;
-                            min-width: auto !important;
-                        }
-
-                        .brand-list {
-                            img {
-                                transform: scale(1);
-                                transition: .5s;
-                            }
-
-                            .title {
-                                text-align: center;
-                                font-size: 0.85em;
-                            }
-                        }
-
-                        &:hover {
-                            .brand-list {
-                                img {
-                                    transform: scale(1.1);
-                                    transition: all 0.5s ease;
-                                }
-                            }
-                        }
-                    }
-
-                    .card-source {
-                        display: none;
-                    }
-                }
-            }
+          .title {
+            text-align: center;
+            font-size: 0.85em;
+          }
         }
+
+        &:hover {
+          .brand-list {
+            img {
+              transform: scale(1.1);
+              transition: all 0.5s ease;
+            }
+          }
+        }
+      }
+
+      .card-source {
+        display: none;
+      }
     }
+  }
 }

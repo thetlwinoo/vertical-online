@@ -1,36 +1,18 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IProducts } from '@eps/models';
+import { IStockItems } from '@eps/models';
 
-export const addProductSuccess = createAction(
-    '[Wishlist/API] Add Product Success',
-    props<{ product: IProducts }>()
-);
+export const addStockItemSuccess = createAction('[Wishlist/API] Add StockItem Success', props<{ stockItem: IStockItems }>());
 
-export const addProductFailure = createAction(
-    '[Wishlist/API] Add Product Failure',
-    props<{ product: IProducts }>()
-);
+export const addStockItemFailure = createAction('[Wishlist/API] Add StockItem Failure', props<{ stockItem: IStockItems }>());
 
-export const removeProductSuccess = createAction(
-    '[Wishlist/API] Remove Product Success',
-    props<{ product: IProducts }>()
-);
+export const removeStockItemSuccess = createAction('[Wishlist/API] Remove StockItem Success', props<{ stockItem: IStockItems }>());
 
-export const removeProductFailure = createAction(
-    '[Wishlist/API] Remove Product Failure',
-    props<{ product: IProducts }>()
-);
+export const removeStockItemFailure = createAction('[Wishlist/API] Remove StockItem Failure', props<{ stockItem: IStockItems }>());
 
-export const loadProductsSuccess = createAction(
-    '[Wishlist/API] Load Products Success',
-    props<{ products: IProducts[] }>()
-);
+export const loadStockItemsSuccess = createAction('[Wishlist/API] Load StockItems Success', props<{ stockItems: IStockItems[] }>());
 
-export const loadProductsFailure = createAction(
-    '[Wishlist/API] Load Products Failure',
-    props<{ error: any }>()
-);
+export const loadStockItemsFailure = createAction('[Wishlist/API] Load StockItems Failure', props<{ error: any }>());
 
-//Load Wishlist Action
+// Load Wishlist Action
 export const loadWishlist = createAction('[Wishlist Page] Load Wishlist');

@@ -1,149 +1,187 @@
-<div class="container" style="min-height: 30vh">
-    <div class="mb-4">
-        <div class="row" *ngIf="itemCount > 0 ;else emptyCart">
-            <div class="col-sm-12 col-md-8">
-                <div class="card" id="shipping-cart-list">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">Shopping Cart</h5>
-                        <div class="cart-section">
-                            <div class="row mt-3">
-                                <div class="col-md-12">
-                                    <div>
-                                        <div class="row item" *ngFor="let cartItem of shoppingCart.cart?.cartItemLists">
-                                            <div class="col-md-1 buttons">
-                                                <span class="delete-btn" (click)="remove.emit(cartItem.id)"></span>
-                                            </div>
-                                            <div class="col-md-3 image">
-                                                <a href="javascript:void(0)"
-                                                    [routerLink]="['/products/',cartItem.product.id]"
-                                                    *ngIf="cartItem.product.photo;else noimage">
-                                                    <img src="{{cartItem.product.photo}}" alt="" />
-                                                </a>
-                                                <ng-template #noimage>
-                                                    <img src="assets/images/noimage.png" alt="no image preview">
-                                                </ng-template>
-                                            </div>
-
-                                            <div class="col-md-3 description">
-                                                <span
-                                                    style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; cursor: pointer"
-                                                    (click)="goToItem(cartItem.product.id)">
-                                                    {{cartItem.product.productName}}
-                                                </span>
-                                                <span>{{cartItem.product.productSubCategory.productSubCategoryName}}</span>
-                                            </div>
-
-                                            <div class="col-md-3 quantity">
-                                                <button class="plus-btn" type="button" name="button"
-                                                    (click)="onAdd(cartItem.product.id,1)">
-                                                    +
-                                                </button>
-                                                <input type="text" name="name" min="1" value="{{cartItem.quantity}}"
-                                                    readonly>
-                                                <button class="minus-btn" type="button" name="button"
-                                                    (click)="onReduce(cartItem.id,1)"
-                                                    [disabled]="cartItem.quantity <=1 ">
-                                                    -
-                                                </button>
-                                            </div>
-
-                                            <div class="col-md-2 price item-price">
-                                                ${{cartItem.product.unitPrice.toFixed(2) | number:'1.2'}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-4" *ngIf="itemCount > 0">
-                <div class="card" id="shopping-card-summary">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">Order Summary</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Sub Total - {{totalQuantity}} item(s)</h6>
-
-                        <div class="item p-2 pl-4">
-                            <div class="row pricing">
-                                <div class="col-md-4 col-4">
-                                    <span>Cart</span>
-                                </div>
-                                <div class="col-md-8 col-8 mr-auto">
-                                    <p class="price p-0 m-0">${{ cartPrice.toFixed(2) | number:'1.2' }}</p>
-                                </div>
-                            </div>
-                            <div class="row pricing">
-                                <div class="col-md-4 col-4">
-                                    <span>Cargo</span>
-                                </div>
-                                <div class="col-md-8 col-8 mr-auto">
-                                    <p class="price p-0 m-0">
-                                        ${{shoppingCart.cart.totalCargoPrice.toFixed(2) | number:'1.2' }}</p>
-                                </div>
-                            </div>
-                            <div *ngIf="shoppingCart.cart.specialDeals != null" class="row pricing">
-                                <div class="col-md-4 col-4">
-                                    <span>Discount</span>
-                                </div>
-                                <div class="col-md-8 col-8 mr-auto">
-                                    <p class="price  p-0 m-0">{{shoppingCart.cart.specialDeals.discountPercentage}}%
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row pricing">
-                                <div class="col-md-4 col-4">
-                                    <span>Total</span>
-                                </div>
-                                <div class="col-md-8 col-8 mr-auto">
-                                    <p class="price p-0 m-0 total-price" style="font-weight: bold">${{shoppingCart.cart.totalPrice.toFixed(2) |
-                                                        number:'1.2' }}</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class=" p-2 pl-4">
-                            <div class="row p-2 mt-3">
-                                <div class="col-md-12 col-12">
-                                    <div *ngIf="shoppingCart.cart.specialDeals == null; else discountCodeBlock">
-                                        <p-inplace id="discount-code" closable="closable">
-                                            <span pInplaceDisplay>
-                                                <button type="button" label="DISCOUNT CODE"
-                                                    class="btn btn-secondary w-100">
-                                                    DISCOUNT CODE
-                                                </button>
-                                            </span>
-                                            <span pInplaceContent>
-                                                <div class="input-group pr-2">
-                                                    <input type="text" #discountCodeField class="form-control"
-                                                        placeholder="Discount Code" aria-label="Discount Code"
-                                                        aria-describedby="apply-addon">
-                                                    <div class="input-group-append">
-                                                        <button class="btn btn-secondary" type="button" id="apply-addon"
-                                                            (click)="apply.emit(discountCodeField.value)">Apply</button>
-                                                    </div>
-                                                </div>
-                                            </span>
-                                        </p-inplace>
-                                    </div>
-                                    <ng-template #discountCodeBlock>
-                                        <p class="p-0 m-0 discount-code">Applied Code :
-                                            {{shoppingCart.cart.specialDeals.discountCode}}</p>
-                                    </ng-template>
-                                </div>
-                                <div class="col-md-12 col-12 mr-auto">
-                                    <button type="button" class="btn btn-warning w-100"
-                                        [routerLink]="['/checkout/form']" style="margin-top: 5px;">PROCEED TO
-                                        CHECKOUT</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <ng-template #emptyCart>
-            <empty-cart></empty-cart>
-        </ng-template>
+<div class="container">
+    <div class="loading-wrapper">
+        <ng-template #indicatorTemplate><i nz-icon nzType="loading"></i></ng-template>
+        <nz-spin nzSimple [nzSize]="'large'" [nzSpinning]="loading"> </nz-spin>
     </div>
+
+    <div nz-row [nzGutter]="16" *ngIf="itemCount > 0 ;else noresult">
+        <div nz-col [nzXs]="24" [nzLg]="16">
+            <nz-space nzDirection="vertical">
+                <nz-space-item>
+                    <div class="list-title">
+                        <div>
+                            <label nz-checkbox [nzChecked]="shoppingCart.cart?.cartString?.checkStatus === 1"
+                                [nzIndeterminate]="shoppingCart.cart?.cartString?.checkStatus === 2"
+                                (nzCheckedChange)="onAllChecked($event)">SELECT ALL
+                                ({{shoppingCart.itemCount}}
+                                ITEM(S))</label>
+                        </div>
+                        <div>
+                            <a nz-popconfirm nzPopconfirmTitle="Are you sure remove selected cart items?"
+                                nzPopconfirmPlacement="bottom" (nzOnConfirm)="confirm()" (nzOnCancel)="cancel()">
+                                <i nz-icon nzType="delete"></i>&nbsp; DELETE
+                            </a>
+                        </div>
+                    </div>
+                </nz-space-item>
+
+                <nz-space-item *ngFor="let data of shoppingCart.cart?.cartString?.cartPackages | orderBy: 'supplierId'">
+                    <div class="list-title">
+                        <div>
+                            <label nz-checkbox [nzChecked]="data.checkStatus === 1"
+                                [nzIndeterminate]="data.checkStatus === 2"
+                                (nzCheckedChange)="onPackageChecked($event,data.supplierId)">{{data.supplierName | lowercase}}</label>
+                        </div>
+                    </div>
+                    <div class="list-body">
+                        <nz-list>
+                            <nz-list-item *ngFor="let item of data.cartItems | orderBy: 'cartItemId'">
+                                <ng-container>
+                                    <nz-list-item-meta>
+                                        <nz-list-item-meta-avatar>
+                                            <label nz-checkbox [nzChecked]="item.selectOrder === true"
+                                                (nzCheckedChange)="onItemChecked(item.cartItemId, $event)"
+                                                [nzDisabled]="item.quantityOnHand <= 0"></label>
+                                            <img width="80" [src]="blobUrl + item.thumbnailUrl">
+                                        </nz-list-item-meta-avatar>
+                                        <nz-list-item-meta-title>
+                                            <a href
+                                                [routerLink]="['/products/',item.productId]">{{ item.stockItemName }}</a>
+                                        </nz-list-item-meta-title>
+                                        <nz-list-item-meta-description>
+                                            <div class="price">
+                                                <span class="price-label">Price : </span>
+                                                <span class="item-price">{{ item.unitPrice | currency }}</span>
+                                            </div>
+
+                                            <div>
+                                                <nz-tag *ngIf="item.quantityOnHand > 0 && item.quantityOnHand < 2"
+                                                    [nzColor]="'volcano'" style="margin-top: 0.5em;">Only
+                                                    {{item.quantityOnHand}} Item Left
+                                                </nz-tag>
+
+                                                <nz-tag *ngIf="item.quantityOnHand <= 0" [nzColor]="'#f50'"
+                                                    style="margin-top: 0.5em;">
+                                                    Out Of Stock
+                                                </nz-tag>
+                                            </div>
+
+                                            <div class="cart-controller">
+                                                <a nz-button nzType="link" nzTooltipTitle="Add to wishlist"
+                                                    nzTooltipPlacement="bottom" nz-tooltip>
+                                                    <i nz-icon nzType="heart" [nzTheme]="'outline'"></i>
+                                                </a>
+                                                <a nz-button nzType="link" (click)="remove.emit(item.cartItemId)"
+                                                    nzTooltipTitle="Remove" nzTooltipPlacement="bottom" nz-tooltip>
+                                                    <i nz-icon nzType="delete"></i>
+                                                </a>
+                                            </div>
+                                        </nz-list-item-meta-description>
+                                    </nz-list-item-meta>
+                                    <div class="quantity">
+                                        <button class="minus-btn" nz-button nzType="default" [nzSize]="'small'"
+                                            (click)="onReduce(item.cartItemId,1)" [disabled]="item.quantity <=1 ">
+                                            <i nz-icon nzType="minus"></i>
+                                        </button>
+                                        <input type="text" name="name" min="1" [value]="item.quantity" readonly>
+                                        <button class="plus-btn" nz-button nzType="default" [nzSize]="'small'"
+                                            (click)="onAdd(item.stockItemId,1)"
+                                            [disabled]="item.quantityOnHand - item.quantity <= 0">
+                                            <i nz-icon nzType="plus"></i>
+                                        </button>
+                                    </div>
+                                </ng-container>
+                            </nz-list-item>
+                        </nz-list>
+                    </div>
+                </nz-space-item>
+            </nz-space>
+        </div>
+
+        <div nz-col [nzXs]="24" [nzLg]="8">
+            <vs-panel [title]="'Order Summary'">
+                <div extra><span>Sub Total - </span>{{shoppingCart.cart?.cartString?.selected_quantity}} item(s)</div>
+                <div body class="content-wrapper">
+                    <nz-list class="summary-list">
+                        <nz-list-item>
+                            <nz-list-item-meta>
+                                <nz-list-item-meta-title>
+                                    Cart
+                                </nz-list-item-meta-title>
+                            </nz-list-item-meta>
+                            <nz-list-item-extra>
+                                <span class="price">{{ cartPrice | currency }}</span>
+                            </nz-list-item-extra>
+                        </nz-list-item>
+                        <nz-list-item>
+                            <nz-list-item-meta>
+                                <nz-list-item-meta-title>
+                                    Shipping Fee
+                                </nz-list-item-meta-title>
+                            </nz-list-item-meta>
+                            <nz-list-item-extra>
+                                <span class="price">{{ shoppingCart?.cart.totalShippingFee | currency }}</span>
+                            </nz-list-item-extra>
+                        </nz-list-item>
+                        <nz-list-item>
+                            <div *ngIf="!shoppingCart.cart?.discount?.code;else discountview" style="width: 100%;">
+                                <nz-input-group nzSearch nzSize="medium" [nzAddOnAfter]="suffixButton">
+                                    <input #voucherCode type="text" nz-input placeholder="Enter Voucher Code" />
+                                </nz-input-group>
+                                <ng-template #suffixButton>
+                                    <button nz-button nzType="default" nzSize="medium"
+                                        (click)="apply.emit(voucherCode.value)">Apply
+                                    </button>
+                                </ng-template>
+                            </div>
+                            <ng-template #discountview>
+                                <nz-list-item-meta>
+                                    <nz-list-item-meta-title>
+                                        Applied Code
+                                    </nz-list-item-meta-title>
+                                </nz-list-item-meta>
+                                <nz-list-item-extra>
+                                    <span class="price">{{ shoppingCart.cart.discount.code }}</span>
+                                </nz-list-item-extra>
+                            </ng-template>
+                        </nz-list-item>
+                        <nz-list-item *ngIf="shoppingCart.cart.discount?.code">
+                            <nz-list-item-meta>
+                                <nz-list-item-meta-title>
+                                    Discount
+                                </nz-list-item-meta-title>
+                            </nz-list-item-meta>
+                            <nz-list-item-extra>
+                                <span
+                                    class="price">{{ shoppingCart.cart.discount.amount? (shoppingCart.cart.discount.amount | currency) : (shoppingCart.cart.discount.percentage + '%') }}</span>
+                            </nz-list-item-extra>
+                        </nz-list-item>
+                        <nz-list-item>
+                            <nz-list-item-meta>
+                                <nz-list-item-meta-title>
+                                    Total
+                                </nz-list-item-meta-title>
+                            </nz-list-item-meta>
+                            <nz-list-item-extra>
+                                <span class="price total-price">{{ shoppingCart.cart.totalPrice | currency }}</span>
+                            </nz-list-item-extra>
+                        </nz-list-item>
+                    </nz-list>
+                    <button class="checkout" nz-button nzType="primary" nzBlock nzDanger
+                        [disabled]="shoppingCart.cart?.cartString?.selectedCount < 1"
+                        (click)="proceedToCheckout()">PROCEED TO
+                        CHECKOUT</button>
+                </div>
+            </vs-panel>
+        </div>
+    </div>
+    <ng-template #noresult>
+        <nz-empty nzNotFoundImage="simple" [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl"></nz-empty>
+        <ng-template #contentTpl>
+            <span> Empty in compare list </span>
+        </ng-template>
+        <ng-template #footerTpl>
+            <button nz-button nzType="primary" [routerLink]="['/']">Continue Shopping</button>
+        </ng-template>
+    </ng-template>
 </div>

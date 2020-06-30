@@ -1,3 +1,48 @@
-<p>
-  my-payment-options works!
-</p>
+<div nz-row>
+  <div nz-col class="gutter-row" [nzSpan]="24">
+    <nz-card [nzBordered]="false" nzTitle="Credit/Debit Card">
+      <nz-table #cardTable nzSize="small" [nzData]="listOfData" [nzShowPagination]="false">
+        <thead>
+          <tr>
+            <th>Card Number</th>
+            <th>Expiry Date</th>
+            <th [nzRight]="true"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of cardTable.data">
+            <td>{{ data.cardNumber }}</td>
+            <td>{{ data.expiryDate }}</td>
+            <td class="action">
+              <a>Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </div>
+</div>
+
+<div nz-row>
+  <div nz-col class="gutter-row" [nzSpan]="24">
+    <nz-card [nzBordered]="false" nzTitle="Other Payment Methods">
+      <nz-table #othersTable nzSize="small" [nzData]="listOfOthers" [nzShowPagination]="false"
+        [nzTableLayout]="'fixed'">
+        <thead>
+          <tr>
+            <th>Account</th>
+            <th [nzRight]="true"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of othersTable.data">
+            <td>{{ data.account }}</td>
+            <td class="action">
+              <a>Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </div>
+</div>

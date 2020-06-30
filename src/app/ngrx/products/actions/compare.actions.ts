@@ -1,36 +1,18 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IProducts } from '@eps/models';
+import { IStockItems } from '@eps/models';
 
-export const addProductSuccess = createAction(
-    '[Compare/API] Add Product Success',
-    props<{ product: IProducts }>()
-);
+export const addStockItemSuccess = createAction('[Compare/API] Add StockItem Success', props<{ stockItem: IStockItems }>());
 
-export const addProductFailure = createAction(
-    '[Compare/API] Add Product Failure',
-    props<{ product: IProducts }>()
-);
+export const addStockItemFailure = createAction('[Compare/API] Add StockItem Failure', props<{ stockItem: IStockItems }>());
 
-export const removeProductSuccess = createAction(
-    '[Compare/API] Remove Product Success',
-    props<{ product: IProducts }>()
-);
+export const removeStockItemSuccess = createAction('[Compare/API] Remove StockItem Success', props<{ stockItem: IStockItems }>());
 
-export const removeProductFailure = createAction(
-    '[Compare/API] Remove Product Failure',
-    props<{ product: IProducts }>()
-);
+export const removeStockItemFailure = createAction('[Compare/API] Remove StockItem Failure', props<{ stockItem: IStockItems }>());
 
-export const loadProductsSuccess = createAction(
-    '[Compare/API] Load Products Success',
-    props<{ products: IProducts[] }>()
-);
+export const loadStockItemsSuccess = createAction('[Compare/API] Load StockItems Success', props<{ stockItems: IStockItems[] }>());
 
-export const loadProductsFailure = createAction(
-    '[Compare/API] Load Products Failure',
-    props<{ error: any }>()
-);
+export const loadStockItemsFailure = createAction('[Compare/API] Load StockItems Failure', props<{ error: any }>());
 
-//Load Compare Action
+// Load Compare Action
 export const loadCompare = createAction('[Compare Page] Load Compare');

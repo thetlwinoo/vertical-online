@@ -1,11 +1,21 @@
 <div class="page-layout blank">
   <div class="container">
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a>Home</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        <a>Search Results</a>
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </div>
+
+  <div class="container">
     <div class="page-layout simple left-sidebar">
       <root-sidebar class="sidebar" name="simple-left-sidebar-2" position="left" lockedOpen="gt-md">
         <div class="content">
           <div class="shop-sidebar-wrapper gray-bg-7">
-            <category (selectedCategories)="onSelectedCategories($event)">
-            </category>
+            <category></category>
             <color (selectedColors)="onSelectedColors($event)">
             </color>
             <price-filter (selectedPriceRange)="onSelectedPriceRange($event)">
@@ -16,52 +26,67 @@
         </div>
       </root-sidebar>
       <div class="center">
-        <div class="header header-light-grey p-12" fxLayout="row" fxLayoutAlign="start center">
-          <button mat-icon-button class="sidebar-toggle mr-8" fxHide.gt-md
-            (click)="toggleSidebar('simple-left-sidebar-2')">
-            <mat-icon>menu</mat-icon>
-          </button>
-        </div>
-        <div class="horizontal-content">
-          <nav class="nav search-controller">
-            <a class="nav-link" href="#">
-              Search related to
-              <span *ngIf="searchText()">&#34;{{searchText()}}&#34;</span>
-              <span *ngIf="searchText() && category">&#34;|&#34;</span>
-              <span *ngIf="(currentCategory$|async).length">&#34;{{(currentCategory$|async).join(', ')}}&#34;</span>
-            </a>
-          </nav>
-          <div class="content">
-            <div class="d-flex justify-content-center loading-spinner" *ngIf="loading$ | async">
-              <div class="spinner-border text-danger" role="status">
-                <span class="sr-only">Loading...</span>
+        <vs-panel [title]="'Search related to'">
+          <div body class="content-wrapper">
+            <div class="header header-light-grey p-12" fxLayout="row" fxLayoutAlign="start center">
+              <button mat-icon-button class="sidebar-toggle mr-8" fxHide.gt-md
+                (click)="toggleSidebar('simple-left-sidebar-2')">
+                <mat-icon>menu</mat-icon>
+              </button>
+            </div>
+            <div class="horizontal-content">
+              <!-- <nav class="nav search-controller">
+                <a class="nav-link" href="#">
+                  <span *ngIf="searchText()">&#34;{{searchText()}}&#34;</span>
+                  <span *ngIf="searchText() && category">&#34;|&#34;</span>
+                  <span *ngIf="(currentCategory$|async).length">&#34;{{(currentCategory$|async).join(', ')}}&#34;</span>
+                </a>
+              </nav> -->
+              <div class="content">
+                <div class="d-flex justify-content-center loading-spinner" *ngIf="loading$ | async">
+                  <div class="spinner-border text-danger" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+                <div class="row list-gutters">
+                  <div class="col-xs-6 col-sm-6 col-md-3" *ngFor="let product of (products$ | async)">
+                    <product-card [product]="product" (quickview)="onQuickView($event)"></product-card>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="mb-2" *ngIf="(products$ | async).length">
+                    <!-- <ngb-pagination [collectionSize]="(totalItems$|async)" [(page)]="page" [pageSize]="itemsPerPage"
+                      [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)">
+                    </ngb-pagination> -->
+                    <nz-pagination [nzPageIndex]="page" [nzTotal]="(totalItems$|async)" [nzPageSize]="itemsPerPage"
+                      (nzPageIndexChange)="pageIndexChanged($event)"></nz-pagination>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="row list-gutters">
-              <div class="col-xs-6 col-sm-6 col-md-3" *ngFor="let product of (products$ | async)">
-                <product-card [product]="product" (quickview)="onQuickView($event)"></product-card>
-              </div>
-            </div>
-            <div class="row justify-content-center">
-              <div *ngIf="(products$ | async).length">
-                <ngb-pagination [collectionSize]="(totalItems$|async)" [(page)]="page" [pageSize]="itemsPerPage"
-                  [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="text-center" *ngIf="!(loading$ | async) && !(products$ | async).length">
-          <div class="jumbotron">
-            <h1 class="display-4">No Result Found</h1>
-            <blockquote class="blockquote">
-              <p class="lead">We're sorry. We cannot find any matches for your search term.</p>
-            </blockquote>
+            <div class="no-result" *ngIf="!(loading$ | async) && !(products$ | async).length">
+              <!-- <div class="jumbotron">
+                <h1 class="display-4">No Result Found</h1>
+                <blockquote class="blockquote">
+                  <p class="lead">We're sorry. We cannot find any matches for your search term.</p>
+                </blockquote>
 
-            <p>
-              <fa-icon icon="search" class="search"></fa-icon>
-            </p>
+                <p>
+                  <fa-icon icon="search" class="search"></fa-icon>
+                </p>
+              </div> -->
+              <nz-empty nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+                <ng-template #contentTpl>
+                  <span> We're sorry. We cannot find any matches for your search term. </span>
+                </ng-template>
+                <ng-template #footerTpl>
+                  <!-- <fa-icon icon="search" class="search"></fa-icon> -->
+                </ng-template>
+              </nz-empty>
+            </div>
           </div>
-        </div>
+        </vs-panel>
       </div>
     </div>
   </div>

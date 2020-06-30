@@ -5,7 +5,7 @@ import { CheckoutRoutingModule } from 'app/ngrx/checkout/checkout-routing.module
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
-import { AddressEffects, CartEffects, OrderEffects, PaymentEffects } from 'app/ngrx/checkout/effects';
+import { AddressEffects, AddressTypeEffects, CartEffects, OrderEffects, PaymentEffects } from 'app/ngrx/checkout/effects';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 
 import { ShoppingCartComponent } from './containers/shopping-cart/shopping-cart.component';
@@ -13,39 +13,37 @@ import { CartDetailsComponent } from './components/cart-details/cart-details.com
 import { EmptyCartComponent } from './components/empty-cart/empty-cart.component';
 import { InterestedProductComponent } from './components/interested-product/interested-product.component';
 import { OrderFormComponent } from './containers/order-form/order-form.component';
-import { AddressListComponent } from './components/address-list/address-list.component';
-import { NewAddressComponent } from './components/new-address/new-address.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { PaymentFormComponent } from './containers/payment-form/payment-form.component';
 import { SuccessFormComponent } from './containers/success-form/success-form.component';
+import { UnSuccessFormComponent } from './containers/unsuccess-form/unsuccess-form.component';
 import { CreditCardComponent } from './components/credit-card/credit-card.component';
+import { BankTransferComponent } from './components/bank-transfer/bank-transfer.component';
+
+import { LayoutUtilsService, CartService, PaymentService, PeopleService } from '@eps/services';
 
 export const COMPONENTS = [
-    CartDetailsComponent,
-    EmptyCartComponent,
-    InterestedProductComponent,
-    AddressListComponent,
-    NewAddressComponent,
-    OrderDetailsComponent,
-    CreditCardComponent
+  CartDetailsComponent,
+  EmptyCartComponent,
+  InterestedProductComponent,
+  OrderDetailsComponent,
+  CreditCardComponent,
+  BankTransferComponent,
+  UnSuccessFormComponent,
 ];
 
-export const CONTAINERS = [
-    ShoppingCartComponent,
-    OrderFormComponent,
-    PaymentFormComponent, 
-    SuccessFormComponent
-];
+export const CONTAINERS = [ShoppingCartComponent, OrderFormComponent, PaymentFormComponent, SuccessFormComponent, UnSuccessFormComponent];
 
 @NgModule({
-    imports: [
-        RootSharedModule,
-        PartialsModule,
-        CheckoutRoutingModule,
-        StoreModule.forFeature(fromCheckout.checkoutFeatureKey, fromCheckout.reducers),
+  imports: [
+    RootSharedModule,
+    PartialsModule,
+    CheckoutRoutingModule,
+    StoreModule.forFeature(fromCheckout.checkoutFeatureKey, fromCheckout.reducers),
 
-        EffectsModule.forFeature([AddressEffects, CartEffects, OrderEffects, PaymentEffects])
-    ],
-    declarations: [COMPONENTS, CONTAINERS],
+    EffectsModule.forFeature([AddressEffects, AddressTypeEffects, CartEffects, OrderEffects, PaymentEffects]),
+  ],
+  declarations: [COMPONENTS, CONTAINERS],
+  providers: [LayoutUtilsService, CartService, PaymentService, PeopleService],
 })
-export class CheckoutModule { }
+export class CheckoutModule {}

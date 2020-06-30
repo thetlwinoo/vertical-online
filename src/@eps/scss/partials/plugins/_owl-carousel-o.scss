@@ -2,34 +2,34 @@
 @import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
 
 .owl-carousel {
-    position: relative;
+  position: relative;
+  height: 100%;
+
+  div:not(.owl-dots) {
     height: 100%;
+  }
 
-    div:not(.owl-dots) {
-        height: 100%;
+  .owl-stage {
+    // background: #FFFFFF;
+    display: flex;
+    position: relative;
+    padding: 0;
+    margin: 0;
+  }
+
+  .owl-item {
+    .banner-image {
+      width: auto;
+      height: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: bottom;
     }
 
-    .owl-stage {
-        background: #FFFFFF;
-        display: flex;
-        position: relative;
-        padding: 0;
-        margin: 0;
+    .owl-sub-item {
+      margin: 1px;
     }
-
-    .owl-item {
-        .banner-image {
-            width: auto;
-            height: 100%;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: bottom;
-        }
-
-        .owl-sub-item {
-            margin: 1px;
-        }
-    }
+  }
 }
 
 // .owl-dot-style-2 .owl-dot {
@@ -50,9 +50,9 @@
 // }
 
 .owl-dot-style-2 .owl-dots {
-    bottom: 0px;
-    left: 0px;
-    position: absolute;
-    right: 0;
-    text-align: center;
+  bottom: 0px;
+  left: 0px;
+  position: absolute;
+  right: 0;
+  text-align: center;
 }

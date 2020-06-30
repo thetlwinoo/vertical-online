@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { interval, Subject, Subscription } from 'rxjs';
 import { map, takeUntil, filter } from 'rxjs/operators';
 import * as moment from 'moment';
@@ -10,7 +10,8 @@ import { rootAnimations } from '@eps/animations';
   selector: 'flash-deals',
   templateUrl: './flash-deals.component.html',
   styleUrls: ['./flash-deals.component.scss'],
-  animations: rootAnimations
+  encapsulation: ViewEncapsulation.None,
+  animations: rootAnimations,
 })
 export class FlashDealsComponent implements OnInit, OnDestroy {
   @Input('eventDate') eventDate;
@@ -21,7 +22,7 @@ export class FlashDealsComponent implements OnInit, OnDestroy {
   carousel: any;
   countdown: any;
   ghosts = [];
-
+  title = 'Flash Deals';
   private _unsubscribeAll: Subject<any>;
 
   constructor() {
@@ -29,7 +30,7 @@ export class FlashDealsComponent implements OnInit, OnDestroy {
       days: '',
       hours: '',
       minutes: '',
-      seconds: ''
+      seconds: '',
     };
     this.carousel = deal;
     this.ghosts = new Array(10);
@@ -42,29 +43,24 @@ export class FlashDealsComponent implements OnInit, OnDestroy {
 
     let diff = eventDate.diff(currDate, 'seconds');
 
-    const countDown = interval(1000)
-      .pipe(
-        map(value => {
-          return diff = diff - 1;
-        }),
-        map(value => {
-          const timeLeft = moment.duration(value, 'seconds');
+    const countDown = interval(1000).pipe(
+      map(value => (diff = diff - 1)),
+      map(value => {
+        const timeLeft = moment.duration(value, 'seconds');
 
-          return {
-            days: timeLeft.asDays().toFixed(0),
-            hours: timeLeft.hours(),
-            minutes: timeLeft.minutes(),
-            seconds: timeLeft.seconds()
-          };
-        })
-      );
+        return {
+          days: timeLeft.asDays().toFixed(0),
+          hours: timeLeft.hours(),
+          minutes: timeLeft.minutes(),
+          seconds: timeLeft.seconds(),
+        };
+      })
+    );
 
     // Subscribe to the countdown interval
-    countDown
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(value => {
-        this.countdown = value;
-      });
+    countDown.pipe(takeUntil(this._unsubscribeAll)).subscribe(value => {
+      this.countdown = value;
+    });
   }
 
   ngOnDestroy(): void {
@@ -72,5 +68,4 @@ export class FlashDealsComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
-
 }

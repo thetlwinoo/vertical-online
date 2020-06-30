@@ -1,22 +1,6 @@
-<div class="collection-collapse-block">
-  <h3 class="collapse-block-title" [ngClass]="expand?'expanded':'collapsed'" (click)="expand = !expand">category</h3>
-  <div class="collection-collapse-block-content" *ngIf="expand" [@expandCollapse]>
-    <div class="collection-category-filter">
-      <div class="tree-wrapper mt-3">
-        <p-tree [value]="categories$ | async" selectionMode="single" [(selection)]="selectedFiles"
-          (onNodeSelect)="nodeChange($event)" (onNodeUnselect)="nodeChange($event)"></p-tree>
-        <!-- <div *ngFor="let item of filter | slice:start:end">
-          <p-checkbox name="group1" [value]="item" [label]="item" [(ngModel)]="selectedItems"
-            (onChange)="selectedCategories.emit(selectedItems)" inputId="ny"></p-checkbox>
-        </div>
-        <button type="button" class="btn btn-secondary btn-sm mt-4" (click)="toggleCollepse(filter.length)"
-          *ngIf="filter.length>10">
-          <span *ngIf="!showInd;else collapse">Show All</span>
-          <ng-template #collapse>
-            <span>Collapse</span>
-          </ng-template>
-        </button> -->
-      </div>
-    </div>
+<vs-panel [title]="title | uppercase" *ngIf="(categories$ | async).length>0">
+  <div body class="content-wrapper">
+    <nz-tree [nzData]="(categories$ | async)" nzDraggable nzBlockNode (nzOnDrop)="nzEvent($event)"
+      (nzClick)="categorySelect($event)"> </nz-tree>
   </div>
-</div>
+</vs-panel>

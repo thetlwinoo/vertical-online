@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { Compares } from "@eps/models";
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Compares } from '@eps/models';
 import { SERVER_API_URL } from '@eps/constants';
 
 @Injectable()
 export class CompareService {
-  extendUrl: string = SERVER_API_URL + 'api/compare-extend';
+  extendUrl: string = SERVER_API_URL + 'services/vscommerce/api/compare-extend';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   fetchCompare() {
     return this.http.get<Compares>(this.extendUrl + '/fetch');
@@ -17,8 +16,8 @@ export class CompareService {
   isInCompare(productId: number) {
     let params = new HttpParams();
     params = params.set('productId', productId.toString());
-    return this.http.get<Boolean>(this.extendUrl + '/check', {
-      params: params
+    return this.http.get<boolean>(this.extendUrl + '/check', {
+      params,
     });
   }
 
@@ -28,12 +27,11 @@ export class CompareService {
 
   removeFromCompare(id: number) {
     return this.http.delete<Compares>(this.extendUrl + '/remove', {
-      params: new HttpParams().set('id', id.toString())
-    })
+      params: new HttpParams().set('id', id.toString()),
+    });
   }
 
   emptyCompare() {
     return this.http.delete(this.extendUrl + '/remove');
   }
-
 }

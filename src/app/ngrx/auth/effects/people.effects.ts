@@ -9,24 +9,30 @@ import { PeopleService } from '@eps/services';
 
 @Injectable()
 export class PeopleEffects {
-    fetchLoginPeople$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(PeopleActions.fetchLoginPeople),
-            mergeMap(({ people }) =>
-                this.peopleService.checkProfile(people).pipe(
-                    filter((res: HttpResponse<IPeople>) => res.ok),
-                    map((res: HttpResponse<IPeople>) => PeopleActions.fetchLoginPeopleSuccess({ people: res.body })),
-                    catchError(err =>
-                        of(PeopleActions.peopleError({ errorMsg: err.message }))
-                    )
-                )
-            )
+  fetchLoginPeople$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PeopleActions.fetchLoginPeople),
+      mergeMap(({ id }) =>
+        this.peopleService.query({ 'userId.equals': id }).pipe(
+          filter((res: HttpResponse<IPeople[]>) => res.ok),
+          map((res: HttpResponse<IPeople[]>) => PeopleActions.fetchLoginPeopleSuccess({ people: res.body[0] })),
+          catchError(err => of(PeopleActions.peopleError({ errorMsg: err.message })))
         )
-    );
+      )
+    )
+  );
 
+  saveProfile$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PeopleActions.saveProfile),
+      mergeMap(({ people }) =>
+        this.peopleService.update(people).pipe(
+          map(() => PeopleActions.saveProfileSuccess({ people })),
+          catchError(err => of(PeopleActions.peopleError({ errorMsg: err.message })))
+        )
+      )
+    )
+  );
 
-    constructor(
-        private actions$: Actions,
-        private peopleService: PeopleService
-    ) { }
+  constructor(private actions$: Actions, private peopleService: PeopleService) {}
 }

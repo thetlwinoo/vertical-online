@@ -1,6 +1,6 @@
 // Angular
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -13,7 +13,7 @@ export class UpdateStatusDialogComponent implements OnInit {
 	loadingAfterSubmit: boolean = false;
 	constructor(
 		public dialogRef: MatDialogRef<UpdateStatusDialogComponent>,
-		@Inject(MAT_DIALOG_DATA) public data: any) {}
+		@Inject(MAT_DIALOG_DATA) public data: any) { }
 
 	ngOnInit() {
 		/* Server loading imitation. Remove this */

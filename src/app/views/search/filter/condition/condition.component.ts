@@ -1,19 +1,28 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-declare var $: any;
-import { TreeNode } from 'primeng/api';
 
 @Component({
   selector: 'condition',
   templateUrl: './condition.component.html',
-  styleUrls: ['./condition.component.scss']
+  styleUrls: ['./condition.component.scss'],
 })
 export class ConditionComponent implements OnInit {
   @Output() changeCondition: EventEmitter<any[]> = new EventEmitter<any[]>();
-  selectedCondition: TreeNode[] = [];
+  expand = true;
 
-  constructor() { }
+  condition = [
+    { label: 'New Products', value: 'new', checked: true },
+    { label: 'Used Item', value: 'used', checked: true },
+  ];
 
-  ngOnInit() {
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  checked(): void {
+    console.log(this.condition);
   }
 
+  log(event) {
+    console.log(event);
+  }
 }

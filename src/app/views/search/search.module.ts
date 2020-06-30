@@ -22,14 +22,14 @@ import { RatingComponent } from './filter/rating/rating.component';
     ColorComponent,
     PriceComponent,
     ConditionComponent,
-    RatingComponent
+    RatingComponent,
   ],
   imports: [
     CommonModule,
     SearchRoutingModule,
     RootSharedModule,
-    PartialsModule
+    PartialsModule,
     // ProductsModule
-  ]
+  ],
 })
-export class SearchModule { }
+export class SearchModule {}

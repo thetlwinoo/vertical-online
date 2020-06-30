@@ -1,66 +1,70 @@
 import { Moment } from 'moment';
-import { IOrderLines } from './order-lines.model';
+import { IOrderPackages } from './order-packages.model';
+import { PaymentStatus } from './payment-status.model';
+import { OrderStatus } from './order-status.model';
 
 export interface IOrders {
-    id?: number;
-    orderDate?: Moment;
-    dueDate?: Moment;
-    shipDate?: Moment;
-    paymentStatus?: number;
-    orderFlag?: number;
-    orderNumber?: string;
-    subTotal?: number;
-    taxAmount?: number;
-    frieight?: number;
-    totalDue?: number;
-    comments?: string;
-    deliveryInstructions?: string;
-    internalComments?: string;
-    pickingCompletedWhen?: Moment;
-    orderReviewId?: number;
-    orderReview?: any;
-    orderLineLists?: IOrderLines[];
-    customerId?: number;
-    shipToAddressId?: number;
-    shipToAddress?:any;
-    billToAddressId?: number;
-    billToAddress?:any;
-    shipMethodShipMethodName?: string;
-    shipMethodId?: number;
-    currencyRateId?: number;
-    paymentId?: number;
-    specialDealsId?: number;
+  id?: number;
+  orderDate?: Moment;
+  subTotal?: number;
+  totalTaxAmount?: number;
+  totalShippingFee?: number;
+  totalShippingFeeDiscount?: number;
+  totalVoucherDiscount?: number;
+  totalPromtionDiscount?: number;
+  totalDue?: number;
+  paymentStatus?: PaymentStatus;
+  customerPurchaseOrderNumber?: string;
+  status?: OrderStatus;
+  orderDetails?: any;
+  isUnderSupplyBackOrdered?: boolean;
+  lastEditedBy?: string;
+  lastEditedWhen?: Moment;
+  orderPackageLists?: IOrderPackages[];
+  customerName?: string;
+  customerId?: number;
+  shipToAddressId?: number;
+  billToAddressId?: number;
+  currencyRateId?: number;
+  paymentMethodName?: string;
+  paymentMethodId?: number;
+  salePersonFullName?: string;
+  salePersonId?: number;
+  orderTrackingId?: number;
+  specialDealsId?: number;
 }
 
 export class Orders implements IOrders {
-    constructor(
-        public id?: number,
-        public orderDate?: Moment,
-        public dueDate?: Moment,
-        public shipDate?: Moment,
-        public paymentStatus?: number,
-        public orderFlag?: number,
-        public orderNumber?: string,
-        public subTotal?: number,
-        public taxAmount?: number,
-        public frieight?: number,
-        public totalDue?: number,
-        public comments?: string,
-        public deliveryInstructions?: string,
-        public internalComments?: string,
-        public pickingCompletedWhen?: Moment,
-        public orderReviewId?: number,
-        public orderReview?: any,
-        public orderLineLists?: IOrderLines[],
-        public customerId?: number,
-        public shipToAddressId?: number,
-        public shipToAddress?:any,
-        public billToAddressId?: number,
-        public billToAddress?:any,
-        public shipMethodShipMethodName?: string,
-        public shipMethodId?: number,
-        public currencyRateId?: number,
-        public paymentId?: number,
-        public specialDealsId?: number
-    ) { }
+  constructor(
+    public id?: number,
+    public orderDate?: Moment,
+    public subTotal?: number,
+    public totalTaxAmount?: number,
+    public totalShippingFee?: number,
+    public totalShippingFeeDiscount?: number,
+    public totalVoucherDiscount?: number,
+    public totalPromtionDiscount?: number,
+    public totalDue?: number,
+    public paymentStatus?: PaymentStatus,
+    public customerPurchaseOrderNumber?: string,
+    public status?: OrderStatus,
+    public orderDetails?: any,
+    public isUnderSupplyBackOrdered?: boolean,
+    public lastEditedBy?: string,
+    public lastEditedWhen?: Moment,
+    public orderPackageLists?: IOrderPackages[],
+    public customerName?: string,
+    public customerId?: number,
+    public shipToAddressId?: number,
+    public billToAddressId?: number,
+    public currencyRateId?: number,
+    public paymentMethodName?: string,
+    public paymentMethodId?: number,
+    public salePersonFullName?: string,
+    public salePersonId?: number,
+    public orderTrackingId?: number,
+    public specialDealsId?: number
+  ) {
+    this.isUnderSupplyBackOrdered = this.isUnderSupplyBackOrdered || false;
+  }
 }

@@ -1,10 +1,39 @@
-<div class="home-wrapper mb-4">    
-    <slider-banner></slider-banner>
-    <product-category [data]="bundles$ | async"></product-category>
-    <flash-deals eventDate="2020-01-01" [data]="newlyAdded$ | async" [loading]="newlyAddedLoading$ | async" [error]="error$ | async"></flash-deals>
-    <brand-zone></brand-zone>
-    <most-popular [data]="mostSelling$ | async" [loading]="mostSellingLoading$ | async" [error]="error$ | async"></most-popular>
-    <newly-added [data]="newlyAdded$ | async" [loading]="newlyAddedLoading$ | async" [error]="error$ | async"></newly-added>
-    <sub-banner></sub-banner>
-    <daily-discover [data]="dailyDiscover$ | async" [loading]="dailyDiscoverLoading$ | async" [error]="error$ | async"></daily-discover>
+<div class="home-banner-wrapper">
+    <slider-banner [categories]="categoriesTree$ | async" [loading]="categoriesTreeLoading$ | async"></slider-banner>
+</div>
+
+<div class="container">
+    <section>
+        <sub-banner></sub-banner>
+    </section>
+
+    <section>
+        <product-category [bundles]="bundles$ | async"></product-category>
+    </section>
+
+    <section>
+        <flash-deals eventDate="2020-01-01" [data]="newlyAdded$ | async" [loading]="newlyAddedLoading$ | async"
+            [error]="error$ | async"></flash-deals>
+    </section>
+
+    <section>
+        <brand-zone></brand-zone>
+    </section>
+
+    <section>
+        <most-popular [data]="mostSelling$ | async" [loading]="mostSellingLoading$ | async" [error]="error$ | async">
+        </most-popular>
+    </section>
+
+    <section>
+        <newly-added [data]="newlyAdded$ | async" [loading]="newlyAddedLoading$ | async" [error]="error$ | async">
+        </newly-added>
+    </section>
+
+    <section>
+        <daily-discover [data]="dailyDiscover$ | async" [loading]="dailyDiscoverLoading$ | async"
+            [error]="error$ | async">
+        </daily-discover>
+    </section>
+
 </div>

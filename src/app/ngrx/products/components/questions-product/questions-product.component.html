@@ -1,0 +1,57 @@
+<vs-panel [title]="'Questions about this Product'">
+    <div body class="content-wrapper">
+        <ng-container *ngIf="!account;else showquestions">
+            <nz-empty nzNotFoundImage="assets/icons/questionanswer.svg" [nzNotFoundContent]="contentTpl"
+                [nzNotFoundFooter]="footerTpl">
+                <ng-template #contentTpl>
+                    <p>There are no questions yet.</p>
+                    <p><a nz-button nzType="link" (click)="login()" nzDanger>Login</a> or <a nz-button nzType="link"
+                            nzDanger>Register</a> to ask the
+                        seller now
+                        and answer will show
+                        here.</p>
+                </ng-template>
+                <ng-template #footerTpl>
+                </ng-template>
+            </nz-empty>
+        </ng-container>
+        <ng-template #showquestions>
+            <nz-list *ngIf="(questions$ | async).length" [nzDataSource]="questions$ | async" [nzRenderItem]="item"
+                [nzItemLayout]="'horizontal'">
+                <ng-template #item let-item>
+                    <nz-comment *ngIf="item.customerQuestion?.length > 0" [nzAuthor]="item.personFullName"
+                        [nzDatetime]="getDistanceDate(item.customerQuestionOn)">
+                        <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="question"></nz-avatar>
+                        <nz-comment-content>
+                            <p>{{ item.customerQuestion }}</p>
+                        </nz-comment-content>
+                    </nz-comment>
+
+                    <nz-comment *ngIf="item.supplierAnswer?.length > 0" [nzAuthor]="item.supplierName"
+                        [nzDatetime]="getDistanceDate(item.supplierAnswerOn)">
+                        <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="answer"></nz-avatar>
+                        <nz-comment-content>
+                            <p>{{ item.supplierAnswer }}</p>
+                        </nz-comment-content>
+                    </nz-comment>
+                    <nz-divider></nz-divider>
+                </ng-template>
+            </nz-list>
+            <nz-comment>
+                <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="question"></nz-avatar>
+                <nz-comment-content>
+                    <nz-form-item>
+                        <textarea [(ngModel)]="inputValue" nz-input rows="4"></textarea>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <button nz-button nzType="primary" [nzLoading]="questionLoading$ | async"
+                            [disabled]="!inputValue" (click)="handleSubmit()">
+                            Ask Questions
+                        </button>
+                    </nz-form-item>
+                </nz-comment-content>
+            </nz-comment>
+        </ng-template>
+
+    </div>
+</vs-panel>

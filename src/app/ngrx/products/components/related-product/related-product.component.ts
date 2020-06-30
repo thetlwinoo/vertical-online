@@ -6,21 +6,19 @@ import { rootAnimations } from '@eps/animations';
 @Component({
   selector: 'related-product',
   templateUrl: './related-product.component.html',
-  styleUrls: ['./related-product.component.scss'],  
-  animations: rootAnimations
+  styleUrls: ['./related-product.component.scss'],
+  animations: rootAnimations,
 })
 export class RelatedProductComponent {
   // @Input() product: IProducts;
   @Input() relatedProducts: IProducts[];
-  @Input() loading;
+  @Input() loading: boolean;
   @Input() error;
 
-  carousel: any;
+  carousel: any = deal;
   ghosts = [];
 
-  constructor(
-  ) {
-    this.carousel = deal;
+  constructor() {
     this.ghosts = new Array(10);
   }
 }

@@ -2,36 +2,40 @@ import { Moment } from 'moment';
 import { IReviewLines } from './review-lines.model';
 
 export interface IReviews {
-    id?: number;
-    reviewerName?: string;
-    emailAddress?: string;
-    reviewDate?: Moment;
-    overAllSellerRating?: number;
-    overAllSellerReview?: string;
-    overAllDeliveryRating?: number;
-    overAllDeliveryReview?: string;
-    reviewAsAnonymous?: boolean;
-    completedReview?: boolean;
-    reviewLists?: IReviewLines[];
-    orderId?: number;
+  id?: number;
+  customerName?: string;
+  emailAddress?: string;
+  reviewDate?: Moment;
+  sellerRating?: number;
+  sellerReview?: any;
+  deliveryRating?: number;
+  deliveryReview?: any;
+  reviewAsAnonymous?: boolean;
+  completedReview?: boolean;
+  lastEditedBy?: string;
+  lastEditedWhen?: Moment;
+  reviewLineLists?: IReviewLines[];
+  orderId?: number;
 }
 
 export class Reviews implements IReviews {
-    constructor(
-        public id?: number,
-        public reviewerName?: string,
-        public emailAddress?: string,
-        public reviewDate?: Moment,
-        public overAllSellerRating?: number,
-        public overAllSellerReview?: string,
-        public overAllDeliveryRating?: number,
-        public overAllDeliveryReview?: string,
-        public reviewAsAnonymous?: boolean,
-        public completedReview?: boolean,
-        public reviewLists?: IReviewLines[],
-        public orderId?: number
-    ) {
-        this.reviewAsAnonymous = this.reviewAsAnonymous || false;
-        this.completedReview = this.completedReview || false;
-    }
+  constructor(
+    public id?: number,
+    public customerName?: string,
+    public emailAddress?: string,
+    public reviewDate?: Moment,
+    public sellerRating?: number,
+    public sellerReview?: any,
+    public deliveryRating?: number,
+    public deliveryReview?: any,
+    public reviewAsAnonymous?: boolean,
+    public completedReview?: boolean,
+    public lastEditedBy?: string,
+    public lastEditedWhen?: Moment,
+    public reviewLineLists?: IReviewLines[],
+    public orderId?: number
+  ) {
+    this.reviewAsAnonymous = this.reviewAsAnonymous || true;
+    this.completedReview = this.completedReview || false;
+  }
 }

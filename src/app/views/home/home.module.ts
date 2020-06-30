@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home.component';
 import { SliderBannerComponent } from './components/slider-banner/slider-banner.component';
-import { CarouselModule } from 'ngx-owl-carousel-o';
+// import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ProductCategoryComponent } from './components/product-category/product-category.component';
 import { FlashDealsComponent } from './components/flash-deals/flash-deals.component';
 import { BrandZoneComponent } from './components/brand-zone/brand-zone.component';
@@ -14,17 +14,17 @@ import { NewlyAddedComponent } from './components/newly-added/newly-added.compon
 import { SubBannerComponent } from './components/sub-banner/sub-banner.component';
 import { DailyDiscoverComponent } from './components/daily-discover/daily-discover.component';
 import { ProductsModule } from 'app/ngrx/products';
-import { BreadcrumbGuard } from '@eps/services';
 
 const routes = [
   {
     path: '',
     component: HomeComponent,
     data: {
-      crumbs: []
+      crumbs: [],
+      title: 'Home',
     },
-    canActivate: [BreadcrumbGuard]
-  }
+    // canActivate: [BreadcrumbGuard],
+  },
 ];
 
 @NgModule({
@@ -37,14 +37,8 @@ const routes = [
     MostPopularComponent,
     NewlyAddedComponent,
     SubBannerComponent,
-    DailyDiscoverComponent
+    DailyDiscoverComponent,
   ],
-  imports: [
-    RouterModule.forChild(routes),
-    RootSharedModule,
-    PartialsModule,
-    ProductsModule,
-    CarouselModule
-  ]
+  imports: [RouterModule.forChild(routes), RootSharedModule, PartialsModule, ProductsModule],
 })
-export class HomeModule { }
+export class HomeModule {}

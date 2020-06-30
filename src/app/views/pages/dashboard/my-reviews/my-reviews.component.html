@@ -1,62 +1,110 @@
-<div class="card">
-  <div class="card-body">
-    <nav mat-tab-nav-bar animationDuration="0ms" id="reviews-nav">
-      <a mat-tab-link *ngFor="let link of navReviews" [active]="activeNav.label == link.label"
-        (click)="onChangeNav(link)">
-        {{link.label}}({{(orders | completedReviews:link.reviewed)?.length}})
-      </a>
-    </nav>
-  </div>
-</div>
+<vs-panel [title]="'My Reviews'">
+  <div body class="content-wrapper">
+    <nz-tabset (nzSelectedIndexChange)="selectedChanged($event)">
+      <nz-tab [nzSize]="'small'" [nzTitle]="'To Be Reviewed'"></nz-tab>
+      <nz-tab [nzSize]="'small'" [nzTitle]="'History'"></nz-tab>
+    </nz-tabset>
 
-<p-table id="review-products" [value]="orders | completedReviews:reviewedInd" [paginator]="true" [rows]="5">
-  <ng-template pTemplate="body" let-order>
-    <tr>
-      <td>
-        <div class="card" *ngIf="!reviewedInd;else pending">
-          <div class="card-body">
-            <h5 class="card-title">Purchased on {{order.orderDate.format("DD MMM YYYY")}}</h5>            
-            <div class="row">
-              <div class="col-md-7">
-                <div class="reviews-left-wrapper">
-                  <div class="media mt-4" *ngFor="let orderLine of order.orderLineLists">
-                    <img *ngIf="orderLine.product.photo;else noimage" src="{{orderLine.product.photo}}" alt=""
-                      class="mr-3 product" />
-                    <ng-template #noimage>
-                      <img src="assets/images/noimage.png" alt="no image preview" class="mr-3 product">
+    <nz-table class="no-hover-row" #nzHistoryTable [nzData]="(orders$ | async) | orderBy:'-orderDate'"
+      nzTableLayout="fixed" [nzPageSize]="5" [nzShowRowSelection]="false" [nzLoading]="orderLoading$ | async"
+      [nzHideOnSinglePage]="true">
+      <tbody>
+        <ng-container *ngFor="let data of nzHistoryTable.data">
+          <tr *ngFor="let orderPackage of (data.orderDetails | reviewsFilter:completedReview)">
+            <td>
+              <div nz-row *ngIf="orderPackage.completedReview;else toreview">
+                <div nz-col class="gutter-row" [nzXs]="24" [nzLg]="16">
+                  <div class="inner-box">
+                    <h6 nz-typography>Purchased on {{ data.orderDate | date}}</h6>
+                    <span>Rate and review purchased product:</span>
+                    <nz-skeleton [nzAvatar]="true" [nzParagraph]="{ rows: 4 }"
+                      *ngIf="data.orderDetails.length === 0;else showReviewLines"></nz-skeleton>
+                    <ng-template #showReviewLines>
+                      <div class="media mt-4" *ngFor="let item of orderPackage.orderLinesList; let i = index;">
+
+                        <img *ngIf="item.thumbnailUrl;else noimage" [src]="blobUrl + item.thumbnailUrl" alt=""
+                          class="mr-3 product" />
+                        <ng-template #noimage>
+                          <img src="assets/images/noimage.svg" alt="no image preview" class="mr-3 product">
+                        </ng-template>
+
+                        <div class="media-body">
+                          <h6 class="mt-0">{{item.description}}</h6>
+                          <p *ngIf="item.supplierName">Sold By : {{item.supplierName}}</p>
+                          <nz-rate [(ngModel)]="item.lineRating" nzDisabled></nz-rate>
+                          <p class="mt-2">Review Detail</p>
+
+                          <span nz-typography *ngIf="item.lineReview"><code>{{item.lineReview}}</code></span>
+                          <div class="clearfix">
+                            <img width="100" *ngIf="item.reviewImageBlob"
+                              [src]="blobUrl + item.reviewImageBlob + '/thumbnail'" />
+                          </div>
+                        </div>
+                      </div>
                     </ng-template>
-                    <div class="media-body">
-                      <h5 class="mt-0">{{orderLine.product.productName}}</h5>
-                      <h6 class="mb-2 text-muted">{{orderLine.product.productModel?.productModelName}}</h6>
+                  </div>
+                </div>
+                <div nz-col class="gutter-row" [nzXs]="24" [nzLg]="8">
+                  <div class="inner-box">
+                    <nz-skeleton [nzAvatar]="true" [nzParagraph]="{ rows: 4 }" *ngIf="!data;else showReviews">
+                    </nz-skeleton>
+                    <ng-template #showReviews>
+                      <nz-list nzItemLayout="vertical" [nzSplit]="false"
+                        [nzHeader]="'Seller and Delivery Rate & Review'">
+                        <nz-list-item>
+                          <nz-list-item-meta>
+                            <nz-list-item-meta-title>
+                              Rate and review your seller:
+                            </nz-list-item-meta-title>
+                            <nz-list-item-meta-description>
+                              <nz-rate [(ngModel)]="orderPackage.sellerRating" nzDisabled>
+                              </nz-rate>
+                              <p class="mt-2">Review Detail</p>
+
+                              <span nz-typography><code>{{orderPackage.sellerReview}}</code></span>
+                            </nz-list-item-meta-description>
+                          </nz-list-item-meta>
+                        </nz-list-item>
+
+                        <nz-list-item>
+                          <nz-list-item-meta>
+                            <nz-list-item-meta-title>
+                              Rate and review delivery service:
+                            </nz-list-item-meta-title>
+                            <nz-list-item-meta-description>
+                              <nz-rate [(ngModel)]="orderPackage.deliveryRating" nzDisabled>
+                              </nz-rate>
+                              <p class="mt-2">Review Detail</p>
+
+                              <span nz-typography><code>{{orderPackage.deliveryReview}}</code></span>
+                            </nz-list-item-meta-description>
+                          </nz-list-item-meta>
+                        </nz-list-item>
+                      </nz-list>
+                    </ng-template>
+                  </div>
+                </div>
+              </div>
+
+              <ng-template #toreview>
+                <nz-list nzBordered nzHeader="Purchased on  {{data.orderDate | date}}">
+                  <nz-list-item>
+                    <div>
+                      <img width="100" height="100" [src]='blobUrl + item.thumbnailUrl'
+                        *ngFor="let item of orderPackage.orderLinesList">
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-5">
-                <div class="reviews-right-wrapper">
-                  <div>
-                    Sold by XXX
-                  </div>
-                  <div>
-                    <button type="button" class="btn btn-outline-secondary review-button mt-4"
-                      [routerLink]="['/pages/dashboard/my-reviews', order.id, 'new']">REVIEW</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <ng-template #pending>
-          <review-details [orders]="order"></review-details>
-        </ng-template>
-      </td>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="emptymessage" let-columns>
-    <tr>
-      <td [attr.colspan]="1">
-        No records found
-      </td>
-    </tr>
-  </ng-template>
-</p-table>
+
+                    <button nz-button nzType="default" nzDanger
+                      [routerLink]="['/pages/dashboard/my-reviews', orderPackage.id, 'write-reviews']"
+                      [disabled]="orderPackage.completedReview">Review</button>
+                  </nz-list-item>
+                </nz-list>
+              </ng-template>
+
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </nz-table>
+  </div>
+</vs-panel>

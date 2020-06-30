@@ -1,4 +1,42 @@
-<section id="flash-deals" class="tools-grey">
+<vs-panel [title]="title | uppercase">
+    <div extra>
+        <nz-space>
+            <nz-space-item>
+                <a nz-button nzType="link" nzDanger (click)="owl.prev()">
+                    <i nz-icon nzType="left-square" nzTheme="fill" style="font-size: 1.5em;"></i>
+                </a>
+            </nz-space-item>
+            <nz-space-item>
+                <a nz-button nzType="link" nzDanger (click)="owl.next()">
+                    <i nz-icon nzType="right-square" nzTheme="fill" style="font-size: 1.5em;"></i>
+                </a>
+            </nz-space-item>
+        </nz-space>
+    </div>
+    <div body class="content-wrapper">
+        <owl-carousel-o #owl [options]="carousel.options" *ngIf="loading">
+            <ng-container *ngFor="let ghost of ghosts">
+                <ng-template carouselSlide>
+                    <div class="owl-sub-item">
+                        <ghost-item></ghost-item>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+
+        <owl-carousel-o #owl [options]="carousel.options" [@fadeIn]="data.length">
+            <ng-container *ngFor="let product of data">
+                <ng-template carouselSlide>
+                    <div class="owl-sub-item">
+                        <product-box [product]="product" [mode]="'deal'"></product-box>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+    </div>
+</vs-panel>
+
+<!-- <section id="flash-deals" class="tools-grey">
     <div class="container">
         <div class="viwer-wrapper">
             <div class="viwer-title">
@@ -12,10 +50,6 @@
                     <span>&nbsp;:&nbsp;</span>
                     <span class="countdown">{{countdown.seconds}}</span>
                 </div>
-                <!-- <button type="button" class="btn btn-link">
-                    <span>see all</span>
-                    <fa-icon icon="expand-arrows-alt" class="ml-2"></fa-icon>
-                </button> -->
                 <button type="button" class="btn btn-link" (click)="owlFlashDeals.prev()">
                     <fa-icon icon="chevron-circle-left"></fa-icon>
                 </button>
@@ -24,30 +58,8 @@
                 </button>
             </div>
             <div class="viwer-body">
-                <div class="title3">
-                    <h2 class="title-inner3">Flash Deals</h2>
-                    <div class="line"></div>
-                </div>
-                <owl-carousel-o #owlFlashDeals [options]="carousel.options" *ngIf="loading">
-                    <ng-container *ngFor="let ghost of ghosts">
-                        <ng-template carouselSlide>
-                            <div class="owl-sub-item">
-                                <ghost-item></ghost-item>
-                            </div>
-                        </ng-template>
-                    </ng-container>
-                </owl-carousel-o>
-
-                <owl-carousel-o #owlFlashDeals [options]="carousel.options" [@fadeIn]="data.length">
-                    <ng-container *ngFor="let product of data">
-                        <ng-template carouselSlide>
-                            <div class="owl-sub-item">
-                                <product-box [product]="product" [mode]="'deal'"></product-box>
-                            </div>
-                        </ng-template>
-                    </ng-container>
-                </owl-carousel-o>
+                
             </div>
         </div>
     </div>
-</section>
+</section> -->

@@ -1,42 +1,8 @@
-@import "src/@eps/scss/root";
+@import 'src/@eps/scss/root';
 
-section {
-    padding-top: 0px !important;
-}
-
-#newly-added {
-    margin-top: 10px;
-
-    .viwer-title {
-        align-content: center;
-        align-items: center;
-        display: flex;
-        justify-content: center;
-        padding: 0 8px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-        position: relative;
-        z-index: 2;
-
-        .viwer-title-spacer {
-            flex: 1 1 auto;
-
-            i {
-                color: #f44336;
-            }
-
-            &.title {
-                text-transform: uppercase;
-                font-weight: 600;
-            }
-        }
-    }
-
-    .viwer-body {
-        padding-top: 20px;
-        background: #FFFFFF;
-
-        // .content {
-            
-        // }
-    }
+newly-added {
+  .content-wrapper {
+    padding: 20px 5px 5px 5px;
+    background-color: #ffffff;
+  }
 }

@@ -1,34 +1,33 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute, Params, Router } from "@angular/router";
-import { Observable, Subject, Subscription } from "rxjs";
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { map, takeUntil, zip } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
-import { IProducts, IProductCategory, IProductSubCategory } from '@eps/models';
-import { TreeNode, SelectItem } from 'primeng/api';
+import { IProducts, IProductCategory } from '@eps/models';
 import { RootSidebarService } from '@eps/components/sidebar/sidebar.service';
-import { Store, select } from "@ngrx/store";
+import { Store, select } from '@ngrx/store';
 import _ from 'lodash';
 import { ProductActions, FetchActions } from 'app/ngrx/products/actions';
 import * as fromProducts from 'app/ngrx/products/reducers';
 import * as fromTags from 'app/ngrx/tags/reducers';
 
 import { ITEMS_PER_PAGE } from '@eps/constants';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchComponent implements OnInit, OnDestroy {
-  private _unsubscribeAll: Subject<any>;
   keyword: string = null;
   category: string = null;
-  selectedCategories: any = null;
+  // selectedCategories: any = null;
   selectedColors: string[] = [];
   selectedPriceRange: number[] = [];
   subCategoryIds: number[];
-  canFetch: boolean = false;
+  canFetch = false;
   // querySubscribe: Subscription;
   public categories: any[] = [];
   public categoriesTree: any;
@@ -36,6 +35,14 @@ export class SearchComponent implements OnInit, OnDestroy {
   public price: any;
   public rangePrice: any = [0, 0];
 
+  public filteredItems: any[] = [];
+  public colorFilters: any[] = [];
+  public categoriesFilters: any[] = [];
+  public priceFilters: any[] = [];
+  public dataViewOptions = {
+    loading: true,
+    layout: 'grid',
+  };
   // public minPrice: number;
   // public maxPrice: number;
 
@@ -44,26 +51,17 @@ export class SearchComponent implements OnInit, OnDestroy {
   links$: Observable<any>;
   currentCategory$: Observable<string[]>;
   totalItems$: Observable<any>;
-  subCategories$: Observable<number[]>;
+  categoriesIds$: Observable<number[]>;
+  categoriesIds: number[] = [];
   loading$: Observable<boolean>;
   error$: Observable<string>;
-  public filteredItems: any[] = [];
 
-  public colorFilters: any[] = [];
-  public categoriesFilters: any[] = [];
-  public priceFilters: any[] = [];
-
-  public dataViewOptions = {
-    loading: true,
-    layout: 'grid'
-  };
-
-  sortOptions: SelectItem[];
+  // sortOptions: SelectItem[];
   sortKey: string;
   sortField: string;
   sortOrder: number;
   loading: boolean;
-  totalRecords: number = 1000;
+  totalRecords = 1000;
 
   eventSubscriber: Subscription;
   // routeData: any;
@@ -75,6 +73,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   previousPage: any;
   reverse: any;
 
+  query: any;
+  private unsubscribeAll: Subject<any> = new Subject();
+
   constructor(
     private store: Store<fromProducts.State>,
     private tagStore: Store<fromTags.State>,
@@ -84,15 +85,14 @@ export class SearchComponent implements OnInit, OnDestroy {
     private rootSidebarService: RootSidebarService,
     protected eventManager: JhiEventManager
   ) {
-    this._unsubscribeAll = new Subject();
     this.itemsPerPage = ITEMS_PER_PAGE;
-    this.subCategories$ = tagStore.pipe(select(fromTags.getSubCategoriesIds));
+    this.categoriesIds$ = tagStore.pipe(select(fromTags.getCategoriesIds));
 
     this.activatedRoute.params
       .pipe(
-        takeUntil(this._unsubscribeAll),
+        takeUntil(this.unsubscribeAll),
         zip(this.activatedRoute.data, this.activatedRoute.queryParams),
-        map((payload) => {
+        map(payload => {
           const params = payload[0];
           const data = payload[1];
           const queryParams = payload[2];
@@ -104,6 +104,9 @@ export class SearchComponent implements OnInit, OnDestroy {
 
           this.keyword = params.keyword || '';
           this.category = queryParams.category || '';
+          if (this.category) {
+            this.categoriesIds.push(+this.category);
+          }
 
           return ProductActions.searchProductsWithPaging({ query: this.getQuery() });
         })
@@ -118,60 +121,72 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.error$ = store.pipe(select(fromProducts.getSearchError));
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.categoriesIds$.pipe(takeUntil(this.unsubscribeAll)).subscribe(ids => {
+      this.categoriesIds = ids;
+    });
+
     this.registerChangeInProducts();
   }
 
-  loadAll() {
+  loadAll(): void {
     this.store.dispatch(ProductActions.searchProductsWithPaging({ query: this.getQuery() }));
   }
 
-  trackId(index: number, item: IProducts) {
+  trackId(index: number, item: IProducts): number {
     return item.id;
   }
 
-  registerChangeInProducts() {
+  registerChangeInProducts(): void {
     this.eventSubscriber = this.eventManager.subscribe('productsListModification', response => this.loadAll());
   }
 
-  searchText() {
+  searchText(): string {
     return this.keyword && this.keyword !== '_blank' ? this.keyword : null;
   }
 
-  getQuery() {
-    let query = {
+  getQuery(): any {
+    this.query = {
       page: this.page - 1,
       size: this.itemsPerPage,
-      sort: this.sort()
+      sort: this.sort(),
     };
 
-    if (this.keyword && this.keyword != '_blank') {
-      _.assign(query, { 'productName.contains': this.keyword });
+    if (this.keyword && this.keyword !== '_blank') {
+      _.assign(this.query, { 'searchDetails.contains': this.keyword });
     }
 
-    if (this.selectedCategories) {
-      switch (this.selectedCategories.type) {
-        case 'item':
-          _.assign(query, { 'productSubCategoryId.equals': this.selectedCategories.id }); break;
-        case 'collapsable':
-          _.assign(query, { 'productSubCategoryId.in': this.selectedCategories.children.map(item => item.id) }); break;
-      }
-    } else {
-      this.subCategories$.pipe(takeUntil(this._unsubscribeAll)).subscribe(ids => _.assign(query, { 'productSubCategoryId.in': ids }));
+    // if (this.selectedCategories) {
+    //   switch (this.selectedCategories.type) {
+    //     case 'item':
+    //       _.assign(this.query, { 'productCategoryId.equals': this.selectedCategories.id });
+    //       break;
+    //     case 'collapsable':
+    //       if (this.selectedCategories.children.length) {
+    //         _.assign(this.query, { 'productCategoryId.in': this.selectedCategories.children.map(item => item.id) });
+    //       }
+    //       break;
+    //   }
+    // }
+    if (this.categoriesIds.length > 0) {
+      _.assign(this.query, { 'productCategoryId.in': this.categoriesIds });
     }
 
     if (this.selectedColors.length) {
-      _.assign(query, { 'color.in': this.selectedColors });
+      _.assign(this.query, { 'color.in': this.selectedColors });
     }
 
     if (this.selectedPriceRange.length) {
-      _.assign(query, { 'unitPrice.greaterOrEqualThan': this.selectedPriceRange[0], 'unitPrice.lessThan': this.selectedPriceRange[1] });
+      _.assign(this.query, {
+        'defaultUnitPrice.greaterOrEqualThan': this.selectedPriceRange[0],
+        'defaultUnitPrice.lessThan': this.selectedPriceRange[1],
+      });
     }
 
-    return query;
+    return this.query;
   }
 
-  sort() {
+  sort(): string[] {
     const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
     if (this.predicate !== 'id') {
       result.push('id');
@@ -179,62 +194,69 @@ export class SearchComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  loadPage(page: number) {
+  loadPage(page: number): void {
     if (page !== this.previousPage) {
       this.previousPage = page;
       this.transition();
     }
   }
 
-  transition() {
-    let paging = {
+  pageIndexChanged(pageIndex): void {
+    this.loading = true;
+    // this.itemsPerPage = pageSize;
+    this.page = pageIndex;
+    this.loadPage(this.page);
+  }
+
+  transition(): void {
+    const paging = {
       page: this.page,
       size: this.itemsPerPage,
-      sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-    }
+      sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc'),
+    };
 
     if (this.category) {
-      _.assign(paging, { category: this.category })
+      _.assign(paging, { category: this.category });
     }
 
     this.router.navigate(['/search/', this.keyword], {
-      queryParams: paging
+      queryParams: paging,
     });
     this.loadAll();
   }
 
-  onSortChange(event) {
-    let value = event.value;
+  onSortChange(event): void {
+    const value = event.value;
 
     if (value.indexOf('!') === 0) {
       this.sortOrder = -1;
       this.sortField = value.substring(1, value.length);
-    }
-    else {
+    } else {
       this.sortOrder = 1;
       this.sortField = value;
     }
   }
 
-  onSelectedCategories(item: any) {
-    this.page = 1;
-    this.selectedCategories = item;
-    this.transition();
-  }
+  // onSelectedCategories(item: any): void {
+  //   this.page = 1;
+  //   this.selectedCategories = item;
+  //   this.transition();
+  // }
 
-  public onSelectedColors(colors: any) {
+  public onSelectedColors(colors: any): void {
     this.page = 1;
     this.selectedColors = colors;
     this.transition();
   }
 
-  public onSelectedPriceRange(price: any) {
+  public onSelectedPriceRange(price: any): void {
+    console.log('price changed', price);
     this.page = 1;
     this.selectedPriceRange = price;
     this.transition();
   }
 
-  updateCondition(condition: any[]) {
+  updateCondition(condition: any[]): void {
     console.log(condition);
   }
 
@@ -243,7 +265,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._unsubscribeAll.next();
-    this._unsubscribeAll.complete();
+    this.unsubscribeAll.next();
+    this.unsubscribeAll.complete();
   }
 }

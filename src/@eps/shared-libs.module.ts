@@ -5,172 +5,39 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgJhipsterModule } from 'ng-jhipster';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import {
-    MatChipsModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatCheckboxModule,
-    MatDividerModule,
-    MatListModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatInputModule,
-    MatRadioModule,
-    MatTabsModule,
-    MatCardModule,
-    MatGridListModule,
-    MatProgressSpinnerModule,
-    MatToolbarModule,
-    MatProgressBarModule,
-    MatSelectModule,
-    MatSnackBarModule
-} from '@angular/material';
+import { RootPipesModule } from '@eps/pipes';
+import { RootDirectivesModule } from '@eps/directives/directives';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { RootSidebarModule } from '@eps/components';
 
-//primeng
-import { TableModule } from 'primeng/table';
-import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
-import { DataViewModule } from 'primeng/dataview';
-import { CardModule } from 'primeng/card';
-import { ToolbarModule } from 'primeng/toolbar';
-import { ButtonModule } from 'primeng/button';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
-import { TabViewModule } from 'primeng/tabview';
-import { CarouselModule } from 'primeng/carousel';
-import { InplaceModule } from 'primeng/inplace';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { FieldsetModule } from 'primeng/fieldset';
-import { SliderModule } from 'primeng/slider';
-import { PanelModule } from 'primeng/panel';
-import { DialogModule } from 'primeng/dialog';
-import { TreeModule } from 'primeng/tree';
-import { CheckboxModule } from 'primeng/checkbox';
-import { RatingModule } from 'primeng/rating';
-import { GalleriaModule } from 'primeng/galleria';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { InputSwitchModule } from 'primeng/inputswitch';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { InputMaskModule } from 'primeng/inputmask';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { MaterialModule, NgZorroAntdModule } from '@eps/modules';
+import { NgArrayPipesModule, OrderByPipe } from 'ngx-pipes';
 import { DeferLoadModule } from '@trademe/ng-defer-load';
-import { CookieModule } from 'ngx-cookie';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { NgxPicaModule } from '@digitalascetic/ngx-pica';
 
 @NgModule({
-    imports: [
-        NgbModule,
-        CookieModule.forRoot(),
-        FontAwesomeModule,
-        DeferLoadModule,
-        MatChipsModule,
-        MatIconModule,
-        MatButtonModule,
-        MatListModule,
-        MatExpansionModule,
-        MatTabsModule,
-        MatTooltipModule,
-        MatCardModule,
-        MatGridListModule,
-        MatProgressSpinnerModule,
-        MatToolbarModule,
-        MatProgressBarModule,
-        MatDialogModule,
-        MatRadioModule,
-        MatSelectModule,
-        MatSnackBarModule,
-        MatInputModule,
+  exports: [
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
 
-        TableModule,
-        // ButtonModule,
-        // SplitButtonModule,
-        // CardModule,
-        // ToolbarModule,
-        InputTextModule,
-        InputMaskModule,
-        // DropdownModule,
-        // DataViewModule,
-        // ConfirmDialogModule,
-        TabViewModule,
-        CarouselModule,
-        InplaceModule,
-        // SelectButtonModule,
-        // FieldsetModule,
-        SliderModule,
-        // PanelModule,
-        // DialogModule,
-        TreeModule,
-        CheckboxModule,
-        RatingModule,
-        GalleriaModule,
-        // ProgressBarModule,
-        // InputSwitchModule,
-        // AutoCompleteModule,
-        BreadcrumbModule
-    ],
-    exports: [
-        FormsModule,
-        ReactiveFormsModule,
-        CommonModule,
-        NgbModule,
-        NgJhipsterModule,
-        FontAwesomeModule,
-        DeferLoadModule,
-        MatChipsModule,
-        MatIconModule,
-        MatButtonModule,
-        MatListModule,
-        MatExpansionModule,
-        MatTabsModule,
-        MatTooltipModule,
-        MatCardModule,
-        MatGridListModule,
-        MatProgressSpinnerModule,
-        MatToolbarModule,
-        MatProgressBarModule,
-        MatDialogModule,
-        MatRadioModule,
-        MatSelectModule,
-        MatSnackBarModule,
-        MatInputModule,
+    FlexLayoutModule,
+    RootDirectivesModule,
+    RootPipesModule,
+    RootSidebarModule,
 
-        TableModule,
-        // ButtonModule,
-        // SplitButtonModule,
-        // CardModule,
-        // ToolbarModule,
-        InputTextModule,
-        InputMaskModule,
-        // DropdownModule,
-        // DataViewModule,
-        // ConfirmDialogModule,
-        TabViewModule,
-        CarouselModule,
-        InplaceModule,
-        // SelectButtonModule,
-        // FieldsetModule,
-        SliderModule,
-        // PanelModule,
-        // DialogModule,
-        TreeModule,
-        CheckboxModule,
-        RatingModule,
-        GalleriaModule,
-        // ProgressBarModule,
-        // InputSwitchModule,
-        // AutoCompleteModule,
-        BreadcrumbModule
-    ],
-    providers: [
-    ]
+    MaterialModule,
+    NgZorroAntdModule,
+
+    NgbModule,
+    NgJhipsterModule,
+    FontAwesomeModule,
+    DeferLoadModule,
+    NgArrayPipesModule,
+    CarouselModule,
+    NgxPicaModule,
+  ],
+  providers: [OrderByPipe],
 })
-export class ResourceSharedLibsModule {
-    static forRoot() {
-        return {
-            ngModule: ResourceSharedLibsModule
-        };
-    }
-}
+export class ResourceSharedLibsModule {}

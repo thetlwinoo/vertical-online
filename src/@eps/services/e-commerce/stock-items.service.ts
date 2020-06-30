@@ -13,8 +13,8 @@ type EntityArrayResponseType = HttpResponse<IStockItems[]>;
 
 @Injectable({ providedIn: 'root' })
 export class StockItemsService {
-  public resourceUrl = SERVER_API_URL + 'api/stock-items';
-  public extendUrl = SERVER_API_URL + 'api/stock-items-extend';
+  public resourceUrl = SERVER_API_URL + 'services/vscommerce/api/stock-items';
+  public extendUrl = SERVER_API_URL + 'services/vscommerce/api/stock-items-extend';
 
   constructor(protected http: HttpClient) {}
 
@@ -33,6 +33,7 @@ export class StockItemsService {
   }
 
   find(id: number): Observable<EntityResponseType> {
+    console.log('id', id);
     return this.http
       .get<IStockItems>(`${this.resourceUrl}/${id}`, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
@@ -49,17 +50,17 @@ export class StockItemsService {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  getStockItemsByProductId(id:number): Observable<EntityArrayResponseType>{
+  getStockItemsByProductId(id: number): Observable<EntityArrayResponseType> {
     return this.http
-    .get<IStockItems[]>(`${this.extendUrl}/products/${id}`, { observe: 'response' })
-    .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+      .get<IStockItems[]>(`${this.extendUrl}/products/${id}`, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   protected convertDateFromClient(stockItems: IStockItems): IStockItems {
     const copy: IStockItems = Object.assign({}, stockItems, {
       sellStartDate: stockItems.sellStartDate != null && stockItems.sellStartDate.isValid() ? stockItems.sellStartDate.toJSON() : null,
       sellEndDate: stockItems.sellEndDate != null && stockItems.sellEndDate.isValid() ? stockItems.sellEndDate.toJSON() : null,
-      lastEditedWhen: stockItems.lastEditedWhen != null && stockItems.lastEditedWhen.isValid() ? stockItems.lastEditedWhen.toJSON() : null
+      lastEditedWhen: stockItems.lastEditedWhen != null && stockItems.lastEditedWhen.isValid() ? stockItems.lastEditedWhen.toJSON() : null,
     });
     return copy;
   }
@@ -74,8 +75,7 @@ export class StockItemsService {
   }
 
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
-    console.log('res',res)
-    if (res.body) {        
+    if (res.body) {
       res.body.forEach((stockItems: IStockItems) => {
         stockItems.sellStartDate = stockItems.sellStartDate != null ? moment(stockItems.sellStartDate) : null;
         stockItems.sellEndDate = stockItems.sellEndDate != null ? moment(stockItems.sellEndDate) : null;

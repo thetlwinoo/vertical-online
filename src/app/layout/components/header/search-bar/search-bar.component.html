@@ -4,17 +4,17 @@
             <input #instance="ngbTypeahead" id="keyword-search" type="text" class="form-control"
                 [class.is-invalid]="searchFailed" formControlName="keyword" [ngbTypeahead]="search$"
                 placeholder="keyword search" />
-            <button class="btn btn-primary bg-dark inline-button" type="submit">
+            <button class="btn btn-primary bg-primary inline-button" type="submit">
                 <fa-icon icon="search"></fa-icon>
             </button>
         </div>
     </div>
-    <div class="hot-words d-none d-md-block d-lg-block">
+    <!-- <div class="hot-words d-none d-md-block d-lg-block">
         <div class="hot-words__list">
-            <a href="javascript:void(0)" class="hot-words__item" *ngFor="let item of defaultKeywords | slice:0:10;let i=index"
-                (click)="onHotKeyChange(item.keyword)">
+            <a href="javascript:void(0)" class="hot-words__item"
+                *ngFor="let item of defaultKeywords | slice:0:10;let i=index" (click)="onHotKeyChange(item.keyword)">
                 <span>{{item.keyword}}</span>
             </a>
         </div>
-    </div>
+    </div> -->
 </form>

@@ -1,29 +1,29 @@
 :host {
-    .card:not(:last-child) {
-        margin-bottom: 10px;
-    }
+  .card:not(:last-child) {
+    margin-bottom: 10px;
+  }
 
-    .card-title {
-        color: #9e9e9e;
-        font-size: 1.2em;
-    }
+  .card-title {
+    color: #9e9e9e;
+    font-size: 1.2em;
+  }
 
-    .media {
-        .product {
-            width: 64px;
-            height: 64px;
-        }
+  .media {
+    .product {
+      width: 64px;
+      height: 64px;
     }
+  }
 
-    .reviews-right-wrapper {
-        .review-button {
-            font-weight: 300;
-            padding: 5px 40px;
-        }
+  .reviews-right-wrapper {
+    .review-button {
+      font-weight: 300;
+      padding: 5px 40px;
     }
+  }
 
-    .reviews-left-wrapper {
-        // padding: 20px;
-        border-right: 1px solid #eff0f5;
-    }
+  .reviews-left-wrapper {
+    // padding: 20px;
+    border-right: 1px solid #eff0f5;
+  }
 }

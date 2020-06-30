@@ -1,221 +1,235 @@
-:host {
+app-my-wishlist {
+  nz-list-empty {
+    padding: 5em !important;
+  }
 
-    .add-cart{        
-        
-        fa-icon{
-            font-size: 1.1rem;
-            color: white;
-            padding: 0px 15px;
-            display: block;
-        }
-    }
+  .content-wrapper {
+    padding: 0px 20px;
+    background-color: #ffffff;
+  }
 
-    .wishlist-section {
-        background: #FFFFFF;
-    }
-
-    .title {
-        height: 60px;
-        border-bottom: 1px solid #E1E8EE;
-        padding: 20px 30px;
-        color: #5E6977;
-        font-size: 18px;
-        font-weight: 400;
-    }
-
-    .item {
-
-        // &:first-child{
-        //     border-top: 1px solid #E1E8EE;
-        // }
-        padding: 20px 30px;
-        height: 120px;
-        border-top: 1px solid #E1E8EE;
-        margin-right: 0;
-        margin-left: 0;
-    }
-
-    .buttons {
-        // position: relative;
-        // padding-top: 30px;
-        display: flex;
-        align-items: center;
-        height: 100%;
-
-
-    }
-
-    // .delete-btn {
-    //     display: inline-block;
-    //     cursor: pointer;
-    //     width: 18px;
-    //     height: 17px;
-    //     background: url("assets/theme/delete-icn.svg") no-repeat center;
-    //     margin-right: 5px;
-    // }
-
-    .is-active {
-        animation-name: animate;
-        animation-duration: .8s;
-        animation-iteration-count: 1;
-        animation-timing-function: steps(28);
-        animation-fill-mode: forwards;
-    }
-
-    @keyframes animate {
-        0% {
-            background-position: left;
-        }
-
-        50% {
-            background-position: right;
-        }
-
-        100% {
-            background-position: right;
-        }
-    }
-
-    .image {
-        margin-top: -10px;
-        padding: 0;
-    }
-
-    .image img {
-        width: 100px;
-        height: 100px;
-        margin-left: 10px;
-        cursor: pointer;
-    }
-
-    .description {
-        padding-top: 10px;
-    }
-
-    .description span {
-        display: block;
-        font-size: 14px;
-        color: #43484D;
-        font-weight: 400;
-    }
-
-    .description span:last-child {
-        font-weight: 300;
-        margin-top: 8px;
-        color: #86939E;
-    }
-
-    .quantity {
-        padding-top: 20px;
-    }
-
-    .quantity input {
-        -webkit-appearance: none;
-        border: none;
-        text-align: center;
-        width: 40px;
-        font-size: 16px;
-        color: #43484D;
-        font-weight: 300;
-    }
-
-    .availability {
-        display: flex;
-        align-items: center;
-        height: 100%;
-
-        span {
-            font-weight: 600;
-            color: #86939E;
-            margin: auto;
-        }
-    }
-
-    button:focus,
-    input:focus {
-        outline: 0;
-    }
-
-    .price {
-        text-align: center;
-        font-size: 16px;
-        color: #43484D;
-        font-weight: 300;
-
-        .item-price {
-            display: flex;
-            align-items: center;
-            height: 100%;
-
-            span {
-                margin: auto;
-            }
-        }
-    }
-
-    .add-cart {
-        display: flex;
-        align-items: center;
-        height: 100%;
-
-        button {
-            margin: auto;
-        }
-    }
-
-    .total-price {
-        font-size: 18px;
-        font-weight: 500;
-        color: #ff5722;
-    }
-
-    .pricing span {
-        font-size: 18px;
-        color: #43484D;
-        font-weight: 500;
-    }
-
-    .apply-code {
-        width: 100%;
-    }
-
-    .discount-code {
-        font-size: 18px;
-        color: #43484D;
-        font-weight: 500;
-    }
-
-    @media (max-width: 800px) {
-        .container-fluid {
-            width: 95% !important;
-        }
-
-        .shopping-cart {
-            width: 100%;
-            height: auto;
-            overflow: hidden;
-        }
-
-        .item {
-            height: auto;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .image img {
-            width: 50%;
-        }
-
-        .image,
-        .quantity,
-        .description {
-            width: 100%;
-            text-align: center;
-            margin: 6px 0;
-        }
-
-        .buttons {
-            margin-right: 20px;
-        }
-    }
+  .ant-avatar {
+    width: 100px !important;
+    height: 100px !important;
+  }
 }
+// :host {
+
+//     .add-cart{
+
+//         fa-icon{
+//             font-size: 1.1rem;
+//             color: white;
+//             padding: 0px 15px;
+//             display: block;
+//         }
+//     }
+
+//     .wishlist-section {
+//         background: #FFFFFF;
+//     }
+
+//     .title {
+//         height: 60px;
+//         border-bottom: 1px solid #E1E8EE;
+//         padding: 20px 30px;
+//         color: #5E6977;
+//         font-size: 18px;
+//         font-weight: 400;
+//     }
+
+//     .item {
+
+//         // &:first-child{
+//         //     border-top: 1px solid #E1E8EE;
+//         // }
+//         padding: 20px 30px;
+//         height: 120px;
+//         border-top: 1px solid #E1E8EE;
+//         margin-right: 0;
+//         margin-left: 0;
+//     }
+
+//     .buttons {
+//         // position: relative;
+//         // padding-top: 30px;
+//         display: flex;
+//         align-items: center;
+//         height: 100%;
+
+//     }
+
+//     // .delete-btn {
+//     //     display: inline-block;
+//     //     cursor: pointer;
+//     //     width: 18px;
+//     //     height: 17px;
+//     //     background: url("assets/theme/delete-icn.svg") no-repeat center;
+//     //     margin-right: 5px;
+//     // }
+
+//     .is-active {
+//         animation-name: animate;
+//         animation-duration: .8s;
+//         animation-iteration-count: 1;
+//         animation-timing-function: steps(28);
+//         animation-fill-mode: forwards;
+//     }
+
+//     @keyframes animate {
+//         0% {
+//             background-position: left;
+//         }
+
+//         50% {
+//             background-position: right;
+//         }
+
+//         100% {
+//             background-position: right;
+//         }
+//     }
+
+//     .image {
+//         margin-top: -10px;
+//         padding: 0;
+//     }
+
+//     .image img {
+//         width: 100px;
+//         height: 100px;
+//         margin-left: 10px;
+//         cursor: pointer;
+//     }
+
+//     .description {
+//         padding-top: 10px;
+//     }
+
+//     .description span {
+//         display: block;
+//         font-size: 14px;
+//         color: #43484D;
+//         font-weight: 400;
+//     }
+
+//     .description span:last-child {
+//         font-weight: 300;
+//         margin-top: 8px;
+//         color: #86939E;
+//     }
+
+//     .quantity {
+//         padding-top: 20px;
+//     }
+
+//     .quantity input {
+//         -webkit-appearance: none;
+//         border: none;
+//         text-align: center;
+//         width: 40px;
+//         font-size: 16px;
+//         color: #43484D;
+//         font-weight: 300;
+//     }
+
+//     .availability {
+//         display: flex;
+//         align-items: center;
+//         height: 100%;
+
+//         span {
+//             font-weight: 600;
+//             color: #86939E;
+//             margin: auto;
+//         }
+//     }
+
+//     button:focus,
+//     input:focus {
+//         outline: 0;
+//     }
+
+//     .price {
+//         text-align: center;
+//         font-size: 16px;
+//         color: #43484D;
+//         font-weight: 300;
+
+//         .item-price {
+//             display: flex;
+//             align-items: center;
+//             height: 100%;
+
+//             span {
+//                 margin: auto;
+//             }
+//         }
+//     }
+
+//     .add-cart {
+//         display: flex;
+//         align-items: center;
+//         height: 100%;
+
+//         button {
+//             margin: auto;
+//         }
+//     }
+
+//     .total-price {
+//         font-size: 18px;
+//         font-weight: 500;
+//         color: #ff5722;
+//     }
+
+//     .pricing span {
+//         font-size: 18px;
+//         color: #43484D;
+//         font-weight: 500;
+//     }
+
+//     .apply-code {
+//         width: 100%;
+//     }
+
+//     .discount-code {
+//         font-size: 18px;
+//         color: #43484D;
+//         font-weight: 500;
+//     }
+
+//     @media (max-width: 800px) {
+//         .container-fluid {
+//             width: 95% !important;
+//         }
+
+//         .shopping-cart {
+//             width: 100%;
+//             height: auto;
+//             overflow: hidden;
+//         }
+
+//         .item {
+//             height: auto;
+//             flex-wrap: wrap;
+//             justify-content: center;
+//         }
+
+//         .image img {
+//             width: 50%;
+//         }
+
+//         .image,
+//         .quantity,
+//         .description {
+//             width: 100%;
+//             text-align: center;
+//             margin: 6px 0;
+//         }
+
+//         .buttons {
+//             margin-right: 20px;
+//         }
+//     }
+// }

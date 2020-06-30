@@ -1,19 +1,32 @@
 :host {
-    .order-detail {
-        img {
-            width: 100px;
-            height: 100px;
-            margin-left: 10px;
-            cursor: pointer;
-        }
-    }
+  .content-wrapper {
+    padding: 0.5em;
 
-    p-table {
-        &#order-lists {
-            .place-on {
-                font-size: 0.9em;
-                color: #757575;
-            }
-        }
+    .gutter-row {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+
+      .inner-box {
+        padding: 8px 0;
+      }
     }
+  }
+  .order-detail {
+    img {
+      width: 100px;
+      height: 100px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+  }
+
+  p-table {
+    &#order-lists {
+      .place-on {
+        font-size: 0.9em;
+        color: #757575;
+      }
+    }
+  }
 }

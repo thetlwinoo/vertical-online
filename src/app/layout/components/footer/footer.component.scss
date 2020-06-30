@@ -1,0 +1,188 @@
+@import 'src/@eps/scss/root';
+
+footer {
+  background-color: #fbfbfb;
+  margin-top: 0.5em !important;
+
+  .ant-divider-horizontal {
+    margin: 0 !important;
+  }
+
+  nz-list {
+    .ant-list-header {
+      font-weight: 700 !important;
+      color: rgba(0, 0, 0, 0.54);
+    }
+
+    a {
+      color: #000000;
+    }
+  }
+
+  .footer-banner {
+    // position: relative;
+    background-image: url('/assets/footer/footerline.svg');
+    background-position: center;
+    background-repeat: repeat-x;
+    background-size: auto;
+    height: 150px;
+
+    .footer-banner-cover {
+      height: 100%;
+      background: url('/assets/footer/girl.svg');
+      padding-top: 1em;
+      padding-bottom: 1em;
+      background-position: right;
+      background-repeat: no-repeat;
+      background-size: auto;
+    }
+
+    // width: 100%;
+
+    .newsletter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      // background: #ffffff;
+
+      .newsletter-row {
+        width: 100%;
+      }
+
+      nz-input-group {
+        max-width: 350px;
+
+        @include media-breakpoint('xs') {
+          max-width: 230px;
+        }
+
+        button {
+          color: #ffffff;
+          background: #ff4438;
+          border-color: #ff4438;
+          font-weight: 700;
+          font-size: 1em;
+        }
+      }
+
+      &__title-wrapper {
+        align-items: center;
+        justify-content: flex-end;
+        display: flex;
+
+        @include media-breakpoint('xs') {
+          display: none !important;
+        }
+      }
+
+      &__title {
+        padding-right: 1.5em;
+        font-weight: 500;
+        font-size: 1em;
+        color: #000000;
+      }
+    }
+  }
+
+  .footer-copyright {
+    // ul {
+    //   li {
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    //   }
+    // }
+  }
+
+  /* TWITTER FEED */
+  #twitterFeed {
+    background: url('/assets/images/general/socials/twitter-bird.png') no-repeat 15px center #444;
+    font-size: 12px;
+    color: #fff;
+    padding: 15px 75px 15px 60px;
+    position: relative;
+    margin-bottom: 15px;
+    font-style: italic;
+    border-radius: 3px;
+  }
+  #twitterFeed:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 15px;
+    border: 5px solid transparent;
+    border-top-color: #444;
+  }
+  #twitterFeed ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 1rem;
+  }
+  #twitterFeed .twTime {
+    display: inline-block;
+    color: #9d9d9d;
+    padding-left: 10px;
+    border-left: 1px solid #707070;
+    font-size: 11px;
+    position: absolute;
+    right: -65px;
+    top: 0;
+    bottom: 0;
+    width: 45px;
+    vertical-align: middle;
+    line-height: 1;
+  }
+  #twitterFeed > div:not(:only-child) {
+    margin-bottom: 10px;
+  }
+  .twitterFeed {
+    margin-bottom: 30px;
+  }
+  .twitter-feed > iframe {
+    max-height: 20px;
+  }
+  #twitterFeed .timePosted {
+    display: inline-block;
+    color: #9d9d9d;
+    padding-left: 10px;
+    border-left: 1px solid #707070;
+    font-size: 0.9rem;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    bottom: 15px;
+    width: 60px;
+    vertical-align: middle;
+    line-height: 1;
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+  }
+  #twitterFeed .timePosted a {
+    -ms-flex-item-align: center !important;
+    align-self: center !important;
+  }
+  #twitterFeed p {
+    margin-bottom: 0;
+  }
+  #twitterFeed p.tweet a {
+    text-decoration: underline;
+  }
+
+  .payments-links li {
+    display: inline-block;
+  }
+  .payments-links a {
+    color: #adb5bd;
+    font-size: 30px;
+    margin-left: 3px;
+    position: relative;
+    -webkit-transform: skewX(-10deg);
+    -ms-transform: skewX(-10deg);
+    transform: skewX(-10deg);
+  }
+  .payments-links a:hover {
+    color: rgba(0, 0, 0, 0.54);
+  }
+}

@@ -1,88 +1,88 @@
 a:hover {
-    text-decoration: none !important;
+  text-decoration: none !important;
 }
 
 .dropdown-menu {
-    z-index: 1030;
+  z-index: 1030;
 }
 
 @media (min-width: 1200px) {
-    .container {
-        max-width: 1200px;
-    }
+  .container {
+    max-width: 1200px;
+  }
 
-    .navbar {
-        padding: 0;
-    }
+  .navbar {
+    padding: 0;
+  }
 }
 
-@media (min-width: 992px) and (max-width: 1199px) {}
+@media (min-width: 992px) and (max-width: 1199px) {
+}
 
 @media (min-width: 768px) and (max-width: 991px) {
-    .container {
-        &:not(.footer-container) {
-            padding: 0 !important;
-        }
+  .container {
+    &:not(.footer-container) {
+      padding: 0 !important;
     }
+  }
 }
 
 @media (max-width: 767px) {
-    .container {
-        &:not(.footer-container) {
-            padding: 0 !important;
-        }
+  .container {
+    &:not(.footer-container) {
+      padding: 0 !important;
     }
+  }
 }
 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
-    .container {
-        &:not(.footer-container) {
-            padding: 0 !important;
-        }
+  .container {
+    &:not(.footer-container) {
+      padding: 0 !important;
     }
+  }
 }
 
 button:focus {
-    outline: none !important;
+  outline: none !important;
 }
 
 .btn-link {
-
-    &:hover,
-    &:active,
-    &:focus {
-        text-decoration: none !important;
-    }
+  &:hover,
+  &:active,
+  &:focus {
+    text-decoration: none !important;
+  }
 }
 
 ngb-typeahead-window {
-    width: 98%;
-    margin-top: 0.3rem !important;
+  width: 98%;
+  margin-top: 0.3rem !important;
 }
 
 input:-internal-autofill-selected {
-    background-color: none !important;
+  background-color: none !important;
 }
 
 .no-gutters {
-    margin-right: 0;
-    margin-left: 0;
+  margin-right: 0;
+  margin-left: 0;
 
-    >.col,
-    >[class*="col-"] {
-        padding-right: 0;
-        padding-left: 0;
-    }
+  > .col,
+  > [class*='col-'] {
+    padding-right: 0;
+    padding-left: 0;
+  }
 }
 
 .list-gutters {
-    margin-right: 0;
-    margin-left: 0;
+  margin-right: 0;
+  margin-left: 0;
 
-    >.col,
-    >[class*="col-"] {
-        padding-right: 10px;
-        padding-left: 0;
-        padding-bottom: 10px;
-    }
+  > .col,
+  > [class*='col-'] {
+    padding-right: 10px;
+    padding-left: 0;
+    padding-bottom: 10px;
+  }
 }

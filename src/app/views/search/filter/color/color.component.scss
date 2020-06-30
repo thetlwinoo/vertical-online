@@ -1,10 +1,6 @@
-:host {
-    ul {
-        padding-left: 0;
-        margin-bottom: 0;
-
-        >li {
-            display: inline-block !important;
-        }
-    }
+color {
+  .content-wrapper {
+    padding: 20px;
+    background-color: #ffffff;
+  }
 }

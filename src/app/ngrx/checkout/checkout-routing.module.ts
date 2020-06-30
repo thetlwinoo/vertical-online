@@ -1,114 +1,132 @@
 import { NgModule, Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, RouterModule } from '@angular/router';
-import { BreadcrumbGuard } from '@eps/services';
-import { UserRouteAccessService } from '@eps/services/core/auth/user-route-access.service';
+import { UserRouteAccessService } from '@eps/core';
 import { ShoppingCartComponent } from './containers/shopping-cart/shopping-cart.component';
 import { OrderFormComponent } from './containers/order-form/order-form.component';
 import { PaymentFormComponent } from './containers/payment-form/payment-form.component';
 import { SuccessFormComponent } from './containers/success-form/success-form.component';
+import { UnSuccessFormComponent } from './containers/unsuccess-form/unsuccess-form.component';
 import { IOrders, Orders } from '@eps/models';
-import { OrderService } from "@eps/services";
+import { OrderService } from '@eps/services';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class OrdersResolve implements Resolve<IOrders> {
-    constructor(private service: OrderService) { }
+  constructor(private service: OrderService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IOrders> {
-        const id = route.params['id'] ? route.params['id'] : null;
-        if (id) {
-            return this.service.find(id).pipe(
-                filter((response: HttpResponse<IOrders>) => response.ok),
-                map((orders: HttpResponse<IOrders>) => orders.body)
-            );
-        }
-        return of(new Orders());
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IOrders> {
+    const id = route.params.id ? route.params.id : null;
+    if (id) {
+      return this.service.find(id).pipe(
+        filter((response: HttpResponse<IOrders>) => response.ok),
+        map((orders: HttpResponse<IOrders>) => {
+          orders.body.orderDetails = JSON.parse(orders.body.orderDetails);
+          return orders.body;
+        })
+      );
     }
+    return of(new Orders());
+  }
 }
 
 export const routes: Routes = [
-    {
-        path: 'cart', component: ShoppingCartComponent,
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'Cart',
-            route: 'cart',
-            crumbs: [
-                {
-                    label: 'Checkout'
-                },
-                {
-                    label: 'Shopping Cart'
-                }
-            ]
+  {
+    path: 'cart',
+    component: ShoppingCartComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'Cart',
+      route: 'cart',
+      crumbs: [
+        {
+          label: 'Checkout',
         },
-        canActivate: [BreadcrumbGuard]
+        {
+          label: 'Shopping Cart',
+        },
+      ],
     },
-    {
-        path: 'form', component: OrderFormComponent,
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'Order',
-            route: 'order',
-            crumbs: [
-                {
-                    label: 'Checkout'
-                },
-                {
-                    label: 'Order Form'
-                }
-            ]
+    canActivate: [],
+  },
+  {
+    path: 'form',
+    component: OrderFormComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'Order',
+      route: 'order',
+      crumbs: [
+        {
+          label: 'Checkout',
         },
-        canActivate: [UserRouteAccessService, BreadcrumbGuard]
+        {
+          label: 'Order Form',
+        },
+      ],
     },
-    {
-        path: 'payment/:id/secure', component: PaymentFormComponent,
-        resolve: {
-            orders: OrdersResolve
-        },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'Payment',
-            route: 'payment',
-            crumbs: [
-                {
-                    label: 'Checkout'
-                },
-                {
-                    label: 'Payment'
-                }
-            ]
-        },
-        canActivate: [UserRouteAccessService, BreadcrumbGuard]
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: 'payment/:id/secure',
+    component: PaymentFormComponent,
+    resolve: {
+      orders: OrdersResolve,
     },
-    {
-        path: 'success/:id', component: SuccessFormComponent,
-        resolve: {
-            orders: OrdersResolve
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'Payment',
+      route: 'payment',
+      crumbs: [
+        {
+          label: 'Checkout',
         },
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'Success',
-            route: 'success',
-            crumbs: [
-                {
-                    label: 'Checkout'
-                },
-                {
-                    label: 'Success'
-                }
-            ]
+        {
+          label: 'Payment',
         },
-        canActivate: [UserRouteAccessService, BreadcrumbGuard]
+      ],
     },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: 'success/:id',
+    component: SuccessFormComponent,
+    resolve: {
+      orders: OrdersResolve,
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'Success',
+      route: 'success',
+      crumbs: [
+        {
+          label: 'Checkout',
+        },
+        {
+          label: 'Success',
+        },
+      ],
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: 'unsuccess/:id',
+    component: UnSuccessFormComponent,
+    resolve: {
+      orders: OrdersResolve,
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'Unsuccessful Payment',
+      route: 'unsuccess',
+    },
+    canActivate: [UserRouteAccessService],
+  },
 ];
 
 @NgModule({
-    imports: [
-        RouterModule.forChild(routes)
-    ],
-    exports: [RouterModule],
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class CheckoutRoutingModule { }
+export class CheckoutRoutingModule {}

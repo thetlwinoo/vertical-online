@@ -1,89 +1,49 @@
-@import "src/@eps/scss/root";
+@import 'src/@eps/scss/root';
 
-:host {
-    .viwer-area {
-        position: relative;
-        z-index: 2;
+daily-discover {
+  .content-wrapper {
+    border: 1px solid #ececec;
+  }
 
-        .viwer-title {
-            align-content: center;
-            align-items: center;
-            display: flex;
-            justify-content: center;
-            padding: 8px;
-            border-bottom: 2px solid #EE3741;
+  .product-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
 
-            .viwer-title-spacer {
-                flex: 1 1 auto;
+    .product-item {
+      border: none;
+      display: flex;
+      align-items: flex-start;
+      background: transparent;
+      padding: 5px;
 
-                &.title {
-                    text-transform: uppercase;
-                    font-weight: 600;
-                }
-            }
+      flex: 0 0 16.66666667%;
+      max-width: 16.66666667%;
 
-            // button {
-            //     color: #EE3741;
-            //     font-weight: 400;
-            //     margin-right: 15px;
+      @include media-breakpoint('sm') {
+        flex: 0 0 33.33333333%;
+        max-width: 33.33333333%;
+      }
 
-            //     mat-icon {
-            //         color: #EE3741;
-            //         margin-left: 2px;
-            //     }
-            // }
-        }
+      @include media-breakpoint('md') {
+        flex: 0 0 33.33333333%;
+        max-width: 33.33333333%;
+      }
 
-        .viwer-body {
-            .content {
-                .product-wrapper {
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    justify-content: flex-start;
-                    align-items: flex-start;
+      @include media-breakpoint('xs') {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
 
-                    .product-item {
-                        border: none;
-                        display: flex;
-                        align-items: flex-start;
-                        background: transparent;
-                        padding: 5px;
+      .card-preview {
+        display: flex;
+      }
 
-                        flex: 0 0 16.66666667%;
-                        max-width: 16.66666667%;
-
-                        @include media-breakpoint("sm") {
-                            flex: 0 0 33.33333333%;
-                            max-width: 33.33333333%;
-                        }
-
-                        @include media-breakpoint("md") {
-                            flex: 0 0 33.33333333%;
-                            max-width: 33.33333333%;
-                        }
-
-                        @include media-breakpoint("xs") {
-                            flex: 0 0 50%;
-                            max-width: 50%;
-                        }
-
-                        .card-preview {
-                            display: flex;
-                        }
-
-                        .card-source {
-                            display: none;
-                        }
-
-                        a,
-                        div,
-                        product-card {
-                            width: 100%;
-                        }
-                    }
-                }
-            }
-        }
+      .card-source {
+        display: none;
+      }
     }
+  }
 }

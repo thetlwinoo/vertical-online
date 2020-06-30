@@ -1,8 +1,8 @@
 // import 'bootstrap';
+import { NgModule, DoBootstrap, ApplicationRef, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { rootConfig } from 'app/root-config';
-import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
@@ -14,70 +14,71 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { RootModule } from '@eps/root.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-
-import { AuthInterceptor } from '@eps/blocks/interceptor/auth.interceptor';
-import { AuthExpiredInterceptor } from '@eps/blocks/interceptor/auth-expired.interceptor';
-import { ErrorHandlerInterceptor } from '@eps/blocks/interceptor/errorhandler.interceptor';
-import { NotificationInterceptor } from '@eps/blocks/interceptor/notification.interceptor';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { NgJhipsterModule } from 'ng-jhipster';
 import { RootProgressBarModule } from '@eps/components/progress-bar/progress-bar.module';
 import { ROOT_REDUCERS, metaReducers } from 'app/ngrx';
 import { NgrxCoreModule } from 'app/ngrx/core';
 import { RouterEffects } from 'app/ngrx/core/effects';
-import './vendor.ts';
 import 'hammerjs';
 import { ProductsModule } from 'app/ngrx/products';
 import { CheckoutModule } from 'app/ngrx/checkout';
 import { TagsModule } from 'app/ngrx/tags';
 import { AuthModule } from 'app/ngrx/auth';
 
+import { CoreModule } from '@eps/core/core.module';
+import { environment } from '../environments/environment';
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { HomeModule } from './views/home/home.module';
+
+const keycloakService: KeycloakService = new KeycloakService();
+
+import { registerLocaleData } from '@angular/common';
+import en from '@angular/common/locales/en';
+registerLocaleData(en);
+
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  {
-    path: 'home',
-    loadChildren: () => import('./views/home/home.module').then(m => m.HomeModule)
-  },
+  // { path: '', redirectTo: '/home', pathMatch: 'full' },
+  // {
+  //   path: 'home',
+  //   loadChildren: () => import('./views/home/home.module').then(m => m.HomeModule),
+  // },
   {
     path: 'products',
-    loadChildren: () => import('./ngrx/products/products.module').then(m => m.ProductsModule)
+    loadChildren: () => import('./ngrx/products/products.module').then(m => m.ProductsModule),
   },
   {
     path: 'pages',
-    loadChildren: () => import('./views/pages/pages.module').then(m => m.PagesModule)
+    loadChildren: () => import('./views/pages/pages.module').then(m => m.PagesModule),
   },
   {
     path: 'checkout',
-    loadChildren: () => import('./ngrx/checkout/checkout.module').then(m => m.CheckoutModule)
+    loadChildren: () => import('./ngrx/checkout/checkout.module').then(m => m.CheckoutModule),
   },
   {
     path: 'search',
-    loadChildren: () => import('./views/search/search.module').then(m => m.SearchModule)
-  },
-  {
-    path: 'account',
-    loadChildren: () => import('./account/account.module').then(m => m.ResourceAccountModule)
+    loadChildren: () => import('./views/search/search.module').then(m => m.SearchModule),
   },
   {
     path: '**',
-    redirectTo: 'home'
-  }
+    redirectTo: 'home',
+  },
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
     BrowserAnimationsModule,
+    CoreModule,
+    HomeModule,
+    KeycloakAngularModule,
     NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-' }),
     NgJhipsterModule.forRoot({
       alertAsToast: false,
       alertTimeout: 5000,
-      i18nEnabled: false
+      i18nEnabled: false,
     }),
     TranslateModule.forRoot(),
     LayoutModule,
@@ -107,30 +108,43 @@ const routes: Routes = [
     ProductsModule,
     CheckoutModule,
     TagsModule,
-    AuthModule
+    AuthModule,
   ],
   providers: [
     {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
+      provide: KeycloakService,
+      useValue: keycloakService,
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthExpiredInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorHandlerInterceptor,
-      multi: true
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: NotificationInterceptor,
-      multi: true
-    }
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: initializer,
+    //   multi: true,
+    //   deps: [KeycloakService],
+    // },
   ],
-  bootstrap: [AppComponent]
+  // bootstrap: [AppComponent],
+  entryComponents: [AppComponent],
 })
-export class AppModule { }
+export class AppModule implements DoBootstrap {
+  async ngDoBootstrap(appRef: ApplicationRef): Promise<void> {
+    const { keycloak } = environment;
+
+    await keycloakService
+      .init({
+        config: keycloak,
+        initOptions: {
+          // onLoad: 'login-required',
+          onLoad: 'check-sso',
+          checkLoginIframe: false,
+        },
+        enableBearerInterceptor: true,
+        bearerExcludedUrls: ['/assets', '/clients/public'],
+      })
+      .then(auth => {
+        console.log('[ngDoBootstrap] bootstrap app', auth);
+        // keycloakService.updateToken(180);
+        appRef.bootstrap(AppComponent);
+      })
+      .catch(error => console.error('[ngDoBootstrap] init Keycloak failed', error));
+  }
+}

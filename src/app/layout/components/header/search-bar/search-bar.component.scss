@@ -1,63 +1,73 @@
-@import "src/@eps/scss/root";
+@import 'src/@eps/scss/root';
 
 .search-container {
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    padding: .3rem .3rem .3rem .7rem;
-    border-radius: 2px;
-    background: #fff;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  padding: 0.2rem 0.2rem 0.2rem 0.6rem;
+  border-radius: 2px;
+  background: #fff;
 
-    .form-control {
-        border: none !important;
-        height: auto !important;
-        padding: 0 !important;
+  .form-control {
+    border: none !important;
+    height: auto !important;
+    padding: 0 !important;
 
-        &:focus {
-            box-shadow: none !important;
-        }
+    &:focus {
+      box-shadow: none !important;
     }
+  }
 }
 
 .inline-button {
-    // padding: 0 15px;
-    min-width: 80px;
-    max-width: 190px;
-    overflow: hidden;
-    font-size: 14px;
-    outline: 0;
+  // padding: 0 15px;
+  min-width: 60px;
+  max-width: 170px;
+  overflow: hidden;
+  font-size: 14px;
+  outline: 0;
+  border-color: #ff4438 !important;
+
+  &:hover,
+  &:focus {
+    background-color: #ff4438 !important;
+  }
+
+  &:focus {
+    box-shadow: none !important;
+  }
 }
 
-.hot-words {
-    display: flex;
-    width: 100%;
-    flex: 1;
-}
+// .hot-words {
+//   display: flex;
+//   width: 100%;
+//   flex: 1;
+// }
 
-.hot-words__list {
-    display: flex;
-    margin-top: 5px;
-    height: 1.5rem;
-    font-size: 0.7rem;
-    font-weight: 400;
-    line-height: 1.5rem;
-    overflow: hidden;
-    flex-wrap: wrap;
+// .hot-words__list {
+//   display: flex;
+//   margin-top: 5px;
+//   height: 1.5rem;
+//   font-size: 0.7rem;
+//   font-weight: 400;
+//   line-height: 1.5rem;
+//   overflow: hidden;
+//   flex-wrap: wrap;
 
-    a {
-        &:first-child{
-            padding-left: 0;
-        }
-        padding: 0 8px;
-    }
-}
+//   a {
+//     &:first-child {
+//       padding-left: 0;
+//     }
+//     padding: 0 8px;
+//   }
+// }
 
-.hot-words__item:first-child {
-    margin-left: 0;
-}
+// .hot-words__item:first-child {
+//   margin-left: 0;
+// }
 
-.hot-words__item {
-    text-decoration: none;
-    white-space: nowrap;
-    color: hsla(0, 0%, 100%, 0.9);
-}
+// .hot-words__item {
+//   text-decoration: none;
+//   white-space: nowrap;
+//   color: hsla(0, 0%, 100%, 0.9);
+// }

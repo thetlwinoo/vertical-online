@@ -1,6 +1,19 @@
 <div class="page-layout blank collection-wrapper">
-    <product-detail [product]="product$ | async" [inCompare]="isSelectedProductInCompare$ | async"
-        [inWishlist]="isSelectedProductInWishlist$ | async" [inCart]="isSelectedProductInCart$ | async" (addToCompare)="addToCompare($event)"
-        (removeFromCompare)="removeFromCompare($event)" (addToWishlist)="addToWishlist($event)"
-        (removeFromWishlist)="removeFromWishlist($event)" (addCart)="addToCart($event)"></product-detail>
+    <div class="container">
+        <nz-breadcrumb>
+            <nz-breadcrumb-item>
+                <a [routerLink]="'/'">Home</a>
+            </nz-breadcrumb-item>
+            <nz-breadcrumb-item>
+                <span>Product Details</span>
+            </nz-breadcrumb-item>
+        </nz-breadcrumb>
+    </div>
+
+    <product-detail [product]="product$ | async" [productDetails]="productDetails$ | async"
+        [productDetailsLoading]="productDetailsLoading$ | async" [inCompare]="isSelectedStockItemInCompare$ | async"
+        [inWishlist]="isSelectedStockItemInWishlist$ | async" [inCart]="isSelectedStockItemInCart$ | async"
+        (addToCompare)="addToCompare($event)" (removeFromCompare)="removeFromCompare($event)"
+        (addToWishlist)="addToWishlist($event)" (removeFromWishlist)="removeFromWishlist($event)"
+        (addCart)="addToCart($event)"></product-detail>
 </div>

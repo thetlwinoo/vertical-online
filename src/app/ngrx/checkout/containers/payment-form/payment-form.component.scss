@@ -1,0 +1,63 @@
+@import 'src/@eps/scss/root';
+
+app-payment-form {
+  .content-wrapper {
+    padding: 0px 25px;
+    background-color: #ffffff;
+  }
+
+  [nz-button] {
+    margin-bottom: 0.5rem;
+  }
+
+  .tab-header-wrapper {
+    text-align: center;
+    min-width: 10em;
+
+    .tab-header-icon {
+    }
+
+    .tab-header-text {
+    }
+  }
+
+  .order-summary {
+    @include media-breakpoint('xs') {
+      padding: 0 1rem;
+    }
+  }
+
+  .price {
+    text-align: center;
+    font-size: 16px;
+    color: #43484d;
+    font-weight: 500;
+  }
+
+  .total-price {
+    font-size: 18px;
+    font-weight: 500;
+    color: #ff5722;
+  }
+
+  .paypal-checkout-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 20vh;
+    text-align: center;
+
+    &.loading {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    > nz-spin {
+      position: absolute;
+    }
+
+    a.disabled {
+      pointer-events: none;
+      color: #ccc;
+    }
+  }
+}

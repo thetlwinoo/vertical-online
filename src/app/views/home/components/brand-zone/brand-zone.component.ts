@@ -1,98 +1,98 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { rootAnimations } from '@eps/animations';
 
 @Component({
   selector: 'brand-zone',
   templateUrl: './brand-zone.component.html',
   styleUrls: ['./brand-zone.component.scss'],
-  animations: rootAnimations
+  encapsulation: ViewEncapsulation.None,
+  animations: rootAnimations,
 })
 export class BrandZoneComponent implements OnInit {
   brands = [
     {
-      'title': 'Brand1',
-      'icon': 'br1'
+      title: 'Icon Notebook',
+      icon: 'icon-notebook.png',
     },
     {
-      'title': 'Brand2',
-      'icon': 'br2'
+      title: 'Mi',
+      icon: 'mi.png',
     },
     {
-      'title': 'Brand3',
-      'icon': 'br3'
+      title: 'Rangoon Tech',
+      icon: 'rangoon-tech.png',
     },
     {
-      'title': 'Brand4',
-      'icon': 'br4'
+      title: 'Serangoon',
+      icon: 'serangoon.png',
     },
     {
-      'title': 'Brand5',
-      'icon': 'br5'
+      title: 'Latyartaw',
+      icon: 'latyartaw.png',
     },
     {
-      'title': 'Brand6',
-      'icon': 'br6'
+      title: 'Brand6',
+      icon: 'your-brand.png',
     },
     {
-      'title': 'Brand7',
-      'icon': 'br7'
+      title: 'Brand7',
+      icon: 'your-brand.png',
     },
     {
-      'title': 'Brand8',
-      'icon': 'br8'
+      title: 'Brand8',
+      icon: 'your-brand.png',
     },
     {
-      'title': 'Brand9',
-      'icon': 'br9'
+      title: 'Brand9',
+      icon: 'your-brand.png',
     },
     {
-      'title': 'Brand10',
-      'icon': 'br10'
+      title: 'Brand10',
+      icon: 'your-brand.png',
     },
     {
-      'title': 'Brand11',
-      'icon': 'br11'
+      title: 'Brand11',
+      icon: 'your-brand.png',
     },
     {
-      'title': 'Brand12',
-      'icon': 'br12'
+      title: 'Brand12',
+      icon: 'your-brand.png',
     },
     {
-      'title': 'Brand13',
-      'icon': 'br13'
+      title: 'Brand13',
+      icon: 'your-brand.png',
     },
     {
-      'title': 'Brand14',
-      'icon': 'br14'
+      title: 'Brand14',
+      icon: 'your-brand.png',
     },
     {
-      'title': 'Brand15',
-      'icon': 'br15'
+      title: 'Brand15',
+      icon: 'your-brand.png',
     },
     {
-      'title': 'Brand16',
-      'icon': 'br16'
+      title: 'Brand16',
+      icon: 'your-brand.png',
     },
     {
-      'title': 'Brand17',
-      'icon': 'br17'
+      title: 'Brand17',
+      icon: 'your-brand.png',
     },
     {
-      'title': 'Brand18',
-      'icon': 'br18'
+      title: 'Brand18',
+      icon: 'your-brand.png',
     },
     {
-      'title': 'Brand19',
-      'icon': 'br19'
+      title: 'Brand19',
+      icon: 'your-brand.png',
     },
     {
-      'title': 'Brand20',
-      'icon': 'br20'
+      title: 'Brand20',
+      icon: 'your-brand.png',
     },
   ];
-  constructor() { }
+  title = 'featured brand';
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
