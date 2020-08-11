@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Orders, IOrders } from '@eps/models';
 import { SERVER_API_URL } from '@eps/constants';
-import { DATE_FORMAT } from '@eps/constants';
 import * as moment from 'moment';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -15,31 +14,31 @@ type EntityArrayResponseType = HttpResponse<IOrders[]>;
 export class OrderService {
   resourceUrl: string = SERVER_API_URL + 'services/vscommerce/api/orders';
   extendUrl: string = SERVER_API_URL + 'services/vscommerce/api/orders-extend';
-  private pageSize = 3;
 
   constructor(private http: HttpClient) {}
 
-  getAllOrdersCount() {
-    return this.http.get<number>(this.extendUrl + '/order/count');
+  getAllOrdersCount(): Observable<HttpResponse<number>> {
+    return this.http.get<HttpResponse<number>>(this.extendUrl + '/order/count');
   }
 
-  getOrder(id: number) {
+  getOrder(id: number): Observable<HttpResponse<IOrders>> {
     return this.http
       .get<Orders>(`${this.resourceUrl}/${id}`, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
-  getAllOrders(page: number) {
-    let params = new HttpParams();
-    params = params.set('page', page.toString());
-    params = params.set('size', this.pageSize.toString());
-    return this.http.get<Orders[]>(this.extendUrl + '/order', {
-      params,
-    });
+  getAllOrders(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http
+      .get<IOrders[]>(this.extendUrl, { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
-  getAllOrdersWithoutPaging(): Observable<EntityArrayResponseType> {
-    return this.http.get<Orders[]>(this.extendUrl + '/allorders', { observe: 'response' });
+  getCustomerOrdersReviews(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http
+      .get<IOrders[]>(this.extendUrl + '/customer-orders/reviews', { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   postOrder(orders: IOrders): Observable<EntityResponseType> {
@@ -47,10 +46,6 @@ export class OrderService {
     return this.http
       .post<IOrders>(this.extendUrl + '/order', copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
-  }
-
-  getPageSize() {
-    return this.pageSize;
   }
 
   create(orders: IOrders): Observable<EntityResponseType> {

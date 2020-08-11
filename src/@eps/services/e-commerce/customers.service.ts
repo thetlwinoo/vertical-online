@@ -14,8 +14,15 @@ type EntityArrayResponseType = HttpResponse<ICustomers[]>;
 @Injectable({ providedIn: 'root' })
 export class CustomersService {
   public resourceUrl = SERVER_API_URL + 'services/vscommerce/api/customers';
+  public extendUrl = SERVER_API_URL + 'services/vscommerce/api/customers-extend';
 
   constructor(protected http: HttpClient) {}
+
+  createCustomersAccount(): Observable<EntityResponseType> {
+    return this.http
+      .post<ICustomers>(this.extendUrl + '/create-account', null, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
 
   create(customers: ICustomers): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(customers);

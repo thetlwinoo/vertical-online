@@ -1,0 +1,42 @@
+<div id="product-brand" [routerLink]="['/products', product.id]">
+    <div class="wrapper">
+        <div nz-row nzGutter="8">
+            <div nz-col nzSpan="8">
+                <a [routerLink]="['/products', product.id]" routerLinkActive="active">
+                    <div class="square"
+                        [style.backgroundImage]="'url(' + blobUrl + selectedItem.thumbnailPhoto + '/thumbnail)'"
+                        *ngIf="selectedItem; else noimage"></div>
+                    <ng-template #noimage>
+                        <div class="square no-image" *ngIf="!selectedItem"></div>
+                    </ng-template>
+                </a>
+            </div>
+            <div nz-col nzSpan="16">
+                <div class="card-title card-item-title">
+                    <a [routerLink]="['/products', product.id]" routerLinkActive="active">
+                        {{ selectedItem?.name }}
+                    </a>
+                </div>
+
+                <div class="card-subtitle mb-2 text-muted">
+                    {{ product?.productCategoryName }}
+                </div>
+
+                <div class="price-wrapper">
+                    <div>
+                        <span class="product-price-old mr-2">{{(selectedItem.unitPrice) | currency:'MMK'}}</span>
+
+                    </div>
+                    <div>
+                        <span class="discount-percentage">{{getPercentage(selectedItem)}}%</span>
+                    </div>
+                </div>
+
+                <div class="price-wrapper">
+                    <span
+                        class="product-current-price">{{ (selectedItem.recommendedRetailPrice) | currency:'MMK' }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

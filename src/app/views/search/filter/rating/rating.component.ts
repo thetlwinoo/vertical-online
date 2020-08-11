@@ -10,10 +10,10 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   animations: rootAnimations,
 })
 export class RatingComponent implements OnInit {
+  @Input() rating: number;
   @Output() changeRating: EventEmitter<number> = new EventEmitter<number>();
   // selectedRating: TreeNode[] = [];
   expand: boolean;
-  selectedValue: string;
   title = 'rating';
 
   data: any[] = [
@@ -49,6 +49,6 @@ export class RatingComponent implements OnInit {
   }
 
   ratingChanged(event): void {
-    console.log(event);
+    this.changeRating.emit(event);
   }
 }

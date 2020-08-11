@@ -23,7 +23,8 @@
                 <nz-list-item *ngFor="let orderPackage of orders.orderDetails">
                     <div class="order-line-wrapper">
                         <div class="order-line" *ngFor="let orderLine of orderPackage.orderLinesList">
-                            <img width="80" [src]="blobUrl + orderLine.thumbnailUrl">
+                            <img width="80" [src]="blobUrl + orderLine.thumbnailUrl"
+                                *ngIf="orderLine.status !== 'CANCELLED'">
                         </div>
                     </div>
 

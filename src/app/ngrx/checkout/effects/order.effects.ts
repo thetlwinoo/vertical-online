@@ -14,14 +14,46 @@ export class OrderEffects {
     this.actions$.pipe(
       ofType(OrderActions.fetchOrder),
       switchMap(({ query }) =>
-        this.orderService.query(query).pipe(
+        this.orderService.getAllOrders(query).pipe(
           filter((res: HttpResponse<IOrders[]>) => res.ok),
           map((res: HttpResponse<IOrders[]>) => {
             res.body.map(lineItem => {
               lineItem.orderDetails = JSON.parse(lineItem.orderDetails);
             });
 
-            return OrderActions.fetchOrderSuccess({ orders: res.body });
+            return OrderActions.fetchOrderSuccess({ payload: res });
+          }),
+          catchError(err => of(OrderActions.orderError({ errorMsg: err.message })))
+        )
+      )
+    )
+  );
+
+  fetchTrackOrders$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(OrderActions.fetchTrackOrder),
+      switchMap(({ query }) =>
+        this.orderService.query(query).pipe(
+          filter((res: HttpResponse<IOrders[]>) => res.ok),
+          map((res: HttpResponse<IOrders[]>) => OrderActions.fetchTrackOrderSuccess({ orders: res.body })),
+          catchError(err => of(OrderActions.orderError({ errorMsg: err.message })))
+        )
+      )
+    )
+  );
+
+  getCustomerOrdersReviews$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(OrderActions.fetchCustomerOrdersReviews),
+      switchMap(({ query }) =>
+        this.orderService.getCustomerOrdersReviews(query).pipe(
+          filter((res: HttpResponse<IOrders[]>) => res.ok),
+          map((res: HttpResponse<IOrders[]>) => {
+            res.body.map(lineItem => {
+              lineItem.orderDetails = JSON.parse(lineItem.orderDetails);
+            });
+
+            return OrderActions.fetchCustomerOrdersReviewsSuccess({ payload: res });
           }),
           catchError(err => of(OrderActions.orderError({ errorMsg: err.message })))
         )
@@ -68,7 +100,11 @@ export class OrderEffects {
       mergeMap(({ order }) =>
         this.orderService.postOrder(order).pipe(
           filter((res: HttpResponse<IOrders>) => res.ok),
-          switchMap((res: HttpResponse<IOrders>) => [OrderActions.emptyOrder(), OrderActions.postOrderSuccess({ order: res.body })]),
+          switchMap((res: HttpResponse<IOrders>) => [
+            OrderActions.emptyOrder(),
+            OrderActions.postOrderSuccess({ order: res.body }),
+            OrderActions.fetchTrackOrder({ query: { 'customerId.equals': res.body.customerId, page: 0, size: 3 } }),
+          ]),
           catchError(err => of(OrderActions.orderError({ errorMsg: err.message })))
         )
       )
@@ -124,6 +160,31 @@ export class OrderEffects {
         this.orderLinesService.updateExtend(orderLine).pipe(
           filter((res: HttpResponse<IOrderLines>) => res.ok),
           map((res: HttpResponse<IOrderLines>) => OrderLineActions.saveOrderLineSuccess({ orderLine: res.body })),
+          catchError(err => of(OrderActions.orderError({ errorMsg: err.message })))
+        )
+      )
+    )
+  );
+
+  cancelOrderLine$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(OrderLineActions.cancelOrderLine),
+      mergeMap(({ id }) =>
+        this.orderLinesService.cancelOrderLine(id).pipe(
+          filter((res: HttpResponse<any>) => res.ok),
+          mergeMap((res: HttpResponse<any>) => {
+            console.log(res.body);
+            const response = res.body;
+            if (response.status === 'success') {
+              return [
+                OrderLineActions.cancelOrderLineSuccess({ response: res.body }),
+                OrderActions.fetchOrder(null),
+                OrderActions.fetchTrackOrder({ query: { 'customerId.equals': response.customerId, page: 0, size: 3 } }),
+              ];
+            } else {
+              return [OrderActions.orderError({ errorMsg: response.error })];
+            }
+          }),
           catchError(err => of(OrderActions.orderError({ errorMsg: err.message })))
         )
       )

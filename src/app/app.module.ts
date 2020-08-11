@@ -60,6 +60,10 @@ const routes: Routes = [
     loadChildren: () => import('./views/search/search.module').then(m => m.SearchModule),
   },
   {
+    path: 'register-success',
+    loadChildren: () => import('./views/register-success/register-success.module').then(m => m.RegisterSuccessModule),
+  },
+  {
     path: '**',
     redirectTo: 'home',
   },
@@ -136,12 +140,17 @@ export class AppModule implements DoBootstrap {
           // onLoad: 'login-required',
           onLoad: 'check-sso',
           checkLoginIframe: false,
+          flow: 'implicit',
         },
         enableBearerInterceptor: true,
         bearerExcludedUrls: ['/assets', '/clients/public'],
       })
       .then(auth => {
         console.log('[ngDoBootstrap] bootstrap app', auth);
+
+        if (auth && !keycloakService.isUserInRole('ROLE_CUSTOMER')) {
+          keycloakService.logout();
+        }
         // keycloakService.updateToken(180);
         appRef.bootstrap(AppComponent);
       })

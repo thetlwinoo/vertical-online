@@ -1,0 +1,10 @@
+<vs-panel [title]="title | uppercase" [more]="brands?.length > 12?true:false" *ngIf="brands?.length>0">
+  <div body class="content-wrapper">
+    <nz-checkbox-wrapper (nzOnChange)="selectedBrands.emit($event)">
+      <div *ngFor="let item of brands">
+        <label nz-checkbox [nzValue]="item.productBrandId">{{item.productBrandName}}</label>
+        <br />
+      </div>
+    </nz-checkbox-wrapper>
+  </div>
+</vs-panel>

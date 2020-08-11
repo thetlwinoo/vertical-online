@@ -1,4 +1,7 @@
 import { Moment } from 'moment';
+import { IPhotos } from './photos.model';
+import { IDeliveryMethods } from './delivery-methods.model';
+import { IPeople } from './people';
 
 export interface ISuppliers {
   id?: number;
@@ -12,24 +15,35 @@ export interface ISuppliers {
   paymentDays?: number;
   internalComments?: string;
   phoneNumber?: string;
+  emailAddress?: string;
+  nric?: string;
+  companyRegistrationNo?: string;
   faxNumber?: string;
-  websiteURL?: string;
+  websiteUrl?: string;
   webServiceUrl?: string;
   creditRating?: number;
+  officialStoreInd?: boolean;
+  storeName?: string;
+  logo?: string;
+  nricFrontPhoto?: string;
+  nricBackPhoto?: string;
+  bankBookPhoto?: string;
+  companyRegistrationPhoto?: string;
+  distributorCertificatePhoto?: string;
   activeFlag?: boolean;
-  thumbnailUrl?: string;
   validFrom?: Moment;
   validTo?: Moment;
-  userLogin?: string;
-  userId?: number;
+  bannerLists?: IPhotos[];
+  documentLists?: IPhotos[];
   supplierCategoryName?: string;
   supplierCategoryId?: number;
-  deliveryMethodName?: string;
-  deliveryMethodId?: number;
-  deliveryCityName?: string;
-  deliveryCityId?: number;
-  postalCityName?: string;
-  postalCityId?: number;
+  pickupAddressId?: number;
+  headOfficeAddressId?: number;
+  returnAddressId?: number;
+  contactPersonFullName?: string;
+  contactPersonId?: number;
+  deliveryMethods?: IDeliveryMethods[];
+  people?: IPeople[];
 }
 
 export class Suppliers implements ISuppliers {
@@ -45,25 +59,37 @@ export class Suppliers implements ISuppliers {
     public paymentDays?: number,
     public internalComments?: string,
     public phoneNumber?: string,
+    public emailAddress?: string,
+    public nric?: string,
+    public companyRegistrationNo?: string,
     public faxNumber?: string,
-    public websiteURL?: string,
+    public websiteUrl?: string,
     public webServiceUrl?: string,
     public creditRating?: number,
+    public officialStoreInd?: boolean,
+    public storeName?: string,
+    public logo?: string,
+    public nricFrontPhoto?: string,
+    public nricBackPhoto?: string,
+    public bankBookPhoto?: string,
+    public companyRegistrationPhoto?: string,
+    public distributorCertificatePhoto?: string,
     public activeFlag?: boolean,
-    public thumbnailUrl?: string,
     public validFrom?: Moment,
     public validTo?: Moment,
-    public userLogin?: string,
-    public userId?: number,
+    public bannerLists?: IPhotos[],
+    public documentLists?: IPhotos[],
     public supplierCategoryName?: string,
     public supplierCategoryId?: number,
-    public deliveryMethodName?: string,
-    public deliveryMethodId?: number,
-    public deliveryCityName?: string,
-    public deliveryCityId?: number,
-    public postalCityName?: string,
-    public postalCityId?: number
+    public pickupAddressId?: number,
+    public headOfficeAddressId?: number,
+    public returnAddressId?: number,
+    public contactPersonFullName?: string,
+    public contactPersonId?: number,
+    public deliveryMethods?: IDeliveryMethods[],
+    public people?: IPeople[]
   ) {
+    this.officialStoreInd = this.officialStoreInd || false;
     this.activeFlag = this.activeFlag || false;
   }
 }

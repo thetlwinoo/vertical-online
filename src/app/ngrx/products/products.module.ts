@@ -12,6 +12,7 @@ import {
   WishlistEffects,
   FetchEffects,
   QuestionEffects,
+  ProductHomeEffects,
 } from 'app/ngrx/products/effects';
 import * as fromProducts from 'app/ngrx/products/reducers';
 import { ViewProductPageComponent } from './containers/view-product-page/view-product-page.component';
@@ -41,7 +42,15 @@ export const CONTAINERS = [SelectedProductPageComponent, ViewProductPageComponen
     ProductsRoutingModule,
     StoreModule.forFeature(fromProducts.productsFeatureKey, fromProducts.reducers),
 
-    EffectsModule.forFeature([ProductEffects, ProductDetailsEffects, FetchEffects, CompareEffects, WishlistEffects, QuestionEffects]),
+    EffectsModule.forFeature([
+      ProductEffects,
+      ProductDetailsEffects,
+      FetchEffects,
+      CompareEffects,
+      WishlistEffects,
+      QuestionEffects,
+      ProductHomeEffects,
+    ]),
     CarouselModule,
     // NgxGalleryModule,
   ],

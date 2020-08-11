@@ -1,0 +1,42 @@
+<vs-panel [title]="title | uppercase">
+    <div extra>
+        <nz-space>
+            <nz-space-item>
+                <a nz-button nzType="link" nzDanger (click)="shopMore()">
+                    <i nz-icon nzType="fullscreen" style="font-size: 1.1em;"></i>Shop More
+                </a>
+            </nz-space-item>
+            <nz-space-item>
+                <a nz-button nzType="link" nzDanger (click)="owl.prev()">
+                    <i nz-icon nzType="left-square" nzTheme="fill" style="font-size: 1.5em;"></i>
+                </a>
+            </nz-space-item>
+            <nz-space-item>
+                <a nz-button nzType="link" nzDanger (click)="owl.next()">
+                    <i nz-icon nzType="right-square" nzTheme="fill" style="font-size: 1.5em;"></i>
+                </a>
+            </nz-space-item>
+        </nz-space>
+    </div>
+    <div body class="content-wrapper">
+        <owl-carousel-o #owl [options]="carousel.options" *ngIf="loading">
+            <ng-container *ngFor="let ghost of ghosts">
+                <ng-template carouselSlide>
+                    <div class="owl-sub-item">
+                        <ghost-item></ghost-item>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+
+        <owl-carousel-o #owl [options]="carousel.options" [@fadeIn]="data?.length">
+            <ng-container *ngFor="let supplier of data">
+                <ng-template carouselSlide>
+                    <div class="owl-sub-item">
+                        <official-store [supplier]="supplier"></official-store>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+    </div>
+</vs-panel>

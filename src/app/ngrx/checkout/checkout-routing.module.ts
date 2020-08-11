@@ -11,10 +11,13 @@ import { OrderService } from '@eps/services';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
+import * as fromCheckout from 'app/ngrx/checkout/reducers';
+import { select, Store } from '@ngrx/store';
+import { OrderActions } from './actions';
 
 @Injectable({ providedIn: 'root' })
 export class OrdersResolve implements Resolve<IOrders> {
-  constructor(private service: OrderService) {}
+  constructor(private service: OrderService, private store: Store<fromCheckout.State>) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IOrders> {
     const id = route.params.id ? route.params.id : null;
@@ -23,10 +26,14 @@ export class OrdersResolve implements Resolve<IOrders> {
         filter((response: HttpResponse<IOrders>) => response.ok),
         map((orders: HttpResponse<IOrders>) => {
           orders.body.orderDetails = JSON.parse(orders.body.orderDetails);
+
+          console.log('orders', orders);
+          // this.store.dispatch(OrderActions.selectOrder({ order: orders.body }));
           return orders.body;
         })
       );
     }
+
     return of(new Orders());
   }
 }
@@ -36,7 +43,7 @@ export const routes: Routes = [
     path: 'cart',
     component: ShoppingCartComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_CUSTOMER'],
       pageTitle: 'Cart',
       route: 'cart',
       crumbs: [
@@ -54,7 +61,7 @@ export const routes: Routes = [
     path: 'form',
     component: OrderFormComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_CUSTOMER'],
       pageTitle: 'Order',
       route: 'order',
       crumbs: [
@@ -75,7 +82,7 @@ export const routes: Routes = [
       orders: OrdersResolve,
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_CUSTOMER'],
       pageTitle: 'Payment',
       route: 'payment',
       crumbs: [
@@ -96,7 +103,7 @@ export const routes: Routes = [
       orders: OrdersResolve,
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_CUSTOMER'],
       pageTitle: 'Success',
       route: 'success',
       crumbs: [
@@ -117,7 +124,7 @@ export const routes: Routes = [
       orders: OrdersResolve,
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_CUSTOMER'],
       pageTitle: 'Unsuccessful Payment',
       route: 'unsuccess',
     },

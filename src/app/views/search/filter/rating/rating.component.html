@@ -11,7 +11,7 @@
 <vs-panel [title]="title | uppercase">
   <div body class="content-wrapper">
     <div class="price-wrapper mx-3 mt-4">
-      <nz-radio-group [(ngModel)]="selectedValue" (ngModelChange)="ratingChanged($event)">
+      <nz-radio-group [(ngModel)]="rating" (ngModelChange)="ratingChanged($event)">
         <ul class="p-0">
           <li *ngFor="let val of data">
             <label nz-radio [nzValue]="val.star"></label>

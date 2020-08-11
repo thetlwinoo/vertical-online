@@ -6,6 +6,7 @@ import { IPaymentMethods, PaymentMethodTabProps } from '@eps/models';
 export class StateStorageService {
   private previousUrlKey = 'previousUrl';
   private paymentMethodKey = 'paymentMethod';
+  private keywordsKey = 'keywords';
 
   constructor(private $sessionStorage: SessionStorageService) {}
 
@@ -31,5 +32,26 @@ export class StateStorageService {
 
   clearPaymentMethod(): void {
     this.$sessionStorage.clear(this.paymentMethodKey);
+  }
+
+  getKeywords(): string[] | null | undefined {
+    return this.$sessionStorage.retrieve(this.keywordsKey);
+  }
+
+  storeKeywords(keyword: string): void {
+    const currentKeywords: string[] = this.$sessionStorage.retrieve(this.keywordsKey);
+
+    if (currentKeywords.length >= 10) {
+      currentKeywords.push(keyword);
+      currentKeywords.shift();
+    } else {
+      currentKeywords.push(keyword);
+    }
+
+    this.$sessionStorage.store(this.keywordsKey, currentKeywords);
+  }
+
+  clearKeywords(): void {
+    this.$sessionStorage.clear(this.keywordsKey);
   }
 }

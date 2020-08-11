@@ -12,27 +12,31 @@
     </section>
 
     <section>
-        <flash-deals eventDate="2020-01-01" [data]="newlyAdded$ | async" [loading]="newlyAddedLoading$ | async"
+        <flash-deals eventDate="2020-01-01" [data]="productHome?.flashDeals" [loading]="loading$ | async"
             [error]="error$ | async"></flash-deals>
     </section>
 
     <section>
-        <brand-zone></brand-zone>
+        <official-stores [data]="productHome?.officialStores" [loading]="loading$ | async" [error]="error$ | async">
+        </official-stores>
     </section>
 
     <section>
-        <most-popular [data]="mostSelling$ | async" [loading]="mostSellingLoading$ | async" [error]="error$ | async">
+        <brand-zone [data]="productHome?.productBrands"></brand-zone>
+    </section>
+
+    <section>
+        <most-popular [data]="productHome?.popularProducts" [loading]="loading$ | async" [error]="error$ | async">
         </most-popular>
     </section>
 
     <section>
-        <newly-added [data]="newlyAdded$ | async" [loading]="newlyAddedLoading$ | async" [error]="error$ | async">
+        <newly-added [data]="productHome?.newlyAdded" [loading]="loading$ | async" [error]="error$ | async">
         </newly-added>
     </section>
 
     <section>
-        <daily-discover [data]="dailyDiscover$ | async" [loading]="dailyDiscoverLoading$ | async"
-            [error]="error$ | async">
+        <daily-discover [data]="productHome?.dailyDiscover" [loading]="loading$ | async" [error]="error$ | async">
         </daily-discover>
     </section>
 

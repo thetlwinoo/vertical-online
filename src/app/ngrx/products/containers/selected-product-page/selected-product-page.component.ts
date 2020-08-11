@@ -87,8 +87,9 @@ export class SelectedProductPageComponent implements OnInit, OnDestroy {
     });
 
     this.productDetails$.subscribe(res => {
-      if (res?.stockItemList.length > 0) {
-        this.store.dispatch(ProductActions.selectStockItem({ stockItem: res.stockItemList[0] }));
+      console.log('res?.productDetails', res);
+      if (res?.stockItemLists.length > 0) {
+        this.store.dispatch(ProductActions.selectStockItem({ stockItem: res?.stockItemLists[0] }));
       }
     });
 

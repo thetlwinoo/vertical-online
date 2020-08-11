@@ -8,31 +8,85 @@
         <a>Search Results</a>
       </nz-breadcrumb-item>
     </nz-breadcrumb>
+
+    <div class="official-store-wrapper" *ngIf="supplierId">
+      <div nz-row>
+        <div nz-col nzLg="8" nzXs="24">
+          <div class="official-store">
+            <div class="wrapper">
+              <div nz-row nzGutter="8">
+                <div nz-col nzSpan="8">
+
+                  <div class="logo-wrapper">
+                    <div class="square" [style.backgroundImage]="'url(' + blobUrl + suppliers?.logo + '/thumbnail)'"
+                      *ngIf="suppliers?.logo; else noimage"></div>
+                  </div>
+
+                  <ng-template #noimage>
+                    <div class="square no-image"></div>
+                  </ng-template>
+                </div>
+                <div nz-col nzSpan="16">
+                  <div class="info-wrapper">
+                    <div class="card-title card-item-title">
+                      {{ suppliers?.storeName }}
+                    </div>
+
+                    <div class="card-subtitle text-muted">
+                      {{ suppliers?.name }}
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="container">
     <div class="page-layout simple left-sidebar">
       <root-sidebar class="sidebar" name="simple-left-sidebar-2" position="left" lockedOpen="gt-md">
         <div class="content">
-          <div class="shop-sidebar-wrapper gray-bg-7">
-            <category></category>
-            <color (selectedColors)="onSelectedColors($event)">
-            </color>
-            <price-filter (selectedPriceRange)="onSelectedPriceRange($event)">
+          <div class="shop-sidebar-wrapper gray-bg-7" *ngIf="filterControllers">
+            <category [categories]="categories"></category>
+
+            <product-brand [brands]="filterControllers.relatedBrand" (selectedBrands)="onSelectedBrands($event)">
+            </product-brand>
+
+            <product-attribute [attribute]="attribute" (selectedAttributes)="onSelectedAttributes($event)"
+              *ngFor="let attribute of filterControllers.relatedProductAttributes">
+            </product-attribute>
+
+            <product-option [options]="options" (selectedOptions)="onSelectedOptions($event)"
+              *ngFor="let options of filterControllers.relatedProductOptions">
+            </product-option>
+
+            <price-filter [priceRangeStream]="filterControllers.relatedPriceRange"
+              (selectedPriceRange)="onSelectedPriceRange($event)">
             </price-filter>
             <!-- <condition (changeCondition)="updateCondition($event)"></condition> -->
-            <rating></rating>
+            <rating [rating]="rating" (changeRating)="onChangeRating($event)"></rating>
           </div>
         </div>
       </root-sidebar>
       <div class="center">
-        <vs-panel [title]="'Search related to'">
+        <vs-panel [title]="'Search related to: ' + filteredResult?.relatedSearch">
           <div body class="content-wrapper">
             <div class="header header-light-grey p-12" fxLayout="row" fxLayoutAlign="start center">
-              <button mat-icon-button class="sidebar-toggle mr-8" fxHide.gt-md
-                (click)="toggleSidebar('simple-left-sidebar-2')">
-                <mat-icon>menu</mat-icon>
-              </button>
+              <a nz-button nzType="link" class="mr-8" fxHide.gt-md (click)="toggleSidebar('simple-left-sidebar-2')">
+                <i nz-icon nzType="menu" nzTheme="outline"></i>
+              </a>
+            </div>
+            <div class="filtered-tag" *ngIf="filteredResult?.filteredBy.length > 0">
+              <div class="tag-list">
+                <nz-tag *ngFor="let filter of filteredResult?.filteredBy">{{filter}}</nz-tag>
+              </div>
+
+              <button class="vertical-center" nz-button nzType="default" [nzSize]="'default'"
+                (click)="clearFilters()"><i nz-icon nzType="close"></i></button>
             </div>
             <div class="horizontal-content">
               <!-- <nav class="nav search-controller">
@@ -54,27 +108,14 @@
                   </div>
                 </div>
                 <div class="row justify-content-center">
-                  <div class="mb-2" *ngIf="(products$ | async).length">
-                    <!-- <ngb-pagination [collectionSize]="(totalItems$|async)" [(page)]="page" [pageSize]="itemsPerPage"
-                      [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)">
-                    </ngb-pagination> -->
+                  <div class="mb-2" *ngIf="(products$ | async)?.length > 0">
                     <nz-pagination [nzPageIndex]="page" [nzTotal]="(totalItems$|async)" [nzPageSize]="itemsPerPage"
                       (nzPageIndexChange)="pageIndexChanged($event)"></nz-pagination>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="no-result" *ngIf="!(loading$ | async) && !(products$ | async).length">
-              <!-- <div class="jumbotron">
-                <h1 class="display-4">No Result Found</h1>
-                <blockquote class="blockquote">
-                  <p class="lead">We're sorry. We cannot find any matches for your search term.</p>
-                </blockquote>
-
-                <p>
-                  <fa-icon icon="search" class="search"></fa-icon>
-                </p>
-              </div> -->
+            <div class="no-result" *ngIf="!(loading$ | async) && !((products$ | async)?.length > 0)">
               <nz-empty nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
                 [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
                 <ng-template #contentTpl>

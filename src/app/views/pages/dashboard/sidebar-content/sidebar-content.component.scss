@@ -1,19 +1,21 @@
-:host{
-    .root-card{
-        min-width: 0 !important;
-        box-shadow: none;
-        > img{
-            padding-top: 20px;
-        }
-    }
+:host {
+  .root-card {
+    min-width: 0 !important;
+    background: #ffffff;
 
-    .qr-title{
-        text-align: center !important;
+    box-shadow: none;
+    > img {
+      padding-top: 20px;
     }
+  }
 
-    .verify{
-        span{
-            font-size: 0.7em;
-        }
+  .qr-title {
+    text-align: center !important;
+  }
+
+  .verify {
+    span {
+      font-size: 0.7em;
     }
+  }
 }

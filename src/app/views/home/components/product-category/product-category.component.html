@@ -15,20 +15,21 @@
     </div>
     <div body class="content-wrapper">
         <owl-carousel-o #owl [options]="carousel.options">
-            <ng-container *ngIf="bundles.length > 0;else skelton">
+            <ng-container *ngIf="bundles && bundles.length > 0;else skelton">
                 <ng-template carouselSlide *ngFor="let bundle of bundles">
                     <div class="category" *ngFor="let category of bundle">
-                        <a [routerLink]="['/search','_blank']" routerLinkActive="active"
-                            [queryParams]="{category: category.id}">
+                        <a [routerLink]="['/search']" routerLinkActive="active"
+                            [queryParams]="{categoryId: category.id}" [nzTooltipTitle]="category.myanmarName"
+                            nzTooltipPlacement="bottom" nz-tooltip>
                             <nz-card class="category-card" nzHoverable [nzCover]="coverTemplate">
                                 <nz-card-meta [nzDescription]="descriptionTemplate">
                                 </nz-card-meta>
                             </nz-card>
                             <ng-template #coverTemplate>
-                                <img alt="example" [src]="blobUrl + category.iconThumbnailUrl" />
+                                <img alt="example" [src]="blobUrl + category.iconPhoto + '/thumbnail'" />
                             </ng-template>
                             <ng-template #descriptionTemplate>
-                                <span class="card-item-title">{{category.name}}</span>
+                                <span class="card-item-title">{{category.myanmarName}}</span>
                             </ng-template>
                         </a>
                     </div>

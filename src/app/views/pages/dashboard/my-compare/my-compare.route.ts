@@ -16,7 +16,7 @@ export const myCompareRoute: Routes = [
     path: '',
     component: MyCompareComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_CUSTOMER'],
       pageTitle: 'My Compare',
     },
     canActivate: [UserRouteAccessService],

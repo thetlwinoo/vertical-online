@@ -1,12 +1,14 @@
 <vs-panel [title]="'My Orders'">
   <div body class="content-wrapper">
-    <nz-tabset>
+    <nz-tabset (nzSelectedIndexChange)="selectedIndexChanged($event)">
       <nz-tab *ngFor="let tab of navOrders" [nzSize]="'small'" [nzTitle]="tab.label">
       </nz-tab>
     </nz-tabset>
 
-    <nz-table class="no-hover-row" #nzTable nzSize="small" [nzHideOnSinglePage]="true" [nzData]="(orders$ | async)"
-      nzTableLayout="fixed" [nzLoading]="(ordersLoading$ | async)" [nzShowRowSelection]="false">
+    <nz-table class="no-hover-row" #nzTable nzSize="small" [nzData]="(orders$ | async)" nzTableLayout="fixed"
+      [nzLoading]="(ordersLoading$ | async)" [nzShowRowSelection]="false" [nzFrontPagination]="false"
+      [nzPageIndex]="page" [nzPageSize]="itemsPerPage" [nzTotal]="(totalItems$| async)" [nzHideOnSinglePage]="true"
+      (nzQueryParams)="onQueryParamsChange($event)">
       <tbody>
         <ng-container *ngFor="let data of nzTable.data | orderBy: '-orderDate'">
           <tr>
@@ -15,33 +17,66 @@
                 [subTitle]="'Placed on '+ getDateTime(data.orderDate)">
                 <div extra>
                   <a nz-button nzType="link" [routerLink]="['/checkout/payment', data.id, 'secure']" nzDanger
-                    *ngIf="data.paymentStatus === 'PENDING' || data.paymentStatus === 'UNSUCCESSFUL'">PAY
+                    *ngIf="(data.paymentStatus === 'PENDING' || data.paymentStatus === 'UNSUCCESSFUL') && data.status !== 'CANCELLED'">PAY
                     NOW</a>
                   <a nz-button nzType="link" [routerLink]="['/pages/dashboard/my-orders',data.id,'view']"
                     *ngIf="data.paymentStatus === 'PAID'">MANAGE</a>
-                  <nz-tag nzColor="warning" *ngIf="data.paymentStatus === 'TO_CHECK'">PAYMENT PENDING</nz-tag>
+                  <nz-tag nzColor="warning"
+                    *ngIf="data.paymentStatus === 'TO_CHECK' && data.paymentMethodName === 'Cash On Delivery'">CASH ON
+                    DELIVERY</nz-tag>
+                  <nz-tag nzColor="warning"
+                    *ngIf="data.paymentStatus === 'TO_CHECK' && data.paymentMethodName === 'Bank Transfer'">PAYMENT
+                    PENDING</nz-tag>
                 </div>
                 <div body class="content-wrapper">
                   <nz-list class="order-line-list" [nzHeader]="orderPackage.orderLinesList[0].supplierName | uppercase"
                     *ngFor="let orderPackage of data.orderDetails">
-                    <nz-list-item *ngFor="let lineItem of orderPackage.orderLinesList">
+                    <nz-list-item *ngFor="let orderLine of orderPackage.orderLinesList">
                       <nz-list-item-meta>
                         <nz-list-item-meta-avatar>
-                          <img width="50" [src]="blobUrl + lineItem.thumbnailUrl">
+                          <img width="80" [src]="blobUrl + orderLine.thumbnailUrl">
                         </nz-list-item-meta-avatar>
 
                         <nz-list-item-meta-title>
-                          <span>{{ lineItem.description }}</span>
+                          <span>{{ orderLine.description }}</span>
                         </nz-list-item-meta-title>
 
                         <nz-list-item-meta-description>
-                          x {{ lineItem.quantity }}
+                          x {{ orderLine.quantity }}
+                          <p *ngIf="orderLine.status === 'CANCELLED'">
+                            <nz-tag [nzColor]="'#f50'">CANCELLED</nz-tag>
+                          </p>
                         </nz-list-item-meta-description>
                       </nz-list-item-meta>
 
-                      <span>Delivered on {{getDate(data.orderDate)}}</span>
+                      <nz-space>
+                        <nz-space-item>
+                          <!-- <nz-tag>{{data.status}}</nz-tag> -->
+                          <!-- <a href="javascript:void(0)" nz-button nzType="link"
+                            *ngIf="(data.status === 'NEW_ORDER' || data.status === 'PENDING')"
+                            (click)="cancelOrderLine(orderLine.id)">CANCEL</a> -->
+
+                          <a href="javascript:void(0)" nz-button nzType="link"
+                            *ngIf="(data.status === 'NEW_ORDER' || data.status === 'PENDING') && orderLine.status !== 'CANCELLED'"
+                            (click)="cancelOrderLine(orderLine.id)">CANCEL</a>
+                        </nz-space-item>
+                        <!-- <nz-space-item>
+                          <span>{{getDate(data.orderDate)}}</span>
+                        </nz-space-item> -->
+                      </nz-space>
                     </nz-list-item>
                   </nz-list>
+                  <!-- <table *ngFor="let orderPackage of data.orderDetails">
+                    <tbody>
+                      <tr *ngFor="let orderLine of orderPackage.orderLinesList">
+                        <td width="10%"><img width="80" [src]="blobUrl + orderLine.thumbnailUrl"></td>
+                        <td width="45%"><span>{{ orderLine.description }}</span></td>
+                        <td width="10%"><span>Qty : {{ orderLine.quantity }}</span></td>
+                        <td width="15%"></td>
+                        <td width="20%"></td>
+                      </tr>
+                    </tbody>
+                  </table> -->
                 </div>
               </vs-panel-list>
             </td>

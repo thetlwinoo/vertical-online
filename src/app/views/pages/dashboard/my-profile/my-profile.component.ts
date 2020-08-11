@@ -43,10 +43,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   ) {
     this.accountService.identity().subscribe(account => {
       this.account = account;
-
-      // if (account) {
-      //   this.store.dispatch(PeopleActions.fetchLoginPeople({ id: account.id }));
-      // }
     });
 
     this.people$ = store.pipe(select(fromAuth.getPeopleFetched));

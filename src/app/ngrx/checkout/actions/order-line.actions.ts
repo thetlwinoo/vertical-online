@@ -14,4 +14,8 @@ export const saveOrderLineSuccess = createAction('[Order Lines/API] Save Order L
 
 export const saveOrderLineListSuccess = createAction('[Order Lines/API] Save Order Line List Success', props<{ success: boolean }>());
 
+export const cancelOrderLine = createAction('[Order Lines/API] Cancel Order Line', props<{ id: number }>());
+
+export const cancelOrderLineSuccess = createAction('[Order Lines/API] Cancel Order Line Success', props<{ response: any }>());
+
 export const orderLineError = createAction('[Order LInes/API] Order Lines Error', props<{ errorMsg: string }>());

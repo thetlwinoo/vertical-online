@@ -6,7 +6,6 @@ import { catchError, map, switchMap, filter, mergeMap, tap } from 'rxjs/operator
 import { IShoppingCarts } from '@eps/models';
 import { CartActions } from '../actions';
 import { CartService, SpecialDealsService } from '@eps/services';
-import { LayoutUtilsService, MessageType } from '@eps/services/_base/crud';
 import { deepParseJson } from 'deep-parse-json';
 
 @Injectable()
@@ -225,10 +224,5 @@ export class CartEffects {
   //   )
   // );
 
-  constructor(
-    private actions$: Actions,
-    private layoutUtilsService: LayoutUtilsService,
-    private cartService: CartService,
-    private specialDealsService: SpecialDealsService
-  ) {}
+  constructor(private actions$: Actions, private cartService: CartService, private specialDealsService: SpecialDealsService) {}
 }

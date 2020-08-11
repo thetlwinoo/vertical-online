@@ -1,0 +1,11 @@
+<vs-panel [title]="options?.value | uppercase" [more]="options?.children.length > 12?true:false"
+  *ngIf="options?.children.length>0">
+  <div body class="content-wrapper">
+    <nz-checkbox-wrapper (nzOnChange)="selectedOptions.emit($event)">
+      <div *ngFor="let item of options?.children">
+        <label nz-checkbox [nzValue]="item.value">{{item.value}}</label>
+        <br />
+      </div>
+    </nz-checkbox-wrapper>
+  </div>
+</vs-panel>

@@ -24,7 +24,7 @@
             </ng-container>
         </owl-carousel-o>
 
-        <owl-carousel-o #owl [options]="carousel.options" [@fadeIn]="data.length">
+        <owl-carousel-o #owl [options]="carousel.options" [@fadeIn]="data?.length">
             <ng-container *ngFor="let product of data">
                 <ng-template carouselSlide>
                     <div class="owl-sub-item">

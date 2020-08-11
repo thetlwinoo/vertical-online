@@ -5,6 +5,7 @@ import * as WishlistActions from './wishlist.actions';
 import * as FetchActions from './fetch.actions';
 import * as QuestionActions from './question.actions';
 import * as SelectedStockItemPageActions from './selected-stock-item-page.actions';
+import * as ProductHomeActions from './product-home.actions';
 
 export {
   ProductActions,
@@ -14,4 +15,5 @@ export {
   FetchActions,
   SelectedStockItemPageActions,
   QuestionActions,
+  ProductHomeActions,
 };

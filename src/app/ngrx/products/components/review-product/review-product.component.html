@@ -22,8 +22,9 @@
                             <nz-rate [(ngModel)]="val" nzDisabled></nz-rate>
                             <span class="progress-wrap">
                                 <div class="progress-item">
-                                    <nz-progress [nzPercent]="getPercentage(val)" nzSize="large" [nzShowInfo]="false">
-                                    </nz-progress>
+                                    <!-- <nz-progress [nzPercent]="getPercentage(val)" nzSize="large" [nzShowInfo]="false">
+                                    </nz-progress> -->
+                                    <ngb-progressbar type="warning" [value]="getPercentage(val)"></ngb-progressbar>
                                 </div>
                             </span>
                             <span>{{getRate(val)}}</span>

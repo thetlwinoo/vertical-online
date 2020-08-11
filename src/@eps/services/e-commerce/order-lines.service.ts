@@ -32,6 +32,10 @@ export class OrderLinesService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
+  cancelOrderLine(id: number): Observable<HttpResponse<{}>> {
+    return this.http.delete(`${this.extendUrl}/cancel/${id}`, { observe: 'response' });
+  }
+
   create(orderLines: IOrderLines): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(orderLines);
     return this.http

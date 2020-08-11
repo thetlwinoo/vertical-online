@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { IOrderPackages } from '@eps/models';
 
 @Pipe({
   name: 'reviewsFilter',

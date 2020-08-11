@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { IPhotos, IDangerousGoods,ISpecialDeals  } from '@eps/models';
+import { IPhotos, IDangerousGoods, ISpecialDeals } from '@eps/models';
 
 export interface IStockItems {
   id?: number;
@@ -28,7 +28,7 @@ export interface IStockItems {
   sellEndDate?: Moment;
   sellCount?: number;
   customFields?: string;
-  thumbnailUrl?: string;
+  thumbnailPhoto?: string;
   activeInd?: boolean;
   lastEditedBy?: string;
   lastEditedWhen?: Moment;
@@ -92,7 +92,7 @@ export class StockItems implements IStockItems {
     public sellEndDate?: Moment,
     public sellCount?: number,
     public customFields?: string,
-    public thumbnailUrl?: string,
+    public thumbnailPhoto?: string,
     public activeInd?: boolean,
     public lastEditedBy?: string,
     public lastEditedWhen?: Moment,

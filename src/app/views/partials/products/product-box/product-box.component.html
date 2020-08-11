@@ -31,7 +31,7 @@
 </ng-template> -->
 <div class="card">
   <a [routerLink]="['/products', product.id]" routerLinkActive="active">
-    <div class="square" [style.backgroundImage]="'url(' + blobUrl + selectedItem.thumbnail + ')'"
+    <div class="square" [style.backgroundImage]="'url(' + blobUrl + selectedItem.thumbnailPhoto + '/thumbnail)'"
       *ngIf="selectedItem; else noimage"></div>
     <ng-template #noimage>
       <div class="square no-image" *ngIf="!selectedItem"></div>
@@ -41,33 +41,33 @@
     <div class="flex-row-container">
       <div class="flex-row-wrapper">
         <div class="d-flex flex-row bd-highlight mb-1">
-          <div class="p-1 bd-highlight" *ngFor="let stockItem of product.productDetails | slice:0:4">
-            <a href="javascript:void(0);" (click)="selectedItem = stockItem">
-              <div class="small-img" [class.active]="selectedItem.stockItemId === stockItem.stockItemId"
-                [style.backgroundImage]="'url(' + blobUrl + stockItem.thumbnail + ')'"></div>
+          <div class="p-1 bd-highlight" *ngFor="let stockItem of product.productDetails.stockItemLists | slice:0:4">
+            <a href="javascript:void(0);" (click)="selectedItem = stockItem" (mouseover)="selectedItem = stockItem">
+              <div class="small-img" [class.active]="selectedItem.id === stockItem.id"
+                [style.backgroundImage]="'url(' + blobUrl + stockItem.thumbnailPhoto + '/thumbnail)'"></div>
             </a>
           </div>
         </div>
       </div>
     </div>
 
-    <h5 class="card-title block-with-text">
+    <div class="card-title card-item-title">
       <a [routerLink]="['/products', product.id]" routerLinkActive="active">
-        {{ product?.name }}
+        {{ selectedItem?.name }}
       </a>
-    </h5>
-    <h6 class="card-subtitle mb-2 text-muted">
+    </div>
+    <span class="card-subtitle mb-2 text-muted">
       {{ product?.productCategoryName }}
-    </h6>
-    <h6 class="card-subtitle mb-2 text-muted model-name">
+    </span>
+    <span class="card-subtitle mb-2 text-muted model-name">
       {{ product?.productBrandName }}
-    </h6>
+    </span>
     <ngb-progressbar type="warning" value="75" *ngIf="mode == 'deal'">{{ product.sellCount }} sold</ngb-progressbar>
   </div>
   <div class="card-footer">
     <div class="footer-wrapper">
       <span class="product-price mr-auto">
-        {{ (selectedItem.unitPrice || 0.00)| currency }}
+        {{ (selectedItem?.recommendedRetailPrice || 0.00)| currency }}
       </span>
       <span class="product-sold" *ngIf="mode != 'deal' && product.sellCount">
         {{ product.sellCount }} sold

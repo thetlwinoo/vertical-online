@@ -47,6 +47,10 @@ $panel-cell-padding: 8px;
     &.show-more-wrapper {
       height: 30vh;
       overflow: hidden;
+
+      ::after {
+        background: linear-gradient(-180deg, hsla(0, 0%, 100%, 0) 6%, #fff 83%);
+      }
     }
 
     &.show-more {
@@ -57,9 +61,21 @@ $panel-cell-padding: 8px;
 
   &__ft {
     background-color: #ffffff;
-    padding: 20px;
     display: flex;
     align-items: center;
-    justify-content: center;
+
+    &.left {
+      padding: 10px 20px;
+      justify-content: start;
+    }
+
+    &.center {
+      padding: 20px;
+      justify-content: center;
+    }
+
+    > a {
+      padding: 0px !important;
+    }
   }
 }

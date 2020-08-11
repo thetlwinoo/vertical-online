@@ -4,18 +4,8 @@ import { SearchComponent } from './search.component';
 import { JhiPaginationUtil, JhiResolvePagingParams } from 'ng-jhipster';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: SearchComponent,
-  //   resolve: {
-  //     pagingParams: JhiResolvePagingParams
-  //   },
-  //   data: {
-  //     crumbs: []
-  //   },
-  // },
   {
-    path: ':keyword',
+    path: '',
     component: SearchComponent,
     resolve: {
       pagingParams: JhiResolvePagingParams,
@@ -23,8 +13,18 @@ const routes: Routes = [
     data: {
       crumbs: [],
     },
-    canActivate: [],
   },
+  // {
+  //   path: ':keyword',
+  //   component: SearchComponent,
+  //   resolve: {
+  //     pagingParams: JhiResolvePagingParams,
+  //   },
+  //   data: {
+  //     crumbs: [],
+  //   },
+  //   canActivate: [],
+  // },
 ];
 
 @NgModule({

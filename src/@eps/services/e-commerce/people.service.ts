@@ -26,7 +26,6 @@ export class PeopleService {
 
   update(people: IPeople): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(people);
-    console.log('update', copy);
     return this.http
       .put<IPeople>(this.resourceUrl, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));

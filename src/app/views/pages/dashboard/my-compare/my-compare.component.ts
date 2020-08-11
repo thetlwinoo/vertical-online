@@ -18,7 +18,7 @@ import { rootAnimations } from '@eps/animations';
 })
 export class MyCompareComponent implements OnInit {
   stockItems$: Observable<IStockItems[]>;
-  stockItems: IStockItems[];
+  stockItems: any[];
   loading$: Observable<boolean>;
   loaded$: Observable<boolean>;
   carousel: any = deal;

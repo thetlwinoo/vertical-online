@@ -185,6 +185,36 @@ export class ProductsService {
     });
   }
 
+  filterProducts(req?: any): Observable<any> {
+    const options = createRequestOption(req);
+
+    console.log('options', options);
+    return this.http.get<any>(this.extendUrl + '/filter', {
+      params: options,
+      observe: 'response',
+    });
+  }
+
+  filterControllers(req?: any): Observable<any> {
+    const options = createRequestOption(req);
+
+    console.log('options', options);
+    return this.http.get<any>(this.extendUrl + '/filter-controllers', {
+      params: options,
+      observe: 'response',
+    });
+  }
+
+  getProductsHome(): Observable<any> {
+    return this.http.get<any>(this.extendUrl + '/home', { observe: 'response' });
+  }
+
+  getTags(query: string): Observable<HttpResponse<string[]>> {
+    let params = new HttpParams();
+    params = params.append('filter', query);
+    return this.http.get<any>(this.extendUrl + '/tags', { params, observe: 'response' });
+  }
+
   protected convertDateFromClient(products: IProducts): IProducts {
     const copy: IProducts = Object.assign({}, products, {
       lastEditedWhen: products.lastEditedWhen !== null && products.lastEditedWhen.isValid() ? products.lastEditedWhen.toJSON() : null,

@@ -6,11 +6,12 @@
     </nz-tabset>
 
     <nz-table class="no-hover-row" #nzHistoryTable [nzData]="(orders$ | async) | orderBy:'-orderDate'"
-      nzTableLayout="fixed" [nzPageSize]="5" [nzShowRowSelection]="false" [nzLoading]="orderLoading$ | async"
-      [nzHideOnSinglePage]="true">
+      [nzFrontPagination]="false" nzTableLayout="fixed" [nzTotal]="(totalItems$| async)" [nzPageIndex]="page"
+      [nzPageSize]="itemsPerPage" [nzShowRowSelection]="false" [nzLoading]="orderLoading$ | async"
+      [nzHideOnSinglePage]="true" (nzQueryParams)="onQueryParamsChange($event)">
       <tbody>
         <ng-container *ngFor="let data of nzHistoryTable.data">
-          <tr *ngFor="let orderPackage of (data.orderDetails | reviewsFilter:completedReview)">
+          <tr *ngFor="let orderPackage of (data.orderDetails)">
             <td>
               <div nz-row *ngIf="orderPackage.completedReview;else toreview">
                 <div nz-col class="gutter-row" [nzXs]="24" [nzLg]="16">

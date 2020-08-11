@@ -5,7 +5,14 @@ import { CheckoutRoutingModule } from 'app/ngrx/checkout/checkout-routing.module
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
-import { AddressEffects, AddressTypeEffects, CartEffects, OrderEffects, PaymentEffects } from 'app/ngrx/checkout/effects';
+import {
+  AddressEffects,
+  AddressTypeEffects,
+  CartEffects,
+  OrderEffects,
+  PaymentEffects,
+  OrderTrackingEffects,
+} from 'app/ngrx/checkout/effects';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 
 import { ShoppingCartComponent } from './containers/shopping-cart/shopping-cart.component';
@@ -20,7 +27,7 @@ import { UnSuccessFormComponent } from './containers/unsuccess-form/unsuccess-fo
 import { CreditCardComponent } from './components/credit-card/credit-card.component';
 import { BankTransferComponent } from './components/bank-transfer/bank-transfer.component';
 
-import { LayoutUtilsService, CartService, PaymentService, PeopleService } from '@eps/services';
+import { CartService, PaymentService, PeopleService } from '@eps/services';
 
 export const COMPONENTS = [
   CartDetailsComponent,
@@ -41,9 +48,9 @@ export const CONTAINERS = [ShoppingCartComponent, OrderFormComponent, PaymentFor
     CheckoutRoutingModule,
     StoreModule.forFeature(fromCheckout.checkoutFeatureKey, fromCheckout.reducers),
 
-    EffectsModule.forFeature([AddressEffects, AddressTypeEffects, CartEffects, OrderEffects, PaymentEffects]),
+    EffectsModule.forFeature([AddressEffects, AddressTypeEffects, CartEffects, OrderEffects, PaymentEffects, OrderTrackingEffects]),
   ],
   declarations: [COMPONENTS, CONTAINERS],
-  providers: [LayoutUtilsService, CartService, PaymentService, PeopleService],
+  providers: [CartService, PaymentService, PeopleService],
 })
 export class CheckoutModule {}

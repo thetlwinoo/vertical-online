@@ -31,7 +31,7 @@ export class SliderBannerComponent implements OnInit {
       icon: 'collect_voucher.svg',
     },
     {
-      label: 'Online Store',
+      label: 'Official Stores',
       icon: 'online_store.svg',
     },
     {

@@ -45,7 +45,7 @@ export class VSAddressesUpdateComponent implements OnInit, OnDestroy {
 
   selectedCountryId: number;
 
-  private unsubscribe$: Subject<any>;
+  private unsubscribe$: Subject<any> = new Subject();
 
   constructor(
     private store: Store<fromCheckout.State>,
@@ -62,8 +62,6 @@ export class VSAddressesUpdateComponent implements OnInit, OnDestroy {
     this.addresses$ = store.pipe(select(fromCheckout.getAddressesFetched));
     this.people$ = authStore.pipe(select(fromAuth.getPeopleFetched));
     this.customer$ = authStore.pipe(select(fromAuth.getCustomerFetched));
-
-    this.unsubscribe$ = new Subject();
 
     this.createAddresForm();
   }
@@ -90,7 +88,6 @@ export class VSAddressesUpdateComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((res: HttpResponse<ICountries[]>) => {
         this.countries = res.body || [];
-        console.log(res.body);
         this.selectedCountryId = res.body.filter(country => country.name === 'Myanmar')[0].id;
 
         this.addressForm.patchValue({ countryId: this.selectedCountryId });

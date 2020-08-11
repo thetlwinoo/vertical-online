@@ -1,75 +1,79 @@
-<div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
-  <div nz-col class="gutter-row" [nzSm]="12" [nzXs]="24" *ngIf="validateForm">
-    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
-      <nz-form-item>
-        <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="username">Username</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-          <span id="username">{{account.login}}</span>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="name">Full Name</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your name!">
-          <input nz-input id="name" formControlName="fullName" />
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="email">E-mail</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-          <!-- <input nz-input formControlName="email" id="email" /> -->
-          <span>{{account.email}}</span>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="phoneNumber">Phone Number</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="validateForm.controls['phoneNumber']"
-          nzErrorTip="Please input your phone number!">
-          <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
-            <ng-template #addOnBeforeTemplate>
-              <nz-select formControlName="phoneNumberPrefix" class="phone-select">
-                <nz-option nzLabel="+95" nzValue="+95"></nz-option>
-                <nz-option nzLabel="+65" nzValue="+65"></nz-option>
-              </nz-select>
-            </ng-template>
-            <input formControlName="phoneNumber" id="'phoneNumber'" nz-input />
-          </nz-input-group>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label [nzSm]="8" [nzXs]="24">Date Of Birth</nz-form-label>
-        <nz-form-control [nzSm]="16" [nzXs]="24">
-          <nz-date-picker [nzFormat]="'yyyy/MM/dd'" formControlName="dateOfBirth"></nz-date-picker>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="website">Gender</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input website!">
-          <nz-radio-group formControlName="gender" nzName="radiogroup">
-            <label nz-radio nzValue="MALE">Male</label>
-            <label nz-radio nzValue="FEMALE">Female</label>
-            <label nz-radio nzValue="OTHER">Other</label>
-          </nz-radio-group>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item nz-row class="register-area">
-        <nz-form-control [nzSpan]="14" [nzOffset]="8">
-          <button type="submit" nz-button nzType="primary" nzDanger>Save Profile</button>
-        </nz-form-control>
-      </nz-form-item>
-    </form>
-  </div>
+<vs-panel [title]="'My Profile'">
+  <div body class="content-wrapper">
+    <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+      <div nz-col class="gutter-row" [nzSm]="12" [nzXs]="24" *ngIf="validateForm">
+        <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+          <nz-form-item>
+            <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="username">Username</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+              <span id="username">{{account.login}}</span>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="name">Full Name</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your name!">
+              <input nz-input id="name" formControlName="fullName" />
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="email">E-mail</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+              <!-- <input nz-input formControlName="email" id="email" /> -->
+              <span>{{account.email}}</span>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="phoneNumber">Phone Number</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="validateForm.controls['phoneNumber']"
+              nzErrorTip="Please input your phone number!">
+              <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+                <ng-template #addOnBeforeTemplate>
+                  <nz-select formControlName="phoneNumberPrefix" class="phone-select">
+                    <nz-option nzLabel="+95" nzValue="+95"></nz-option>
+                    <nz-option nzLabel="+65" nzValue="+65"></nz-option>
+                  </nz-select>
+                </ng-template>
+                <input formControlName="phoneNumber" id="'phoneNumber'" nz-input />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="8" [nzXs]="24">Date Of Birth</nz-form-label>
+            <nz-form-control [nzSm]="16" [nzXs]="24">
+              <nz-date-picker [nzFormat]="'yyyy/MM/dd'" formControlName="dateOfBirth"></nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="website">Gender</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input website!">
+              <nz-radio-group formControlName="gender" nzName="radiogroup">
+                <label nz-radio nzValue="MALE">Male</label>
+                <label nz-radio nzValue="FEMALE">Female</label>
+                <label nz-radio nzValue="OTHER">Other</label>
+              </nz-radio-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item nz-row class="register-area">
+            <nz-form-control [nzSpan]="14" [nzOffset]="8">
+              <button type="submit" nz-button nzType="primary" nzDanger>Save Profile</button>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </div>
 
-  <div nz-col class="gutter-row" [nzSm]="12" [nzXs]="24">
-    <nz-upload class="avatar-uploader" [nzAction]="blobUrl + 'upload'" nzListType="picture-card"
-      [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event,people)">
-      <ng-container *ngIf="!people?.profileThumbnailUrl">
-        <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
-        <div class="ant-upload-text">Upload</div>
-      </ng-container>
-      <img *ngIf="people?.profileThumbnailUrl" [src]="blobUrl + people?.profileThumbnailUrl" style="width: 100%" />
-    </nz-upload>
-    <p>Select Profile Picture</p>
-    <p>File size: maximum 2 MB</p>
-    <p>File extension: .JPEG, .PNG</p>
+      <div nz-col class="gutter-row" [nzSm]="12" [nzXs]="24">
+        <nz-upload class="avatar-uploader" [nzAction]="blobUrl + 'upload'" nzListType="picture-card"
+          [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event,people)">
+          <ng-container *ngIf="!people?.profileThumbnailUrl">
+            <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+            <div class="ant-upload-text">Upload</div>
+          </ng-container>
+          <img *ngIf="people?.profileThumbnailUrl" [src]="blobUrl + people?.profileThumbnailUrl" style="width: 100%" />
+        </nz-upload>
+        <p>Select Profile Picture</p>
+        <p>File size: maximum 2 MB</p>
+        <p>File extension: .JPEG, .PNG</p>
+      </div>
+    </div>
   </div>
-</div>
+</vs-panel>

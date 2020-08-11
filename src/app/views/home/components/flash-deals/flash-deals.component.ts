@@ -37,7 +37,7 @@ export class FlashDealsComponent implements OnInit, OnDestroy {
     this._unsubscribeAll = new Subject();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const currDate = moment();
     const eventDate = moment(this.eventDate);
 
@@ -62,6 +62,8 @@ export class FlashDealsComponent implements OnInit, OnDestroy {
       this.countdown = value;
     });
   }
+
+  seeAll(): void {}
 
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions

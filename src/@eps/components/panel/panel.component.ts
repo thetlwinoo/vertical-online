@@ -14,6 +14,7 @@ export class VSPanelComponent {
   @Input() subTitle: string | TemplateRef<any>;
 
   @Input() more: boolean;
+  @Input() moreType: string;
 
   show = false;
 

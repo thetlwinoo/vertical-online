@@ -45,6 +45,8 @@ import { NzElementPatchModule } from 'ng-zorro-antd/core/element-patch';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzStatisticModule } from 'ng-zorro-antd/statistic';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 
 import {
   UserOutline,
@@ -91,6 +93,7 @@ import {
   BookOutline,
   MobileOutline,
   WarningFill,
+  MenuOutline,
 } from '@ant-design/icons-angular/icons';
 
 const icons: IconDefinition[] = [
@@ -138,6 +141,7 @@ const icons: IconDefinition[] = [
   BookOutline,
   MobileOutline,
   WarningFill,
+  MenuOutline,
 ];
 
 @NgModule({
@@ -188,6 +192,8 @@ const icons: IconDefinition[] = [
     NzSpinModule,
     NzModalModule,
     NzCollapseModule,
+    NzStatisticModule,
+    NzDescriptionsModule,
   ],
 })
 export class NgZorroAntdModule {}

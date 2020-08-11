@@ -16,7 +16,7 @@ export const myProfileRoute: Routes = [
     path: '',
     component: MyProfileComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_CUSTOMER'],
       pageTitle: 'My Profile',
     },
     canActivate: [UserRouteAccessService],

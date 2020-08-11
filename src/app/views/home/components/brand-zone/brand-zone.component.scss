@@ -1,75 +1,98 @@
 @import 'src/@eps/scss/root';
 
 brand-zone {
-  .brand-list {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    background: white;
-
-    .brand-item {
-      border-right: 1px solid rgba(0, 0, 0, 0.05);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-      // border: none;
-      display: flex;
-      align-items: flex-start;
-      background: transparent;
-      padding: 1px;
-
-      flex: 0 0 10%;
-      max-width: 10%;
-
-      @include media-breakpoint('sm') {
-        flex: 0 0 25%;
-        max-width: 25%;
-      }
-
-      @include media-breakpoint('md') {
-        flex: 0 0 25%;
-        max-width: 25%;
-      }
-
-      @include media-breakpoint('xs') {
-        flex: 0 0 25%;
-        max-width: 25%;
-      }
-
-      .card-preview {
-        display: flex;
-
-        .root-card {
-          max-width: auto !important;
-          min-width: auto !important;
-        }
-
-        .brand-list {
-          padding: 0.5em;
-          img {
-            transform: scale(1);
-            transition: 0.5s;
-          }
-
-          .title {
-            text-align: center;
-            font-size: 0.85em;
-          }
-        }
-
-        &:hover {
-          .brand-list {
-            img {
-              transform: scale(1.1);
-              transition: all 0.5s ease;
-            }
-          }
-        }
-      }
-
-      .card-source {
-        display: none;
-      }
-    }
+  .ant-btn {
+    padding: 0 !important;
   }
+
+  .content-wrapper {
+    padding: 10px;
+    background: #ffffff;
+  }
+
+  .tab-header-icon {
+    min-width: 100px;
+    height: 60px;
+  }
+
+  .brand-logo {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .tab-header-text {
+    text-align: center;
+  }
+  // .brand-list {
+  //   display: flex;
+  //   flex-direction: row;
+  //   flex-wrap: wrap;
+  //   justify-content: flex-start;
+  //   align-items: flex-start;
+  //   background: white;
+
+  //   .brand-item {
+  //     border-right: 1px solid rgba(0, 0, 0, 0.05);
+  //     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  //     // border: none;
+  //     display: flex;
+  //     align-items: flex-start;
+  //     background: transparent;
+  //     padding: 1px;
+
+  //     flex: 0 0 10%;
+  //     max-width: 10%;
+
+  //     @include media-breakpoint('sm') {
+  //       flex: 0 0 25%;
+  //       max-width: 25%;
+  //     }
+
+  //     @include media-breakpoint('md') {
+  //       flex: 0 0 25%;
+  //       max-width: 25%;
+  //     }
+
+  //     @include media-breakpoint('xs') {
+  //       flex: 0 0 25%;
+  //       max-width: 25%;
+  //     }
+
+  //     .card-preview {
+  //       display: flex;
+
+  //       .root-card {
+  //         max-width: auto !important;
+  //         min-width: auto !important;
+  //       }
+
+  //       .brand-list {
+  //         padding: 0.5em;
+  //         img {
+  //           transform: scale(1);
+  //           transition: 0.5s;
+  //         }
+
+  //         .title {
+  //           text-align: center;
+  //           font-size: 0.85em;
+  //         }
+  //       }
+
+  //       &:hover {
+  //         .brand-list {
+  //           img {
+  //             transform: scale(1.1);
+  //             transition: all 0.5s ease;
+  //           }
+  //         }
+  //       }
+  //     }
+
+  //     .card-source {
+  //       display: none;
+  //     }
+  //   }
+  // }
 }

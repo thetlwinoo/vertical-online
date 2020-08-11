@@ -26,4 +26,13 @@ export class AuthService {
   getKeycloakInstance(): any {
     return this.keycloakService.getKeycloakInstance();
   }
+
+  register(): Promise<void> {
+    const options: KeycloakLoginOptions = {
+      redirectUri: `${location.origin}/register-success`,
+      action: 'register',
+    };
+
+    return this.keycloakService.register(options);
+  }
 }

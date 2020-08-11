@@ -16,7 +16,7 @@ export const myWishlistRoute: Routes = [
     path: '',
     component: MyWishlistComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_CUSTOMER'],
       pageTitle: 'My Profile',
     },
     canActivate: [UserRouteAccessService],

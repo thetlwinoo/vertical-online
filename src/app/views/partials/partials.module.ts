@@ -2,37 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { RootSharedModule } from '@eps/shared.module';
 
-import {
-  ActionNotificationComponent,
-  AlertComponent,
-  DeleteEntityDialogComponent,
-  FetchEntityDialogComponent,
-  UpdateStatusDialogComponent,
-} from './content/crud';
-import { ProductBoxComponent, ProductCardComponent, GhostItemComponent } from './products';
+import { ProductBoxComponent, ProductCardComponent, GhostItemComponent, OfficialStoreComponent, ProductBrandComponent } from './products';
+
+const COMPONENTS = [ProductBoxComponent, ProductCardComponent, GhostItemComponent, OfficialStoreComponent, ProductBrandComponent];
 
 @NgModule({
-  declarations: [
-    ActionNotificationComponent,
-    AlertComponent,
-    DeleteEntityDialogComponent,
-    FetchEntityDialogComponent,
-    UpdateStatusDialogComponent,
-    ProductBoxComponent,
-    ProductCardComponent,
-    GhostItemComponent,
-  ],
-  exports: [
-    ActionNotificationComponent,
-    AlertComponent,
-    DeleteEntityDialogComponent,
-    FetchEntityDialogComponent,
-    UpdateStatusDialogComponent,
-    ProductBoxComponent,
-    ProductCardComponent,
-    GhostItemComponent,
-  ],
+  declarations: [...COMPONENTS],
+  exports: [...COMPONENTS],
   imports: [RootSharedModule, RouterModule],
-  entryComponents: [ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent],
+  entryComponents: [],
 })
 export class PartialsModule {}

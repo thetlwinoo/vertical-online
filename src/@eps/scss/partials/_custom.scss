@@ -52,9 +52,11 @@ bar-rating {
 
   button {
     color: #ff4438;
+    // color: #ffdd00;
 
     &:hover {
       color: #ff4438;
+      // color: #ffdd00;
     }
   }
 }
@@ -431,6 +433,7 @@ ui bootstrap tweaks
 
 .bg-primary {
   background-color: #ff4438 !important;
+  // background-color: #ffdd00 !important;
 }
 
 .ngx-gallery {
@@ -455,4 +458,35 @@ nz-breadcrumb {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+
+  > a {
+    color: #212121;
+  }
+}
+
+button.vertical-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.list-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em;
+  background: #ffffff;
+
+  > div > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.list-body {
+  display: block;
+  border-top: 1px solid #eff0f5;
+  background: #ffffff;
+  padding: 0.5em;
 }

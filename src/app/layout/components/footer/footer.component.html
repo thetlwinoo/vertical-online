@@ -25,7 +25,7 @@
                     <nz-list-item-meta>
                         <nz-list-item-meta-title>
                             <a [href]="child.url?child.url:'javascript:void(0)'"
-                                [target]="child.url?'_blank':''">{{child.title | titlecase}}</a>
+                                [target]="(child.url && child.extraLink)?'_blank':''">{{child.title | titlecase}}</a>
                         </nz-list-item-meta-title>
                     </nz-list-item-meta>
                 </nz-list-item>
@@ -124,7 +124,7 @@
         <nz-list-item>
             <nz-list-item-meta>
                 <nz-list-item-meta-title>
-                    <span>&copy; 2020 zezawar.com</span>
+                    <span>&copy; 2020 gumkino.com</span>
                 </nz-list-item-meta-title>
             </nz-list-item-meta>
             Available Cities :

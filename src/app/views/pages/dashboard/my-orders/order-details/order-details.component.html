@@ -20,6 +20,35 @@
   </nz-list-item>
 </nz-list>
 
+<section>
+  <p-steps [model]="orderTracking" [(activeIndex)]="activeOrderTrack" [readonly]="true"></p-steps>
+
+  <div class="list-title" *ngIf="orders.status === 'NEW_ORDER'">
+    <div></div>
+    <div>
+      <button nz-button nzType="default" nzDanger [routerLink]="['/checkout/payment', orders.id, 'secure']">PAY
+        NOW</button>
+    </div>
+  </div>
+
+  <div class="order-tracking-wrapper">
+    <nz-card>
+      <vs-panel [more]="(orderTracking$ | async).length > 10" [moreType]="'center'">
+        <div body>
+          <nz-row *ngFor="let orderTracking of (orderTracking$ | async)">
+            <div nz-col [nzSpan]="4">
+              <span class="event-date">{{orderTracking.eventDate | date:'medium'}}</span>
+            </div>
+            <div nz-col [nzSpan]="20">
+              <span class="event-details">{{orderTracking.eventDetails}}</span>
+            </div>
+          </nz-row>
+        </div>
+      </vs-panel>
+    </nz-card>
+  </div>
+</section>
+
 <section *ngFor="let orderPackage of orders.orderDetails;let i = index;">
   <vs-panel title="Package #{{(i+1).toString()}} ({{orderPackage.orderLinesList[0].supplierName | uppercase}})">
     <div body>
@@ -32,7 +61,14 @@
               <span>{{data.unitPrice | currency}}</span>
             </td>
             <td>
-              <a href [routerLink]="['/pages/dashboard/my-reviews']">Write Review</a>
+              <a href="javascript:void(0)" nz-button nzType="link" [routerLink]="['/pages/dashboard/my-reviews']"
+                *ngIf="orders.status === 'COMPLETED'">Write
+                Review</a>
+              <nz-tag nzColor="processing" *ngIf="orders.status === 'PENDING' && data.status !== 'CANCELLED'">Processing
+              </nz-tag>
+              <a href="javascript:void(0)" nz-button nzType="link"
+                *ngIf="(orders.status === 'NEW_ORDER' || orders.status === 'PENDING') && data.status !== 'CANCELLED'">CANCEL</a>
+              <nz-tag [nzColor]="'#f50'" *ngIf="data.status === 'CANCELLED'">CANCELLED</nz-tag>
             </td>
           </tr>
         </tbody>

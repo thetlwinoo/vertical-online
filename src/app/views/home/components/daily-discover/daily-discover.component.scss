@@ -1,6 +1,10 @@
 @import 'src/@eps/scss/root';
 
 daily-discover {
+  .ant-btn {
+    padding: 0 !important;
+  }
+
   .content-wrapper {
     border: 1px solid #ececec;
   }
@@ -38,6 +42,7 @@ daily-discover {
       }
 
       .card-preview {
+        width: 100%;
         display: flex;
       }
 

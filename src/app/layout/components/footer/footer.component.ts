@@ -11,11 +11,11 @@ export class FooterComponent implements OnInit {
   twitterOptions: NgxTwitterTimelineOptions;
   data: any[] = [
     {
-      title: 'zezawar',
+      title: 'gumkino',
       col: '6',
       children: [
         {
-          title: 'sell on zezawar',
+          title: 'sell on gumkino',
         },
         {
           title: 'about us',
@@ -24,7 +24,8 @@ export class FooterComponent implements OnInit {
           title: 'privacy policy',
         },
         {
-          title: 'user agreement',
+          title: 'terms & condition',
+          url: '/pages/terms-and-conditions',
         },
       ],
     },
@@ -33,7 +34,7 @@ export class FooterComponent implements OnInit {
       col: '6',
       children: [
         {
-          title: 'buy on zezawar',
+          title: 'buy on gumkino',
         },
         {
           title: 'track your order',
@@ -53,14 +54,17 @@ export class FooterComponent implements OnInit {
         {
           title: 'facebook',
           url: 'https://www.facebook.com/ZeZaWarMyanmar',
+          extraLink: true,
         },
         {
           title: 'instagram',
           url: 'https://www.instagram.com/zezawar.myanmar/',
+          extraLink: true,
         },
         {
           title: 'twitter',
           url: 'https://twitter.com/zezawar9',
+          extraLink: true,
         },
       ],
     },

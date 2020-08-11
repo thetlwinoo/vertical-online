@@ -2,6 +2,8 @@
 @import 'partials/bootstrap-variables';
 @import '~bootstrap/scss/bootstrap';
 
+@import '~primeng/resources/themes/saga-blue/theme.css';
+@import '~primeng//resources/primeng.min.css';
 @import '~animate.css/animate.min.css';
 
 @import 'root';
@@ -21,9 +23,11 @@
 @import 'partials/material';
 @import 'partials/angular-material-fix';
 @import 'partials/bootstrap-fix';
+@import 'partials/primeng-fix';
 @import 'partials/typography';
 @import 'partials/page-layouts';
 @import 'partials/custom';
 @import 'partials/custom-responsive';
+@import 'partials/vertical_menu';
 
 @import 'partials/plugins/plugins';

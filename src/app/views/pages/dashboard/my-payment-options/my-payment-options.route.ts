@@ -16,7 +16,7 @@ export const myPaymentOptionsRoute: Routes = [
     path: '',
     component: MyPaymentOptionsComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_CUSTOMER'],
       pageTitle: 'My Payment Options',
     },
     canActivate: [UserRouteAccessService],

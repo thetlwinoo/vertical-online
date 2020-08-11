@@ -20,7 +20,7 @@ export class RouterEffects {
           return route;
         }),
         mergeMap(route => route.data),
-        map(data => `ZEZAWAR.COM: ${data.title}`),
+        map(data => `GUMKINO.COM: ${data.title}`),
         tap(title => this.titleService.setTitle(title))
       ),
     {

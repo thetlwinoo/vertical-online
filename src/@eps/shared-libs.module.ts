@@ -10,7 +10,7 @@ import { RootDirectivesModule } from '@eps/directives/directives';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RootSidebarModule } from '@eps/components';
 
-import { MaterialModule, NgZorroAntdModule } from '@eps/modules';
+import { MaterialModule, NgZorroAntdModule, PrimengModule } from '@eps/modules';
 import { NgArrayPipesModule, OrderByPipe } from 'ngx-pipes';
 import { DeferLoadModule } from '@trademe/ng-defer-load';
 import { CarouselModule } from 'ngx-owl-carousel-o';
@@ -29,6 +29,7 @@ import { NgxPicaModule } from '@digitalascetic/ngx-pica';
 
     MaterialModule,
     NgZorroAntdModule,
+    PrimengModule,
 
     NgbModule,
     NgJhipsterModule,

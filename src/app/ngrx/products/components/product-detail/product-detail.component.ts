@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, OnDestroy } from '@angular/core';
-import { IProducts, AddToCartProps, IStockItems, IPhotos, IReviewLines, IQuestions, IOrderLines } from '@eps/models';
+import { IProducts, AddToCartProps, IStockItems, IPhotos, IReviewLines, IQuestions, IOrderLines, ISpecialFeatures } from '@eps/models';
 import { AccountService } from '@eps/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -9,6 +9,7 @@ import { FetchActions, ProductActions } from 'app/ngrx/products/actions';
 import { select, Store } from '@ngrx/store';
 import { SERVER_API_URL } from '@eps/constants';
 import { IProductDocument } from '@eps/models/product-document.model';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'product-detail',
@@ -20,8 +21,8 @@ export class ProductDetailComponent implements OnInit, OnChanges, OnDestroy {
   @Input() inCompare: boolean;
   @Input() inWishlist: boolean;
   @Input() inCart: boolean;
-  @Input() productDetails: any;
-  @Input() productDetailsLoading: boolean;
+  @Input() productObject: any;
+  @Input() productObjectLoading: boolean;
   @Output() addToCompare = new EventEmitter<IProducts>();
   @Output() removeFromCompare = new EventEmitter<IProducts>();
   @Output() addToWishlist = new EventEmitter<IProducts>();
@@ -41,14 +42,15 @@ export class ProductDetailComponent implements OnInit, OnChanges, OnDestroy {
   error$: Observable<string>;
   show = false;
   allRatingCount = 0;
-
+  specialFeatures: ISpecialFeatures[];
   currentStockItem: any;
 
   constructor(
     private accountService: AccountService,
     private store: Store<fromProducts.State>,
     public route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private sanitizer: DomSanitizer
   ) {
     this.actionsSubscription = route.params
       .pipe(map(params => FetchActions.fetchRelated({ id: params.id })))
@@ -65,7 +67,11 @@ export class ProductDetailComponent implements OnInit, OnChanges, OnDestroy {
     this.stockItem$.subscribe(stockItem => (this.currentStockItem = stockItem));
   }
 
-  ngOnChanges(): void {}
+  ngOnChanges(): void {
+    if (this.productObject) {
+      this.specialFeatures = JSON.parse(this.productObject.specialFeatures);
+    }
+  }
 
   onChangeStockItem(stockItem: any): void {
     if (stockItem && stockItem.id) {
@@ -109,6 +115,10 @@ export class ProductDetailComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     this.router.navigate(['/checkout/cart']);
+  }
+
+  videoURL(url: string): any {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
   ngOnDestroy(): void {

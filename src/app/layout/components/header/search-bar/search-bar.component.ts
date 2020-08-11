@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, 
 import { Observable, Subscription, Subject, of } from 'rxjs';
 import { filter, map, takeUntil, debounceTime, distinctUntilChanged, tap, switchMap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { ProductTagsService } from '@eps/services';
+import { ProductTagsService, ProductsService } from '@eps/services';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { IProducts, IProductTags } from '@eps/models';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -74,6 +74,7 @@ export class SearchBarComponent implements OnInit {
   constructor(
     private router: Router,
     private productTagsService: ProductTagsService,
+    private productsService: ProductsService,
     private formBuilder: FormBuilder,
     private store: Store<fromTags.State>
   ) {
@@ -102,21 +103,15 @@ export class SearchBarComponent implements OnInit {
       distinctUntilChanged(),
       tap(() => (this.searching = true)),
       switchMap(query =>
-        this.productTagsService
-          .query({
-            'name.contains': query,
+        this.productsService.getTags(query).pipe(
+          takeUntil(this.unsubscribeAll),
+          filter((res: HttpResponse<string[]>) => res.ok),
+          map((res: HttpResponse<string[]>) => res.body.slice(0, 15)),
+          catchError(() => {
+            this.searchFailed = true;
+            return of([]);
           })
-          .pipe(
-            takeUntil(this.unsubscribeAll),
-            filter((res: HttpResponse<IProductTags[]>) => res.ok),
-            map((res: HttpResponse<IProductTags[]>) => res.body.slice(0, 15)),
-            map(tags => [...new Set(tags.map(item => item.name))]),
-            tap(() => (this.searchFailed = false)),
-            catchError(() => {
-              this.searchFailed = true;
-              return of([]);
-            })
-          )
+        )
       ),
       tap(() => (this.searching = false))
     );
@@ -128,7 +123,8 @@ export class SearchBarComponent implements OnInit {
       return;
     }
     console.log('data.keyword', data.keyword);
-    this.router.navigate(['/search/', data.keyword]);
+    // this.router.navigate(['/search/', data.keyword]);
+    this.router.navigate(['/search'], { queryParams: { keyword: data.keyword } });
   }
 
   onHotKeyChange(value): void {

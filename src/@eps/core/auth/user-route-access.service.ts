@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { AccountService } from '@eps/core/auth/account.service';
 import { AuthService } from '@eps/core/auth/auth.service';
 import { StateStorageService } from './state-storage.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Injectable({ providedIn: 'root' })
 export class UserRouteAccessService implements CanActivate {
@@ -13,7 +14,8 @@ export class UserRouteAccessService implements CanActivate {
     private router: Router,
     private authService: AuthService,
     private accountService: AccountService,
-    private stateStorageService: StateStorageService
+    private stateStorageService: StateStorageService,
+    private msg: NzMessageService
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
@@ -37,6 +39,7 @@ export class UserRouteAccessService implements CanActivate {
             console.error('User has not any of required authorities: ', authorities);
           }
           this.router.navigate(['accessdenied']);
+          this.msg.error('Access Denied');
           return false;
         }
 

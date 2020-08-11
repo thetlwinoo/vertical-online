@@ -7,6 +7,7 @@ import * as OrderLineActions from './order-line.actions';
 import * as PaymentActions from './payment.actions';
 import * as ReviewActions from './review.actions';
 import * as ReviewLineActions from './review-lines.actions';
+import * as OrderTrackingActions from './order-tracking.actions';
 
 export {
   AddressActions,
@@ -18,4 +19,5 @@ export {
   PaymentActions,
   ReviewActions,
   ReviewLineActions,
+  OrderTrackingActions,
 };

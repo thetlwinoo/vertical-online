@@ -5,7 +5,33 @@
                 <div nz-col class="gutter-row sub-banner-wrapper" [nzXs]="24" [nzSm]="24" [nzMd]="5">
                     <div nz-row class="sub-banner">
                         <div nz-col class="gutter-row pb-8" [nzSpan]="24">
-                            <div class="category-list" *ngIf="!loading;else skelton">
+                            <div class="vertical-menu" *ngIf="!loading;else skelton">
+                                <div>
+                                    <ul class="menu">
+                                        <li *ngFor="let root of categories ; let i = index">
+                                            <div class="menu-header">
+                                                <i class="iconfont icon-{{root.iconFont}} mr-2"></i>
+                                                <a href="#">{{root.myanmarName}}</a>
+                                            </div>
+
+                                            <div class="megadrop">
+                                                <ngx-masonry>
+                                                    <div ngxMasonryItem class="masonry-item"
+                                                        *ngFor="let subCag of root.children">
+                                                        <div class="sub-category">{{subCag.myanmarName}}</div>
+
+                                                        <ul class="category">
+                                                            <li *ngFor="let cag of subCag.children ; let i = index">
+                                                                <a [routerLink]="['/search']" routerLinkActive="active"
+                                                                    [queryParams]="{categoryId: cag.id}">{{cag.myanmarName}}</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </ngx-masonry>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <!-- <ul nz-list [nzDataSource]="categories" nzSize="small" class="side-nav-list" nz-element
                                     #navlist="nzElement">
                                     <li nz-list-item *ngFor="let item of categories ; let i = index" nz-popover
@@ -29,15 +55,15 @@
                                         </ng-template>
                                     </li>
                                 </ul> -->
-                                <ul nz-menu [nzMode]="'vertical'">
+                                <!-- <ul nz-menu [nzMode]="'vertical'">
                                     <ng-container *ngTemplateOutlet="menuTpl; context: { $implicit: categories }">
                                     </ng-container>
                                     <ng-template #menuTpl let-menus>
                                         <ng-container *ngFor="let menu of menus">
                                             <li *ngIf="!menu.children" nz-menu-item [nzPaddingLeft]="menu.level * 24"
                                                 [nzDisabled]="menu.disabled" [nzSelected]="menu.selected"
-                                                [routerLink]="['/search','_blank']" routerLinkActive="active"
-                                                [queryParams]="{category: menu.id}">
+                                                [routerLink]="['/search']" routerLinkActive="active"
+                                                [queryParams]="{categoryId: menu.id}">
                                                 <i nz-icon [nzType]="menu.icon" *ngIf="menu.icon"></i>
                                                 <span>{{ menu.name }}</span>
                                             </li>
@@ -55,7 +81,7 @@
                                             </ng-template>
                                         </ng-container>
                                     </ng-template>
-                                </ul>
+                                </ul> -->
                             </div>
                             <ng-template #skelton>
                                 <nz-skeleton [nzActive]="true" [nzParagraph]="{ rows: 5 }">

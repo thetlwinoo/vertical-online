@@ -10,7 +10,8 @@
                 <nz-space-item>
                     <div class="list-title">
                         <div>
-                            <label nz-checkbox [nzChecked]="shoppingCart.cart?.cartString?.checkStatus === 1"
+                            <label class="mr-2" nz-checkbox
+                                [nzChecked]="shoppingCart.cart?.cartString?.checkStatus === 1"
                                 [nzIndeterminate]="shoppingCart.cart?.cartString?.checkStatus === 2"
                                 (nzCheckedChange)="onAllChecked($event)">SELECT ALL
                                 ({{shoppingCart.itemCount}}
@@ -30,7 +31,7 @@
                         <div>
                             <label nz-checkbox [nzChecked]="data.checkStatus === 1"
                                 [nzIndeterminate]="data.checkStatus === 2"
-                                (nzCheckedChange)="onPackageChecked($event,data.supplierId)">{{data.supplierName | lowercase}}</label>
+                                (nzCheckedChange)="onPackageChecked($event,data.supplierId)">{{data.supplierName | uppercase}}</label>
                         </div>
                     </div>
                     <div class="list-body">
@@ -39,7 +40,7 @@
                                 <ng-container>
                                     <nz-list-item-meta>
                                         <nz-list-item-meta-avatar>
-                                            <label nz-checkbox [nzChecked]="item.selectOrder === true"
+                                            <label class="mr-2" nz-checkbox [nzChecked]="item.selectOrder === true"
                                                 (nzCheckedChange)="onItemChecked(item.cartItemId, $event)"
                                                 [nzDisabled]="item.quantityOnHand <= 0"></label>
                                             <img width="80" [src]="blobUrl + item.thumbnailUrl">
@@ -67,8 +68,8 @@
                                             </div>
 
                                             <div class="cart-controller">
-                                                <a nz-button nzType="link" nzTooltipTitle="Add to wishlist"
-                                                    nzTooltipPlacement="bottom" nz-tooltip>
+                                                    <a nz-button nzType="link" nzTooltipTitle="Add to wishlist"
+                                                        nzTooltipPlacement="bottom" nz-tooltip>
                                                     <i nz-icon nzType="heart" [nzTheme]="'outline'"></i>
                                                 </a>
                                                 <a nz-button nzType="link" (click)="remove.emit(item.cartItemId)"

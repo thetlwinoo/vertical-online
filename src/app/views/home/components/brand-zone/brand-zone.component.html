@@ -1,15 +1,29 @@
 <vs-panel [title]="title | uppercase">
+    <div extra>
+        <a nz-button nzType="link" nzDanger (click)="seeAll()">
+            <i nz-icon nzType="fullscreen" style="font-size: 1.1em;"></i>See All
+        </a>
+    </div>
     <div body class="content-wrapper">
-        <div class="brand-list">
-            <div class="brand-item" *ngFor="let brand of brands">
-                <a routerLink="/pages/shop" routerLinkActive="active">
-                    <div #rootcag class="card-preview">
-                        <div class="root-card brand-list">
-                            <img src="assets/images/home/brands/{{brand.icon}}">
+        <!-- (nzSelectedIndexChange)="selectedTabIndexChanged($event)" -->
+        <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" [nzSelectedIndex]="currentTabIndex">
+            <nz-tab *ngFor="let tab of data;let i = index;" [nzTitle]="titleTemplate"
+                (nzSelect)="selectedTabChanged(tab,i)">
+                <ng-template #titleTemplate>
+                    <div class="tab-header-wrapper" (mouseenter)="selectedTabChanged(tab,i)" (click)="onTabClick(tab)">
+                        <div class="tab-header-icon brand-logo"
+                            [style.backgroundImage]="'url(' + blobUrl + tab.iconPhoto + '/thumbnail)'">
                         </div>
+                        <div class="tab-header-text">{{ tab.name }}</div>
                     </div>
-                </a>
-            </div>
-        </div>
+                </ng-template>
+
+                <div nz-row nzGutter="16">
+                    <div nz-col nzLg="8" nzSm="12" nzXs="24" *ngFor="let product of tab.brandProducts">
+                        <product-brand-card [product]="product"></product-brand-card>
+                    </div>
+                </div>
+            </nz-tab>
+        </nz-tabset>
     </div>
 </vs-panel>

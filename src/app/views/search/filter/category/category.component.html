@@ -1,6 +1,5 @@
-<vs-panel [title]="title | uppercase" *ngIf="(categories$ | async).length>0">
+<vs-panel [title]="title | uppercase" *ngIf="categories?.length>0">
   <div body class="content-wrapper">
-    <nz-tree [nzData]="(categories$ | async)" nzDraggable nzBlockNode (nzOnDrop)="nzEvent($event)"
-      (nzClick)="categorySelect($event)"> </nz-tree>
+    <nz-tree [nzData]="categories" nzBlockNode (nzClick)="categorySelect($event)"> </nz-tree>
   </div>
 </vs-panel>

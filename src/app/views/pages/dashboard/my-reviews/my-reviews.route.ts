@@ -13,6 +13,7 @@ import * as moment from 'moment';
 import { select, Store } from '@ngrx/store';
 import { OrderPackageActions, OrderLineActions, ReviewActions } from 'app/ngrx/checkout/actions';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
+import { JhiResolvePagingParams } from 'ng-jhipster';
 
 @Injectable({ providedIn: 'root' })
 export class MyReviewsResolve implements Resolve<Reviews> {
@@ -33,8 +34,11 @@ export const myReviewsRoute: Routes = [
   {
     path: '',
     component: MyReviewsComponent,
+    resolve: {
+      pagingParams: JhiResolvePagingParams,
+    },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_CUSTOMER'],
       pageTitle: 'My Reviews',
     },
     canActivate: [UserRouteAccessService],
@@ -46,7 +50,7 @@ export const myReviewsRoute: Routes = [
     //     orders: MyReviewsResolve
     // },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_CUSTOMER'],
       pageTitle: 'View Review',
     },
     canActivate: [UserRouteAccessService],
@@ -58,7 +62,7 @@ export const myReviewsRoute: Routes = [
       orders: MyReviewsResolve,
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_CUSTOMER'],
       pageTitle: 'Write Review',
     },
     canActivate: [UserRouteAccessService],
@@ -70,7 +74,7 @@ export const myReviewsRoute: Routes = [
     //   orders: MyReviewsResolve,
     // },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_CUSTOMER'],
       pageTitle: 'Edit Review',
     },
     canActivate: [UserRouteAccessService],

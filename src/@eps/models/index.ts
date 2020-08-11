@@ -43,3 +43,6 @@ export * from './cities.model';
 export * from './countries.model';
 export * from './address-actions.model';
 export * from './customer-payment-bank-transfer.model';
+export * from './order-tracking.model';
+export * from './special-features.model';
+export * from './delivery-methods.model';

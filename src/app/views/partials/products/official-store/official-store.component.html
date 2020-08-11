@@ -1,0 +1,38 @@
+<div class="wrapper" [routerLink]="['/search']" routerLinkActive="active" [queryParams]="{supplierId: supplier.id}">
+    <div nz-row [nzGutter]="8">
+        <div nz-col nzSpan="6">
+            <div class="store-logo square" [style.backgroundImage]="'url(' + blobUrl + supplier.logo + '/thumbnail)'">
+                <!-- <img width="64" [src]="blobUrl + supplier.logo + '/thumbnail'"> -->
+            </div>
+
+        </div>
+        <div nz-col nzSpan="18">
+            <div class="store-name store-text">{{supplier.storeName}}</div>
+            <div class="store-visit store-text"><a href="javascript:void(0);">Visit Store</a></div>
+        </div>
+    </div>
+    <div class="supplier-products">
+        <table>
+            <tr>
+                <td rowSpan="2" width="67%">
+                    <div class="left-product square"
+                        [style.backgroundImage]="'url(' + blobUrl + getProductPhoto(0) + '/thumbnail)'">
+                    </div>
+                </td>
+                <td>
+                    <div class="right-product square"
+                        [style.backgroundImage]="'url(' + blobUrl + getProductPhoto(1) + '/thumbnail)'">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="right-product square"
+                        [style.backgroundImage]="'url(' + blobUrl + getProductPhoto(2) + '/thumbnail)'">
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>

@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, OnChanges } from '@angular/core';
 import { rootAnimations } from '@eps/animations';
+import { SERVER_API_URL } from '@eps/constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'brand-zone',
@@ -8,91 +10,46 @@ import { rootAnimations } from '@eps/animations';
   encapsulation: ViewEncapsulation.None,
   animations: rootAnimations,
 })
-export class BrandZoneComponent implements OnInit {
-  brands = [
-    {
-      title: 'Icon Notebook',
-      icon: 'icon-notebook.png',
-    },
-    {
-      title: 'Mi',
-      icon: 'mi.png',
-    },
-    {
-      title: 'Rangoon Tech',
-      icon: 'rangoon-tech.png',
-    },
-    {
-      title: 'Serangoon',
-      icon: 'serangoon.png',
-    },
-    {
-      title: 'Latyartaw',
-      icon: 'latyartaw.png',
-    },
-    {
-      title: 'Brand6',
-      icon: 'your-brand.png',
-    },
-    {
-      title: 'Brand7',
-      icon: 'your-brand.png',
-    },
-    {
-      title: 'Brand8',
-      icon: 'your-brand.png',
-    },
-    {
-      title: 'Brand9',
-      icon: 'your-brand.png',
-    },
-    {
-      title: 'Brand10',
-      icon: 'your-brand.png',
-    },
-    {
-      title: 'Brand11',
-      icon: 'your-brand.png',
-    },
-    {
-      title: 'Brand12',
-      icon: 'your-brand.png',
-    },
-    {
-      title: 'Brand13',
-      icon: 'your-brand.png',
-    },
-    {
-      title: 'Brand14',
-      icon: 'your-brand.png',
-    },
-    {
-      title: 'Brand15',
-      icon: 'your-brand.png',
-    },
-    {
-      title: 'Brand16',
-      icon: 'your-brand.png',
-    },
-    {
-      title: 'Brand17',
-      icon: 'your-brand.png',
-    },
-    {
-      title: 'Brand18',
-      icon: 'your-brand.png',
-    },
-    {
-      title: 'Brand19',
-      icon: 'your-brand.png',
-    },
-    {
-      title: 'Brand20',
-      icon: 'your-brand.png',
-    },
-  ];
-  title = 'featured brand';
-  constructor() {}
+export class BrandZoneComponent implements OnInit, OnChanges {
+  @Input() data: any[];
 
-  ngOnInit() {}
+  public blobUrl = SERVER_API_URL + 'services/cloudblob/api/images-extend/';
+  noBrandList: any[] = [];
+  gridStyle = {
+    width: '25%',
+    textAlign: 'center',
+  };
+  // noBrand = {
+  //   title: 'Brand8',
+  //   icon: 'your-brand.png',
+  // };
+  currentTabIndex;
+  currentTab;
+  title = 'featured brand';
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {}
+
+  ngOnChanges(): void {
+    if (this.data) {
+      const length = this.data.length;
+      this.noBrandList = new Array(20 - length);
+    }
+  }
+
+  // selectedTabIndexChanged(index): void {
+  //   this.currentTabIndex = index;
+  // }
+
+  selectedTabChanged(event, index): void {
+    this.currentTab = event;
+    this.currentTabIndex = index;
+  }
+
+  seeAll(): void {}
+
+  onTabClick(event): void {
+    console.log('click', event);
+    this.router.navigate(['/search'], { queryParams: { brandId: event.id } });
+  }
 }

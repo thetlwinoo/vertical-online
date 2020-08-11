@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { asyncScheduler, EMPTY as empty, of } from 'rxjs';
-import { catchError, debounceTime, map, skip, switchMap, takeUntil, filter } from 'rxjs/operators';
+import { catchError, debounceTime, map, skip, switchMap, takeUntil, filter, mergeMap } from 'rxjs/operators';
 import { JhiParseLinks } from 'ng-jhipster';
 import { IProducts } from '@eps/models';
 import { ProductActions } from '../actions';
@@ -66,6 +66,36 @@ export class ProductEffects {
           catchError(err => of(ProductActions.searchFailure({ errorMsg: err.message })))
         );
       })
+    )
+  );
+
+  filterProducts$ = createEffect(() => () =>
+    this.actions$.pipe(
+      ofType(ProductActions.filterProducts),
+      switchMap(({ query }) => {
+        if (!query) {
+          return empty;
+        }
+
+        return this.productsService.filterProducts(query).pipe(
+          filter((res: HttpResponse<any>) => res.ok),
+          map((res: HttpResponse<any>) => ProductActions.filterProductsSuccess({ payload: res.body })),
+          catchError(error => of(ProductActions.searchFailure({ errorMsg: error.message })))
+        );
+      })
+    )
+  );
+
+  filterControllers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProductActions.filterControllers),
+      mergeMap(({ query }) =>
+        this.productsService.filterControllers(query).pipe(
+          filter((res: HttpResponse<any>) => res.ok),
+          map((res: HttpResponse<any>) => ProductActions.filterControllersSuccess({ payload: res.body })),
+          catchError(error => of(ProductActions.searchFailure({ errorMsg: error.message })))
+        )
+      )
     )
   );
 

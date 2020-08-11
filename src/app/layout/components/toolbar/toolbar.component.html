@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark d-none d-sm-block" [ngClass]="isMobile?'':'bg-primary'">
+<nav class="navbar navbar-expand-lg navbar-light d-none d-sm-block" [ngClass]="isMobile?'':'bg-primary'">
     <div class="container" [ngSwitch]="isAuthenticated()">
         <!-- <a class="navbar-brand" href="#">Navbar</a> -->
         <button class="navbar-toggler" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed"
@@ -8,7 +8,7 @@
         <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Seller Centre</a>
+                    <a class="nav-link" href="#">Seller Centre <nz-divider nzType="vertical"></nz-divider></a>
                 </li>
                 <li class="nav-item">
                     <div class="follow-us">
@@ -23,16 +23,53 @@
                 </li>
             </ul>
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="#">
                         <fa-icon icon="bell" class="mr-1"></fa-icon>Notification
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item" *ngSwitchCase="false">
-                    <a class="nav-link" href="javascript:void(0);" [routerLink]="['/account/register']">Register</a>
+                    <a class="nav-link" href="javascript:void(0);" (click)="register()">Signup</a>
                 </li>
-                <li class="nav-item" *ngSwitchCase="false">
+                <li class=" nav-item" *ngSwitchCase="false">
                     <a class="nav-link" href="javascript:void(0);" (click)="login()">Login</a>
+                </li>
+                <li id="track-my-order" class="nav-item dropdown" ngbDropdown #trackMyOrder="ngbDropdown"
+                    *ngSwitchCase="true">
+                    <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button"
+                        ngbDropdownToggle>
+                        Track My Order
+                    </a>
+                    <div class="dropdown-menu" ngbDropdownMenu>
+                        <h6 class="dropdown-header" *ngIf="(orders$ | async)?.length > 0">My Last Orders</h6>
+
+                        <nz-skeleton [nzActive]="true" [nzLoading]="ordersLoading"></nz-skeleton>
+
+                        <ul class="my-last-order" *ngIf="!ordersLoading">
+                            <li class="dropdown-item" [routerLink]="['/pages/dashboard/my-orders',order.id,'view']"
+                                *ngFor="let order of (orders$ | async) | orderBy:'-orderDate' | slice:0:5">
+                                {{order.orderDate | date:'dd/MM/yyyy'}}
+                                - Order
+                                {{order.customerPurchaseOrderNumber}}
+                            </li>
+                        </ul>
+
+                        <form class="track-my-order-form" nz-form [nzLayout]="'vertical'">
+                            <nz-form-item>
+                                <nz-form-label nzFor="order-number">Your order number:</nz-form-label>
+                                <nz-form-control>
+                                    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                                        <input #orderNumber name="order-number" id="order-number" type="text" nz-input
+                                            placeholder="order number" />
+                                    </nz-input-group>
+                                    <ng-template #suffixIconButton>
+                                        <button class="vertical-center" nz-button nzType="default" nzSearch (click)="onGoOrderDetails(orderNumber.value);orderNumber.value = ''
+                                            ;trackMyOrder.close()"><i nz-icon nzType="search"></i></button>
+                                    </ng-template>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </form>
+                    </div>
                 </li>
                 <li class="nav-item dropdown" ngbDropdown *ngSwitchCase="true">
                     <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button"

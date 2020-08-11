@@ -2,8 +2,27 @@ toolbar {
   font-size: 0.8125rem;
   // font-weight: 600;
 
+  #track-my-order {
+    nz-skeleton {
+      padding: 0.25rem 1.5rem;
+    }
+
+    .my-last-order {
+      list-style: none;
+      font-size: 0.8em;
+      padding: 0;
+      min-width: 200px;
+      cursor: pointer;
+    }
+
+    .track-my-order-form {
+      padding: 0.25rem 1.5rem;
+    }
+  }
+
   .nav-link {
-    color: rgba(255, 255, 255, 0.95) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    // color: #202945 !important;
   }
 
   .follow-us {

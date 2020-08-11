@@ -2,6 +2,11 @@
     <div extra>
         <nz-space>
             <nz-space-item>
+                <a nz-button nzType="link" nzDanger (click)="seeAll()">
+                    <i nz-icon nzType="fullscreen" style="font-size: 1.1em;"></i>See All
+                </a>
+            </nz-space-item>
+            <nz-space-item>
                 <a nz-button nzType="link" nzDanger (click)="owl.prev()">
                     <i nz-icon nzType="left-square" nzTheme="fill" style="font-size: 1.5em;"></i>
                 </a>
@@ -24,7 +29,7 @@
             </ng-container>
         </owl-carousel-o>
 
-        <owl-carousel-o #owl [options]="carousel.options" [@fadeIn]="data.length">
+        <owl-carousel-o #owl [options]="carousel.options" [@fadeIn]="data?.length">
             <ng-container *ngFor="let product of data">
                 <ng-template carouselSlide>
                     <div class="owl-sub-item">

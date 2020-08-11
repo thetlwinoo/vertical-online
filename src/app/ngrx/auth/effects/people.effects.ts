@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, filter, mergeMap } from 'rxjs/operators';
 import { IPeople } from '@eps/models';
-import { PeopleActions } from '../actions';
+import { PeopleActions, CustomerActions } from '../actions';
 import { PeopleService } from '@eps/services';
 
 @Injectable()
@@ -12,10 +12,13 @@ export class PeopleEffects {
   fetchLoginPeople$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PeopleActions.fetchLoginPeople),
-      mergeMap(({ id }) =>
-        this.peopleService.query({ 'userId.equals': id }).pipe(
+      mergeMap(({ query }) =>
+        this.peopleService.query(query).pipe(
           filter((res: HttpResponse<IPeople[]>) => res.ok),
-          map((res: HttpResponse<IPeople[]>) => PeopleActions.fetchLoginPeopleSuccess({ people: res.body[0] })),
+          mergeMap((res: HttpResponse<IPeople[]>) => [
+            PeopleActions.fetchLoginPeopleSuccess({ people: res.body[0] }),
+            CustomerActions.fetchCustomer({ query: { 'peopleId.equals': res.body[0].id } }),
+          ]),
           catchError(err => of(PeopleActions.peopleError({ errorMsg: err.message })))
         )
       )

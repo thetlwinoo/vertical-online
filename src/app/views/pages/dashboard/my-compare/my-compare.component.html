@@ -35,13 +35,14 @@
             <tr>
               <th class="product-name">Attribute</th>
               <td class="item-row" *ngFor="let stockItem of stockItems">
-                <p class="description-compare"> {{stockItem.productAttributeValue}} </p>
+                <p class="description-compare"> {{stockItem.productAttributeSet}} - {{stockItem.productAttributeValue}}
+                </p>
               </td>
             </tr>
             <tr>
               <th class="product-name">Option</th>
               <td class="item-row" *ngFor="let stockItem of stockItems">
-                <p class="description-compare"> {{stockItem.productOptionValue}} </p>
+                <p class="description-compare"> {{stockItem.productOptionSet}} - {{stockItem.productOptionValue}} </p>
               </td>
             </tr>
             <tr>

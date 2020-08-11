@@ -38,7 +38,7 @@ export class AddressEffects {
           switchMap((res: HttpResponse<IAddresses>) => [
             AddressActions.createAddressSuccess({ address: res.body }),
             AddressActions.fetchAddresses({ query: { 'personId.equals': res.body.personId } }),
-            CustomerActions.fetchCustomer({ id: res.body.personId }),
+            CustomerActions.fetchCustomer({ query: { 'peopleId.equals': res.body.personId } }),
           ]),
           catchError(err => of(AddressActions.addressError({ errorMsg: err.message })))
         )
@@ -87,7 +87,7 @@ export class AddressEffects {
           switchMap((res: HttpResponse<IAddresses>) => [
             AddressActions.setDefaultSuccess({ address: res.body }),
             AddressActions.fetchAddresses({ query: { 'personId.equals': res.body.personId } }),
-            CustomerActions.fetchCustomer({ id: props.peopleId }),
+            CustomerActions.fetchCustomer({ query: { 'personId.equals': res.body.personId } }),
           ]),
           catchError(err => of(AddressActions.addressError({ errorMsg: err.message })))
         )

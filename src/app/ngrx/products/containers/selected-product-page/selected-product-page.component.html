@@ -10,8 +10,8 @@
         </nz-breadcrumb>
     </div>
 
-    <product-detail [product]="product$ | async" [productDetails]="productDetails$ | async"
-        [productDetailsLoading]="productDetailsLoading$ | async" [inCompare]="isSelectedStockItemInCompare$ | async"
+    <product-detail [product]="product$ | async" [productObject]="productDetails$ | async"
+        [productObjectLoading]="productDetailsLoading$ | async" [inCompare]="isSelectedStockItemInCompare$ | async"
         [inWishlist]="isSelectedStockItemInWishlist$ | async" [inCart]="isSelectedStockItemInCart$ | async"
         (addToCompare)="addToCompare($event)" (removeFromCompare)="removeFromCompare($event)"
         (addToWishlist)="addToWishlist($event)" (removeFromWishlist)="removeFromWishlist($event)"

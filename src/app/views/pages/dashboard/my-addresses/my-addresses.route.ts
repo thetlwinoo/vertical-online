@@ -30,7 +30,7 @@ export const addressesRoute: Routes = [
     path: '',
     component: MyAddressesComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_CUSTOMER'],
       pageTitle: 'My Addresses',
     },
     canActivate: [UserRouteAccessService],
@@ -42,7 +42,7 @@ export const addressesRoute: Routes = [
       addresses: MyAddressesResolve,
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_CUSTOMER'],
       pageTitle: 'Create new address',
     },
     canActivate: [UserRouteAccessService],
@@ -54,7 +54,7 @@ export const addressesRoute: Routes = [
       addresses: MyAddressesResolve,
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_CUSTOMER'],
       pageTitle: 'Edit my address',
     },
     canActivate: [UserRouteAccessService],

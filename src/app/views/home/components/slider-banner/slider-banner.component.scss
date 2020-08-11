@@ -8,6 +8,10 @@
     }
   }
 
+  .masonry-item {
+    width: 33.33%;
+  }
+
   .sub-banner-wrapper {
     // padding: 0 !important;
 
@@ -17,10 +21,6 @@
 
     .sub-banner {
       height: 100%;
-      // border: 1px solid #f5f5f5;
-      // :first-child {
-      //   padding-bottom: 0.5em !important;
-      // }
     }
   }
 

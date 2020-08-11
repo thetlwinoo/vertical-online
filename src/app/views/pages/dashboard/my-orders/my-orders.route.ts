@@ -8,6 +8,7 @@ import { MyOrdersComponent } from './my-orders.component';
 import { OrderService } from '@eps/services';
 import { Orders, IOrders } from '@eps/models';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { JhiResolvePagingParams } from 'ng-jhipster';
 
 @Injectable({ providedIn: 'root' })
 export class MyOrdersResolve implements Resolve<Orders> {
@@ -32,8 +33,11 @@ export const myOrdersRoute: Routes = [
   {
     path: '',
     component: MyOrdersComponent,
+    resolve: {
+      pagingParams: JhiResolvePagingParams,
+    },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_CUSTOMER'],
       pageTitle: 'My Orders',
     },
     canActivate: [UserRouteAccessService],
@@ -45,7 +49,7 @@ export const myOrdersRoute: Routes = [
       orders: MyOrdersResolve,
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_CUSTOMER'],
       pageTitle: 'Order Details',
     },
     canActivate: [UserRouteAccessService],

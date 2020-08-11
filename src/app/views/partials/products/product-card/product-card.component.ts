@@ -1,11 +1,13 @@
 import { OnInit, Component, ViewEncapsulation, Input, OnDestroy, Output, EventEmitter, OnChanges } from '@angular/core';
 import { SERVER_API_URL } from '@eps/constants';
+import { IStockItems } from '@eps/models';
 
 interface StockItemObj {
-  stockItemId: number;
+  id: number;
+  name: string;
   unitPrice: number;
   recommendedRetailPrice: number;
-  thumbnail: string;
+  thumbnailPhoto: string;
 }
 
 @Component({
@@ -32,9 +34,16 @@ export class ProductCardComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {}
 
   ngOnChanges(): void {
-    if (this.product && this.product.productDetails.length > 0) {
-      this.selectedItem = this.product.productDetails[0];
+    if (this.product && this.product.productDetails.stockItemLists.length > 0) {
+      this.selectedItem = this.product.productDetails.stockItemLists[0];
     }
+  }
+
+  getPercentage(stockItem: IStockItems): number {
+    const decrease = stockItem.recommendedRetailPrice - stockItem.unitPrice;
+    const percentage = Math.round((decrease / stockItem.recommendedRetailPrice) * 100);
+
+    return percentage;
   }
 
   ngOnDestroy(): void {}

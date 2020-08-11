@@ -194,15 +194,11 @@ export class FetchEffects {
     this.actions$.pipe(
       ofType(FetchActions.fetchCategoriesTree),
       switchMap(() =>
-        this.productCategoryService
-          .getCategoriesTree({
-            shownav: true,
-          })
-          .pipe(
-            filter((res: HttpResponse<IProductCategory[]>) => res.ok),
-            map((res: HttpResponse<IProductCategory[]>) => FetchActions.fetchCategoriesTreeSuccess({ categoriesTree: res.body })),
-            catchError(err => of(FetchActions.fetchFailure({ errorMsg: err.message })))
-          )
+        this.productCategoryService.getCategoriesTree().pipe(
+          filter((res: HttpResponse<IProductCategory[]>) => res.ok),
+          map((res: HttpResponse<IProductCategory[]>) => FetchActions.fetchCategoriesTreeSuccess({ categoriesTree: res.body })),
+          catchError(err => of(FetchActions.fetchFailure({ errorMsg: err.message })))
+        )
       )
     )
   );

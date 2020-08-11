@@ -1,6 +1,76 @@
 @import 'src/@eps/scss/root';
 
 :host {
+  .official-store-wrapper {
+    background-color: rgba(0, 0, 0, 10%);
+    margin-bottom: 0.5em;
+
+    .official-store {
+      padding: 15px;
+
+      .wrapper {
+        border: 0;
+        vertical-align: baseline;
+        background-color: #ffffff;
+        overflow: hidden;
+
+        .info-wrapper {
+          padding: 10px;
+
+          .card-title {
+            text-align: left !important;
+            font-size: 1em;
+            font-weight: 500;
+            margin: 0 !important;
+          }
+
+          .card-subtitle {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+          }
+        }
+
+        .logo-wrapper {
+          padding: 10px;
+
+          .square {
+            width: 100%;
+            // padding-bottom: 100%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: left;
+            height: 60px;
+
+            &.no-image {
+              background-image: url('assets/images/no-image.svg');
+              opacity: 0.05;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .filtered-tag {
+    padding: 0px 10px 0px 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    > .tag-list > nz-tag {
+      margin-bottom: 10px;
+    }
+
+    > button {
+      margin-bottom: 10px;
+    }
+  }
+
   .content-wrapper {
     padding-top: 20px;
     background-color: #ffffff;

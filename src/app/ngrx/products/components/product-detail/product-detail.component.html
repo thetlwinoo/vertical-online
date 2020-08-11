@@ -1,4 +1,4 @@
-<div class="container" *ngIf="productDetails">
+<div class="container" *ngIf="productObject">
     <div nz-row [nzGutter]="16" class="product-details">
         <div nz-col class="gutter-row" ngXs="24" ngSm="24" ngMd="10" nzLg="10" nzXl="10">
             <product-gallery [stockItem]="currentStockItem"></product-gallery>
@@ -8,11 +8,11 @@
                 <nz-list-item>
                     <nz-list-item-meta>
                         <nz-list-item-meta-title>
-                            <span>{{ productDetails.productCategoryName }}</span>
+                            <span>{{ productObject.productCategoryName }}</span>
                         </nz-list-item-meta-title>
                         <nz-list-item-meta-description>
                             <h3>{{ currentStockItem?.name}}</h3>
-                            <p class="m-0-p">{{ productDetails.productBrandName }}</p>
+                            <p class="m-0-p">{{ productObject.productBrandName }}</p>
                         </nz-list-item-meta-description>
                     </nz-list-item-meta>
                 </nz-list-item>
@@ -21,8 +21,10 @@
                     <ng-container>
                         <nz-list-item-meta>
                             <nz-list-item-meta-title>
-                                <nz-rate [(ngModel)]="productDetails.ratings.overallRating" nzDisabled></nz-rate>
-                                <span class="ant-rate-text">{{ productDetails.ratings.totalRating }} Ratings |
+                                <nz-rate [(ngModel)]="productObject.ratings.overallRating" nzDisabled>
+                                </nz-rate>
+                                <span class="ant-rate-text">{{ productObject.ratings.totalRating }}
+                                    Ratings |
                                     {{(questions$ | async).length}}
                                     Answered
                                     Question</span>
@@ -30,19 +32,24 @@
                         </nz-list-item-meta>
                         <ul nz-list-item-actions class="user-activities">
                             <nz-list-item-action>
-                                <button nz-button nzType="default" nzShape="circle">
+                                <button nz-button nzType="default" nzShape="circle"
+                                    nzTooltipTitle="Share on social media" nzTooltipPlacement="bottom" nz-tooltip>
                                     <i nz-icon nzType="share-alt"></i>
                                 </button>
                             </nz-list-item-action>
                             <nz-list-item-action>
                                 <button nz-button [nzType]="inCompare?'primary':'default'" nzShape="circle"
-                                    [nzDanger]="inCompare" (click)="toggleCompare(currentStockItem,inCompare)">
+                                    [nzDanger]="inCompare" (click)="toggleCompare(currentStockItem,inCompare)"
+                                    [nzTooltipTitle]="inCompare?'Remove from Compare':'Add to Compare'"
+                                    nzTooltipPlacement="bottom" nz-tooltip>
                                     <i nz-icon nzType="copy"></i>
                                 </button>
                             </nz-list-item-action>
                             <nz-list-item-action>
                                 <button nz-button [nzType]="inWishlist?'primary':'default'" nzShape="circle"
-                                    [nzDanger]="inWishlist" (click)="toggleWishlist(currentStockItem,inWishlist)">
+                                    [nzDanger]="inWishlist" (click)="toggleWishlist(currentStockItem,inWishlist)"
+                                    [nzTooltipTitle]="inWishlist?'Remove from Wishlist':'Add to wishlist'"
+                                    nzTooltipPlacement="bottom" nz-tooltip>
                                     <i nz-icon nzType="heart"></i>
                                 </button>
                             </nz-list-item-action>
@@ -62,19 +69,30 @@
                     <ng-container>
                         <nz-list-item-meta>
                             <nz-list-item-meta-title>
-                                <span class="unit-price">{{ currentStockItem?.unitPrice | currency }}</span>
+                                <span class="unit-price">{{ currentStockItem?.unitPrice | currency:'MMK' }}</span>
                                 <span
-                                    class="retail-price">{{ currentStockItem?.recommendedRetailPrice | currency }}</span>
+                                    class="retail-price">{{ currentStockItem?.recommendedRetailPrice | currency:'MMK' }}</span>
                                 <span class="discount-percent" style="margin-left: 5px;">-15%</span>
                             </nz-list-item-meta-title>
                         </nz-list-item-meta>
                     </ng-container>
                 </nz-list-item>
-                <nz-list-item>
+                <nz-list-item *ngIf="currentStockItem?.productAttributeValue">
                     <ng-container>
                         <nz-list-item-meta>
                             <nz-list-item-meta-title>
-                                <span>Color Family : {{currentStockItem?.productAttributeName}}</span>
+                                <span>{{currentStockItem?.productAttributeSetName}} :
+                                    {{currentStockItem?.productAttributeValue}}</span>
+                            </nz-list-item-meta-title>
+                        </nz-list-item-meta>
+                    </ng-container>
+                </nz-list-item>
+                <nz-list-item *ngIf="currentStockItem?.productOptionValue">
+                    <ng-container>
+                        <nz-list-item-meta>
+                            <nz-list-item-meta-title>
+                                <span>{{currentStockItem?.productOptionSetValue}} :
+                                    {{currentStockItem?.productOptionValue}}</span>
                             </nz-list-item-meta-title>
                         </nz-list-item-meta>
                     </ng-container>
@@ -85,11 +103,11 @@
                             <div class="flex-row-wrapper">
                                 <div class="d-flex flex-row bd-highlight mb-1">
                                     <div class="p-1 bd-highlight"
-                                        *ngFor="let stockItem of productDetails.stockItemList">
+                                        *ngFor="let stockItem of productObject.stockItemLists">
                                         <a href="javascript:void(0);" (click)="onChangeStockItem(stockItem)">
                                             <div class="small-img"
                                                 [class.active]="currentStockItem?.id === stockItem.id"
-                                                [style.backgroundImage]="'url(' + blobUrl + stockItem.thumbnailUrl + ')'">
+                                                [style.backgroundImage]="'url(' + blobUrl + stockItem.thumbnailPhoto + '/thumbnail)'">
                                             </div>
                                         </a>
                                     </div>
@@ -137,27 +155,43 @@
     </div>
 
     <section>
-        <vs-panel [title]="'Product Details of ' + currentStockItem?.name">
+        <div class="embed-responsive embed-responsive-16by9" *ngIf="productObject.videoUrl">
+            <iframe class="embed-responsive-item" [src]="videoURL(productObject.videoUrl)"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+
+        <vs-panel [title]="'Product Details of ' + currentStockItem?.name" *ngIf="productObject.longDescription">
             <div body class="content-wrapper">
-                {{productDetails.longDescription}}
+                <div [innerHTML]="productObject.longDescription"></div>
             </div>
         </vs-panel>
 
-        <vs-panel [title]="'Highlights'">
+        <vs-panel [title]="'Highlights'" *ngIf="productObject.highlights">
             <div body class="content-wrapper">
-                {{productDetails.highlights}}
+                <div [innerHTML]="productObject.highlights"></div>
             </div>
         </vs-panel>
 
-        <vs-panel [title]="'What In The Box'">
+        <vs-panel [title]="'What In The Box'" *ngIf="productObject.whatInTheBox">
             <div body class="content-wrapper">
-                {{productDetails.whatInTheBox}}
+                <div [innerHTML]="productObject.whatInTheBox"></div>
+            </div>
+        </vs-panel>
+
+        <vs-panel [title]="'Special Features'" *ngIf="productObject.specialFeatures">
+            <div body class="content-wrapper">
+                <nz-descriptions nzBordered [nzSize]="'middle'"
+                    [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 1, xs: 1 }">
+                    <nz-descriptions-item [nzTitle]="item.name" *ngFor="let item of specialFeatures">{{item.value}}
+                    </nz-descriptions-item>
+                </nz-descriptions>
             </div>
         </vs-panel>
     </section>
     <section>
-        <review-product [ratings]="productDetails?.ratings" [reviews]="productDetails?.reviewList || []"
-            [productName]="productDetails?.productName">
+        <review-product [ratings]="productObject?.ratings" [reviews]="productObject?.reviewList || []"
+            [productName]="productObject?.productName">
         </review-product>
     </section>
 
@@ -166,7 +200,8 @@
     </section>
 
     <section>
-        <related-product [relatedProducts]="productDetails?.relatedList" [loading]="productDetailsLoading">
+        <related-product [relatedProducts]="productObject?.relatedList" [loading]="productObjectLoading"
+            *ngIf="productObject?.relatedList?.length > 0">
         </related-product>
     </section>
 </div>

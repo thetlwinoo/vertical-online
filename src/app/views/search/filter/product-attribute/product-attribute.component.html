@@ -1,0 +1,11 @@
+<vs-panel [title]="attribute?.name | uppercase" [more]="attribute?.children.length > 12?true:false" [moreType]="'left'"
+  *ngIf="attribute?.children.length>0">
+  <div body class="content-wrapper">
+    <nz-checkbox-wrapper (nzOnChange)="selectedAttributes.emit($event)">
+      <div *ngFor="let item of attribute?.children">
+        <label nz-checkbox [nzValue]="item">{{item}}</label>
+        <br />
+      </div>
+    </nz-checkbox-wrapper>
+  </div>
+</vs-panel>

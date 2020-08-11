@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 
 import { IPeople } from '@eps/models';
 
-export const fetchLoginPeople = createAction('[People/API] Fetch Login People', props<{ id: string }>());
+export const fetchLoginPeople = createAction('[People/API] Fetch Login People', props<{ query: any }>());
 
 export const fetchLoginPeopleSuccess = createAction('[People/API] Fetch Login People Success', props<{ people: IPeople }>());
 

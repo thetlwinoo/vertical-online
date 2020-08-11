@@ -16,4 +16,12 @@ export const searchWithPagingSuccess = createAction('[Products/API] Search With 
 
 export const searchWithNoPagingSuccess = createAction('[Products/API] Search With No Paging Success', props<{ products: IProducts[] }>());
 
+export const filterProducts = createAction('[Products/API] Filter Products', props<{ query: any }>());
+
+export const filterProductsSuccess = createAction('[Products/API] Filter Products Success', props<{ payload: any }>());
+
+export const filterControllers = createAction('[Products/API] Filter Controllers', props<{ query: any }>());
+
+export const filterControllersSuccess = createAction('[Products/API] Filter Controllers Success', props<{ payload: any }>());
+
 export const searchFailure = createAction('[Products/API] Search Failure', props<{ errorMsg: string }>());

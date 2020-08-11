@@ -9,6 +9,7 @@ import * as fromOrderLine from 'app/ngrx/checkout/reducers/order-lines.reducer';
 import * as fromReview from 'app/ngrx/checkout/reducers/review.reducer';
 import * as fromReviewLines from 'app/ngrx/checkout/reducers/review-lines.reducer';
 import * as fromPayment from 'app/ngrx/checkout/reducers/payment.reducer';
+import * as fromOrderTracking from 'app/ngrx/checkout/reducers/order-tracking.reducer';
 import * as fromRoot from 'app/ngrx';
 
 export const checkoutFeatureKey = 'checkout';
@@ -23,6 +24,7 @@ export interface CheckoutState {
   [fromReview.reviewFeatureKey]: fromReview.State;
   [fromReviewLines.reviewLineFeatureKey]: fromReviewLines.State;
   [fromPayment.paymentFeatureKey]: fromPayment.State;
+  [fromOrderTracking.orderTrackingFeatureKey]: fromOrderTracking.State;
 }
 
 export interface State extends fromRoot.State {
@@ -40,6 +42,7 @@ export function reducers(state: CheckoutState | undefined, action: Action) {
     [fromReview.reviewFeatureKey]: fromReview.reducer,
     [fromReviewLines.reviewLineFeatureKey]: fromReviewLines.reducer,
     [fromPayment.paymentFeatureKey]: fromPayment.reducer,
+    [fromOrderTracking.orderTrackingFeatureKey]: fromOrderTracking.reducer,
   })(state, action);
 }
 
@@ -93,6 +96,14 @@ export const getOrderState = createSelector(getCheckoutState, (state: CheckoutSt
 export const getOrderError = createSelector(getOrderState, fromOrder.getError);
 
 export const getOrderFetched = createSelector(getOrderState, fromOrder.getOrders);
+
+export const getTrackOrderFetched = createSelector(getOrderState, fromOrder.getTrackOrders);
+
+export const getTotalOrders = createSelector(getOrderState, fromOrder.getTotalOrders);
+
+export const getReviewOrderFetched = createSelector(getOrderState, fromOrder.getReviewOrders);
+
+export const getTotalReviewOrderFetched = createSelector(getOrderState, fromOrder.getTotalReviewOrders);
 
 export const getSelectedOrder = createSelector(getOrderState, fromOrder.getSelected);
 
@@ -166,3 +177,12 @@ export const getPaymentPaypalRedirectUrl = createSelector(getPaymentCreatePaypal
     return createPaypal.redirect_url;
   }
 });
+
+// Order Tracking State
+export const getOrderTrackingState = createSelector(getCheckoutState, (state: CheckoutState) => state.orderTracking);
+
+export const getOrderTrackingError = createSelector(getOrderTrackingState, fromOrderTracking.getError);
+
+export const getOrderTrackingFetched = createSelector(getOrderTrackingState, fromOrderTracking.getOrderTracking);
+
+export const getOrderTrackingLoading = createSelector(getOrderTrackingState, fromOrderTracking.getLoading);

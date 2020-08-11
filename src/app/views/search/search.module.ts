@@ -8,7 +8,9 @@ import { PartialsModule } from 'app/views/partials/partials.module';
 import { CategoryComponent } from './filter/category/category.component';
 import { CategoryPipe } from './pipe/category.pipe';
 import { ColorPipe } from './pipe/color.pipe';
-import { ColorComponent } from './filter/color/color.component';
+import { ProductAttributeComponent } from './filter/product-attribute/product-attribute.component';
+import { ProductOptionComponent } from './filter/product-option/product-option.component';
+import { ProductBrandComponent } from './filter/product-brand/product-brand.component';
 import { PriceComponent } from './filter/price/price.component';
 import { ConditionComponent } from './filter/condition/condition.component';
 import { RatingComponent } from './filter/rating/rating.component';
@@ -19,7 +21,9 @@ import { RatingComponent } from './filter/rating/rating.component';
     CategoryComponent,
     CategoryPipe,
     ColorPipe,
-    ColorComponent,
+    ProductAttributeComponent,
+    ProductOptionComponent,
+    ProductBrandComponent,
     PriceComponent,
     ConditionComponent,
     RatingComponent,
