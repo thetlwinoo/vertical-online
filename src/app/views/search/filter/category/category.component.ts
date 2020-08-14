@@ -9,8 +9,8 @@ import {
   OnDestroy,
   OnChanges,
 } from '@angular/core';
-import { IProductCategory } from '@eps/models';
-import { rootAnimations } from '@eps/animations';
+import { IProductCategory } from '@vertical/models';
+import { rootAnimations } from '@vertical/animations';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { map, takeUntil, zip } from 'rxjs/operators';
 import { ActivatedRoute, Params, Router } from '@angular/router';

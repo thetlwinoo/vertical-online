@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IOrderLines } from '@eps/models';
+import { IOrderLines } from '@vertical/models';
 
 export const fetchOrderLines = createAction('[Order Lines/API] Fetch Order Lines', props<{ orderPackageId: number }>());
 

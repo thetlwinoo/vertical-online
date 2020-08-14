@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import { category } from '@eps/config/owl-carousel';
-import { rootAnimations } from '@eps/animations';
-import { IProductCategory } from '@eps/models';
-import { SERVER_API_URL } from '@eps/constants';
+import { category } from '@vertical/config/owl-carousel';
+import { rootAnimations } from '@vertical/animations';
+import { IProductCategory } from '@vertical/models';
+import { SERVER_API_URL } from '@vertical/constants';
 
 @Component({
   selector: 'product-category',

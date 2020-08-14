@@ -1,13 +1,13 @@
 import { NgModule, Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, RouterModule } from '@angular/router';
-import { UserRouteAccessService } from '@eps/core';
+import { UserRouteAccessService } from '@vertical/core';
 import { ShoppingCartComponent } from './containers/shopping-cart/shopping-cart.component';
 import { OrderFormComponent } from './containers/order-form/order-form.component';
 import { PaymentFormComponent } from './containers/payment-form/payment-form.component';
 import { SuccessFormComponent } from './containers/success-form/success-form.component';
 import { UnSuccessFormComponent } from './containers/unsuccess-form/unsuccess-form.component';
-import { IOrders, Orders } from '@eps/models';
-import { OrderService } from '@eps/services';
+import { IOrders, Orders } from '@vertical/models';
+import { OrderService } from '@vertical/services';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';

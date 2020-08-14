@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { IOrders } from '@eps/models';
+import { IOrders } from '@vertical/models';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import { OrderActions, OrderLineActions } from 'app/ngrx/checkout/actions';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { SERVER_API_URL, ITEMS_PER_PAGE } from '@eps/constants';
+import { SERVER_API_URL, ITEMS_PER_PAGE } from '@vertical/constants';
 import * as moment from 'moment';
-import { LONG_DATE_TIME_FORMAT, LONG_DATE_FORMAT } from '@eps/constants/input.constants';
+import { LONG_DATE_TIME_FORMAT, LONG_DATE_FORMAT } from '@vertical/constants/input.constants';
 import { Moment } from 'moment';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { en_US, NzI18nService } from 'ng-zorro-antd/i18n';

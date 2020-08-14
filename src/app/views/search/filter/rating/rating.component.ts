@@ -1,5 +1,5 @@
 import { ViewEncapsulation, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { rootAnimations } from '@eps/animations';
+import { rootAnimations } from '@vertical/animations';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({

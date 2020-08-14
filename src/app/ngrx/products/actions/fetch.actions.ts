@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IProducts, IProductCategory, IStockItems, IPhotos, IOrderLines } from '@eps/models';
-import { ProductDocument } from '@eps/models/product-document.model';
+import { IProducts, IProductCategory, IStockItems, IPhotos, IOrderLines } from '@vertical/models';
+import { ProductDocument } from '@vertical/models/product-document.model';
 
 // newly added
 export const fetchNewlyAdded = createAction('[Products/API] Fetch Newly Added');

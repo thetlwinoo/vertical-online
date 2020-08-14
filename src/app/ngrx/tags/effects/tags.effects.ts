@@ -4,9 +4,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { asyncScheduler, EMPTY as empty, of } from 'rxjs';
 import { catchError, debounceTime, map, skip, switchMap, takeUntil, filter } from 'rxjs/operators';
 import { JhiParseLinks } from 'ng-jhipster';
-import { IProductTags } from '@eps/models';
+import { IProductTags } from '@vertical/models';
 import { TagsActions } from '../actions';
-import { ProductTagsService } from '@eps/services';
+import { ProductTagsService } from '@vertical/services';
 
 @Injectable()
 export class TagsEffects {

@@ -3,9 +3,9 @@ import { HttpResponse } from '@angular/common/http';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, filter, mergeMap } from 'rxjs/operators';
-import { IPeople } from '@eps/models';
+import { IPeople } from '@vertical/models';
 import { PeopleActions, CustomerActions } from '../actions';
-import { PeopleService } from '@eps/services';
+import { PeopleService } from '@vertical/services';
 
 @Injectable()
 export class PeopleEffects {

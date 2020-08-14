@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription, Subject } from 'rxjs';
-import { Addresses, IAddresses, IPeople } from '@eps/models';
+import { Addresses, IAddresses, IPeople, ICustomers } from '@vertical/models';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import * as fromAuth from 'app/ngrx/auth/reducers';
 import { AddressActions } from 'app/ngrx/checkout/actions';
-import { AccountService } from '@eps/core';
-import { Account } from '@eps/core/user/account.model';
+import { AccountService } from '@vertical/core';
+import { Account } from '@vertical/core/user/account.model';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { takeUntil } from 'rxjs/operators';
 
@@ -21,6 +21,8 @@ export class MyAddressesComponent implements OnInit, OnDestroy {
   addressSubscription: Subscription;
   people$: Observable<IPeople>;
   people: IPeople;
+  customer$: Observable<ICustomers>;
+  customer: ICustomers;
   addNewAddressInd = false;
   loading = false;
 
@@ -34,12 +36,14 @@ export class MyAddressesComponent implements OnInit, OnDestroy {
   ) {
     this.addresses$ = store.pipe(select(fromCheckout.getAddressesFetched));
     this.people$ = authStore.pipe(select(fromAuth.getPeopleFetched));
+    this.customer$ = authStore.pipe(select(fromAuth.getCustomerFetched));
   }
 
   ngOnInit(): void {
     this.people$.pipe(takeUntil(this.unsubscribe$)).subscribe(item => {
       this.people = item;
       if (this.people) {
+        console.log('people', this.people);
         this.store.dispatch(AddressActions.fetchAddresses({ query: { 'personId.equals': this.people.id } }));
       }
     });

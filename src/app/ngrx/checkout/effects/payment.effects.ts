@@ -4,9 +4,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, filter, mergeMap, tap } from 'rxjs/operators';
 import { PaymentActions, CartActions } from '../actions';
-import { PaymentService, PaymentMethodsService } from '@eps/services';
+import { PaymentService, PaymentMethodsService } from '@vertical/services';
 import { Router } from '@angular/router';
-import { IPaymentMethods } from '@eps/models';
+import { IPaymentMethods } from '@vertical/models';
 
 @Injectable()
 export class PaymentEffects {

@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { OrderLineActions } from 'app/ngrx/checkout/actions';
-import { IOrders, Orders, IOrderLines } from '@eps/models';
+import { IOrders, Orders, IOrderLines } from '@vertical/models';
 
 export const orderLinesFeatureKey = 'orderLines';
 

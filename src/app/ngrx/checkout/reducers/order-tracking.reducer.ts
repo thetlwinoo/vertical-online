@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { OrderTrackingActions } from 'app/ngrx/checkout/actions';
-import { IOrderTracking } from '@eps/models';
+import { IOrderTracking } from '@vertical/models';
 
 export const orderTrackingFeatureKey = 'orderTracking';
 

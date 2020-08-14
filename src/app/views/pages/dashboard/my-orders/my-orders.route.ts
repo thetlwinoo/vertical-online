@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { UserRouteAccessService } from '@eps/core';
+import { UserRouteAccessService } from '@vertical/core';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { MyOrdersComponent } from './my-orders.component';
-import { OrderService } from '@eps/services';
-import { Orders, IOrders } from '@eps/models';
+import { OrderService } from '@vertical/services';
+import { Orders, IOrders } from '@vertical/models';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { JhiResolvePagingParams } from 'ng-jhipster';
 

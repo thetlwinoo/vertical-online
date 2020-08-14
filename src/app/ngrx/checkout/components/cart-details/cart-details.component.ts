@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/camelcase */
 import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation, OnDestroy, ViewContainerRef } from '@angular/core';
-import { AddToCartProps, ReduceFromCartProps, ChangedAddToOrderProps, ChangedOrderAllProps, IPeople, IAddresses } from '@eps/models';
-import { SERVER_API_URL } from '@eps/constants';
+import { AddToCartProps, ReduceFromCartProps, ChangedAddToOrderProps, ChangedOrderAllProps, IPeople, IAddresses } from '@vertical/models';
+import { SERVER_API_URL } from '@vertical/constants';
 import { NzMessageService } from 'ng-zorro-antd/message';
 // eslint-disable-next-line camelcase
 import { en_US, NzI18nService } from 'ng-zorro-antd/i18n';
@@ -13,7 +13,7 @@ import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import { AddressActions } from 'app/ngrx/checkout/actions';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { VSAddressesUpdateComponent } from '@eps/components/addresses-update/addresses-update.component';
+import { VSAddressesUpdateComponent } from '@vertical/components/addresses-update/addresses-update.component';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
@@ -101,8 +101,8 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
   confirm(): void {
     const deleteList = [];
 
-    if (this.shoppingCart.cart && this.shoppingCart.cart.cartString) {
-      this.shoppingCart.cart.cartString.cartPackages.map(item => {
+    if (this.shoppingCart.cart && this.shoppingCart.cart.cartDetails) {
+      this.shoppingCart.cart.cartDetails.cartPackages.map(item => {
         item.cartItems.map(x => {
           if (x.selectOrder) {
             deleteList.push(x.cartItemId);

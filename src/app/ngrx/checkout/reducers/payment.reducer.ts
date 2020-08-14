@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { PaymentActions } from 'app/ngrx/checkout/actions';
-import { IPaymentMethods } from '@eps/models';
+import { IPaymentMethods } from '@vertical/models';
 
 export const paymentFeatureKey = 'payment';
 

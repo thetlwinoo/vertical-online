@@ -5,8 +5,6 @@ import * as OrderActions from './order.actions';
 import * as OrderPackageActions from './order-package.actions';
 import * as OrderLineActions from './order-line.actions';
 import * as PaymentActions from './payment.actions';
-import * as ReviewActions from './review.actions';
-import * as ReviewLineActions from './review-lines.actions';
 import * as OrderTrackingActions from './order-tracking.actions';
 
 export {
@@ -17,7 +15,5 @@ export {
   OrderPackageActions,
   OrderLineActions,
   PaymentActions,
-  ReviewActions,
-  ReviewLineActions,
   OrderTrackingActions,
 };

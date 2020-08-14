@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { RootSharedModule } from '@eps/shared.module';
+import { RootSharedModule } from '@vertical/shared.module';
 
 import { MyAddressesComponent, AddressesUpdateComponent, AddressComponent, addressesRoute } from './';
 

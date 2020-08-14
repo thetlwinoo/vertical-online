@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { IShoppingCarts, ChangedOrderAllProps } from '@eps/models';
+import { IShoppingCarts, ChangedOrderAllProps } from '@vertical/models';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import { CartActions } from 'app/ngrx/checkout/actions';
 import { NzMessageService } from 'ng-zorro-antd/message';

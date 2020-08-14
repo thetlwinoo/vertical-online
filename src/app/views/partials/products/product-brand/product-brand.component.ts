@@ -1,6 +1,6 @@
 import { OnInit, Component, Input, OnDestroy, Output, EventEmitter, OnChanges } from '@angular/core';
-import { SERVER_API_URL } from '@eps/constants';
-import { IProductBrand, IStockItems } from '@eps/models';
+import { SERVER_API_URL } from '@vertical/constants';
+import { IProductBrand, IStockItems } from '@vertical/models';
 
 interface StockItemObj {
   id: number;

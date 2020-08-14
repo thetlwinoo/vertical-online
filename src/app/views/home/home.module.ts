@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RootSharedModule } from '@eps/shared.module';
+import { RootSharedModule } from '@vertical/shared.module';
 import { PartialsModule } from 'app/views/partials/partials.module';
 import { RouterModule } from '@angular/router';
 

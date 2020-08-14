@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
-import { store } from '@eps/config/owl-carousel';
-import { rootAnimations } from '@eps/animations';
+import { store } from '@vertical/config/owl-carousel';
+import { rootAnimations } from '@vertical/animations';
 
 @Component({
   selector: 'official-stores',

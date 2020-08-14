@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { UserRouteAccessService } from '@eps/core';
+import { UserRouteAccessService } from '@vertical/core';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { Addresses, IAddresses } from '@eps/models';
-import { AddressesService } from '@eps/services';
+import { Addresses, IAddresses } from '@vertical/models';
+import { AddressesService } from '@vertical/services';
 import { MyAddressesComponent } from './my-addresses.component';
 import { AddressesUpdateComponent } from './addresses-update/addresses-update.component';
 

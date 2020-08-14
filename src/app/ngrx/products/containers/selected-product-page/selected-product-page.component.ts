@@ -13,10 +13,10 @@ import {
   ProductDetailsActions,
 } from 'app/ngrx/products/actions';
 import { CartActions } from 'app/ngrx/checkout/actions';
-import { Account, IProducts, IStockItems } from '@eps/models';
+import { Account, IProducts, IStockItems } from '@vertical/models';
 import * as fromProducts from 'app/ngrx/products/reducers';
-import { AccountService, AuthService } from '@eps/core';
-// import { LoginModalService } from '@eps/services/core/login/login-modal.service';
+import { AccountService, AuthService } from '@vertical/core';
+// import { LoginModalService } from '@vertical/services/core/login/login-modal.service';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';

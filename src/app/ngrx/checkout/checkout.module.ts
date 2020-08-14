@@ -1,4 +1,4 @@
-import { RootSharedModule } from '@eps/shared.module';
+import { RootSharedModule } from '@vertical/shared.module';
 import { PartialsModule } from 'app/views/partials/partials.module';
 import { NgModule } from '@angular/core';
 import { CheckoutRoutingModule } from 'app/ngrx/checkout/checkout-routing.module';
@@ -27,7 +27,7 @@ import { UnSuccessFormComponent } from './containers/unsuccess-form/unsuccess-fo
 import { CreditCardComponent } from './components/credit-card/credit-card.component';
 import { BankTransferComponent } from './components/bank-transfer/bank-transfer.component';
 
-import { CartService, PaymentService, PeopleService } from '@eps/services';
+import { CartService, PaymentService, PeopleService } from '@vertical/services';
 
 export const COMPONENTS = [
   CartDetailsComponent,

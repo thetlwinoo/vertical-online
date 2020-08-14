@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { RootSidebarService } from '@eps/components/sidebar/sidebar.service';
-import { AccountService } from '@eps/core';
+import { RootSidebarService } from '@vertical/components/sidebar/sidebar.service';
+import { AccountService } from '@vertical/core';
 import { Observable, Subscription, Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { Account } from '@eps/core/user/account.model';
+import { Account } from '@vertical/core/user/account.model';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

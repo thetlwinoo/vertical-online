@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { RootSharedModule } from '@eps/shared.module';
+import { RootSharedModule } from '@vertical/shared.module';
 
 import {
   MyPaymentOptionsComponent,

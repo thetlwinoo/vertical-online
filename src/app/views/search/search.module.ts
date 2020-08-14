@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SearchRoutingModule } from './search-routing.module';
 import { SearchComponent } from './search.component';
-import { RootSharedModule } from '@eps/shared.module';
+import { RootSharedModule } from '@vertical/shared.module';
 import { PartialsModule } from 'app/views/partials/partials.module';
 // import { ProductsModule } from 'app/ngrx/products';
 import { CategoryComponent } from './filter/category/category.component';

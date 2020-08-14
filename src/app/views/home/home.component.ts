@@ -3,10 +3,10 @@ import { FetchActions, ProductHomeActions } from 'app/ngrx/products/actions';
 import * as fromProducts from 'app/ngrx/products/reducers';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { IProducts, IProductCategory, IStockItems } from '@eps/models';
+import { IProducts, IProductCategory, IStockItems } from '@vertical/models';
 import { Subject } from 'rxjs';
 import { takeUntil, filter, map } from 'rxjs/operators';
-import { StockItemsService } from '@eps/services';
+import { StockItemsService } from '@vertical/services';
 import { HttpResponse } from '@angular/common/http';
 
 @Component({

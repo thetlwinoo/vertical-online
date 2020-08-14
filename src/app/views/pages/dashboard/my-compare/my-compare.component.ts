@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { IStockItems, AddToCartProps } from '@eps/models';
+import { IStockItems, AddToCartProps } from '@vertical/models';
 import { select, Store } from '@ngrx/store';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import * as fromProduct from 'app/ngrx/products/reducers';
 import { CompareActions, SelectedStockItemPageActions } from 'app/ngrx/products/actions';
 import { CartActions } from 'app/ngrx/checkout/actions';
-import { SERVER_API_URL } from '@eps/constants';
-import { deal } from '@eps/config/owl-carousel';
-import { rootAnimations } from '@eps/animations';
+import { SERVER_API_URL } from '@vertical/constants';
+import { deal } from '@vertical/config/owl-carousel';
+import { rootAnimations } from '@vertical/animations';
 
 @Component({
   selector: 'app-my-compare',

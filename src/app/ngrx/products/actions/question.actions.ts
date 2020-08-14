@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IQuestions } from '@eps/models';
+import { IQuestions } from '@vertical/models';
 
 export const loadQuestions = createAction('[Questions/API] Load Question', props<{ query: any }>());
 

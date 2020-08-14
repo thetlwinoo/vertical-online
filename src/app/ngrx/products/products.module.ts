@@ -1,4 +1,4 @@
-import { RootSharedModule } from '@eps/shared.module';
+import { RootSharedModule } from '@vertical/shared.module';
 import { PartialsModule } from 'app/views/partials/partials.module';
 import { NgModule } from '@angular/core';
 import { ProductsRoutingModule } from 'app/ngrx/products/products-routing.module';
@@ -22,7 +22,7 @@ import { ReviewProductComponent } from './components/review-product/review-produ
 import { RelatedProductComponent } from './components/related-product/related-product.component';
 import { QuestionsProductComponent } from './components/questions-product/questions-product.component';
 import { ProductGalleryComponent } from './components/product-gallery/product-gallery.component';
-import { WishlistService, OrderService, QuestionsService } from '@eps/services';
+import { WishlistService, OrderService, QuestionsService } from '@vertical/services';
 // import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 export const COMPONENTS = [

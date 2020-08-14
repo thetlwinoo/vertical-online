@@ -1,17 +1,17 @@
 import { Component, OnInit, Input, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { rootAnimations } from '@eps/animations';
+import { rootAnimations } from '@vertical/animations';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { Subscription } from 'rxjs/Subscription';
-import { Account, IQuestions, Questions, IProducts, IPeople } from '@eps/models';
+import { Account, IQuestions, Questions, IProducts, IPeople } from '@vertical/models';
 import * as fromProducts from 'app/ngrx/products/reducers';
 import * as fromAuth from 'app/ngrx/auth/reducers';
 import { QuestionActions } from 'app/ngrx/products/actions';
-import { SERVER_API_URL } from '@eps/constants';
+import { SERVER_API_URL } from '@vertical/constants';
 import { map, takeUntil } from 'rxjs/operators';
 import { formatDistance } from 'date-fns';
 import * as moment from 'moment';
-import { AccountService, AuthService } from '@eps/core';
+import { AccountService, AuthService } from '@vertical/core';
 
 @Component({
   selector: 'questions-product',

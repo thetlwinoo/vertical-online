@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { CustomerActions } from 'app/ngrx/auth/actions';
-import { ICustomers } from '@eps/models';
+import { ICustomers } from '@vertical/models';
 
 export const customerFeatureKey = 'customer';
 

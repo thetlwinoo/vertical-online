@@ -1,6 +1,6 @@
 import { TagsActions } from 'app/ngrx/tags/actions';
 import { createReducer, on } from '@ngrx/store';
-import { IProductTags } from '@eps/models';
+import { IProductTags } from '@vertical/models';
 export const searchFeatureKey = 'search';
 
 export interface State {

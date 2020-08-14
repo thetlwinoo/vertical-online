@@ -3,7 +3,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, filter } from 'rxjs/operators';
-import { IProducts, IProductCategory, IStockItems, IPhotos, IOrderLines } from '@eps/models';
+import { IProducts, IProductCategory, IStockItems, IPhotos, IOrderLines } from '@vertical/models';
 import { FetchActions } from '../actions';
 import {
   ProductsService,
@@ -12,8 +12,8 @@ import {
   PhotosService,
   ProductDocumentService,
   OrderLinesService,
-} from '@eps/services';
-import { ProductDocument } from '@eps/models/product-document.model';
+} from '@vertical/services';
+import { ProductDocument } from '@vertical/models/product-document.model';
 
 @Injectable()
 export class FetchEffects {

@@ -1,4 +1,4 @@
-import { IProducts, IProductCategory } from '@eps/models';
+import { IProducts, IProductCategory } from '@vertical/models';
 import { createSelector, createFeatureSelector, combineReducers, Action } from '@ngrx/store';
 import * as fromSearch from 'app/ngrx/products/reducers/search.reducer';
 import * as fromFetch from 'app/ngrx/products/reducers/fetch.reducer';

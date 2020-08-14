@@ -3,9 +3,9 @@ import { HttpResponse } from '@angular/common/http';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, filter, mergeMap, tap } from 'rxjs/operators';
-import { IShoppingCarts } from '@eps/models';
+import { IShoppingCarts } from '@vertical/models';
 import { CartActions } from '../actions';
-import { CartService, SpecialDealsService } from '@eps/services';
+import { CartService, SpecialDealsService } from '@vertical/services';
 import { deepParseJson } from 'deep-parse-json';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class CartEffects {
             const cart: IShoppingCarts = res.body;
             if (cart) {
               cart.dealString = cart.dealString ? JSON.parse(cart.dealString) : null;
-              cart.cartString = cart.cartString ? JSON.parse(cart.cartString) : null;
+              cart.cartDetails = cart.cartDetails ? JSON.parse(cart.cartDetails) : null;
               cart.packageDetails = cart.packageDetails ? deepParseJson(cart.packageDetails) : null;
             }
 
@@ -42,7 +42,7 @@ export class CartEffects {
             const cart: IShoppingCarts = res.body;
             if (cart) {
               cart.dealString = cart.dealString ? JSON.parse(cart.dealString) : null;
-              cart.cartString = cart.cartString ? JSON.parse(cart.cartString) : null;
+              cart.cartDetails = cart.cartDetails ? JSON.parse(cart.cartDetails) : null;
               cart.packageDetails = cart.packageDetails ? deepParseJson(cart.packageDetails) : null;
             }
 
@@ -64,7 +64,7 @@ export class CartEffects {
             const cart: IShoppingCarts = res.body;
             if (cart) {
               cart.dealString = cart.dealString ? JSON.parse(cart.dealString) : null;
-              cart.cartString = cart.cartString ? JSON.parse(cart.cartString) : null;
+              cart.cartDetails = cart.cartDetails ? JSON.parse(cart.cartDetails) : null;
               cart.packageDetails = cart.packageDetails ? deepParseJson(cart.packageDetails) : null;
             }
 
@@ -87,7 +87,7 @@ export class CartEffects {
 
             if (cart) {
               cart.dealString = cart.dealString ? JSON.parse(cart.dealString) : null;
-              cart.cartString = cart.cartString ? JSON.parse(cart.cartString) : null;
+              cart.cartDetails = cart.cartDetails ? JSON.parse(cart.cartDetails) : null;
               cart.packageDetails = cart.packageDetails ? deepParseJson(cart.packageDetails) : null;
             }
 
@@ -110,7 +110,7 @@ export class CartEffects {
 
             if (cart) {
               cart.dealString = cart.dealString ? JSON.parse(cart.dealString) : null;
-              cart.cartString = cart.cartString ? JSON.parse(cart.cartString) : null;
+              cart.cartDetails = cart.cartDetails ? JSON.parse(cart.cartDetails) : null;
               cart.packageDetails = cart.packageDetails ? deepParseJson(cart.packageDetails) : null;
             }
 
@@ -132,7 +132,7 @@ export class CartEffects {
             const cart: IShoppingCarts = res.body;
             if (cart) {
               cart.dealString = cart.dealString ? JSON.parse(cart.dealString) : null;
-              cart.cartString = cart.cartString ? JSON.parse(cart.cartString) : null;
+              cart.cartDetails = cart.cartDetails ? JSON.parse(cart.cartDetails) : null;
               cart.packageDetails = cart.packageDetails ? deepParseJson(cart.packageDetails) : null;
             }
 
@@ -154,7 +154,7 @@ export class CartEffects {
             const cart: IShoppingCarts = res.body;
             if (cart) {
               cart.dealString = cart.dealString ? JSON.parse(cart.dealString) : null;
-              cart.cartString = cart.cartString ? JSON.parse(cart.cartString) : null;
+              cart.cartDetails = cart.cartDetails ? JSON.parse(cart.cartDetails) : null;
               cart.packageDetails = cart.packageDetails ? deepParseJson(cart.packageDetails) : null;
             }
 
@@ -176,7 +176,7 @@ export class CartEffects {
             const cart: IShoppingCarts = res.body;
             if (cart) {
               cart.dealString = cart.dealString ? JSON.parse(cart.dealString) : null;
-              cart.cartString = cart.cartString ? JSON.parse(cart.cartString) : null;
+              cart.cartDetails = cart.cartDetails ? JSON.parse(cart.cartDetails) : null;
               cart.packageDetails = cart.packageDetails ? deepParseJson(cart.packageDetails) : null;
             }
 
@@ -199,7 +199,7 @@ export class CartEffects {
             const cart: IShoppingCarts = res.body;
             if (cart) {
               cart.dealString = cart.dealString ? JSON.parse(cart.dealString) : null;
-              cart.cartString = cart.cartString ? JSON.parse(cart.cartString) : null;
+              cart.cartDetails = cart.cartDetails ? JSON.parse(cart.cartDetails) : null;
               cart.packageDetails = cart.packageDetails ? deepParseJson(cart.packageDetails) : null;
             }
 

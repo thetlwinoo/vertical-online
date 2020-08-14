@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { IOrders, IPeople, ICustomers } from '@eps/models';
+import { IOrders, IPeople, ICustomers } from '@vertical/models';
 import { ActivatedRoute } from '@angular/router';
-import { SERVER_API_URL } from '@eps/constants';
+import { SERVER_API_URL } from '@vertical/constants';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 import { Observable, Subject } from 'rxjs';

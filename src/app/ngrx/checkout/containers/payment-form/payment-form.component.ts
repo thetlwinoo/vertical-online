@@ -15,11 +15,11 @@ import {
   CashOnDeliveryProps,
   IPaymentMethods,
   BankTransferProps,
-} from '@eps/models';
+} from '@vertical/models';
 import { Store, select } from '@ngrx/store';
 import { PaymentActions } from 'app/ngrx/checkout/actions';
-import { StateStorageService } from '@eps/core';
-import { SERVER_API_URL } from '@eps/constants';
+import { StateStorageService } from '@vertical/core';
+import { SERVER_API_URL } from '@vertical/constants';
 
 @Component({
   selector: 'app-payment-form',

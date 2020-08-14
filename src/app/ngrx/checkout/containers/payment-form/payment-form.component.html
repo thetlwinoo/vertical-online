@@ -18,7 +18,7 @@
                             (nzSelectedIndexChange)="selectedTabIndexChanged($event)"
                             [nzSelectedIndex]="currentTabIndex">
                             <nz-tab *ngFor="let tab of (paymentMethods$ | async)" [nzTitle]="titleTemplate"
-                                (nzSelect)="selectedTabChanged(tab)" [nzDisabled]="!tab.activeInd">
+                                (nzSelect)="selectedTabChanged(tab)" [nzDisabled]="tab.disabled">
                                 <ng-template #titleTemplate>
                                     <!-- <fa-icon icon="shopping-cart"></fa-icon>{{ tab.paymentType }} -->
                                     <div class="tab-header-wrapper">

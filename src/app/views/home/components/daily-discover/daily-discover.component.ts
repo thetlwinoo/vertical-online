@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { Products, IProducts } from '@eps/models';
+import { Products, IProducts } from '@vertical/models';
 import 'rxjs/add/operator/filter';
-import { rootAnimations } from '@eps/animations';
+import { rootAnimations } from '@vertical/animations';
 
 @Component({
   selector: 'daily-discover',

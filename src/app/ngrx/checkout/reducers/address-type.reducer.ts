@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { AddressTypeActions } from 'app/ngrx/checkout/actions';
-import { IAddressTypes } from '@eps/models';
+import { IAddressTypes } from '@vertical/models';
 
 export const addressTypeFeatureKey = 'addressTypes';
 

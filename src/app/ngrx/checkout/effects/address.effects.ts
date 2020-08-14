@@ -4,10 +4,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { catchError, map, switchMap, filter, mergeMap, tap } from 'rxjs/operators';
-import { IAddresses, IAddressTypes } from '@eps/models';
+import { IAddresses, IAddressTypes } from '@vertical/models';
 import { AddressActions } from '../actions';
 import { CustomerActions } from 'app/ngrx/auth/actions';
-import { AddressesService, AddressTypesService } from '@eps/services';
+import { AddressesService, AddressTypesService } from '@vertical/services';
 
 @Injectable()
 export class AddressEffects {

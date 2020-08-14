@@ -18,8 +18,8 @@
               <th class="product-name ">Image</th>
               <td class="item-row" *ngFor="let stockItem of stockItems">
                 <a href="javascript:void(0)" [routerLink]="['/products/',stockItem.productId]"
-                  *ngIf="stockItem.thumbnailUrl;else noimage">
-                  <img [src]="blobUrl + stockItem.thumbnailUrl" alt="" class="featured-image" />
+                  *ngIf="stockItem.thumbnailPhoto + '/thumnail';else noimage">
+                  <img [src]="blobUrl + stockItem.thumbnailPhoto + '/thumbnail'" alt="" class="featured-image" />
                 </a>
                 <ng-template #noimage>
                   <img src="assets/images/noimage.svg" alt="no image preview" class="featured-image">
@@ -57,41 +57,6 @@
           </tbody>
         </table>
       </div>
-      <!-- <div nz-row [nzGutter]="8">
-        <div nz-col [nzSpan]="6" *ngFor="let stockItem of stockItems">
-          <nz-card nzHoverable [nzCover]="coverTemplate" [nzActions]="[actionAddToCart, actionDelete]">
-            <nz-card-meta [nzTitle]="titleTemplate" [nzDescription]="descriptionTemplate"></nz-card-meta>
-          </nz-card>
-          <ng-template #coverTemplate>
-            <img [attr.alt]="stockItem.name" [src]="blobUrl + stockItem.thumbnailUrl" />
-          </ng-template>
-
-          <ng-template #titleTemplate>
-            <span nz-popover nzType="primary" [nzPopoverContent]="stockItem.name">{{stockItem.name}}</span>
-          </ng-template>
-
-          <ng-template #descriptionTemplate>
-            <p class="price">Price: <span>{{stockItem.unitPrice | currency}}</span></p>
-            <nz-tag [nzColor]="'#87d068'" *ngIf="stockItem.quantityOnHand > 0;else outofstock">In Stock</nz-tag>
-            <ng-template #outofstock>
-              <nz-tag [nzColor]="'#f50'">Out Of Stock</nz-tag>
-            </ng-template>
-          </ng-template>
-
-          <ng-template #actionAddToCart>
-            <a href nzTooltipTitle="Add to cart" nzTooltipPlacement="bottom" nz-tooltip (click)="addToCart(stockItem)">
-              <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
-            </a>
-          </ng-template>
-
-          <ng-template #actionDelete>
-            <a href nzTooltipTitle="Remove from compare" nzTooltipPlacement="bottom" nz-tooltip
-              (click)="removeFromCompare(stockItem)">
-              <i nz-icon nzType="delete" nzTheme="outline"></i>
-            </a>
-          </ng-template>
-        </div>
-      </div> -->
     </div>
   </div>
 </vs-panel>
@@ -103,21 +68,3 @@
     <span> Empty in compare list </span>
   </ng-template>
 </ng-template>
-<!-- <vs-panel [title]="'My Compare List'">
-  <div extra>
-    <nz-space>
-      <nz-space-item>
-        <a nz-button nzType="link" nzDanger (click)="owl.prev()">
-          <i nz-icon nzType="left-square" nzTheme="fill" style="font-size: 1.5em;"></i>
-        </a>
-      </nz-space-item>
-      <nz-space-item>
-        <a nz-button nzType="link" nzDanger (click)="owl.next()">
-          <i nz-icon nzType="right-square" nzTheme="fill" style="font-size: 1.5em;"></i>
-        </a>
-      </nz-space-item>
-    </nz-space>
-  </div>
-  <div body class="content-wrapper">        
-  </div>
-</vs-panel> -->

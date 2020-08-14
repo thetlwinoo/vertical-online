@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IPeople } from '@eps/models';
+import { IPeople } from '@vertical/models';
 
 export const fetchLoginPeople = createAction('[People/API] Fetch Login People', props<{ query: any }>());
 

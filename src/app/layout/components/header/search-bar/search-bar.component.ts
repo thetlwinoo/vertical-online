@@ -2,9 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, 
 import { Observable, Subscription, Subject, of } from 'rxjs';
 import { filter, map, takeUntil, debounceTime, distinctUntilChanged, tap, switchMap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { ProductTagsService, ProductsService } from '@eps/services';
+import { ProductTagsService, ProductsService } from '@vertical/services';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { IProducts, IProductTags } from '@eps/models';
+import { IProducts, IProductTags } from '@vertical/models';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NgbTypeaheadConfig, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { select, Store } from '@ngrx/store';

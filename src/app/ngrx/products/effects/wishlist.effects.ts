@@ -5,8 +5,8 @@ import { defer, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, filter } from 'rxjs/operators';
 
 import { WishlistActions, SelectedStockItemPageActions } from 'app/ngrx/products/actions';
-import { IStockItems } from '@eps/models';
-import { WishlistService } from '@eps/services';
+import { IStockItems } from '@vertical/models';
+import { WishlistService } from '@vertical/services';
 
 @Injectable()
 export class WishlistEffects {

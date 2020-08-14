@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RootSharedModule } from '@eps/shared.module';
+import { RootSharedModule } from '@vertical/shared.module';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './header.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';

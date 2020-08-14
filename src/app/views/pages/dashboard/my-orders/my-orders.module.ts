@@ -1,6 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { RootSharedModule } from '@eps/shared.module';
+import { RootSharedModule } from '@vertical/shared.module';
 import { MyOrdersComponent, myOrdersRoute, OrderDetailsComponent } from './';
 import { PartialsModule } from 'app/views/partials/partials.module';
 import { MostPopularComponent } from '../components/most-popular/most-popular.component';

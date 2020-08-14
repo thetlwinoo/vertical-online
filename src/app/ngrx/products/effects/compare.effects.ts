@@ -5,8 +5,8 @@ import { defer, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 
 import { CompareActions, SelectedStockItemPageActions } from 'app/ngrx/products/actions';
-import { IStockItems } from '@eps/models';
-import { StockItemCompareStorageService } from '@eps/services';
+import { IStockItems } from '@vertical/models';
+import { StockItemCompareStorageService } from '@vertical/services';
 
 @Injectable()
 export class CompareEffects {

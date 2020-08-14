@@ -9,7 +9,7 @@ import {
   IAddresses,
   ICountries,
   ICities,
-} from '@eps/models';
+} from '@vertical/models';
 import { JhiAlertService } from 'ng-jhipster';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
@@ -19,7 +19,7 @@ import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import { AddressTypeActions } from 'app/ngrx/checkout/actions';
 
 // import * as AddressesActions from "app/store/adresses/addresses.actions";
-import { AddressesService, AddressTypesService, ZoneService, CountriesService, CitiesService } from '@eps/services';
+import { AddressesService, AddressTypesService, ZoneService, CountriesService, CitiesService } from '@vertical/services';
 import { FormBuilder, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 

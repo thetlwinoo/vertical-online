@@ -2,9 +2,9 @@ import { Component, OnInit, Input, OnDestroy, ViewEncapsulation } from '@angular
 import { interval, Subject, Subscription } from 'rxjs';
 import { map, takeUntil, filter } from 'rxjs/operators';
 import * as moment from 'moment';
-import { deal } from '@eps/config/owl-carousel';
-import { IProducts } from '@eps/models';
-import { rootAnimations } from '@eps/animations';
+import { deal } from '@vertical/config/owl-carousel';
+import { IProducts } from '@vertical/models';
+import { rootAnimations } from '@vertical/animations';
 
 @Component({
   selector: 'flash-deals',

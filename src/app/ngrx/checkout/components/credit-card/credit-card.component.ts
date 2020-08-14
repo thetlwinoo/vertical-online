@@ -12,7 +12,7 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
 } from '@angular/core';
-import { IOrders } from '@eps/models';
+import { IOrders } from '@vertical/models';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 declare let stripe: any;

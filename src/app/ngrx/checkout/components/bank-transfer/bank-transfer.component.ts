@@ -1,13 +1,13 @@
 /* eslint-disable guard-for-in */
 import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation, OnDestroy } from '@angular/core';
-import { SERVER_API_URL } from '@eps/constants';
+import { SERVER_API_URL } from '@vertical/constants';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { UploadFile } from 'ng-zorro-antd/upload';
 import { Observable, Observer, Subject } from 'rxjs';
 import * as moment from 'moment';
 import { en_US, NzI18nService } from 'ng-zorro-antd/i18n';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { IPeople, BankTransferProps, ICustomerPaymentBankTransfer, CustomerPaymentBankTransfer } from '@eps/models';
+import { IPeople, BankTransferProps, ICustomerPaymentBankTransfer, CustomerPaymentBankTransfer } from '@vertical/models';
 import * as fromAuth from 'app/ngrx/auth/reducers';
 import { Store, select } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';

@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IOrderPackages } from '@eps/models';
-import { ReviewsProps } from '@eps/models/order-package-actions.model';
+import { IOrderPackages } from '@vertical/models';
+import { ReviewsProps } from '@vertical/models/order-package-actions.model';
 
 export const getOrderPackage = createAction('[Order Packages/API] Get Order Package', props<{ id: number }>());
 

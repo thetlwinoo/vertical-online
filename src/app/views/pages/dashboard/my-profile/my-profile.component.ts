@@ -4,15 +4,15 @@ import { en_US, NzI18nService } from 'ng-zorro-antd/i18n';
 import { UploadFile } from 'ng-zorro-antd/upload';
 import { Observable, Observer, Subject } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { AccountService } from '@eps/core';
-import { Account } from '@eps/core/user/account.model';
+import { AccountService } from '@vertical/core';
+import { Account } from '@vertical/core/user/account.model';
 import * as fromAuth from 'app/ngrx/auth/reducers';
 import { Store, select } from '@ngrx/store';
 import { PeopleActions } from 'app/ngrx/auth/actions';
-import { IPeople, IPhotos, Photos } from '@eps/models';
+import { IPeople, IPhotos, Photos } from '@vertical/models';
 import { takeUntil, filter, map } from 'rxjs/operators';
-import { SERVER_API_URL } from '@eps/constants';
-import { PhotosService } from '@eps/services';
+import { SERVER_API_URL } from '@vertical/constants';
+import { PhotosService } from '@vertical/services';
 import { HttpResponse } from '@angular/common/http';
 import * as _ from 'lodash';
 
@@ -97,8 +97,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       gender: [this.people ? this.people.gender : null, [Validators.required]],
       phoneNumberPrefix: ['+95'],
       phoneNumber: [this.people ? this.people.phoneNumber : null],
-      profileId: [this.people ? this.people.profileId : null],
-      profileThumbnailUrl: [this.people ? this.people.profileThumbnailUrl : null],
+      profilePhoto: [this.people ? this.people.profilePhoto : null],
       dateOfBirth: [this.people ? this.people.dateOfBirth : null],
     });
   }
@@ -121,34 +120,13 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       observer.complete();
     });
 
-  handleChange(info: { file: UploadFile }, entity): void {
+  handleChange(info: { file: UploadFile }, entity: IPeople): void {
     switch (info.file.status) {
       case 'uploading':
         this.loading = true;
         break;
       case 'done':
-        // Get this url from response in real world.
-        // this.getBase64(info.file.originFileObj, (img: string) => {
-        //   this.loading = false;
-        //   this.avatarUrl = img;
-        // });
-        const photos: IPhotos = new Photos();
-        photos.thumbnailUrl = info.file.response.thumbUrl;
-        photos.originalUrl = info.file.response.url;
-        photos.blobId = info.file.response.id;
-        this.photosService
-          .create(photos)
-          .pipe(
-            takeUntil(this.unsubscribe$),
-            filter((res: HttpResponse<IPhotos>) => res.ok),
-            map((res: HttpResponse<IPhotos>) => res.body)
-          )
-          .subscribe(res => {
-            entity.profileId = res.id;
-            entity.profileThumbnailUrl = res.thumbnailUrl;
-            this.loading = false;
-          });
-
+        entity.profilePhoto = info.file.response.id;
         break;
       case 'error':
         this.msg.error('Network error');

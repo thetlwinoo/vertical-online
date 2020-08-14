@@ -1,4 +1,4 @@
-import { IProductTags } from '@eps/models';
+import { IProductTags } from '@vertical/models';
 import { createSelector, createFeatureSelector, combineReducers, Action } from '@ngrx/store';
 import * as fromRoot from 'app/ngrx';
 import * as fromSearch from 'app/ngrx/tags/reducers/search.reducer';

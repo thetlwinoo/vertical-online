@@ -4,9 +4,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { asyncScheduler, EMPTY as empty, of } from 'rxjs';
 import { catchError, debounceTime, map, skip, switchMap, takeUntil, filter, mergeMap } from 'rxjs/operators';
 import { JhiParseLinks } from 'ng-jhipster';
-import { IProducts } from '@eps/models';
+import { IProducts } from '@vertical/models';
 import { ProductActions } from '../actions';
-import { ProductsService } from '@eps/services';
+import { ProductsService } from '@vertical/services';
 
 @Injectable()
 export class ProductEffects {

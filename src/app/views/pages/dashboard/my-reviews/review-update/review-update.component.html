@@ -10,7 +10,7 @@
           <ng-template #showReviewLines>
             <div class="media mt-4" *ngFor="let item of orderLines; let i = index;">
 
-              <img *ngIf="item.thumbnailUrl;else noimage" [src]="blobUrl + item.thumbnailUrl" alt=""
+              <img *ngIf="item.stockItemPhoto;else noimage" [src]="blobUrl + item.stockItemPhoto + '/thumbnail'" alt=""
                 class="mr-3 product" />
               <ng-template #noimage>
                 <img src="assets/images/noimage.svg" alt="no image preview" class="mr-3 product">
@@ -28,11 +28,11 @@
                     [nzShowUploadList]="false" [nzFileType]="fileTypes" [nzBeforeUpload]="beforeUpload"
                     (nzChange)="handleChange($event,item)" [nzPreview]="handlePreview" [nzLimit]="1"
                     [nzDisabled]="orderPackage.completedReview">
-                    <ng-container *ngIf="!item.reviewImageId">
+                    <ng-container *ngIf="!item.reviewPhoto">
                       <i class="upload-icon" nz-icon [nzType]="item.loading ? 'loading' : 'plus'"></i>
                       <div class="ant-upload-text">Upload</div>
                     </ng-container>
-                    <img *ngIf="item.reviewImageId" [src]="blobUrl + item.reviewImageThumbnailUrl"
+                    <img *ngIf="item.reviewPhoto" [src]="blobUrl + item.reviewPhoto + '/thumbnail'"
                       style="width: 100%" />
                   </nz-upload>
                 </div>

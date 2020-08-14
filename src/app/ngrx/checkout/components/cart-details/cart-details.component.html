@@ -11,8 +11,8 @@
                     <div class="list-title">
                         <div>
                             <label class="mr-2" nz-checkbox
-                                [nzChecked]="shoppingCart.cart?.cartString?.checkStatus === 1"
-                                [nzIndeterminate]="shoppingCart.cart?.cartString?.checkStatus === 2"
+                                [nzChecked]="shoppingCart.cart?.cartDetails?.checkStatus === 1"
+                                [nzIndeterminate]="shoppingCart.cart?.cartDetails?.checkStatus === 2"
                                 (nzCheckedChange)="onAllChecked($event)">SELECT ALL
                                 ({{shoppingCart.itemCount}}
                                 ITEM(S))</label>
@@ -26,7 +26,8 @@
                     </div>
                 </nz-space-item>
 
-                <nz-space-item *ngFor="let data of shoppingCart.cart?.cartString?.cartPackages | orderBy: 'supplierId'">
+                <nz-space-item
+                    *ngFor="let data of shoppingCart.cart?.cartDetails?.cartPackages | orderBy: 'supplierId'">
                     <div class="list-title">
                         <div>
                             <label nz-checkbox [nzChecked]="data.checkStatus === 1"
@@ -43,7 +44,7 @@
                                             <label class="mr-2" nz-checkbox [nzChecked]="item.selectOrder === true"
                                                 (nzCheckedChange)="onItemChecked(item.cartItemId, $event)"
                                                 [nzDisabled]="item.quantityOnHand <= 0"></label>
-                                            <img width="80" [src]="blobUrl + item.thumbnailUrl">
+                                            <img width="80" [src]="blobUrl + item.thumbnailPhoto + '/thumbnail'">
                                         </nz-list-item-meta-avatar>
                                         <nz-list-item-meta-title>
                                             <a href
@@ -68,8 +69,8 @@
                                             </div>
 
                                             <div class="cart-controller">
-                                                    <a nz-button nzType="link" nzTooltipTitle="Add to wishlist"
-                                                        nzTooltipPlacement="bottom" nz-tooltip>
+                                                <a nz-button nzType="link" nzTooltipTitle="Add to wishlist"
+                                                    nzTooltipPlacement="bottom" nz-tooltip>
                                                     <i nz-icon nzType="heart" [nzTheme]="'outline'"></i>
                                                 </a>
                                                 <a nz-button nzType="link" (click)="remove.emit(item.cartItemId)"
@@ -101,7 +102,7 @@
 
         <div nz-col [nzXs]="24" [nzLg]="8">
             <vs-panel [title]="'Order Summary'">
-                <div extra><span>Sub Total - </span>{{shoppingCart.cart?.cartString?.selected_quantity}} item(s)</div>
+                <div extra><span>Sub Total - </span>{{shoppingCart.cart?.cartDetails?.selected_quantity}} item(s)</div>
                 <div body class="content-wrapper">
                     <nz-list class="summary-list">
                         <nz-list-item>
@@ -169,7 +170,7 @@
                         </nz-list-item>
                     </nz-list>
                     <button class="checkout" nz-button nzType="primary" nzBlock nzDanger
-                        [disabled]="shoppingCart.cart?.cartString?.selectedCount < 1"
+                        [disabled]="shoppingCart.cart?.cartDetails?.selectedCount < 1"
                         (click)="proceedToCheckout()">PROCEED TO
                         CHECKOUT</button>
                 </div>

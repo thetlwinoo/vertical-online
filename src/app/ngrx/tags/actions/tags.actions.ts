@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { HttpHeaders } from '@angular/common/http';
-import { IProductTags } from '@eps/models';
+import { IProductTags } from '@vertical/models';
 
 export const search = createAction(
     '[Find Tags] Search Tags',

@@ -55,7 +55,7 @@
       <nz-table class="no-hover-row" #stockItemTable [nzData]="orderPackage.orderLinesList" [nzHideOnSinglePage]="true">
         <tbody>
           <tr *ngFor="let data of stockItemTable.data">
-            <td><img width="50" [src]="blobUrl + data.thumbnailUrl"></td>
+            <td><img width="50" [src]="blobUrl + data.stockItemPhoto + '/thumbnail'"></td>
             <td>{{data.description}} x {{data.quantity}}</td>
             <td>
               <span>{{data.unitPrice | currency}}</span>

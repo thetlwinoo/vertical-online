@@ -2,12 +2,12 @@ import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy } from '@a
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { Subscription } from 'rxjs/Subscription';
-import { IProducts, ReviewLines, IReviewLines, IOrderLines, IPeople } from '@eps/models';
+import { IPeople } from '@vertical/models';
 import * as fromProducts from 'app/ngrx/products/reducers';
 import * as fromAuth from 'app/ngrx/auth/reducers';
 import { FetchActions } from 'app/ngrx/products/actions';
 import { ActivatedRoute } from '@angular/router';
-import { SERVER_API_URL } from '@eps/constants';
+import { SERVER_API_URL } from '@vertical/constants';
 import { map, takeUntil } from 'rxjs/operators';
 import { formatDistance } from 'date-fns';
 

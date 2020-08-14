@@ -1,14 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, OnDestroy } from '@angular/core';
-import { IProducts, AddToCartProps, IStockItems, IPhotos, IReviewLines, IQuestions, IOrderLines, ISpecialFeatures } from '@eps/models';
-import { AccountService } from '@eps/core';
+import { IProducts, AddToCartProps, IStockItems, IQuestions, ISpecialFeatures } from '@vertical/models';
+import { AccountService } from '@vertical/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as fromProducts from 'app/ngrx/products/reducers';
 import { FetchActions, ProductActions } from 'app/ngrx/products/actions';
 import { select, Store } from '@ngrx/store';
-import { SERVER_API_URL } from '@eps/constants';
-import { IProductDocument } from '@eps/models/product-document.model';
+import { SERVER_API_URL } from '@vertical/constants';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({

@@ -1,11 +1,11 @@
 import { Component, Input, OnDestroy, OnInit, AfterViewInit, OnChanges } from '@angular/core';
-import { IProducts, IStockItems, StockItems } from '@eps/models';
+import { IProducts, IStockItems, StockItems } from '@vertical/models';
 
 import { FetchActions } from 'app/ngrx/products/actions';
 import * as fromProducts from 'app/ngrx/products/reducers';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { SERVER_API_URL } from '@eps/constants';
+import { SERVER_API_URL } from '@vertical/constants';
 
 interface StockItemObj {
   id: number;

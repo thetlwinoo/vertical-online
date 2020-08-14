@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { IStockItems, AddToCartProps } from '@eps/models';
+import { IStockItems, AddToCartProps } from '@vertical/models';
 import { select, Store } from '@ngrx/store';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import * as fromProduct from 'app/ngrx/products/reducers';
 import { WishlistActions, SelectedStockItemPageActions } from 'app/ngrx/products/actions';
 import { CartActions } from 'app/ngrx/checkout/actions';
-import { SERVER_API_URL } from '@eps/constants';
+import { SERVER_API_URL } from '@vertical/constants';
 
 @Component({
   selector: 'app-my-wishlist',

@@ -9,10 +9,10 @@ import {
   ViewContainerRef,
   ChangeDetectorRef,
 } from '@angular/core';
-import { IOrders, IPeople, ICustomers, ChangeDeliveryMethodProps, IAddresses, ChangedAddToOrderProps } from '@eps/models';
-import { SERVER_API_URL } from '@eps/constants';
+import { IOrders, IPeople, ICustomers, ChangeDeliveryMethodProps, IAddresses, ChangedAddToOrderProps } from '@vertical/models';
+import { SERVER_API_URL } from '@vertical/constants';
 import * as moment from 'moment';
-import { VSAddressesUpdateComponent } from '@eps/components/addresses-update/addresses-update.component';
+import { VSAddressesUpdateComponent } from '@vertical/components/addresses-update/addresses-update.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import * as _ from 'lodash';
 

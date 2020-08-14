@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Account } from '@eps/models';
+import { Account } from '@vertical/models';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({

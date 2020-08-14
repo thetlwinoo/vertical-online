@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IOrderTracking } from '@eps/models';
+import { IOrderTracking } from '@vertical/models';
 
 export const fetchOrderTracking = createAction('[Order Tracking/API] Fetch Order Tracking', props<{ query: any }>());
 

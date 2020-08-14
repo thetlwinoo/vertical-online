@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { AddressActions } from 'app/ngrx/checkout/actions';
-import { IAddresses } from '@eps/models';
+import { IAddresses } from '@vertical/models';
 
 export const addressFeatureKey = 'addresses';
 

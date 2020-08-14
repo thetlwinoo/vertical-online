@@ -3,10 +3,10 @@ import { Observable, Subject } from 'rxjs';
 import { Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Router, NavigationExtras, ActivatedRoute, ParamMap } from '@angular/router';
-import { IProducts, IOrders } from '@eps/models';
-import { ReviewsService, OrderService, OrderLinesService } from '@eps/services';
-import { AccountService } from '@eps/core';
-import { SERVER_API_URL, ITEMS_PER_PAGE } from '@eps/constants';
+import { IProducts, IOrders } from '@vertical/models';
+import { OrderService, OrderLinesService } from '@vertical/services';
+import { AccountService } from '@vertical/core';
+import { SERVER_API_URL, ITEMS_PER_PAGE } from '@vertical/constants';
 import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 // import * as _ from 'lodash';
 import { select, Store } from '@ngrx/store';
@@ -39,7 +39,6 @@ export class MyReviewsComponent implements OnInit, OnDestroy {
   private unsubscribe$: Subject<any> = new Subject();
 
   constructor(
-    protected reviewsService: ReviewsService,
     protected ordersService: OrderService,
     protected orderLinesService: OrderLinesService,
     protected jhiAlertService: JhiAlertService,

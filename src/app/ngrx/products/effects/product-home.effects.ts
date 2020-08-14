@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { catchError, map, switchMap, filter } from 'rxjs/operators';
 import { JhiParseLinks } from 'ng-jhipster';
 import { ProductHomeActions } from '../actions';
-import { ProductsService } from '@eps/services';
+import { ProductsService } from '@vertical/services';
 
 @Injectable()
 export class ProductHomeEffects {

@@ -1,4 +1,4 @@
-import { IPeople } from '@eps/models';
+import { IPeople } from '@vertical/models';
 import { createSelector, createFeatureSelector, combineReducers, Action } from '@ngrx/store';
 import * as fromPeople from 'app/ngrx/auth/reducers/people.reducer';
 import * as fromCustomer from 'app/ngrx/auth/reducers/customer.reducer';

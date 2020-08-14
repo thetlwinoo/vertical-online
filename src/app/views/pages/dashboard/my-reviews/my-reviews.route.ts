@@ -1,25 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { UserRouteAccessService } from '@eps/core';
+import { UserRouteAccessService } from '@vertical/core';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { MyReviewsComponent } from './my-reviews.component';
-import { ReviewsService, OrderService } from '@eps/services';
-import { Reviews, IReviews, Orders, IOrders, ReviewLines, IReviewLines } from '@eps/models';
+import { OrderService } from '@vertical/services';
 import { ReviewDetailsComponent } from './review-details/review-details.component';
 import { ReviewUpdateComponent } from './review-update/review-update.component';
-import * as moment from 'moment';
-import { select, Store } from '@ngrx/store';
-import { OrderPackageActions, OrderLineActions, ReviewActions } from 'app/ngrx/checkout/actions';
+import { OrderPackageActions, OrderLineActions } from 'app/ngrx/checkout/actions';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import { JhiResolvePagingParams } from 'ng-jhipster';
+import { Store } from '@ngrx/store';
 
 @Injectable({ providedIn: 'root' })
-export class MyReviewsResolve implements Resolve<Reviews> {
+export class MyReviewsResolve implements Resolve<any> {
   constructor(private orderService: OrderService, private store: Store<fromCheckout.State>) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Reviews> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     const id = route.params.id ? route.params.id : null;
 
     if (id) {

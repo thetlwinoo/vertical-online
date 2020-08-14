@@ -3,7 +3,7 @@ import { createReducer, on } from '@ngrx/store';
 import { groupBy, flatMap } from 'rxjs/operators';
 
 import { CartActions } from 'app/ngrx/checkout/actions';
-import { IShoppingCarts } from '@eps/models';
+import { IShoppingCarts } from '@vertical/models';
 import { identifierModuleUrl } from '@angular/compiler';
 
 export const cartFeatureKey = 'cart';
@@ -42,10 +42,10 @@ export const reducer = createReducer(
     loaded: true,
     loading: false,
     cart,
-    totalQuantity: cart ? cart.cartString?.totalQuantity : 0,
-    cartPrice: cart ? cart.cartString?.cartPrice : 0.0,
-    itemCount: cart ? cart.cartString?.itemCount : 0,
-    stockItemIds: cart ? cart.cartString?.stockItemList.split(',') : [],
+    totalQuantity: cart ? cart.cartDetails?.totalQuantity : 0,
+    cartPrice: cart ? cart.cartDetails?.cartPrice : 0.0,
+    itemCount: cart ? cart.cartDetails?.itemCount : 0,
+    stockItemIds: cart ? cart.cartDetails?.stockItemList.split(',') : [],
     error: '',
   })),
   on(CartActions.selectProduct, (state, { id }) => ({

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input, OnChanges } from '@angular/core';
-import { rootAnimations } from '@eps/animations';
-import { SERVER_API_URL } from '@eps/constants';
+import { rootAnimations } from '@vertical/animations';
+import { SERVER_API_URL } from '@vertical/constants';
 import { Router } from '@angular/router';
 
 @Component({

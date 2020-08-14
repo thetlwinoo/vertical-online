@@ -1,21 +1,21 @@
 import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
-import { IPhotos, Photos, IOrderLines, IOrders, IOrderPackages } from '@eps/models';
+import { IPhotos, Photos, IOrderLines, IOrders, IOrderPackages } from '@vertical/models';
 import { Observable, Observer, Subject } from 'rxjs';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
-import { PhotosService, OrderService } from '@eps/services';
+import { PhotosService, OrderService } from '@vertical/services';
 import { select, Store } from '@ngrx/store';
 import { OrderLineActions, OrderActions, OrderPackageActions } from 'app/ngrx/checkout/actions';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
-import { SERVER_API_URL } from '@eps/constants';
+import { SERVER_API_URL } from '@vertical/constants';
 import { UploadFile } from 'ng-zorro-antd/upload';
-import { ImageUtils } from '@eps/services';
+import { ImageUtils } from '@vertical/services';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { AccountService } from '@eps/core';
-import { Account } from '@eps/core/user/account.model';
+import { AccountService } from '@vertical/core';
+import { Account } from '@vertical/core/user/account.model';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 import * as moment from 'moment';
-import { ReviewsProps, ReviewLinesProps } from '@eps/models/order-package-actions.model';
+import { ReviewsProps, ReviewLinesProps } from '@vertical/models/order-package-actions.model';
 
 @Component({
   selector: 'app-review-update',
@@ -98,7 +98,7 @@ export class ReviewUpdateComponent implements OnInit, OnDestroy {
         id: lineItem.id,
         lineRating: lineItem.lineRating,
         lineReview: lineItem.lineReview,
-        reviewImageId: lineItem.reviewImageId,
+        reviewPhoto: lineItem.reviewPhoto,
       };
 
       lineReviewList.push(lineReviewObject);
@@ -145,22 +145,7 @@ export class ReviewUpdateComponent implements OnInit, OnDestroy {
         entity.loading = true;
         break;
       case 'done':
-        const photos: IPhotos = new Photos();
-        photos.thumbnailUrl = info.file.response.thumbUrl;
-        photos.originalUrl = info.file.response.url;
-        photos.blobId = info.file.response.id;
-
-        this.photosService
-          .create(photos)
-          .pipe(
-            takeUntil(this.unsubscribe$),
-            filter((res: HttpResponse<IPhotos>) => res.ok),
-            map((res: HttpResponse<IPhotos>) => res.body)
-          )
-          .subscribe(res => {
-            entity.reviewImageId = res.id;
-            entity.reviewImageThumbnailUrl = res.thumbnailUrl;
-          });
+        entity.reviewPhoto = info.file.response.id;
         break;
       case 'error':
         this.msg.error('Network error');

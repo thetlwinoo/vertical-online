@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { ICustomers } from '@eps/models';
+import { ICustomers } from '@vertical/models';
 
 export const fetchCustomer = createAction('[Customer/API] Fetch Customer', props<{ query: any }>());
 

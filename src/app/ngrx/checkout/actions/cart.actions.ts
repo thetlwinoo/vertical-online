@@ -7,7 +7,7 @@ import {
   ChangedAddToOrderProps,
   ChangedOrderAllProps,
   ChangeDeliveryMethodProps,
-} from '@eps/models';
+} from '@vertical/models';
 
 export const addToCart = createAction('[ShoppingCarts/API] Add To Cart', props<{ props: AddToCartProps }>());
 

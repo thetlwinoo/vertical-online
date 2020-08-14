@@ -1,4 +1,4 @@
-import { RootConfig } from '@eps/types';
+import { RootConfig } from '@vertical/types';
 
 export const rootConfig: RootConfig = {
   // Color themes can be defined in src/app/app.theme.scss

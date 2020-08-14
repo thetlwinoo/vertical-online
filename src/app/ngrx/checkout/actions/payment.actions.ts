@@ -9,7 +9,7 @@ import {
   IPaymentMethods,
   ICustomerPaymentBankTransfer,
   BankTransferProps,
-} from '@eps/models';
+} from '@vertical/models';
 
 export const loadPaymentMethods = createAction('[Payment/API] Load Payment Methods');
 

@@ -1,15 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription, Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { AddressesService } from '@eps/services';
-import { Orders, IOrders, IAddresses, IOrderLines, IProducts, IOrderTracking } from '@eps/models';
+import { AddressesService } from '@vertical/services';
+import { Orders, IOrders, IAddresses, IOrderLines, IProducts, IOrderTracking } from '@vertical/models';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { select, Store } from '@ngrx/store';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import * as fromProducts from 'app/ngrx/products/reducers';
 import { OrderTrackingActions, OrderActions, OrderLineActions } from 'app/ngrx/checkout/actions';
-import { SERVER_API_URL } from '@eps/constants';
+import { SERVER_API_URL } from '@vertical/constants';
 import { MenuItem } from 'primeng/api';
 
 @Component({

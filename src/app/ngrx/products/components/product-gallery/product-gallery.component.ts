@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, ViewEncapsulation, OnChanges } from '@angular/core';
-import { IPhotos } from '@eps/models';
+import { IPhotos } from '@vertical/models';
 import { ActivatedRoute } from '@angular/router';
-import { SERVER_API_URL } from '@eps/constants';
-import { rootAnimations } from '@eps/animations';
+import { SERVER_API_URL } from '@vertical/constants';
+import { rootAnimations } from '@vertical/animations';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({

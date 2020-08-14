@@ -1,5 +1,5 @@
 import { ViewEncapsulation, Component, EventEmitter, OnInit, Output, OnDestroy, Input, OnChanges } from '@angular/core';
-import { rootAnimations } from '@eps/animations';
+import { rootAnimations } from '@vertical/animations';
 import { Subject, Observable } from 'rxjs';
 import { map, takeUntil, zip } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';

@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RootSharedModule } from '@eps/shared.module';
+import { RootSharedModule } from '@vertical/shared.module';
 import { MyReviewsComponent, myReviewsRoute, ReviewDetailsComponent } from './';
 import { ReviewUpdateComponent } from './review-update/review-update.component';
 import { MyReviewsFilterPipe } from './my-reviews-filter.pipe';

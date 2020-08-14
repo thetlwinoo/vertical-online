@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IStockItems } from '@eps/models';
+import { IStockItems } from '@vertical/models';
 
 export const addStockItemToCompare = createAction(
   '[Selected StockItem Page] Add StockItem to Compare',

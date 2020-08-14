@@ -3,10 +3,10 @@ import { HttpResponse } from '@angular/common/http';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, filter, mergeMap, tap } from 'rxjs/operators';
-import { IOrders, IOrderLines, OrderLines, IOrderPackages } from '@eps/models';
+import { IOrders, IOrderLines, OrderLines, IOrderPackages } from '@vertical/models';
 import { OrderActions, CartActions, OrderLineActions, OrderPackageActions } from '../actions';
-import { OrderService, OrderLinesService } from '@eps/services';
-import { OrderPackagesService } from '@eps/services/e-commerce/order-packages.service';
+import { OrderService, OrderLinesService } from '@vertical/services';
+import { OrderPackagesService } from '@vertical/services/e-commerce/order-packages.service';
 
 @Injectable()
 export class OrderEffects {

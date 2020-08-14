@@ -1,7 +1,7 @@
 import { FetchActions } from 'app/ngrx/products/actions';
 import { createReducer, on } from '@ngrx/store';
-import { IProducts, IReviewLines, IProductCategory, IStockItems, IPhotos } from '@eps/models';
-import { IProductDocument } from '@eps/models/product-document.model';
+import { IProducts, IProductCategory, IStockItems, IPhotos } from '@vertical/models';
+import { IProductDocument } from '@vertical/models/product-document.model';
 import { faLeaf } from '@fortawesome/free-solid-svg-icons';
 
 export const fetchFeatureKey = 'fetch';
@@ -17,7 +17,7 @@ export interface State {
   photos: IPhotos[];
   categories: IProductCategory[];
   categoriesTree: IProductCategory[];
-  reviewDetails: IReviewLines[];
+  reviewDetails: any[];
   newlyAddedLoading: boolean;
   mostSellingLoading: boolean;
   interestedLoading: boolean;

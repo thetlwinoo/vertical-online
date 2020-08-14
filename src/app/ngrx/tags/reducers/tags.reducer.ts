@@ -1,7 +1,7 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 import { TagsActions } from 'app/ngrx/tags/actions';
-import { IProductTags } from '@eps/models';
+import { IProductTags } from '@vertical/models';
 
 export const tagsFeatureKey = 'tags';
 

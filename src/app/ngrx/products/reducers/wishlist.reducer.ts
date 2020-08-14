@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { WishlistActions } from 'app/ngrx/products/actions';
-import { IStockItems } from '@eps/models';
+import { IStockItems } from '@vertical/models';
 
 export const wishlistFeatureKey = 'wishlist';
 

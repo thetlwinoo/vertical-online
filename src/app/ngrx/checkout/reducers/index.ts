@@ -1,4 +1,4 @@
-import { IProducts } from '@eps/models';
+import { IProducts } from '@vertical/models';
 import { createSelector, createFeatureSelector, combineReducers, Action } from '@ngrx/store';
 import * as fromAddress from 'app/ngrx/checkout/reducers/address.reducer';
 import * as fromAddressType from 'app/ngrx/checkout/reducers/address-type.reducer';
@@ -6,8 +6,6 @@ import * as fromCart from 'app/ngrx/checkout/reducers/cart.reducer';
 import * as fromOrder from 'app/ngrx/checkout/reducers/order.reducer';
 import * as fromOrderPackage from 'app/ngrx/checkout/reducers/order-package.reducer';
 import * as fromOrderLine from 'app/ngrx/checkout/reducers/order-lines.reducer';
-import * as fromReview from 'app/ngrx/checkout/reducers/review.reducer';
-import * as fromReviewLines from 'app/ngrx/checkout/reducers/review-lines.reducer';
 import * as fromPayment from 'app/ngrx/checkout/reducers/payment.reducer';
 import * as fromOrderTracking from 'app/ngrx/checkout/reducers/order-tracking.reducer';
 import * as fromRoot from 'app/ngrx';
@@ -21,8 +19,6 @@ export interface CheckoutState {
   [fromOrder.orderFeatureKey]: fromOrder.State;
   [fromOrderPackage.orderPackageFeatureKey]: fromOrderPackage.State;
   [fromOrderLine.orderLinesFeatureKey]: fromOrderLine.State;
-  [fromReview.reviewFeatureKey]: fromReview.State;
-  [fromReviewLines.reviewLineFeatureKey]: fromReviewLines.State;
   [fromPayment.paymentFeatureKey]: fromPayment.State;
   [fromOrderTracking.orderTrackingFeatureKey]: fromOrderTracking.State;
 }
@@ -39,8 +35,6 @@ export function reducers(state: CheckoutState | undefined, action: Action) {
     [fromOrder.orderFeatureKey]: fromOrder.reducer,
     [fromOrderPackage.orderPackageFeatureKey]: fromOrderPackage.reducer,
     [fromOrderLine.orderLinesFeatureKey]: fromOrderLine.reducer,
-    [fromReview.reviewFeatureKey]: fromReview.reducer,
-    [fromReviewLines.reviewLineFeatureKey]: fromReviewLines.reducer,
     [fromPayment.paymentFeatureKey]: fromPayment.reducer,
     [fromOrderTracking.orderTrackingFeatureKey]: fromOrderTracking.reducer,
   })(state, action);
@@ -132,24 +126,6 @@ export const getOrderLineCurrent = createSelector(getOrderLinesState, fromOrderL
 export const getSaveOrderLineListSuccess = createSelector(getOrderLinesState, fromOrderLine.getSaveOrderLineListSuccess);
 
 export const getOrderLinesLoading = createSelector(getOrderLinesState, fromOrderLine.getLoading);
-
-// Review State
-export const getReviewState = createSelector(getCheckoutState, (state: CheckoutState) => state.review);
-
-export const getReviewError = createSelector(getReviewState, fromReview.getError);
-
-export const getReviewFetched = createSelector(getReviewState, fromReview.getReviews);
-
-export const getReviewLoading = createSelector(getReviewState, fromReview.getLoading);
-
-// Review Line State
-export const getReviewLinesState = createSelector(getCheckoutState, (state: CheckoutState) => state.reviewLine);
-
-export const getReviewLinesError = createSelector(getReviewLinesState, fromReviewLines.getError);
-
-export const getReviewLinesFetched = createSelector(getReviewLinesState, fromReviewLines.getReviewLines);
-
-export const getReviewLinesLoading = createSelector(getReviewLinesState, fromReviewLines.getLoading);
 
 // Payment State
 export const getPaymentState = createSelector(getCheckoutState, (state: CheckoutState) => state.payment);

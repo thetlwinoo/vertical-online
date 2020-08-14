@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IAddresses, SetDefaultProps } from '@eps/models';
+import { IAddresses, SetDefaultProps } from '@vertical/models';
 
 export const fetchAddresses = createAction('[Addresses/API] Fetch Addresses', props<{ query: any }>());
 

@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IAddressTypes } from '@eps/models';
+import { IAddressTypes } from '@vertical/models';
 
 export const fetchAddressTypes = createAction('[Address Type/API] Fetch Address Types');
 

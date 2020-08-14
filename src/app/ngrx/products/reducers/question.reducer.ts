@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
 import { QuestionActions } from 'app/ngrx/products/actions';
-import { IQuestions } from '@eps/models';
+import { IQuestions } from '@vertical/models';
 
 export const questionFeatureKey = 'question';
 

@@ -5,7 +5,7 @@
         <ng-container *ngIf="loaded$ | async">
           <nz-list-item-meta>
             <nz-list-item-meta-avatar>
-              <img width="80" [src]="blobUrl + item.thumbnailUrl">
+              <img width="80" [src]="blobUrl + item.thumbnailPhoto + '/thumbnail'">
             </nz-list-item-meta-avatar>
             <nz-list-item-meta-title>
               <a [routerLink]="['/products/',item.productId]">{{ item.name }}</a>
@@ -48,48 +48,3 @@
     </nz-list>
   </div>
 </vs-panel>
-<!-- <div class="wishlist-section">
-  <div class="row item" *ngFor="let stockItem of (stockItems$ | async)">
-    <div class="col-md-1 buttons">
-      <div *ngIf="(loading$ | async)" class="loader" style="font-size: 6px; top:25%"></div>
-      <button type="button" class="close" aria-label="Close" *ngIf="(loaded$ | async)"
-        (click)="removeFromWishlist(stockItem)" placement="bottom" ngbTooltip="Remove from wishlist">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="col-md-2 image">
-      <img *ngIf="stockItem.thumbnailUrl;else noimage" [src]="getDefaultImageUrl(stockItem.thumbnailUrl)" alt=""
-        [routerLink]="['/products',stockItem.productId]" />
-      <ng-template #noimage>
-        <img src="assets/images/noimage.png" alt="no image preview">
-      </ng-template>
-    </div>
-
-    <div class="col-md-4 description">
-      <span style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; cursor: pointer"
-        [routerLink]="['/products',stockItem.productId]">
-        {{stockItem.name}}
-      </span>
-    </div>
-
-    <div class="col-md-3">
-      <div class="availability">
-        <span>In Stock</span>
-      </div>
-    </div>
-
-    <div class="col-md-1 price">
-      <div class="item-price">
-        <span>${{stockItem.unitPrice.toFixed(2) | number:'1.2'}}</span>
-      </div>
-    </div>
-
-    <div class="col-md-1">
-      <div class="add-cart">
-        <button type="button" id="add-cart" class="btn btn-warning" (click)="addToCart(stockItem)">
-          <fa-icon [icon]="'cart-plus'"></fa-icon>
-        </button>
-      </div>
-    </div>
-  </div>
-</div> -->

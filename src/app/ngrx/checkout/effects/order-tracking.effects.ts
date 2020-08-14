@@ -4,9 +4,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { catchError, map, switchMap, filter } from 'rxjs/operators';
-import { IOrderTracking } from '@eps/models';
+import { IOrderTracking } from '@vertical/models';
 import { OrderTrackingActions } from '../actions';
-import { OrderTrackingService } from '@eps/services';
+import { OrderTrackingService } from '@vertical/services';
 
 @Injectable()
 export class OrderTrackingEffects {

@@ -3,9 +3,9 @@ import { HttpResponse } from '@angular/common/http';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, filter, mergeMap } from 'rxjs/operators';
-import { ICustomers } from '@eps/models';
+import { ICustomers } from '@vertical/models';
 import { CustomerActions, PeopleActions } from '../actions';
-import { CustomersService } from '@eps/services';
+import { CustomersService } from '@vertical/services';
 import { OrderActions } from 'app/ngrx/checkout/actions';
 
 @Injectable()

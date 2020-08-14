@@ -23,8 +23,8 @@
                     <ng-template #showReviewLines>
                       <div class="media mt-4" *ngFor="let item of orderPackage.orderLinesList; let i = index;">
 
-                        <img *ngIf="item.thumbnailUrl;else noimage" [src]="blobUrl + item.thumbnailUrl" alt=""
-                          class="mr-3 product" />
+                        <img *ngIf="item.stockItemPhoto;else noimage"
+                          [src]="blobUrl + item.stockItemPhoto + '/thumbnail'" alt="" class="mr-3 product" />
                         <ng-template #noimage>
                           <img src="assets/images/noimage.svg" alt="no image preview" class="mr-3 product">
                         </ng-template>
@@ -91,7 +91,7 @@
                 <nz-list nzBordered nzHeader="Purchased on  {{data.orderDate | date}}">
                   <nz-list-item>
                     <div>
-                      <img width="100" height="100" [src]='blobUrl + item.thumbnailUrl'
+                      <img width="100" height="100" [src]="blobUrl + item.stockItemPhoto + '/thumbnail'"
                         *ngFor="let item of orderPackage.orderLinesList">
                     </div>
 

@@ -4,9 +4,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, mergeMap, filter } from 'rxjs/operators';
 import { JhiParseLinks } from 'ng-jhipster';
-import { IQuestions } from '@eps/models';
+import { IQuestions } from '@vertical/models';
 import { QuestionActions } from '../actions';
-import { QuestionsService } from '@eps/services';
+import { QuestionsService } from '@vertical/services';
 
 @Injectable()
 export class QuestionEffects {

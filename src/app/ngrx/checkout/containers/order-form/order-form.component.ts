@@ -2,15 +2,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Subscription, Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { IShoppingCarts, IAddresses, IOrders, IPeople, ICustomers, ChangeDeliveryMethodProps, ChangedAddToOrderProps } from '@eps/models';
+import { IShoppingCarts, IAddresses, IOrders, IPeople, ICustomers, ChangeDeliveryMethodProps, ChangedAddToOrderProps } from '@vertical/models';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import * as fromAuth from 'app/ngrx/auth/reducers';
 import { AddressActions, OrderActions, CartActions } from 'app/ngrx/checkout/actions';
 import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from '@eps/constants/input.constants';
-import { OrderStatus } from '@eps/models';
-import { Account } from '@eps/core/user/account.model';
-import { AccountService } from '@eps/core';
+import { DATE_TIME_FORMAT } from '@vertical/constants/input.constants';
+import { OrderStatus } from '@vertical/models';
+import { Account } from '@vertical/core/user/account.model';
+import { AccountService } from '@vertical/core';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({

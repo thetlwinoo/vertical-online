@@ -1,6 +1,6 @@
 import { FetchActions } from 'app/ngrx/products/actions';
 import { createReducer, on } from '@ngrx/store';
-import { IProducts } from '@eps/models';
+import { IProducts } from '@vertical/models';
 
 export const relatedProductsFeatureKey = 'relatedProducts';
 

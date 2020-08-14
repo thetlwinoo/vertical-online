@@ -3,18 +3,18 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { map, takeUntil, zip, filter } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
-import { IProducts, IProductCategory, ISuppliers } from '@eps/models';
-import { RootSidebarService } from '@eps/components/sidebar/sidebar.service';
+import { IProducts, IProductCategory, ISuppliers } from '@vertical/models';
+import { RootSidebarService } from '@vertical/components/sidebar/sidebar.service';
 import { Store, select } from '@ngrx/store';
 import _ from 'lodash';
 import { ProductActions, FetchActions } from 'app/ngrx/products/actions';
 import * as fromProducts from 'app/ngrx/products/reducers';
 import * as fromTags from 'app/ngrx/tags/reducers';
 
-import { ITEMS_PER_PAGE, SERVER_API_URL } from '@eps/constants';
+import { ITEMS_PER_PAGE, SERVER_API_URL } from '@vertical/constants';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
-import { ProductFilterProps } from '@eps/models/product-actions.model';
-import { SuppliersService } from '@eps/services/e-commerce/suppliers.service';
+import { ProductFilterProps } from '@vertical/models/product-actions.model';
+import { SuppliersService } from '@vertical/services/e-commerce/suppliers.service';
 import { HttpResponse } from '@angular/common/http';
 
 @Component({
