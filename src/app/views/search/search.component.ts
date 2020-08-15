@@ -21,7 +21,6 @@ import { HttpResponse } from '@angular/common/http';
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchComponent implements OnInit, OnDestroy {
   keyword: string = null;
@@ -38,7 +37,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   canFetch = false;
   // querySubscribe: Subscription;
   public categories: any[] = [];
-  public categoriesTree: any;
+  // public categoriesTree: any;
   public colors: any[] = [];
   public price: any;
   public rangePrice: any = [0, 0];
@@ -64,8 +63,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   links$: Observable<any>;
   currentCategory$: Observable<string[]>;
   totalItems$: Observable<any>;
-  categoriesIds$: Observable<number[]>;
-  categoriesIds: number[] = [];
+  // categoriesIds$: Observable<number[]>;
+  // categoriesIds: number[] = [];
   loading$: Observable<boolean>;
   error$: Observable<string>;
 
@@ -104,7 +103,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     protected eventManager: JhiEventManager
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
-    this.categoriesIds$ = tagStore.pipe(select(fromTags.getCategoriesIds));
+    // this.categoriesIds$ = tagStore.pipe(select(fromTags.getCategoriesIds));
 
     this.activatedRoute.queryParams
       .pipe(
@@ -170,37 +169,16 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.categoriesIds$.pipe(takeUntil(this.unsubscribeAll)).subscribe(ids => {
-      this.categoriesIds = ids;
-    });
+    // this.categoriesIds$.pipe(takeUntil(this.unsubscribeAll)).subscribe(ids => {
+    //   this.categoriesIds = ids;
+    // });
 
     this.filteredResult$.pipe(takeUntil(this.unsubscribeAll)).subscribe(result => (this.filteredResult = result));
     this.filterControllers$.pipe(takeUntil(this.unsubscribeAll)).subscribe(result => {
-      console.log('result', result);
       this.filterControllers = result;
 
-      if (result && result.relatedCategory && result.relatedCategory.length > 0) {
-        this.categories = [];
-        result.relatedCategory.map(item => {
-          const cagItem = {
-            key: item.key,
-            title: item.title,
-            expandedIcon: item.expandedIcon,
-            expanded: item.expanded,
-            children: [],
-          };
-
-          item.children.map(x => {
-            cagItem.children.push({
-              key: x.key,
-              title: x.title,
-              icon: x.icon,
-              isLeaf: x.isLeaf,
-            });
-          });
-
-          this.categories.push(cagItem);
-        });
+      if (result) {
+        this.categories = JSON.parse(JSON.stringify(result.relatedCategory));
       }
     });
     this.registerChangeInProducts();

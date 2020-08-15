@@ -1,22 +1,7 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewEncapsulation,
-  OnDestroy,
-  OnChanges,
-} from '@angular/core';
-import { IProductCategory } from '@vertical/models';
+import { Component, Input, OnInit, ViewEncapsulation, OnDestroy, OnChanges } from '@angular/core';
 import { rootAnimations } from '@vertical/animations';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { map, takeUntil, zip } from 'rxjs/operators';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { FetchActions } from 'app/ngrx/tags/actions';
-import { Store, select } from '@ngrx/store';
-import * as fromTags from 'app/ngrx/tags/reducers';
+import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 
 @Component({
@@ -28,36 +13,18 @@ import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 })
 export class CategoryComponent implements OnInit, OnChanges, OnDestroy {
   @Input() categories;
-  // categories$: Observable<any[]>;
   title = 'categories';
   categoryNodes;
 
   private unsubscribeAll: Subject<any> = new Subject();
 
-  constructor(private router: Router) {
-    // this.activatedRoute.params
-    //   .pipe(
-    //     takeUntil(this.unsubscribeAll),
-    //     zip(this.activatedRoute.queryParams),
-    //     map(payload => {
-    //       const keyword = payload[0].keyword === '_blank' ? '' : payload[0].keyword;
-    //       const queryParams = payload[1];
-    //       this.store.dispatch(FetchActions.selectCategory({ id: queryParams.category }));
-    //       return FetchActions.fetchCategoriesByTag({
-    //         query: {
-    //           keyword,
-    //           category: queryParams.category,
-    //         },
-    //       });
-    //     })
-    //   )
-    //   .subscribe(action => this.store.dispatch(action));
-    // this.categories$ = store.pipe(select(fromTags.getCategoriesTree));
-  }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
-  ngOnChanges(): void {}
+  ngOnChanges(): void {
+    console.log('categories', this.categories);
+  }
 
   categorySelect(event): void {
     console.log(event);

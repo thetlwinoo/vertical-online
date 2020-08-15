@@ -104,7 +104,7 @@
                 </div>
                 <div class="row list-gutters">
                   <div class="col-xs-6 col-sm-6 col-md-3" *ngFor="let product of (products$ | async)">
-                    <product-card [product]="product" (quickview)="onQuickView($event)"></product-card>
+                    <product-card [product]="product"></product-card>
                   </div>
                 </div>
                 <div class="row justify-content-center">

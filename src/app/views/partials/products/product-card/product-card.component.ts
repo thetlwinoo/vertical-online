@@ -34,7 +34,7 @@ export class ProductCardComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {}
 
   ngOnChanges(): void {
-    if (this.product && this.product.productDetails.stockItemLists.length > 0) {
+    if (this.product?.productDetails?.stockItemLists?.length > 0) {
       this.selectedItem = this.product.productDetails.stockItemLists[0];
     }
   }
