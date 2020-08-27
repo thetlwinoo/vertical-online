@@ -2,39 +2,20 @@ import { Injectable } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class RootMatSidenavHelperService {
-    sidenavInstances: MatSidenav[];
+  sidenavInstances: MatSidenav[];
 
-    /**
-     * Constructor
-     */
-    constructor() {
-        this.sidenavInstances = [];
-    }
+  constructor() {
+    this.sidenavInstances = [];
+  }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Accessors
-    // -----------------------------------------------------------------------------------------------------
+  setSidenav(id, instance): void {
+    this.sidenavInstances[id] = instance;
+  }
 
-    /**
-     * Set sidenav
-     *
-     * @param id
-     * @param instance
-     */
-    setSidenav(id, instance): void {
-        this.sidenavInstances[id] = instance;
-    }
-
-    /**
-     * Get sidenav
-     *
-     * @param id
-     * @returns {any}
-     */
-    getSidenav(id): any {
-        return this.sidenavInstances[id];
-    }
+  getSidenav(id): any {
+    return this.sidenavInstances[id];
+  }
 }

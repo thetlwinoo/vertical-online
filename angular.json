@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "eps-online": {
+    "vs-online": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,20 +17,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/eps-online",
+            "outputPath": "dist/vs-online",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": false,
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": [
-              "src/styles.scss",
-              "src/styles.less",
-              "./node_modules/quill/dist/quill.core.css",
-              "./node_modules/quill/dist/quill.snow.css"
-            ],
-            "scripts": ["./node_modules/quill/dist/quill.js"]
+            "styles": ["src/styles.scss", "src/styles.less"],
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -62,18 +57,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "eps-online:build"
+            "browserTarget": "vs-online:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "eps-online:build:production"
+              "browserTarget": "vs-online:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "eps-online:build"
+            "browserTarget": "vs-online:build"
           }
         },
         "test": {
@@ -99,18 +94,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "eps-online:serve"
+            "devServerTarget": "vs-online:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "eps-online:serve:production"
+              "devServerTarget": "vs-online:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "eps-online",
+  "defaultProject": "vs-online",
   "cli": {
     "analytics": "8e8568b6-49a2-4e5a-aa75-60c74bb51ae4"
   }

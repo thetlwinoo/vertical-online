@@ -4,11 +4,10 @@ import { Observable, Observer, Subject } from 'rxjs';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { PhotosService, OrderService } from '@vertical/services';
 import { select, Store } from '@ngrx/store';
-import { OrderLineActions, OrderActions, OrderPackageActions } from 'app/ngrx/checkout/actions';
+import { OrderPackageActions } from 'app/ngrx/checkout/actions';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import { SERVER_API_URL } from '@vertical/constants';
 import { UploadFile } from 'ng-zorro-antd/upload';
-import { ImageUtils } from '@vertical/services';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { AccountService } from '@vertical/core';
 import { Account } from '@vertical/core/user/account.model';
@@ -42,7 +41,6 @@ export class ReviewUpdateComponent implements OnInit, OnDestroy {
 
   constructor(
     protected dataUtils: JhiDataUtils,
-    protected imageUtils: ImageUtils,
     protected jhiAlertService: JhiAlertService,
     protected orderService: OrderService,
     protected elementRef: ElementRef,

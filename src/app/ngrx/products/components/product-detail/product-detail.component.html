@@ -124,7 +124,7 @@
                                 <nz-input-number [(ngModel)]="quantity" [nzMin]="1"
                                     [nzMax]="currentStockItem?.quantityOnHand" [nzStep]="1">
                                 </nz-input-number>
-                                <a class="ml-2" (click)="open(faq)">How to contact support?</a>
+                                <a class="ml-2">How to contact support?</a>
                             </nz-list-item-meta-title>
                         </nz-list-item-meta>
                     </ng-container>
@@ -143,7 +143,7 @@
                             </nz-list-item-action>
                             <nz-list-item-action>
                                 <button nz-button nzType="primary" nzDanger [nzSize]="'large'"
-                                    (click)="addToCart(currentStockItem,inCart)"
+                                    (click)="addToCart(currentStockItem)"
                                     [disabled]="currentStockItem?.quantityOnHand <= 0">Add To
                                     Cart</button>
                             </nz-list-item-action>

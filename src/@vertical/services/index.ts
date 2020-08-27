@@ -27,6 +27,5 @@ export * from './e-commerce/order-tracking.service';
 
 export * from './common/config.service';
 export * from './common/match-media.service';
-export * from './common/image-util.service';
 
 export * from './storage/stock-item-compare-storage.service';

@@ -10,11 +10,10 @@ import { RootDirectivesModule } from '@vertical/directives/directives';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RootSidebarModule } from '@vertical/components';
 
-import { MaterialModule, NgZorroAntdModule, PrimengModule } from '@vertical/modules';
+import { NgZorroAntdModule } from '@vertical/modules';
 import { NgArrayPipesModule, OrderByPipe } from 'ngx-pipes';
 import { DeferLoadModule } from '@trademe/ng-defer-load';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { NgxPicaModule } from '@digitalascetic/ngx-pica';
 
 @NgModule({
   exports: [
@@ -27,9 +26,8 @@ import { NgxPicaModule } from '@digitalascetic/ngx-pica';
     RootPipesModule,
     RootSidebarModule,
 
-    MaterialModule,
+    // MaterialModule,
     NgZorroAntdModule,
-    PrimengModule,
 
     NgbModule,
     NgJhipsterModule,
@@ -37,7 +35,6 @@ import { NgxPicaModule } from '@digitalascetic/ngx-pica';
     DeferLoadModule,
     NgArrayPipesModule,
     CarouselModule,
-    NgxPicaModule,
   ],
   providers: [OrderByPipe],
 })

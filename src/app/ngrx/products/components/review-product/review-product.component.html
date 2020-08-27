@@ -18,16 +18,16 @@
             <div nz-col class="gutter-row" [nzXs]="24" [nzLg]="8">
                 <div class="inner-box detail">
                     <ul class="p-0">
-                        <li *ngFor="let val of stars">
-                            <nz-rate [(ngModel)]="val" nzDisabled></nz-rate>
+                        <li *ngFor="let item of stars">
+                            <nz-rate [ngModel]="item" nzDisabled></nz-rate>
                             <span class="progress-wrap">
                                 <div class="progress-item">
                                     <!-- <nz-progress [nzPercent]="getPercentage(val)" nzSize="large" [nzShowInfo]="false">
                                     </nz-progress> -->
-                                    <ngb-progressbar type="warning" [value]="getPercentage(val)"></ngb-progressbar>
+                                    <ngb-progressbar type="warning" [value]="getPercentage(item)"></ngb-progressbar>
                                 </div>
                             </span>
-                            <span>{{getRate(val)}}</span>
+                            <span>{{getRate(item)}}</span>
                         </li>
                     </ul>
                 </div>

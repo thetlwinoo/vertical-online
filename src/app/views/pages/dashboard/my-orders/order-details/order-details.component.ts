@@ -10,7 +10,6 @@ import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import * as fromProducts from 'app/ngrx/products/reducers';
 import { OrderTrackingActions, OrderActions, OrderLineActions } from 'app/ngrx/checkout/actions';
 import { SERVER_API_URL } from '@vertical/constants';
-import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-order-details',
@@ -26,7 +25,7 @@ export class OrderDetailsComponent implements OnInit, OnDestroy {
   orderTrackLoading$: Observable<boolean>;
   shipToAddress: IAddresses;
   billToAddress: IAddresses;
-  orderTracking: MenuItem[];
+  orderTracking: any[];
   activeOrderTrack = 0;
 
   public blobUrl = SERVER_API_URL + 'services/cloudblob/api/images-extend/';

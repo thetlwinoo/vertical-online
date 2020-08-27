@@ -6,9 +6,6 @@ import { VouchersComponent } from './vouchers.component';
 
 @NgModule({
   declarations: [VouchersComponent],
-  imports: [
-    CommonModule,
-    VouchersRoutingModule
-  ]
+  imports: [CommonModule, VouchersRoutingModule],
 })
-export class VouchersModule { }
+export class VouchersModule {}

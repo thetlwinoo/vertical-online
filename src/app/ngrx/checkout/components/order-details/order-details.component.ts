@@ -119,14 +119,14 @@ export class OrderDetailsComponent implements OnInit, OnChanges {
     }, 2000);
   }
 
-  onEditContact(): void {
+  onEditContact(contactNumber: string): void {
     const address = _.clone(this.deliveryAddress, true);
     address.contactNumber = this.contactNumber;
     this.updateAddress.emit(address);
     this.editContact = false;
   }
 
-  onEditEmail(): void {
+  onEditEmail(email: string): void {
     const address = _.clone(this.deliveryAddress, true);
     address.contactEmailAddress = this.contactEmail;
     this.updateAddress.emit(address);

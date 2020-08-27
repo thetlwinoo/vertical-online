@@ -45,14 +45,14 @@ export class PaymentFormComponent implements OnInit, OnDestroy {
     {
       bankName: 'AYA Bank',
       accountType: 'AYA Current Account',
-      accountName: 'zezawar company limited',
+      accountName: 'serangoon company limited',
       accountNo: '002-123456-7',
       bankLogo: 'assets/logo/bank/AYA.png',
     },
     {
       bankName: 'KBZ Bank',
       accountType: 'KBZ Current Account',
-      accountName: 'zezawar company limited',
+      accountName: 'serangoon company limited',
       accountNo: '006-654321-2',
       bankLogo: 'assets/logo/bank/KBZ.png',
     },

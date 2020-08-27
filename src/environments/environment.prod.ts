@@ -3,7 +3,7 @@ import { KeycloakConfig } from 'keycloak-angular';
 const keycloakConfig: KeycloakConfig = {
   url: 'https://auth.rangoon-tech.com/auth',
   realm: 'jhipster',
-  clientId: 'web_app',
+  clientId: 'web_storefront',
 };
 
 export const environment = {

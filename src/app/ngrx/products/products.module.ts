@@ -23,7 +23,6 @@ import { RelatedProductComponent } from './components/related-product/related-pr
 import { QuestionsProductComponent } from './components/questions-product/questions-product.component';
 import { ProductGalleryComponent } from './components/product-gallery/product-gallery.component';
 import { WishlistService, OrderService, QuestionsService } from '@vertical/services';
-// import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 export const COMPONENTS = [
   ProductDetailComponent,
@@ -52,7 +51,6 @@ export const CONTAINERS = [SelectedProductPageComponent, ViewProductPageComponen
       ProductHomeEffects,
     ]),
     CarouselModule,
-    // NgxGalleryModule,
   ],
   declarations: [...COMPONENTS, ...CONTAINERS],
   providers: [WishlistService, OrderService, QuestionsService],

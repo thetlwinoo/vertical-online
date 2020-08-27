@@ -20,9 +20,9 @@ import { NgModule } from '@angular/core';
 // import { MatTabsModule } from '@angular/material/tabs';
 // import { MatExpansionModule } from '@angular/material/expansion';
 // import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatChipsModule } from '@angular/material/chips';
+// import { MatChipsModule } from '@angular/material/chips';
 // import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+// import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 // import { MatDialogModule } from '@angular/material/dialog';
 // import { MatTooltipModule } from '@angular/material/tooltip';
@@ -33,7 +33,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   exports: [
-    MatChipsModule,
+    // MatChipsModule,
     // MatIconModule,
     // MatButtonModule,
     // MatListModule,
@@ -42,7 +42,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     // MatTooltipModule,
     // MatCardModule,
     // MatGridListModule,
-    MatProgressSpinnerModule,
+    // MatProgressSpinnerModule,
     // MatToolbarModule,
     MatProgressBarModule,
     // MatDialogModule,

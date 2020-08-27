@@ -64,11 +64,11 @@
       <div nz-col class="gutter-row" [nzSm]="12" [nzXs]="24">
         <nz-upload class="avatar-uploader" [nzAction]="blobUrl + 'upload'" nzListType="picture-card"
           [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload" (nzChange)="handleChange($event,people)">
-          <ng-container *ngIf="!people?.profileThumbnailUrl">
+          <ng-container *ngIf="!people?.profilePhoto">
             <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
             <div class="ant-upload-text">Upload</div>
           </ng-container>
-          <img *ngIf="people?.profileThumbnailUrl" [src]="blobUrl + people?.profileThumbnailUrl" style="width: 100%" />
+          <img *ngIf="people?.profilePhoto" [src]="blobUrl + people?.profilePhoto + '/thumbnail'" style="width: 100%" />
         </nz-upload>
         <p>Select Profile Picture</p>
         <p>File size: maximum 2 MB</p>

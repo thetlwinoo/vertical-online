@@ -11,11 +11,11 @@ export class FooterComponent implements OnInit {
   twitterOptions: NgxTwitterTimelineOptions;
   data: any[] = [
     {
-      title: 'gumkino',
+      title: 'gardilo',
       col: '6',
       children: [
         {
-          title: 'sell on gumkino',
+          title: 'sell on gardilo',
         },
         {
           title: 'about us',
@@ -34,7 +34,7 @@ export class FooterComponent implements OnInit {
       col: '6',
       children: [
         {
-          title: 'buy on gumkino',
+          title: 'buy on gardilo',
         },
         {
           title: 'track your order',
