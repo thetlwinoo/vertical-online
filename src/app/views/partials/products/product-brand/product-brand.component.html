@@ -24,7 +24,8 @@
 
                 <div class="price-wrapper">
                     <div>
-                        <span class="product-price-old mr-2">{{(selectedItem.unitPrice) | currency:'MMK'}}</span>
+                        <span
+                            class="product-price-old mr-2">{{(selectedItem.unitPrice) | currency:'Ks' : 'symbol' : '1.0-0'}}</span>
 
                     </div>
                     <div>
@@ -34,7 +35,7 @@
 
                 <div class="price-wrapper">
                     <span
-                        class="product-current-price">{{ (selectedItem.recommendedRetailPrice) | currency:'MMK' }}</span>
+                        class="product-current-price">{{ (selectedItem.recommendedRetailPrice) | currency:'Ks' : 'symbol' : '1.0-0' }}</span>
                 </div>
             </div>
         </div>

@@ -69,9 +69,10 @@
                     <ng-container>
                         <nz-list-item-meta>
                             <nz-list-item-meta-title>
-                                <span class="unit-price">{{ currentStockItem?.unitPrice | currency:'MMK' }}</span>
                                 <span
-                                    class="retail-price">{{ currentStockItem?.recommendedRetailPrice | currency:'MMK' }}</span>
+                                    class="unit-price">{{ currentStockItem?.unitPrice | currency:'Ks' : 'symbol' : '1.0-0' }}</span>
+                                <span
+                                    class="retail-price">{{ currentStockItem?.recommendedRetailPrice | currency:'Ks' : 'symbol' : '1.0-0' }}</span>
                                 <span class="discount-percent" style="margin-left: 5px;">-15%</span>
                             </nz-list-item-meta-title>
                         </nz-list-item-meta>

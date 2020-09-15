@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light d-none d-sm-block" [ngClass]="isMobile?'':'bg-primary'">
+<nav class="navbar navbar-expand-lg navbar-light d-none d-sm-block" [class.bg-primary]="!isMobile">
     <div class="container" [ngSwitch]="isAuthenticated()">
         <!-- <a class="navbar-brand" href="#">Navbar</a> -->
         <button class="navbar-toggler" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed"

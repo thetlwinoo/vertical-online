@@ -12,6 +12,10 @@
     i {
       color: rgba(255, 255, 255);
       font-size: 2.5em;
+
+      // @include media-breakpoint('lt-sm') {
+      //   color: #ff4438;
+      // }
     }
   }
 

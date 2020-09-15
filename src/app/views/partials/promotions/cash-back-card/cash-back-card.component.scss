@@ -1,0 +1,133 @@
+@import 'src/@vertical/scss/root';
+
+:host {
+  .voucher-card {
+    background-image: url('/assets/backgrounds/voucher-02.svg');
+    height: 177px;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    @include media-breakpoint('lt-sm') {
+      height: 115px;
+    }
+
+    .cashback-left-wrapper {
+      //   height: 177px;
+      padding: 15px 35px 4px 35px;
+      display: flex;
+      align-items: center;
+
+      @include media-breakpoint('lt-sm') {
+        padding: 33px 11px 95px 34px;
+        height: 115px;
+      }
+
+      .store-avatar {
+        nz-avatar {
+          margin: auto;
+        }
+      }
+      //   .store-avatar {
+      //     background-image: url('/assets/backgrounds/zezawar.png');
+      //     background-size: contain;
+      //     background-repeat: no-repeat;
+      //     width: 100%;
+      //     height: 100%;
+      //     margin-top: 5px;
+      //   }
+
+      .side-wide {
+        font-size: 20px;
+        font-weight: 500;
+        color: #ffffff;
+        text-align: center;
+      }
+
+      .cashback-promo {
+        color: #ff4438;
+        text-align: center;
+        font-weight: bold;
+
+        .cashback-percentage {
+          font-size: 40px;
+        }
+
+        .cashback-promo-title {
+          font-size: 20px;
+        }
+      }
+    }
+
+    .cashback-right-wrapper {
+      padding: 15px 34px 4px 14px;
+
+      @include media-breakpoint('lt-sm') {
+        padding: 15px 34px 4px 14px;
+        height: 115px;
+      }
+
+      .cashback-coupon-code {
+        color: #ff4438;
+        text-align: center;
+        font-weight: bold;
+        font-size: 40px;
+      }
+
+      .cashback-coupon-description {
+        text-align: center;
+        font-weight: 500;
+        font-size: 20px;
+      }
+    }
+
+    .voucher-promo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0px 40px 0px 40px;
+
+      .voucher-promo-value {
+        font-size: 30px;
+        font-weight: bold;
+        color: #ff4438;
+      }
+
+      .voucher-min-spend {
+        font-size: 25px;
+        // color: #ff4438;
+        margin-left: 0.5em;
+      }
+
+      .voucher-redeem {
+        button {
+          font-size: 18px;
+          letter-spacing: 3px;
+        }
+      }
+    }
+
+    .coupon-description {
+      margin-top: 11px;
+
+      .coupon-valid-date-wrapper {
+        text-align: right;
+
+        .coupon-valid-date {
+          padding: 0px 8px 0px 0px;
+          font-size: 20px;
+          font-weight: bold;
+        }
+      }
+
+      .coupon-label-wrapper {
+        text-align: center;
+
+        .coupon-label {
+          padding: 0px 0px 0px 5px;
+          font-size: 20px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+<div class="brand-banner-wrapper">
+    <div class="container">
+        <div class="brand-banner"></div>
+    </div>
+</div>
+
+<nz-affix [nzOffsetTop]="0">
+    <div id="brand-nav" class="brand-nav">
+        <div class="container">
+            <ul class="nav nav-pills">
+                <li class="nav-item" *ngFor="let item of brandIndex;let i = index;">
+                    <a class="nav-link" href="javascript:void(0);" (click)="selectedIndex = item;scroll(item)"
+                        [class.active]="selectedIndex === item">{{htmlDecode(item)}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nz-affix>
+
+
+<div class="brand-tab-wrapper">
+    <div class="container">
+        <nz-divider nzOrientation="center" nzText="Brand Collection"></nz-divider>
+
+        <section [id]="item" *ngFor="let item of brandIndex;let i = index;">
+            <div nz-row [nzGutter]="16" class="brand-index-zone">
+                <div nz-col [nzXs]="24" [nzSm]="1">
+                    <span class="brand-index">{{htmlDecode(item)}}</span>
+                </div>
+
+                <div nz-col [nzXs]="24" [nzSm]="23">
+                    <div nz-row [nzGutter]="[8,12]">
+                        <div nz-col [nzXs]="8" [nzSm]="4"
+                            *ngFor="let brand of productBrands | brandCollection:htmlDecode(item) ">
+                            <div class="product-brand ml-1 rounded" [routerLink]="['/search']"
+                                [queryParams]="{ brandId: brand.id }">
+                                <div class="brand-image-wrapper">
+                                    <div class="brand-image"
+                                        [ngStyle]="{'background-image': 'url(' + blobUrl + brand.iconPhoto + '/thumbnail' + ')'}">
+                                    </div>
+                                </div>
+
+                                <div class="brand-text-wrapper">
+                                    <span class="brand-text">{{brand.name}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="flash-deal-header-wrapper">
+    <div class="container">
+        <nz-carousel [nzEffect]="'fade'" [nzAutoPlay]="true">
+            <div nz-carousel-content *ngFor="let banner of carousel.slides">
+                <div class="carousel-wrapper" [ngStyle]="banner.style"></div>
+            </div>
+        </nz-carousel>
+
+        <div class="flash-deal-header">
+            <img src="assets/images/home/slider-banner/categories/flash_deal.svg">
+            <h1 nz-typography nzType="warning">Flash Deals</h1>
+            <span nz-typography nzType="secondary">
+                Crazy Deals
+                <nz-divider nzType="vertical"></nz-divider>
+                Limited Time Only
+            </span>
+        </div>
+    </div>
+</div>
+
+<nz-affix [nzOffsetTop]="0">
+    <div id="flash-deal-nav" class="flash-deal-nav">
+        <div class="container">
+            <ul class="nav nav-pills justify-content-center">
+                <li class="nav-item" *ngFor="let item of dealTypes;let i = index;">
+                    <a class="nav-link" href="javascript:void(0);" (click)="selectedType = item;"
+                        [class.active]="selectedType.id === item.id">{{item.title}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nz-affix>
+
+<div class="flash-deal-body">
+    <div class="container">
+        <div class="flash-deal-products">
+            <div nz-row [nzGutter]="[8,8]">
+                <div nz-col class="gutter-row" [nzXs]="12" [nzSm]="4"
+                    *ngFor="let product of productHome?.dailyDiscover">
+                    <product-card [product]="product"></product-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

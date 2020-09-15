@@ -24,6 +24,7 @@ export * from './e-commerce/customers.service';
 export * from './e-commerce/countries.service';
 export * from './e-commerce/cities.service';
 export * from './e-commerce/order-tracking.service';
+export * from './e-commerce/product-brand.service';
 
 export * from './common/config.service';
 export * from './common/match-media.service';

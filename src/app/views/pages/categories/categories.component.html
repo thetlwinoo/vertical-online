@@ -1,0 +1,108 @@
+<div class="category-header-wrapper">
+    <div class="container">
+
+        <nz-carousel [nzEffect]="'fade'" [nzAutoPlay]="true">
+            <div nz-carousel-content *ngFor="let banner of carousel.slides">
+                <div class="carousel-wrapper" [ngStyle]="banner.style"></div>
+            </div>
+        </nz-carousel>
+
+        <div class="category-header" *ngIf="selectedCategory">
+            <span nz-typography nzType="warning" class="header-title"
+                *ngIf="selectedCategory.name === 'Groceries';else categoryTitle">
+                <i class="iconfont icon-{{selectedCategory?.iconFont}}"></i>Grocery Mart
+            </span>
+
+            <ng-template #categoryTitle>
+                <span nz-typography nzType="warning" class="header-title">
+                    <i class="iconfont icon-{{selectedCategory?.iconFont}}"></i>{{selectedCategory?.name}}
+                </span>
+            </ng-template>
+            <span nz-typography nzType="secondary" class="header-second">Buy Fast Delivery</span>
+        </div>
+    </div>
+</div>
+
+<nz-affix [nzOffsetTop]="0">
+    <div id="category-nav" class="category-nav">
+        <div class="container">
+            <ul class="nav nav-pills">
+                <li class="nav-item" *ngFor="let item of selectedCategory?.children;let i = index;">
+                    <a class="nav-link" href="javascript:void(0);" (click)="selectedIndex = item.id;scroll(item.id)"
+                        [class.active]="selectedIndex === item.id">{{item.myanmarName}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nz-affix>
+
+<!-- <nz-affix [nzOffsetTop]="0">
+    <div class="store-categories">
+        <div class="container">
+            <div class="category-list">
+                <owl-carousel-o #owlSlider [options]="options" [@fadeIn]="(selectedCategory?.children)?.length">
+                    <ng-container *ngFor="let category of selectedCategory?.children">
+                        <ng-template carouselSlide>
+                            <div class="slider ml-1 rounded" [class.active]="selectedItem?.id === category.id"
+                                (click)="selectedItem = category">
+                                <img [src]="blobUrl + category.iconPhoto + '/thumbnail'" [attr.alt]="'alt'"
+                                    class="img-thumbnail sub-image" *ngIf="category.iconPhoto;else noImage">
+                                <ng-template #noImage>
+                                    <img src="/assets/images/no-image2.svg" [attr.alt]="'alt'"
+                                        class="img-thumbnail sub-image">
+                                </ng-template>
+                                <span class="category-title">{{category.myanmarName}}</span>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+                <button type="button" class="btn btn-secondary nav-button nav-left " (click)="owlSlider.prev()">
+                    <fa-icon icon="chevron-left"></fa-icon>
+                </button>
+                <button type="button" class="btn btn-secondary nav-button nav-right" (click)="owlSlider.next()">
+                    <fa-icon icon="chevron-right"></fa-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</nz-affix> -->
+
+<div class="category-body-wrapper">
+    <div class="container">
+        <div class="category-body">
+            <div [id]="subCategory.id" *ngFor="let subCategory of selectedCategory?.children">
+                <div class="category-sub-header">
+                    <div class="banner-sub-title">
+                        <span>{{subCategory.myanmarName}}</span>
+                    </div>
+                </div>
+
+                <div class="category-sub-body">
+                    <div nz-row [nzGutter]="[16,16]">
+                        <div nz-col class="gutter-row" [nzXs]="12" [nzSm]="6"
+                            *ngFor="let leaf of subCategory?.children">
+                            <div class="inner-box">
+                                <div class="child-category-wrapper">
+                                    <div class="catagory-leaf-wrapper">
+                                        <img [src]="blobUrl + leaf.iconPhoto + '/thumbnail'" [attr.alt]="'alt'"
+                                            class="leaf-image" *ngIf="leaf.iconPhoto;else noImage">
+                                        <ng-template #noImage>
+                                            <img src="/assets/images/no-image2.svg" [attr.alt]="'alt'"
+                                                class="leaf-image">
+                                        </ng-template>
+
+                                        <div class="category-leaf-tilte">
+                                            <span>{{leaf.myanmarName}}</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

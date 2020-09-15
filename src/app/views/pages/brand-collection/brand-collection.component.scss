@@ -1,0 +1,111 @@
+:host {
+  .ant-divider-horizontal.ant-divider-with-text-center {
+    &::after,
+    &::before {
+      border-top: 1px solid #faad14 !important;
+    }
+  }
+
+  nz-divider {
+    color: #faad14;
+    font-size: 30px;
+  }
+
+  .brand-banner-wrapper {
+    background: #ffffff;
+    .brand-banner {
+      background-image: url('/assets/images/home/sub-banner/offer-banner.jpg');
+      background-size: cover;
+      height: 100px;
+    }
+  }
+
+  .brand-nav {
+    background: rgba(255, 255, 255);
+
+    ul {
+      padding-top: 0.5em;
+    }
+
+    .nav-link {
+      padding: 0.5rem 0.9rem !important;
+      color: rgba(0, 0, 0, 0.65);
+      font-size: 1.5em;
+      font-weight: 500;
+    }
+
+    .nav-pills .nav-link.active {
+      background-color: #f57123;
+      color: #ffffff;
+    }
+  }
+
+  .brand-tab-wrapper {
+    position: relative;
+
+    // section {
+    //   padding: 0 !important;
+    // }
+
+    // .brand-index-zone {
+    //   padding-top: 30px;
+    // }
+
+    .brand-index {
+      color: rgba(0, 0, 0, 0.65);
+      font-size: 1.5em;
+      font-weight: 500;
+      margin-left: 0.5em;
+    }
+
+    .product-brand {
+      cursor: pointer;
+      background-color: #ffffff;
+      padding-bottom: 5px;
+      text-align: center;
+      min-height: 111px;
+
+      &:hover {
+        cursor: pointer;
+        box-shadow: 0 7px 14px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+      }
+
+      .img-thumbnail {
+        border: none !important;
+      }
+
+      .sub-image {
+        height: 150px !important;
+        margin: auto;
+        background-color: transparent !important;
+      }
+
+      .brand-text-wrapper {
+        min-height: 48px;
+
+        .brand-text {
+          color: rgba(0, 0, 0, 0.65);
+          font-size: 1.2em;
+          font-weight: 500;
+          text-align: center;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      }
+
+      .brand-image-wrapper {
+        padding: 0.5em;
+
+        .brand-image {
+          height: 65px;
+          margin: 0.5em;
+          background-repeat: no-repeat;
+          background-size: contain;
+          background-position: center;
+        }
+      }
+    }
+  }
+}

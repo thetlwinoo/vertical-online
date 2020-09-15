@@ -1,0 +1,145 @@
+@import 'src/@vertical/scss/root';
+
+:host {
+  .ant-divider-horizontal.ant-divider-with-text-left {
+    &::after,
+    &::before {
+      border-top: 1px solid #faad14 !important;
+    }
+  }
+
+  .cashback-wrapper {
+    // background: #ff4438;
+
+    nz-divider {
+      color: #faad14;
+      font-size: 30px;
+    }
+
+    .cashback-header-wrapper {
+      background-color: #ffffff;
+      .cashback-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-start;
+        padding: 0 0 1.5em 0;
+
+        h1 {
+          margin: 0;
+        }
+
+        span {
+          font-size: 2em;
+          margin-left: 10px;
+        }
+
+        img {
+          height: 46px !important;
+        }
+      }
+
+      nz-carousel {
+        padding: 1.5em 0;
+      }
+    }
+
+    .category-wrapper {
+      background: #4c4c4c;
+    }
+
+    .search-wrapper {
+      .search-in-stores {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5em 0;
+        font-size: 1.5em;
+
+        .search-controls {
+          min-width: 300px !important;
+
+          @include media-breakpoint('lt-sm') {
+            margin: 0 0.5em;
+            width: 100%;
+            min-width: auto;
+          }
+        }
+
+        .search-label {
+          span {
+            color: #ffffff;
+          }
+        }
+      }
+    }
+
+    .cashback-body-wrapper {
+      margin-top: 8px;
+    }
+
+    .crazy-deals-wrapper {
+    }
+  }
+}
+
+[nz-carousel-content] {
+  text-align: center;
+  height: 250px;
+  line-height: 250px;
+  background: #364d79;
+  color: #fff;
+  overflow: hidden;
+}
+
+.card-container ::ng-deep nz-tabset {
+  padding: 0.5em 0;
+}
+// .card-container ::ng-deep .ant-tabs-card .ant-tabs-content {
+//     height: 120px;
+//     margin-top: -16px;
+// }
+
+// .card-container ::ng-deep .ant-tabs-card .ant-tabs-content .ant-tabs-tabpane {
+//   background: #fff;
+//   padding: 16px;
+// }
+
+.card-container ::ng-deep .ant-tabs-card .ant-tabs-bar {
+  border-color: #4c4c4c;
+  margin: 0;
+}
+
+.card-container ::ng-deep .ant-tabs-card .ant-tabs-bar {
+  .ant-tabs-tab-prev,
+  .ant-tabs-tab-next {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+  }
+}
+
+.card-container ::ng-deep .ant-tabs-card .ant-tabs-bar .ant-tabs-tab {
+  //   border-color: transparent;
+  //   background: transparent;
+  //   color: #ffffff;
+  font-size: 1em;
+  font-weight: 500;
+}
+
+.card-container ::ng-deep .ant-tabs-card .ant-tabs-bar {
+  //   border-color: #fff;
+  //   background: #fff;
+  .ant-tabs-tab:hover,
+  .ant-tabs-tab-active {
+    color: #faad14;
+  }
+}
+
+.search-wrapper .search-controls ::ng-deep nz-input-group {
+  font-size: 1em;
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -61,6 +61,7 @@ span {
   background-color: #f0f0f0;
 
   > div > a,
+  > div > span,
   i {
     color: #ff4438;
   }
@@ -106,7 +107,8 @@ span {
       &:hover {
         background-color: #f0f0f0;
 
-        > a {
+        > a,
+        span {
           color: #ff4438;
         }
       }

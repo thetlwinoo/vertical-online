@@ -1,0 +1,66 @@
+<div class="voucher-card">
+    <div nz-row>
+        <div nz-col nzSpan="12">
+            <div class="cashback-left-wrapper">
+                <div nz-row>
+                    <div nz-col nzSpan="12">
+                        <div class="store-avatar">
+                            <nz-avatar [nzSize]="70" nzIcon="user" nzSrc="/assets/logo/gardilo-mini2.png"></nz-avatar>
+                        </div>
+
+                    </div>
+                    <div nz-col nzSpan="12">
+                        <div class="cashback-promo">
+                            <div class="cashback-percentage">{{(percentage / 100) | percent}}</div>
+                        </div>
+                    </div>
+                    <div nz-col nzSpan="12">
+                        <div class="side-wide">
+                            SITEWIDE
+                        </div>
+                    </div>
+                    <div nz-col nzSpan="12">
+                        <div class="cashback-promo">
+                            <div class="cashback-promo-title">CASHBACK</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div nz-col nzSpan="12">
+            <div class="cashback-right-wrapper">
+                <div class="cashback-coupon-code"><span>{{couponCode}}</span></div>
+                <div class="cashback-coupon-description">Min.spend
+                    <span>{{minSpend | currency:'Ks' : 'symbol' : '1.0-0'}}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div nz-row>
+        <div nz-col nzSpan="24">
+            <div class="voucher-promo">
+                <div>
+                    <span class="voucher-promo-value">{{(percentage / 100) | percent}} OFF</span>
+
+                    <span class="voucher-min-spend">Min.spend {{minSpend | currency:'Ks' : 'symbol' : '1.0-0'}}</span>
+                </div>
+
+                <div class="voucher-redeem">
+                    <button nz-button nzSize="large" nzType="primary" nzDanger>CLAIM</button>
+                </div>
+            </div>
+
+        </div>
+    </div> -->
+    <div class="coupon-description">
+        <div nz-row nzGutter="16">
+            <div nz-col nzSpan="12" class="coupon-valid-date-wrapper">
+                <span class="coupon-valid-date">{{getDate(0)}} - {{getDate(20)}}</span>
+            </div>
+            <div nz-col nzSpan="12" class="coupon-label-wrapper">
+                <span class="coupon-label">Use Coupon Code</span>
+            </div>
+        </div>
+    </div>
+
+</div>

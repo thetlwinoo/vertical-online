@@ -1,0 +1,20 @@
+:host {
+  .navbar {
+    .nav {
+      .nav-item {
+        &.active {
+          .nav-link {
+            color: #ff4438;
+          }
+        }
+
+        .nav-link {
+          color: #4a4a4a;
+          font-size: 1.6em;
+          display: flex !important;
+          padding: 0.5rem 1.2rem !important;
+        }
+      }
+    }
+  }
+}

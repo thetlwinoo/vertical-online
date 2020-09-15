@@ -16,6 +16,7 @@ import { SubBannerComponent } from './components/sub-banner/sub-banner.component
 import { DailyDiscoverComponent } from './components/daily-discover/daily-discover.component';
 import { ProductsModule } from 'app/ngrx/products';
 import { NgxMasonryModule } from 'ngx-masonry';
+import { CategoryMobileComponent } from './components/category-mobile/category-mobile.component';
 
 const routes = [
   {
@@ -40,6 +41,7 @@ const COMPONENTS = [
   NewlyAddedComponent,
   SubBannerComponent,
   DailyDiscoverComponent,
+  CategoryMobileComponent,
 ];
 
 @NgModule({

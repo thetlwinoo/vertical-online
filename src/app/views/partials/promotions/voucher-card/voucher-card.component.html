@@ -1,0 +1,46 @@
+<div class="voucher-card">
+    <div nz-row>
+        <div nz-col nzSpan="24">
+            <div class="store">
+                <nz-avatar [nzSize]="50" nzIcon="user" nzSrc="/assets/backgrounds/zezawar.png"></nz-avatar>
+                <!-- <div class="store-avatar">
+
+                </div> -->
+                <div class="store-name">
+                    <span>ZeZaWar Myanmar Official Store</span>
+                </div>
+            </div>
+        </div>
+        <!-- <div nz-col nzSpan="12">
+            <p>{{(percentage / 100) | percent}} OFF</p>
+            <p>Min. Spend <span>{{minSpend | currency:'Ks' : 'symbol' : '1.0-0'}}</span></p>
+        </div> -->
+    </div>
+    <div nz-row>
+        <div nz-col nzSpan="24">
+            <div class="voucher-promo">
+                <div>
+                    <span class="voucher-promo-value">{{(percentage / 100) | percent}} OFF</span>
+
+                    <span class="voucher-min-spend">Min.spend {{minSpend | currency:'Ks' : 'symbol' : '1.0-0'}}</span>
+                </div>
+
+                <div class="voucher-redeem">
+                    <button nz-button nzSize="large" nzType="primary" nzDanger>CLAIM</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="voucher-description">
+        <div nz-row nzGutter="16">
+            <div nz-col nzSpan="12" class="voucher-validity-label">
+                <span class="voucher-validity">Voucher Validity :</span>
+            </div>
+            <div nz-col nzSpan="12">
+                <span class="voucher-valid-date">{{getDate(0)}} - {{getDate(20)}}</span>
+            </div>
+        </div>
+    </div>
+
+</div>

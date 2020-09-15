@@ -3,6 +3,11 @@
 </div>
 
 <div class="container">
+
+    <section fxShow fxHide.gt-sm>
+        <category-mobile [categories]="categoriesTree$ | async"></category-mobile>
+    </section>
+
     <section>
         <sub-banner></sub-banner>
     </section>

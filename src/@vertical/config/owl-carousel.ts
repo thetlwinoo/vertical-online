@@ -94,13 +94,13 @@ export const banner2 = {
         '<h5 class="animated">Exclusive Offer -20% Off This Week</h5><h2 class="animated">Top Bestselling <br>Apple Watch Edition</h2><h3 class="animated"><span>Starting at </span> $120.99</h3><div class="slider-btn slider-btn-2 mt-70"><a class="animated" href="product-details.html">shopping Now</a></div>',
     },
     {
-      style: { 'background-image': 'url(\'assets/images/home/slider-banner/banner/banner01.jpg\')' },
+      style: { 'background-image': 'url(\'assets/images/home/slider-banner/banner/banner05.jpg\')' },
       image: 'assets/images/home/slider-banner/banner/banner01.jpg',
       description:
         '<h5 class="animated">Exclusive Offer -20% Off This Week</h5><h2 class="animated">Top Bestselling <br>Apple Watch Edition</h2><h3 class="animated"><span>Starting at </span> $120.99</h3><div class="slider-btn slider-btn-2 mt-70"><a class="animated" href="product-details.html">shopping Now</a></div>',
     },
     {
-      style: { 'background-image': 'url(\'assets/images/home/slider-banner/banner/banner02.jpg\')' },
+      style: { 'background-image': 'url(\'assets/images/home/slider-banner/banner/banner06.jpg\')' },
       image: 'assets/images/home/slider-banner/banner/banner01.jpg',
       description:
         '<h5 class="animated">Exclusive Offer -20% Off This Week</h5><h2 class="animated">Top Bestselling <br>Apple Watch Edition</h2><h3 class="animated"><span>Starting at </span> $120.99</h3><div class="slider-btn slider-btn-2 mt-70"><a class="animated" href="product-details.html">shopping Now</a></div>',
@@ -262,7 +262,7 @@ export const store = {
     dots: false,
     margin: 4,
     autoplayTimeout: 5000,
-    item: 5,
+    item: 4,
     responsive: {
       0: {
         items: 1,
@@ -276,7 +276,7 @@ export const store = {
         items: 2,
       },
       992: {
-        items: 5,
+        items: 4,
       },
     },
   },

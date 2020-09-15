@@ -1,0 +1,102 @@
+@import 'src/@vertical/scss/root';
+
+:host {
+  .voucher-card {
+    background-image: url('/assets/backgrounds/voucher-02.svg');
+    height: 177px;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    @include media-breakpoint('lt-sm') {
+      height: 115px;
+    }
+
+    .store {
+      //   height: 177px;
+      padding: 15px 35px 4px 35px;
+      display: flex;
+      align-items: center;
+
+      @include media-breakpoint('lt-sm') {
+        padding: 33px 11px 95px 34px;
+        height: 115px;
+      }
+
+      nz-avatar {
+        margin-right: 1em;
+      }
+      //   .store-avatar {
+      //     background-image: url('/assets/backgrounds/zezawar.png');
+      //     background-size: contain;
+      //     background-repeat: no-repeat;
+      //     width: 100%;
+      //     height: 100%;
+      //     margin-top: 5px;
+      //   }
+
+      .store-name span {
+        overflow: hidden;
+        display: -webkit-box;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        word-break: break-word;
+        font-size: 1.1rem;
+        // color: rgba(0, 0, 0, 0.45);
+        font-weight: bold;
+
+        @include media-breakpoint('lt-sm') {
+          font-size: 0.8rem;
+        }
+      }
+    }
+
+    .voucher-promo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0px 40px 0px 40px;
+
+      .voucher-promo-value {
+        font-size: 35px;
+        font-weight: bold;
+        color: #ff4438;
+      }
+
+      .voucher-min-spend {
+        font-size: 25px;
+        // color: #ff4438;
+        margin-left: 0.5em;
+      }
+
+      .voucher-redeem {
+        button {
+          font-size: 18px;
+          letter-spacing: 3px;
+        }
+      }
+    }
+
+    .voucher-description {
+      margin-top: 8px;
+
+      .voucher-validity-label {
+        text-align: right;
+
+        .voucher-validity {
+          padding: 0px 20px 0px 0px;
+          font-size: 20px;
+          font-weight: bold;
+          //   color: #ff4438;
+        }
+      }
+
+      .voucher-valid-date {
+        padding: 0px 0px 0px 5px;
+        font-size: 20px;
+        font-weight: bold;
+        // color: #ff4438;
+      }
+    }
+  }
+}

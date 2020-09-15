@@ -20,7 +20,8 @@ footer {
   }
 
   .footer-banner {
-    // position: relative;
+    // background: #ff4438;
+    // border-top: 1px solid #ffffff;
     background-image: url('/assets/footer/footerline.svg');
     background-position: center;
     background-repeat: repeat-x;
@@ -58,8 +59,8 @@ footer {
 
         button {
           color: #ffffff;
-          background: #ff4438;
-          border-color: #ff4438;
+          background: #444;
+          border-color: #444;
           font-weight: 700;
           font-size: 1em;
         }
@@ -77,9 +78,10 @@ footer {
 
       &__title {
         padding-right: 1.5em;
-        font-weight: 500;
-        font-size: 1em;
-        color: #000000;
+        font-weight: 700;
+        font-size: 1.2em;
+        // color: #ffffff;
+        color: rgba(0, 0, 0, 0.54);
       }
     }
   }

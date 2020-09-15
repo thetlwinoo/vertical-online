@@ -1,15 +1,27 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-bottom d-block d-sm-none">
+<nav class="navbar navbar-expand-lg navbar-dark bg-white fixed-bottom" fxShow fxHide.gt-sm
+    [ngSwitch]="isAuthenticated()">
     <div class="container">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">Link</a>
+        <ul class="nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item" [routerLink]="['/']">
+                <a class="nav-link">
+                    <i nz-icon nzType="home" [nzTheme]="'outline'"></i>
+                </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+            <li class="nav-item" *ngSwitchCase="true">
+                <a class="nav-link" (click)="logout()">
+                    <i nz-icon nzType="logout" nzTheme="outline"></i>
+                </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+
+            <li class="nav-item" *ngSwitchCase="false">
+                <a class="nav-link" (click)="login()">
+                    <i nz-icon nzType="login" nzTheme="outline"></i>
+                </a>
             </li>
         </ul>
+
+        <!-- <ul class="nav">
+            
+        </ul> -->
     </div>
 </nav>

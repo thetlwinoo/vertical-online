@@ -1,0 +1,75 @@
+<!-- <div class="store-carousel">
+    <div class="container">
+
+    </div>
+</div> -->
+<div class="store-header-wrapper">
+    <div class="container">
+
+        <nz-carousel [nzEffect]="'fade'" [nzAutoPlay]="true">
+            <div nz-carousel-content *ngFor="let banner of carousel.slides">
+                <div class="carousel-wrapper" [ngStyle]="banner.style"></div>
+            </div>
+        </nz-carousel>
+
+        <div class="store-header">
+            <h1 nz-typography nzType="warning">Official Stores</h1>
+            <span nz-typography nzType="secondary">Discover Shops</span>
+        </div>
+    </div>
+</div>
+
+<nz-affix [nzOffsetTop]="0">
+    <div class="store-categories">
+        <div class="container">
+            <div class="category-list">
+                <owl-carousel-o #owlSlider [options]="options" [@fadeIn]="(bundles$ | async)?.length">
+                    <ng-container *ngFor="let category of bundles$ | async">
+                        <ng-template carouselSlide>
+                            <div class="slider ml-1 rounded" [class.active]="selectedItem?.id === category.id"
+                                (click)="selectedItem = category">
+                                <img [src]="blobUrl + category.iconPhoto + '/thumbnail'" [attr.alt]="'alt'"
+                                    class="img-thumbnail sub-image">
+                                <span class="category-title">{{category.myanmarName}}</span>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+                <button type="button" class="btn btn-secondary nav-button nav-left " (click)="owlSlider.prev()">
+                    <fa-icon icon="chevron-left"></fa-icon>
+                </button>
+                <button type="button" class="btn btn-secondary nav-button nav-right" (click)="owlSlider.next()">
+                    <fa-icon icon="chevron-right"></fa-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</nz-affix>
+
+
+<div class="store-body">
+    <div class="container">
+        <div class="official-stores">
+            <nz-divider nzOrientation="left" nzText="Stores You'll Love"></nz-divider>
+
+            <div nz-row [nzGutter]="[16,16]">
+                <div nz-col class="gutter-row" [nzXs]="24" [nzSm]="8" *ngFor="let store of productHome?.officialStores">
+                    <official-store [supplier]="store"></official-store>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="just-for-you">
+            <nz-divider nzOrientation="left" nzText="Just For You"></nz-divider>
+
+            <div nz-row [nzGutter]="[8,8]">
+                <div nz-col class="gutter-row" [nzXs]="12" [nzSm]="4"
+                    *ngFor="let product of productHome?.dailyDiscover">
+                    <product-card [product]="product"></product-card>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

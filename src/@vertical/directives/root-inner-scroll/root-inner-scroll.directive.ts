@@ -5,111 +5,92 @@ import { takeUntil } from 'rxjs/operators';
 import { RootMatchMediaService } from '@vertical/services';
 
 @Directive({
-    selector: '.inner-scroll'
+  selector: '.inner-scroll',
 })
-export class RootInnerScrollDirective implements OnInit, OnDestroy
-{
-    // Private
-    private _parent: any;
-    private _grandParent: any;
-    private _unsubscribeAll: Subject<any>;
+export class RootInnerScrollDirective implements OnInit, OnDestroy {
+  // Private
+  private _parent: any;
+  private _grandParent: any;
+  private _unsubscribeAll: Subject<any>;
 
-    /**
-     * Constructor
-     *
-     * @param {ElementRef} _elementRef
-     * @param {RootMatchMediaService} _rootMediaMatchService
-     * @param {Renderer2} _renderer
-     */
-    constructor(
-        private _elementRef: ElementRef,
-        private _rootMediaMatchService: RootMatchMediaService,
-        private _renderer: Renderer2
-    )
-    {
-        // Set the private defaults
-        this._unsubscribeAll = new Subject();
+  /**
+   * Constructor
+   *
+   * @param {ElementRef} _elementRef
+   * @param {RootMatchMediaService} _rootMediaMatchService
+   * @param {Renderer2} _renderer
+   */
+  constructor(private _elementRef: ElementRef, private _rootMediaMatchService: RootMatchMediaService, private _renderer: Renderer2) {
+    // Set the private defaults
+    this._unsubscribeAll = new Subject();
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Lifecycle hooks
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * On init
+   */
+  ngOnInit(): void {
+    // Get the parent
+    this._parent = this._renderer.parentNode(this._elementRef.nativeElement);
+
+    // Return, if there is no parent
+    if (!this._parent) {
+      return;
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
+    // Get the grand parent
+    this._grandParent = this._renderer.parentNode(this._parent);
 
-    /**
-     * On init
-     */
-    ngOnInit(): void
-    {
-        // Get the parent
-        this._parent = this._renderer.parentNode(this._elementRef.nativeElement);
-
-        // Return, if there is no parent
-        if ( !this._parent )
-        {
-            return;
-        }
-
-        // Get the grand parent
-        this._grandParent = this._renderer.parentNode(this._parent);
-
-        // Register to the media query changes
-        this._rootMediaMatchService.onMediaChange
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((alias) => {
-
-                if ( alias === 'xs' )
-                {
-                    this._removeClass();
-                }
-                else
-                {
-                    this._addClass();
-                }
-            });
-    }
-
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void
-    {
-        // Return, if there is no parent
-        if ( !this._parent )
-        {
-            return;
-        }
-
-        // Remove the class
+    // Register to the media query changes
+    this._rootMediaMatchService.onMediaChange.pipe(takeUntil(this._unsubscribeAll)).subscribe(alias => {
+      if (alias === 'xs') {
         this._removeClass();
+      } else {
+        this._addClass();
+      }
+    });
+  }
 
-        // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
-        this._unsubscribeAll.complete();
+  /**
+   * On destroy
+   */
+  ngOnDestroy(): void {
+    // Return, if there is no parent
+    if (!this._parent) {
+      return;
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Private methods
-    // -----------------------------------------------------------------------------------------------------
+    // Remove the class
+    this._removeClass();
 
-    /**
-     * Add the class name
-     *
-     * @private
-     */
-    private _addClass(): void
-    {
-        // Add the inner-scroll class
-        this._renderer.addClass(this._grandParent, 'inner-scroll');
-    }
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
+  }
 
-    /**
-     * Remove the class name
-     * @private
-     */
-    private _removeClass(): void
-    {
+  // -----------------------------------------------------------------------------------------------------
+  // @ Private methods
+  // -----------------------------------------------------------------------------------------------------
 
-        // Remove the inner-scroll class
-        this._renderer.removeClass(this._grandParent, 'inner-scroll');
-    }
+  /**
+   * Add the class name
+   *
+   * @private
+   */
+  private _addClass(): void {
+    // Add the inner-scroll class
+    this._renderer.addClass(this._grandParent, 'inner-scroll');
+  }
+
+  /**
+   * Remove the class name
+   * @private
+   */
+  private _removeClass(): void {
+    // Remove the inner-scroll class
+    this._renderer.removeClass(this._grandParent, 'inner-scroll');
+  }
 }

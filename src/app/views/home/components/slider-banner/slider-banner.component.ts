@@ -17,34 +17,42 @@ export class SliderBannerComponent implements OnInit {
     {
       label: 'Grocery Mart',
       icon: 'grocery_mart.svg',
+      url: '/pages/categories/26723',
     },
     {
-      label: 'Flash Deal',
+      label: 'Flash Deals',
       icon: 'flash_deal.svg',
+      url: '/pages/flash-deal-collection',
     },
     {
       label: 'Cashback',
       icon: 'cash_back.svg',
+      url: '/pages/cash-back',
     },
     {
       label: 'Collect Voucher',
       icon: 'collect_voucher.svg',
+      url: '/pages/collect-voucher',
     },
     {
       label: 'Official Stores',
       icon: 'online_store.svg',
+      url: '/pages/official-stores',
     },
     {
       label: 'Brand Collection',
       icon: 'brand_collection.svg',
+      url: '/pages/brand-collection',
     },
     {
       label: 'Made In Myanmar',
       icon: 'made_in_myanmar.svg',
+      url: '/pages/made-in-myanmar',
     },
     {
       label: 'Free Shipping',
       icon: 'free_shipping.svg',
+      url: '/pages/free-shipping',
     },
   ];
   constructor() {

@@ -47,6 +47,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 
 import {
   UserOutline,
@@ -57,6 +58,7 @@ import {
   CreditCardOutline,
   WalletOutline,
   HomeOutline,
+  HomeFill,
   HeartOutline,
   HeartFill,
   ColumnWidthOutline,
@@ -94,6 +96,8 @@ import {
   MobileOutline,
   WarningFill,
   MenuOutline,
+  LoginOutline,
+  LogoutOutline,
 } from '@ant-design/icons-angular/icons';
 
 const icons: IconDefinition[] = [
@@ -105,6 +109,7 @@ const icons: IconDefinition[] = [
   CreditCardOutline,
   WalletOutline,
   HomeOutline,
+  HomeFill,
   HeartOutline,
   HeartFill,
   ColumnWidthOutline,
@@ -142,6 +147,8 @@ const icons: IconDefinition[] = [
   MobileOutline,
   WarningFill,
   MenuOutline,
+  LoginOutline,
+  LogoutOutline,
 ];
 
 @NgModule({
@@ -194,6 +201,7 @@ const icons: IconDefinition[] = [
     NzCollapseModule,
     NzStatisticModule,
     NzDescriptionsModule,
+    NzCarouselModule,
   ],
 })
 export class NgZorroAntdModule {}

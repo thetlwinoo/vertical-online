@@ -1,0 +1,77 @@
+<div class="cashback-wrapper">
+    <div class="cashback-header-wrapper">
+        <div class="container">
+
+            <nz-carousel [nzEffect]="'fade'" [nzAutoPlay]="true">
+                <div nz-carousel-content *ngFor="let banner of carousel.slides">
+                    <div class="carousel-wrapper" [ngStyle]="banner.style"></div>
+                </div>
+            </nz-carousel>
+
+            <div class="cashback-header">
+                <img src="assets/images/home/slider-banner/categories/cash_back.svg">
+                <h1 nz-typography nzType="warning">Cashback</h1>
+                <span nz-typography nzType="secondary">Collect Now!</span>
+            </div>
+        </div>
+    </div>
+
+    <nz-affix [nzOffsetTop]="0">
+        <div class="category-wrapper">
+            <div class="container">
+                <div class="card-container">
+                    <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'">
+                        <nz-tab *ngFor="let category of bundles$ | async" [nzTitle]="category.myanmarName"></nz-tab>
+                    </nz-tabset>
+                </div>
+            </div>
+        </div>
+    </nz-affix>
+
+    <!-- <div class="search-wrapper">
+    <div class="container">
+        <div class="search-in-stores">
+            <div class="search-label" fxShow fxHide.lt-sm>
+                <span>Claim Vouchers/Coupons</span>
+            </div>
+
+            <div class="search-controls">
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                    <input type="text" nz-input placeholder="Search by store name" />
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                    <i nz-icon nzType="search"></i>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+    <div class="cashback-body-wrapper">
+        <div class="container">
+            <div nz-row [nzGutter]="[16,16]">
+                <div nz-col nzXs="24" nzSm="12" *ngFor="let voucher of vouchers">
+                    <cash-back-card></cash-back-card>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <nz-divider nzOrientation="left" nzText="Crazy Deals"></nz-divider>
+    </div>
+
+    <div class="crazy-deals-wrapper">
+        <div class="container">
+
+            <div class="crazy-deals-products">
+                <div nz-row [nzGutter]="[8,8]">
+                    <div nz-col class="gutter-row" [nzXs]="12" [nzSm]="4"
+                        *ngFor="let product of productHome?.dailyDiscover">
+                        <product-card [product]="product"></product-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

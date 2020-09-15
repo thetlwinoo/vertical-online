@@ -194,6 +194,7 @@ export const getProductHomeLoaded = createSelector(getProductHomeState, fromProd
 export const getProductHomeLoading = createSelector(getProductHomeState, fromProductHome.getLoading);
 export const getProductHome = createSelector(getProductHomeState, fromProductHome.getPayload);
 export const getProductHomeError = createSelector(getProductHomeState, fromProductHome.getError);
+export const getJustForYouCateogries = createSelector(getProductHome, payload => payload.justForYou);
 
 export const getFetchBundles = createSelector(getProductHome, payload => {
   if (payload && payload.justForYou) {

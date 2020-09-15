@@ -24,6 +24,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   productHome$: Observable<any>;
   productHome: any;
 
+  gridStyle = {
+    width: '11.11%',
+    textAlign: 'center',
+  };
+
   private unsubscribe$: Subject<any> = new Subject();
 
   constructor(private store: Store<fromProducts.State>, protected stockItemsService: StockItemsService) {
@@ -42,6 +47,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.productHome$.pipe(takeUntil(this.unsubscribe$)).subscribe(payload => {
       this.productHome = payload;
     });
+
+    this.categoriesTree$.subscribe(data => console.log(data));
   }
 
   ngOnDestroy(): void {
