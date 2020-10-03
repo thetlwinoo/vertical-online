@@ -67,7 +67,7 @@ export class ProductDetailComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(): void {
-    if (this.productObject) {
+    if (this.productObject && this.productObject.specialFeatures) {
       this.specialFeatures = JSON.parse(this.productObject.specialFeatures);
     }
   }

@@ -1,7 +1,11 @@
 <div class="gallery-wrapper" *ngIf="stockItem.photoList">
-    <div class="gallery-preview-wrapper">
-        <div class="gallery-preview" *ngIf="selectedPhoto">
-            <img [src]="blobUrl + selectedPhoto.blobId + '/original'" class="img-fluid" alt="Responsive image">
+    <div class="gallery-preview-wrapper" *ngIf="selectedPhoto">
+        <div class="pinch-zoom-wrapper">
+            <pinch-zoom [properties]="zoomOptions">
+                <div class="gallery-preview">
+                    <img [src]="blobUrl + selectedPhoto.blobId + '/original'" alt="Responsive image">
+                </div>
+            </pinch-zoom>
         </div>
     </div>
 
@@ -12,7 +16,7 @@
                     <div class="slider ml-1">
                         <img [src]="blobUrl + photo.blobId + '/thumbnail'" [attr.alt]="'alt'"
                             class="img-thumbnail rounded sub-image" (click)="selectedPhoto = photo"
-                            [class.active]="selectedPhoto?.id === photo.id">
+                            [class.active]="selectedPhoto?.blobId === photo.blobId">
                     </div>
                 </ng-template>
             </ng-container>

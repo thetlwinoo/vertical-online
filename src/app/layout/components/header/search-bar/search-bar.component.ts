@@ -1,28 +1,22 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, OnDestroy, ɵConsole } from '@angular/core';
-import { Observable, Subscription, Subject, of } from 'rxjs';
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Observable, Subject, of } from 'rxjs';
 import { filter, map, takeUntil, debounceTime, distinctUntilChanged, tap, switchMap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { ProductTagsService, ProductsService } from '@vertical/services';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { IProducts, IProductTags } from '@vertical/models';
+import { ProductsService } from '@vertical/services';
+import { HttpResponse } from '@angular/common/http';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NgbTypeaheadConfig, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
-import { select, Store } from '@ngrx/store';
-import * as fromTags from 'app/ngrx/tags/reducers';
-import { TagsActions } from 'app/ngrx/tags/actions';
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'search-bar',
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss'],
   providers: [NgbTypeaheadConfig],
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit, OnDestroy {
   @ViewChild('instance', { static: true }) instance: NgbTypeahead;
-
-  // search$: Observable<IProductTags[]>;
-  // loading$: Observable<boolean>;
-  // error$: Observable<string>;
 
   searchForm: FormGroup;
   onfocus = false;
@@ -33,55 +27,10 @@ export class SearchBarComponent implements OnInit {
   searching = false;
   searchFailed = false;
 
-  defaultKeywords: any[] = [
-    {
-      keyword: 'car sticker',
-    },
-    {
-      keyword: 'school bag',
-    },
-    {
-      keyword: 'men bag',
-    },
-    {
-      keyword: 'mini bag',
-    },
-    {
-      keyword: 'tempered glass',
-    },
-    {
-      keyword: 'winter cap',
-    },
-    {
-      keyword: 'portable fan',
-    },
-    {
-      keyword: 'baby doll',
-    },
-    {
-      keyword: 'girl dress',
-    },
-    {
-      keyword: 'wall sticker',
-    },
-    {
-      keyword: 'plus dress',
-    },
-  ];
-
   private unsubscribeAll: Subject<any>;
 
-  constructor(
-    private router: Router,
-    private productTagsService: ProductTagsService,
-    private productsService: ProductsService,
-    private formBuilder: FormBuilder,
-    private store: Store<fromTags.State>
-  ) {
+  constructor(private router: Router, private productsService: ProductsService, private formBuilder: FormBuilder) {
     this.searchForm = this.createSearchForm();
-    // this.search$ = store.pipe(select(fromTags.getSearchResults)) as Observable<IProductTags[]>;
-    // this.loading$ = store.pipe(select(fromTags.getSearchLoading));
-    // this.error$ = store.pipe(select(fromTags.getSearchError));
     this.unsubscribeAll = new Subject();
   }
 
@@ -92,10 +41,6 @@ export class SearchBarComponent implements OnInit {
       keyword: [''],
     });
   }
-
-  // search(query: string) {
-  //   this.store.dispatch(TagsActions.search({ query }));
-  // }
 
   search$ = (text$: Observable<string>) =>
     text$.pipe(
@@ -123,7 +68,6 @@ export class SearchBarComponent implements OnInit {
       return;
     }
     console.log('data.keyword', data.keyword);
-    // this.router.navigate(['/search/', data.keyword]);
     this.router.navigate(['/search'], { queryParams: { keyword: data.keyword } });
   }
 

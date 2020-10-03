@@ -1,29 +1,32 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* tslint:disable */
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {
-  BusinessEntityAddress,
-  IAddressTypes,
-  Addresses,
-  AddressTypes,
-  IPeople,
-  IZone,
-  IAddresses,
-  ICountries,
-  ICities,
-} from '@vertical/models';
+import { IAddressTypes, Addresses, IPeople, ITownships, IAddresses, IRegions, ICities, ICustomers } from '@vertical/models';
 import { JhiAlertService } from 'ng-jhipster';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subscription, Subject } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
-import { AddressTypeActions } from 'app/ngrx/checkout/actions';
+import * as fromAuth from 'app/ngrx/auth/reducers';
+import { AddressTypeActions, AddressActions } from 'app/ngrx/checkout/actions';
 
 // import * as AddressesActions from "app/store/adresses/addresses.actions";
-import { AddressesService, AddressTypesService, ZoneService, CountriesService, CitiesService } from '@vertical/services';
+import {
+  AddressesService,
+  AddressTypesService,
+  TownshipsService,
+  RegionsService,
+  CitiesService,
+  CustomersService,
+} from '@vertical/services';
 import { FormBuilder, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
+import { DATE_TIME_FORMAT } from '@vertical/constants';
+import * as moment from 'moment';
 
-type SelectableEntity = IZone | IAddressTypes | IPeople;
+type SelectableEntity = IRegions | ITownships | IAddressTypes | IPeople;
 
 @Component({
   selector: 'app-addresses-update',
@@ -32,36 +35,62 @@ type SelectableEntity = IZone | IAddressTypes | IPeople;
 })
 export class AddressesUpdateComponent implements OnInit, OnDestroy {
   addresses: any;
-  addressTypes$: Observable<IAddressTypes[]>;
   personPhone: any;
   personEmailAddress: any;
   isSaving: boolean;
   selectedAddressType: IAddressTypes;
   activatedRouteSubscription: Subscription;
-  addresstypes: IAddressTypes[];
-  zones: IZone[];
-  countries: ICountries[] = [];
+  addressTypes: IAddressTypes[];
+  customer$: Observable<ICustomers>;
+  customer: ICustomers;
+  townships: ITownships[];
+  regions: IRegions[] = [];
   cities: ICities[] = [];
+
+  get cityId(): number {
+    return this.editForm.get('cityId')?.value || null;
+  }
+
+  get city(): ICities {
+    return this.cities.find(x => x.id === this.editForm.get('cityId')?.value) || null;
+  }
+
+  get regionId(): number {
+    return this.editForm.get('regionId')?.value || null;
+  }
+
+  get region(): IRegions {
+    return this.regions.find(x => x.id === this.editForm.get('regionId')?.value) || null;
+  }
+
+  get townshipId(): number {
+    return this.editForm.get('townshipId')?.value || null;
+  }
+
+  get township(): ITownships {
+    return this.townships.find(x => x.id === this.editForm.get('townshipId')?.value) || null;
+  }
 
   editForm = this.fb.group({
     id: [],
-    contactPerson: [null, [Validators.required]],
-    contactNumber: [null, [Validators.required]],
+    contactPerson: [],
+    contactNumber: [],
     contactEmailAddress: [null, [Validators.pattern('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$')]],
     addressLine1: [null, [Validators.required]],
     addressLine2: [],
-    city: [],
     postalCode: [],
-    defaultInd: [],
-    activeInd: [],
-    countryId: [],
+    description: [],
+    validFrom: [moment(new Date(), DATE_TIME_FORMAT), [Validators.required]],
+    validTo: [],
+    regionId: [],
     cityId: [],
-    zoneId: [],
+    townshipId: [],
     addressTypeId: [],
-    personId: [],
+    customerId: [],
+    supplierId: [],
   });
 
-  selectedCountryId: number;
+  selectedRegionsId: number;
   selectedCityId: number;
 
   private unsubscribe$: Subject<any> = new Subject();
@@ -69,14 +98,17 @@ export class AddressesUpdateComponent implements OnInit, OnDestroy {
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected activatedRoute: ActivatedRoute,
-    protected zoneService: ZoneService,
-    private countriesService: CountriesService,
+    protected customersService: CustomersService,
+    protected townshipsService: TownshipsService,
+    protected regionsService: RegionsService,
     private citiesService: CitiesService,
     private addressesService: AddressesService,
     private addressTypesService: AddressTypesService,
     private store: Store<fromCheckout.State>,
+    private authStore: Store<fromAuth.State>,
     private fb: FormBuilder
   ) {
+    this.customer$ = authStore.pipe(select(fromAuth.getCustomerFetched));
     // this.addressTypes$ = store.pipe(select(fromCheckout.getAddressTypeFetched));
   }
 
@@ -85,34 +117,46 @@ export class AddressesUpdateComponent implements OnInit, OnDestroy {
     this.isSaving = false;
     this.activatedRouteSubscription = this.activatedRoute.data.subscribe(({ addresses }) => {
       this.addresses = addresses;
+
+      if (!this.addresses.id) {
+        const today = moment().startOf('day');
+        this.addresses.validFrom = today;
+        this.addresses.validTo = today;
+      }
+
       this.updateForm(addresses);
+
+      this.regionsService
+        .query()
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((res: HttpResponse<IRegions[]>) => {
+          this.regions = res.body || [];
+        });
+
+      this.citiesService
+        .query()
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((res: HttpResponse<ICities[]>) => (this.cities = res.body || []));
+
+      this.townshipsService
+        .query()
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((res: HttpResponse<ITownships[]>) => (this.townships = res.body || []));
+
+      this.addressTypesService
+        .query()
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((res: HttpResponse<IAddressTypes[]>) => (this.addressTypes = res.body || []));
     });
 
-    this.countriesService
-      .query()
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((res: HttpResponse<ICountries[]>) => {
-        this.countries = res.body || [];
-        this.selectedCountryId = res.body.filter(country => country.name === 'Myanmar')[0].id;
+    this.customer$.pipe(takeUntil(this.unsubscribe$)).subscribe(item => {
+      this.customer = item;
 
-        this.editForm.patchValue({ countryId: this.selectedCountryId });
-      });
-
-    this.citiesService
-      .query()
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((res: HttpResponse<ICities[]>) => (this.cities = res.body || []));
-
-    this.zoneService.query().subscribe((res: HttpResponse<IZone[]>) => {
-      this.zones = res.body || [];
-
-      if (this.addresses.zoneId) {
-        this.selectedCityId = res.body.filter(zone => zone.id === this.addresses.zoneId)[0].cityId;
-        this.editForm.patchValue({ cityId: this.selectedCityId });
+      if (this.customer) {
+        this.store.dispatch(AddressActions.fetchAddresses({ query: { 'customerId.equals': this.customer.id } }));
+        this.editForm.patchValue({ customerId: this.customer.id });
       }
     });
-
-    this.addressTypesService.query().subscribe((res: HttpResponse<IAddressTypes[]>) => (this.addresstypes = res.body || []));
   }
 
   updateForm(addresses: IAddresses): void {
@@ -123,20 +167,27 @@ export class AddressesUpdateComponent implements OnInit, OnDestroy {
       contactEmailAddress: addresses.contactEmailAddress,
       addressLine1: addresses.addressLine1,
       addressLine2: addresses.addressLine2,
-      city: addresses.city,
       postalCode: addresses.postalCode,
-      defaultInd: addresses.id === undefined ? true : addresses.defaultInd,
-      activeInd: true,
-      countryId: null,
-      cityId: null,
-      zoneId: addresses.zoneId,
+      description: addresses.description,
+      validFrom: addresses.validFrom ? addresses.validFrom.format(DATE_TIME_FORMAT) : null,
+      validTo: addresses.validTo ? addresses.validTo.format(DATE_TIME_FORMAT) : null,
+      regionId: addresses.regionId,
+      cityId: addresses.cityId,
+      townshipId: addresses.townshipId,
       addressTypeId: addresses.addressTypeId,
-      personId: addresses.personId,
+      customerId: addresses.customerId,
+      supplierId: addresses.supplierId,
     });
+  }
 
-    if (addresses.id === undefined) {
-      this.editForm.get('defaultInd').disable();
-    }
+  selectCity(cityId: number): void {
+    this.townshipsService
+      .query({ 'cityId.equals': cityId })
+      .subscribe((res: HttpResponse<ITownships[]>) => (this.townships = res.body || []));
+  }
+
+  selectRegion(regionId: number): void {
+    this.citiesService.query({ 'regionId.equals': regionId }).subscribe((res: HttpResponse<ICities[]>) => (this.cities = res.body || []));
   }
 
   previousState(): void {
@@ -145,12 +196,18 @@ export class AddressesUpdateComponent implements OnInit, OnDestroy {
 
   save(): void {
     this.isSaving = true;
-    const addresses = this.createFromForm();
 
-    if (addresses.id !== undefined) {
-      this.subscribeToSaveResponse(this.addressesService.update(addresses, true));
+    for (const i in this.editForm.controls) {
+      this.editForm.controls[i].markAsDirty();
+      this.editForm.controls[i].updateValueAndValidity();
+    }
+
+    const saveAddresses = this.createFromForm();
+
+    if (saveAddresses.id !== undefined) {
+      this.subscribeToSaveResponse(this.addressesService.updateExtend(saveAddresses, true));
     } else {
-      this.subscribeToSaveResponse(this.addressesService.create(addresses, true));
+      this.subscribeToSaveResponse(this.addressesService.createExtend(saveAddresses, true));
     }
   }
 
@@ -187,32 +244,22 @@ export class AddressesUpdateComponent implements OnInit, OnDestroy {
   private createFromForm(): IAddresses {
     return {
       ...new Addresses(),
-      // tslint:disable-next-line: no-non-null-assertion
       id: this.editForm.get(['id'])!.value,
-      // tslint:disable-next-line: no-non-null-assertion
       contactPerson: this.editForm.get(['contactPerson'])!.value,
-      // tslint:disable-next-line: no-non-null-assertion
       contactNumber: this.editForm.get(['contactNumber'])!.value,
-      // tslint:disable-next-line: no-non-null-assertion
       contactEmailAddress: this.editForm.get(['contactEmailAddress'])!.value,
-      // tslint:disable-next-line: no-non-null-assertion
       addressLine1: this.editForm.get(['addressLine1'])!.value,
-      // tslint:disable-next-line: no-non-null-assertion
       addressLine2: this.editForm.get(['addressLine2'])!.value,
-      // tslint:disable-next-line: no-non-null-assertion
-      city: this.editForm.get(['city'])!.value,
-      // tslint:disable-next-line: no-non-null-assertion
       postalCode: this.editForm.get(['postalCode'])!.value,
-      // tslint:disable-next-line: no-non-null-assertion
-      defaultInd: this.editForm.get(['defaultInd'])!.value,
-      // tslint:disable-next-line: no-non-null-assertion
-      activeInd: this.editForm.get(['activeInd'])!.value,
-      // tslint:disable-next-line: no-non-null-assertion
-      zoneId: this.editForm.get(['zoneId'])!.value,
-      // tslint:disable-next-line: no-non-null-assertion
+      description: this.editForm.get(['description'])!.value,
+      validFrom: this.editForm.get(['validFrom'])!.value ? moment(this.editForm.get(['validFrom'])!.value, DATE_TIME_FORMAT) : undefined,
+      validTo: this.editForm.get(['validTo'])!.value ? moment(this.editForm.get(['validTo'])!.value, DATE_TIME_FORMAT) : undefined,
+      regionId: this.editForm.get(['regionId'])!.value,
+      cityId: this.editForm.get(['cityId'])!.value,
+      townshipId: this.editForm.get(['townshipId'])!.value,
       addressTypeId: this.editForm.get(['addressTypeId'])!.value,
-      // tslint:disable-next-line: no-non-null-assertion
-      personId: this.editForm.get(['personId'])!.value,
+      customerId: this.editForm.get(['customerId'])!.value,
+      supplierId: this.editForm.get(['supplierId'])!.value,
     };
   }
 }

@@ -30,5 +30,6 @@ const routes = [
   imports: [CommonModule, RouterModule.forChild(routes), RootSharedModule, PartialsModule],
   declarations: [...COMPONENTS],
   exports: [RouterModule],
+  providers: [],
 })
 export class CategoriesModule {}

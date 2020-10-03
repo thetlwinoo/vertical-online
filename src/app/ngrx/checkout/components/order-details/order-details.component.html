@@ -34,7 +34,9 @@
                                                             </ng-template>
                                                         </nz-list-item-meta-avatar>
                                                         <nz-list-item-meta-title>
-                                                            <div>{{shipMethod.shippingFee |currency}}</div>
+                                                            <div>
+                                                                {{shipMethod.shippingFee |currency:'Ks' : 'symbol' : '1.0-0'}}
+                                                            </div>
                                                             <div>{{shipMethod.deliveryMethodName}}</div>
                                                         </nz-list-item-meta-title>
                                                         <nz-list-item-meta-description>
@@ -67,7 +69,8 @@
                                             <nz-list-item-meta-description>
                                                 <div class="cart-price">
                                                     <span class="price-label">Price : </span>
-                                                    <span class="item-price">{{ item.unitPrice | currency }}</span>
+                                                    <span
+                                                        class="item-price">{{ item.unitPrice | currency:'Ks' : 'symbol' : '1.0-0' }}</span>
                                                 </div>
 
                                                 <div class="cart-controller">
@@ -109,7 +112,7 @@
                                                 {{deliveryAddress?.addressLine2}}</span>
                                         </nz-space-item>
                                         <nz-space-item>
-                                            <span>{{deliveryAddress?.city}}</span>
+                                            <span>{{deliveryAddress?.cityName}}</span>
                                         </nz-space-item>
                                     </nz-space>
                                 </nz-list-item-meta-description>
@@ -141,7 +144,7 @@
                                                 {{billingAddress?.addressLine2}}</span>
                                         </nz-space-item>
                                         <nz-space-item>
-                                            <span>{{billingAddress?.city}}</span>
+                                            <span>{{billingAddress?.cityName}}</span>
                                         </nz-space-item>
                                     </nz-space>
                                 </nz-list-item-meta-description>
@@ -217,7 +220,7 @@
                                 </nz-list-item-meta-title>
                             </nz-list-item-meta>
                             <nz-list-item-extra>
-                                <span class="price">{{ cartPrice | currency }}</span>
+                                <span class="price">{{ cartPrice | currency:'Ks' : 'symbol' : '1.0-0' }}</span>
                             </nz-list-item-extra>
                         </nz-list-item>
                         <nz-list-item>
@@ -227,7 +230,8 @@
                                 </nz-list-item-meta-title>
                             </nz-list-item-meta>
                             <nz-list-item-extra>
-                                <span class="price">{{ shoppingCart.cart?.totalShippingFee | currency }}</span>
+                                <span
+                                    class="price">{{ shoppingCart.cart?.totalShippingFee | currency:'Ks' : 'symbol' : '1.0-0' }}</span>
                             </nz-list-item-extra>
                         </nz-list-item>
                         <nz-list-item *ngIf="shoppingCart.specialDeals">
@@ -247,7 +251,8 @@
                                 </nz-list-item-meta-title>
                             </nz-list-item-meta>
                             <nz-list-item-extra>
-                                <span class="price total-price">{{ shoppingCart.cart?.totalPrice | currency }}</span>
+                                <span
+                                    class="price total-price">{{ shoppingCart.cart?.totalPrice | currency:'Ks' : 'symbol' : '1.0-0' }}</span>
                             </nz-list-item-extra>
                         </nz-list-item>
                         <nz-list-item>

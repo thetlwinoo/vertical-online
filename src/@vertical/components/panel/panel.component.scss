@@ -39,6 +39,10 @@ $panel-cell-padding: 8px;
         align-items: center;
         justify-content: center;
       }
+
+      a.ant-btn {
+        padding: 0 !important;
+      }
     }
   }
   &__bd {

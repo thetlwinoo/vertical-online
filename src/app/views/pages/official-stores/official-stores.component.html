@@ -1,18 +1,15 @@
-<!-- <div class="store-carousel">
-    <div class="container">
-
-    </div>
-</div> -->
 <div class="store-header-wrapper">
     <div class="container">
 
         <nz-carousel [nzEffect]="'fade'" [nzAutoPlay]="true">
-            <div nz-carousel-content *ngFor="let banner of carousel.slides">
-                <div class="carousel-wrapper" [ngStyle]="banner.style"></div>
+            <div nz-carousel-content *ngFor="let banner of slides?.children">
+                <div class="carousel-wrapper" [style.backgroundImage]="'url(' + blobUrl + banner.url + '/original)'">
+                </div>
             </div>
         </nz-carousel>
 
         <div class="store-header">
+            <img src="assets/icons/home-icons/online_store.svg">
             <h1 nz-typography nzType="warning">Official Stores</h1>
             <span nz-typography nzType="secondary">Discover Shops</span>
         </div>
@@ -53,7 +50,8 @@
             <nz-divider nzOrientation="left" nzText="Stores You'll Love"></nz-divider>
 
             <div nz-row [nzGutter]="[16,16]">
-                <div nz-col class="gutter-row" [nzXs]="24" [nzSm]="8" *ngFor="let store of productHome?.officialStores">
+                <div nz-col class="gutter-row" [nzXs]="24" [nzSm]="8"
+                    *ngFor="let store of officialStoresPage?.officialStores">
                     <official-store [supplier]="store"></official-store>
                 </div>
 
@@ -65,7 +63,7 @@
 
             <div nz-row [nzGutter]="[8,8]">
                 <div nz-col class="gutter-row" [nzXs]="12" [nzSm]="4"
-                    *ngFor="let product of productHome?.dailyDiscover">
+                    *ngFor="let product of officialStoresPage?.justForYou">
                     <product-card [product]="product"></product-card>
                 </div>
 

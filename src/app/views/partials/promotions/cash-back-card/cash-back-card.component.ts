@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as moment from 'moment';
 
 @Component({
@@ -7,6 +7,8 @@ import * as moment from 'moment';
   styleUrls: ['./cash-back-card.component.scss'],
 })
 export class CashBackCardComponent implements OnInit {
+  @Input() cashback: any;
+
   percentage = 20;
   minSpend = 5000;
   couponCode = 'APP123';

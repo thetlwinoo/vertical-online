@@ -42,7 +42,7 @@ export class OfficialStoreComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   getProductPhoto(index: number): string {
-    return this.supplier.supplierProducts[index].product_details.stockItemLists[0].thumbnailPhoto;
+    return this.supplier.supplierProducts[index].productDetails.stockItemLists[0].thumbnailPhoto;
   }
   ngOnDestroy(): void {}
 }

@@ -3,10 +3,10 @@ import { banner2 } from '@vertical/config/owl-carousel';
 import { rootAnimations } from '@vertical/animations';
 import { Subject, Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import * as fromProducts from 'app/ngrx/products/reducers';
+import * as fromWebSitemap from 'app/ngrx/web-sitemap/reducers';
 import { SERVER_API_URL } from '@vertical/constants';
 import { takeUntil } from 'rxjs/operators';
-import { ProductHomeActions } from 'app/ngrx/products/actions';
+import { CollectVoucherPageActions } from 'app/ngrx/web-sitemap/actions';
 
 @Component({
   selector: 'app-collect-voucher',
@@ -19,25 +19,30 @@ export class CollectVoucherComponent implements OnInit, OnDestroy {
   carousel: any;
   vouchers = [];
   bundles$: Observable<any[]>;
-  productHome$: Observable<any>;
-  productHome: any;
+  collectVoucherPage$: Observable<any>;
+  collectVoucherPage: any;
+  slides: any;
   error$: Observable<string>;
 
   private unsubscribe$: Subject<any> = new Subject();
 
-  constructor(private store: Store<fromProducts.State>) {
+  constructor(private store: Store<fromWebSitemap.State>) {
     this.carousel = banner2;
-    this.bundles$ = store.pipe(select(fromProducts.getJustForYouCateogries));
-    this.productHome$ = store.pipe(select(fromProducts.getProductHome));
-    this.error$ = store.pipe(takeUntil(this.unsubscribe$), select(fromProducts.getProductHomeError));
+    this.bundles$ = store.pipe(select(fromWebSitemap.getCollectVoucherCateogries));
+    this.collectVoucherPage$ = store.pipe(select(fromWebSitemap.getCollectVoucherPage));
+    this.error$ = store.pipe(takeUntil(this.unsubscribe$), select(fromWebSitemap.getCollectVoucherPageError));
   }
 
   ngOnInit(): void {
-    this.store.dispatch(ProductHomeActions.fetchProductsHome());
+    this.store.dispatch(CollectVoucherPageActions.fetchCollectVoucherPage());
 
-    this.productHome$.pipe(takeUntil(this.unsubscribe$)).subscribe(payload => {
-      this.productHome = payload;
-      console.log('payload', payload);
+    this.collectVoucherPage$.pipe(takeUntil(this.unsubscribe$)).subscribe(payload => {
+      this.collectVoucherPage = payload;
+      console.log('collect', payload);
+
+      if (payload && payload.contents) {
+        this.slides = payload.contents.find(x => x.webImageTypeHandle === 'main-banner-full-wide');
+      }
     });
 
     for (let i = 0; i < 20; i++) {

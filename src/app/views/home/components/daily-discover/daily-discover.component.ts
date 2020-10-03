@@ -7,7 +7,7 @@ import { rootAnimations } from '@vertical/animations';
   selector: 'daily-discover',
   templateUrl: './daily-discover.component.html',
   styleUrls: ['./daily-discover.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  // encapsulation: ViewEncapsulation.None,
   animations: rootAnimations,
 })
 export class DailyDiscoverComponent {

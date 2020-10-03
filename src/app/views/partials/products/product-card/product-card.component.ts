@@ -40,8 +40,8 @@ export class ProductCardComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   getPercentage(stockItem: IStockItems): number {
-    const decrease = stockItem.recommendedRetailPrice - stockItem.unitPrice;
-    const percentage = Math.round((decrease / stockItem.recommendedRetailPrice) * 100);
+    const decrease = stockItem.unitPrice - stockItem.recommendedRetailPrice;
+    const percentage = Math.round((decrease / stockItem.unitPrice) * 100);
 
     return percentage;
   }

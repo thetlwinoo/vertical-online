@@ -23,21 +23,21 @@ export const banner = {
   },
   slides: [
     {
-      style: { 'background-image': 'url(\'assets/devita/img/slider/slider-3.jpg\')' },
+      style: { 'background-image': "url('assets/devita/img/slider/slider-3.jpg')" },
       image: 'assets/devita/img/slider/slider-3.jpg',
       description:
         '<h5 class="animated">Exclusive Offer -20% Off This Week</h5><h2 class="animated">Top Bestselling <br>Apple Watch Edition</h2><h3 class="animated"><span>Starting at </span> $120.99</h3><div class="slider-btn slider-btn-2 mt-70"><a class="animated" href="product-details.html">shopping Now</a></div>',
     },
     {
       transition: 'zoomInRight',
-      style: { 'background-image': 'url(\'assets/devita/img/slider/slider-4.jpg\')' },
+      style: { 'background-image': "url('assets/devita/img/slider/slider-4.jpg')" },
       image: 'assets/devita/img/slider/slider-4.jpg',
       description:
         '<h5 class="animated">Exclusive Offer -20% Off This Week</h5><h2 class="animated">Work Desk 2018 <br>Microsoft Surface Studio</h2><h3 class="animated"><span>Starting at </span> $619.00</h3><div class="slider-btn slider-btn-2" mt-70><a class="animated" href="product-details.html">shopping Now</a></div>',
     },
     {
       transition: 'bounceInLeft',
-      style: { 'background-image': 'url(\'assets/devita/img/slider/slider-5.jpg\')' },
+      style: { 'background-image': "url('assets/devita/img/slider/slider-5.jpg')" },
       image: 'assets/devita/img/slider/slider-5.jpg',
       description:
         '<h5 class="animated">Exclusive Offer -10% Off This Week</h5><h2 class="animated">AKG Headphone <br>White Bluetooth 2018</h2><h3 class="animated"><span>Starting at </span> $149.99</h3><div class="slider-btn slider-btn-2 mt-70"><a class="animated" href="product-details.html">shopping Now</a></div>',
@@ -70,37 +70,37 @@ export const banner2 = {
   },
   slides: [
     {
-      style: { 'background-image': 'url(\'assets/images/home/slider-banner/banner/banner01.jpg\')' },
+      style: { 'background-image': "url('assets/images/home/slider-banner/banner/banner01.jpg')" },
       image: 'assets/images/home/slider-banner/banner/banner01.jpg',
       description:
         '<h5 class="animated">Exclusive Offer -20% Off This Week</h5><h2 class="animated">Top Bestselling <br>Apple Watch Edition</h2><h3 class="animated"><span>Starting at </span> $120.99</h3><div class="slider-btn slider-btn-2 mt-70"><a class="animated" href="product-details.html">shopping Now</a></div>',
     },
     {
-      style: { 'background-image': 'url(\'assets/images/home/slider-banner/banner/banner02.jpg\')' },
+      style: { 'background-image': "url('assets/images/home/slider-banner/banner/banner02.jpg')" },
       image: 'assets/images/home/slider-banner/banner/banner01.jpg',
       description:
         '<h5 class="animated">Exclusive Offer -20% Off This Week</h5><h2 class="animated">Top Bestselling <br>Apple Watch Edition</h2><h3 class="animated"><span>Starting at </span> $120.99</h3><div class="slider-btn slider-btn-2 mt-70"><a class="animated" href="product-details.html">shopping Now</a></div>',
     },
     {
-      style: { 'background-image': 'url(\'assets/images/home/slider-banner/banner/banner03.jpg\')' },
+      style: { 'background-image': "url('assets/images/home/slider-banner/banner/banner03.jpg')" },
       image: 'assets/images/home/slider-banner/banner/banner01.jpg',
       description:
         '<h5 class="animated">Exclusive Offer -20% Off This Week</h5><h2 class="animated">Top Bestselling <br>Apple Watch Edition</h2><h3 class="animated"><span>Starting at </span> $120.99</h3><div class="slider-btn slider-btn-2 mt-70"><a class="animated" href="product-details.html">shopping Now</a></div>',
     },
     {
-      style: { 'background-image': 'url(\'assets/images/home/slider-banner/banner/banner04.jpg\')' },
+      style: { 'background-image': "url('assets/images/home/slider-banner/banner/banner04.jpg')" },
       image: 'assets/images/home/slider-banner/banner/banner01.jpg',
       description:
         '<h5 class="animated">Exclusive Offer -20% Off This Week</h5><h2 class="animated">Top Bestselling <br>Apple Watch Edition</h2><h3 class="animated"><span>Starting at </span> $120.99</h3><div class="slider-btn slider-btn-2 mt-70"><a class="animated" href="product-details.html">shopping Now</a></div>',
     },
     {
-      style: { 'background-image': 'url(\'assets/images/home/slider-banner/banner/banner05.jpg\')' },
+      style: { 'background-image': "url('assets/images/home/slider-banner/banner/banner05.jpg')" },
       image: 'assets/images/home/slider-banner/banner/banner01.jpg',
       description:
         '<h5 class="animated">Exclusive Offer -20% Off This Week</h5><h2 class="animated">Top Bestselling <br>Apple Watch Edition</h2><h3 class="animated"><span>Starting at </span> $120.99</h3><div class="slider-btn slider-btn-2 mt-70"><a class="animated" href="product-details.html">shopping Now</a></div>',
     },
     {
-      style: { 'background-image': 'url(\'assets/images/home/slider-banner/banner/banner06.jpg\')' },
+      style: { 'background-image': "url('assets/images/home/slider-banner/banner/banner06.jpg')" },
       image: 'assets/images/home/slider-banner/banner/banner01.jpg',
       description:
         '<h5 class="animated">Exclusive Offer -20% Off This Week</h5><h2 class="animated">Top Bestselling <br>Apple Watch Edition</h2><h3 class="animated"><span>Starting at </span> $120.99</h3><div class="slider-btn slider-btn-2 mt-70"><a class="animated" href="product-details.html">shopping Now</a></div>',

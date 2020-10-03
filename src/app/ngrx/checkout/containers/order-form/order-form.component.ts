@@ -1,8 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Subscription, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { IShoppingCarts, IAddresses, IOrders, IPeople, ICustomers, ChangeDeliveryMethodProps, ChangedAddToOrderProps } from '@vertical/models';
+import {
+  IShoppingCarts,
+  IAddresses,
+  IOrders,
+  IPeople,
+  ICustomers,
+  ChangeDeliveryMethodProps,
+  ChangedAddToOrderProps,
+} from '@vertical/models';
 import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import * as fromAuth from 'app/ngrx/auth/reducers';
 import { AddressActions, OrderActions, CartActions } from 'app/ngrx/checkout/actions';

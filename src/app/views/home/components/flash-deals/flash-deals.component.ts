@@ -63,8 +63,6 @@ export class FlashDealsComponent implements OnInit, OnDestroy {
     });
   }
 
-  seeAll(): void {}
-
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();

@@ -15,7 +15,7 @@ export class AddressEffects {
     this.actions$.pipe(
       ofType(AddressActions.fetchAddresses),
       switchMap(({ query }) =>
-        this.addressesService.fetch(query).pipe(
+        this.addressesService.query(query).pipe(
           filter((res: HttpResponse<IAddresses[]>) => res.ok),
           map((res: HttpResponse<IAddresses[]>) => AddressActions.fetchAddressesSuccess({ addresses: res.body })),
           // tap(payload => {
@@ -33,12 +33,12 @@ export class AddressEffects {
     this.actions$.pipe(
       ofType(AddressActions.createAddress),
       mergeMap(({ address, isShipping }) =>
-        this.addressesService.create(address, isShipping).pipe(
+        this.addressesService.createExtend(address, isShipping).pipe(
           filter((res: HttpResponse<IAddresses>) => res.ok),
           switchMap((res: HttpResponse<IAddresses>) => [
             AddressActions.createAddressSuccess({ address: res.body }),
-            AddressActions.fetchAddresses({ query: { 'personId.equals': res.body.personId } }),
-            CustomerActions.fetchCustomer({ query: { 'peopleId.equals': res.body.personId } }),
+            AddressActions.fetchAddresses({ query: { 'customerId.equals': res.body.customerId } }),
+            CustomerActions.fetchCustomer({ query: { 'id.equals': res.body.customerId } }),
           ]),
           catchError(err => of(AddressActions.addressError({ errorMsg: err.message })))
         )
@@ -50,11 +50,11 @@ export class AddressEffects {
     this.actions$.pipe(
       ofType(AddressActions.updateAddress),
       mergeMap(({ address, isShipping }) =>
-        this.addressesService.update(address, isShipping).pipe(
+        this.addressesService.updateExtend(address, isShipping).pipe(
           filter((res: HttpResponse<IAddresses>) => res.ok),
           switchMap((res: HttpResponse<IAddresses>) => [
             AddressActions.updateAddressSuccess({ address: res.body }),
-            AddressActions.fetchAddresses({ query: { 'personId.equals': res.body.personId } }),
+            AddressActions.fetchAddresses({ query: { 'customerId.equals': res.body.customerId } }),
           ]),
           catchError(err => of(AddressActions.addressError({ errorMsg: err.message })))
         )
@@ -70,7 +70,7 @@ export class AddressEffects {
           filter((res: HttpResponse<IAddresses>) => res.ok),
           switchMap((res: HttpResponse<IAddresses>) => [
             AddressActions.removeAddressSuccess({ address: res.body }),
-            AddressActions.fetchAddresses({ query: { 'personId.equals': res.body.personId } }),
+            AddressActions.fetchAddresses({ query: { 'customerId.equals': res.body.customerId } }),
           ]),
           catchError(err => of(AddressActions.addressError({ errorMsg: err.message })))
         )
@@ -78,22 +78,22 @@ export class AddressEffects {
     )
   );
 
-  setDefault$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AddressActions.setDefault),
-      mergeMap(({ props }) =>
-        this.addressesService.setDefault(props).pipe(
-          filter((res: HttpResponse<IAddresses>) => res.ok),
-          switchMap((res: HttpResponse<IAddresses>) => [
-            AddressActions.setDefaultSuccess({ address: res.body }),
-            AddressActions.fetchAddresses({ query: { 'personId.equals': res.body.personId } }),
-            CustomerActions.fetchCustomer({ query: { 'personId.equals': res.body.personId } }),
-          ]),
-          catchError(err => of(AddressActions.addressError({ errorMsg: err.message })))
-        )
-      )
-    )
-  );
+  // setDefault$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(AddressActions.setDefault),
+  //     mergeMap(({ props }) =>
+  //       this.addressesService.setDefault(props).pipe(
+  //         filter((res: HttpResponse<IAddresses>) => res.ok),
+  //         switchMap((res: HttpResponse<IAddresses>) => [
+  //           AddressActions.setDefaultSuccess({ address: res.body }),
+  //           AddressActions.fetchAddresses({ query: { 'customerId.equals': res.body.customerId } }),
+  //           CustomerActions.fetchCustomer({ query: { 'customerId.equals': res.body.customerId } }),
+  //         ]),
+  //         catchError(err => of(AddressActions.addressError({ errorMsg: err.message })))
+  //       )
+  //     )
+  //   )
+  // );
 
   constructor(
     private actions$: Actions,

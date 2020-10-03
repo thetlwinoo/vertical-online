@@ -12,7 +12,6 @@ import {
   WishlistEffects,
   FetchEffects,
   QuestionEffects,
-  ProductHomeEffects,
 } from 'app/ngrx/products/effects';
 import * as fromProducts from 'app/ngrx/products/reducers';
 import { ViewProductPageComponent } from './containers/view-product-page/view-product-page.component';
@@ -34,6 +33,8 @@ export const COMPONENTS = [
 
 export const CONTAINERS = [SelectedProductPageComponent, ViewProductPageComponent];
 
+export const EFFECTS = [ProductEffects, ProductDetailsEffects, FetchEffects, CompareEffects, WishlistEffects, QuestionEffects];
+
 @NgModule({
   imports: [
     RootSharedModule,
@@ -41,15 +42,7 @@ export const CONTAINERS = [SelectedProductPageComponent, ViewProductPageComponen
     ProductsRoutingModule,
     StoreModule.forFeature(fromProducts.productsFeatureKey, fromProducts.reducers),
 
-    EffectsModule.forFeature([
-      ProductEffects,
-      ProductDetailsEffects,
-      FetchEffects,
-      CompareEffects,
-      WishlistEffects,
-      QuestionEffects,
-      ProductHomeEffects,
-    ]),
+    EffectsModule.forFeature([...EFFECTS]),
     CarouselModule,
   ],
   declarations: [...COMPONENTS, ...CONTAINERS],

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { rootAnimations } from '@vertical/animations';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { Subject } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
   animations: rootAnimations,
 })
-export class TermsAndConditionsComponent implements OnInit {
+export class TermsAndConditionsComponent implements OnInit, OnDestroy {
   pageTitle: string = null;
   private unsubscribe$: Subject<any> = new Subject();
 
@@ -21,5 +21,10 @@ export class TermsAndConditionsComponent implements OnInit {
     this.activatedRoute.data.pipe(takeUntil(this.unsubscribe$)).subscribe(data => {
       this.pageTitle = data.pageTitle;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

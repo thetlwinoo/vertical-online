@@ -66,7 +66,8 @@
                             <nz-list>
                                 <nz-list-item>
                                     <span class="price">Total</span>
-                                    <span class="price total-price">{{orders.totalDue | currency }}</span>
+                                    <span
+                                        class="price total-price">{{orders.totalDue | currency:'Ks' : 'symbol' : '1.0-0' }}</span>
                                 </nz-list-item>
                             </nz-list>
                         </div>

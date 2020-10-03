@@ -1,7 +1,15 @@
 /* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/camelcase */
 import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation, OnDestroy, ViewContainerRef } from '@angular/core';
-import { AddToCartProps, ReduceFromCartProps, ChangedAddToOrderProps, ChangedOrderAllProps, IPeople, IAddresses } from '@vertical/models';
+import {
+  AddToCartProps,
+  ReduceFromCartProps,
+  ChangedAddToOrderProps,
+  ChangedOrderAllProps,
+  IPeople,
+  IAddresses,
+  Addresses,
+} from '@vertical/models';
 import { SERVER_API_URL } from '@vertical/constants';
 import { NzMessageService } from 'ng-zorro-antd/message';
 // eslint-disable-next-line camelcase
@@ -13,8 +21,8 @@ import * as fromCheckout from 'app/ngrx/checkout/reducers';
 import { AddressActions } from 'app/ngrx/checkout/actions';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { VSAddressesUpdateComponent } from '@vertical/components/addresses-update/addresses-update.component';
-import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { VSAddressesUpdateComponent } from 'app/views/partials/addresses';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'cart-details',
@@ -146,6 +154,7 @@ export class CartDetailsComponent implements OnInit, OnDestroy {
       nzViewContainerRef: this.viewContainerRef,
       // nzGetContainer: () => document.body,
       nzComponentParams: {
+        addresses: new Addresses(),
         title: 'Shipping Address',
         subtitle: 'Address List',
         isShipping: true,

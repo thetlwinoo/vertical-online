@@ -1,5 +1,6 @@
 <div class="home-banner-wrapper">
-    <slider-banner [categories]="categoriesTree$ | async" [loading]="categoriesTreeLoading$ | async"></slider-banner>
+    <slider-banner [categories]="categoriesTree$ | async" [loading]="categoriesTreeLoading$ | async"
+        [contents]="homePage?.contents"></slider-banner>
 </div>
 
 <div class="container">
@@ -9,7 +10,7 @@
     </section>
 
     <section>
-        <sub-banner></sub-banner>
+        <sub-banner [contents]="homePage?.contents"></sub-banner>
     </section>
 
     <section>
@@ -17,31 +18,31 @@
     </section>
 
     <section>
-        <flash-deals eventDate="2020-01-01" [data]="productHome?.flashDeals" [loading]="loading$ | async"
+        <flash-deals eventDate="2020-01-01" [data]="homePage?.flashDeals" [loading]="loading$ | async"
             [error]="error$ | async"></flash-deals>
     </section>
 
     <section>
-        <official-stores [data]="productHome?.officialStores" [loading]="loading$ | async" [error]="error$ | async">
+        <official-stores [data]="homePage?.officialStores" [loading]="loading$ | async" [error]="error$ | async">
         </official-stores>
     </section>
 
     <section>
-        <brand-zone [data]="productHome?.productBrands"></brand-zone>
+        <brand-zone [data]="homePage?.productBrands"></brand-zone>
     </section>
 
     <section>
-        <most-popular [data]="productHome?.popularProducts" [loading]="loading$ | async" [error]="error$ | async">
+        <most-popular [data]="homePage?.popularProducts" [loading]="loading$ | async" [error]="error$ | async">
         </most-popular>
     </section>
 
     <section>
-        <newly-added [data]="productHome?.newlyAdded" [loading]="loading$ | async" [error]="error$ | async">
+        <newly-added [data]="homePage?.newlyAdded" [loading]="loading$ | async" [error]="error$ | async">
         </newly-added>
     </section>
 
     <section>
-        <daily-discover [data]="productHome?.dailyDiscover" [loading]="loading$ | async" [error]="error$ | async">
+        <daily-discover [data]="homePage?.dailyDiscover" [loading]="loading$ | async" [error]="error$ | async">
         </daily-discover>
     </section>
 

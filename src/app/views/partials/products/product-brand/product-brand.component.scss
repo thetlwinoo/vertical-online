@@ -11,6 +11,7 @@
     border-radius: 8px;
     height: 120px;
     padding: 5px;
+    background: rgba(0, 0, 0, 0.01);
 
     .card-title {
       text-align: left !important;
@@ -87,8 +88,9 @@
       }
 
       .discount-percentage {
-        margin-left: 0.5em;
-        font-size: 0.8rem;
+        margin-left: 0.2em;
+        font-size: 0.9rem;
+        font-weight: 500;
         color: #212121;
       }
     }

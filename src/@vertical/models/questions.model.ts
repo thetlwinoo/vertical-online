@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import * as moment from 'moment';
 
 export interface IQuestions {
   id?: number;
@@ -6,7 +7,8 @@ export interface IQuestions {
   customerQuestionOn?: Moment;
   supplierAnswer?: any;
   supplierAnswerOn?: Moment;
-  activeInd?: boolean;
+  validFrom?: Moment;
+  validTo?: Moment;
   supplierName?: string;
   supplierId?: number;
   personFullName?: string;
@@ -22,7 +24,8 @@ export class Questions implements IQuestions {
     public customerQuestionOn?: Moment,
     public supplierAnswer?: any,
     public supplierAnswerOn?: Moment,
-    public activeInd?: boolean,
+    public validFrom?: Moment,
+    public validTo?: Moment,
     public supplierName?: string,
     public supplierId?: number,
     public personFullName?: string,
@@ -30,6 +33,6 @@ export class Questions implements IQuestions {
     public productName?: string,
     public productId?: number
   ) {
-    this.activeInd = this.activeInd || false;
+    this.validFrom = this.validFrom || moment();
   }
 }

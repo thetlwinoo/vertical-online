@@ -60,6 +60,12 @@ ngb-typeahead-window {
   margin-top: 0.3rem !important;
 }
 
+.dropdown-item.active,
+.dropdown-item:active {
+  color: #16181b;
+  background-color: #f0f2f5;
+}
+
 input:-internal-autofill-selected {
   background-color: none !important;
 }

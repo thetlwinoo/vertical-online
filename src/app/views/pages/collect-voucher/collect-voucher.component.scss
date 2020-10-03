@@ -34,7 +34,9 @@
       }
 
       nz-carousel {
-        padding: 1.5em 0;
+        @include media-breakpoint('gt-sm') {
+          padding: 1.5em 0 0 0;
+        }
       }
     }
 
@@ -59,18 +61,28 @@
             min-width: auto;
           }
         }
-
-        // .search-label {
-        //   span {
-        //     color: #ffffff;
-        //   }
-        // }
       }
     }
 
-    // .voucher-body-wrapper {
-    //     background: #ff4438;
-    // }
+    nz-divider {
+      color: #faad14;
+      font-size: 30px;
+    }
+
+    .crazy-deals-wrapper {
+      .load-more-wrapper {
+        padding-top: 8px;
+        width: 100%;
+
+        .load-more {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 10px 0px;
+          // background: #ffffff;
+        }
+      }
+    }
   }
 }
 
@@ -78,7 +90,7 @@
   text-align: center;
   height: 250px;
   line-height: 250px;
-  background: #364d79;
+  // background: #364d79;
   color: #fff;
   overflow: hidden;
 }

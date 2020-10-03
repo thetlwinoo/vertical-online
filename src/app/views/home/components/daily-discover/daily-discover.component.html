@@ -2,7 +2,7 @@
     <div extra>
         <!-- <button nz-button [nzSize]="'small'" nzType="default" (click)="seeAll()">            
         </button> -->
-        <a nz-button nzType="link" nzDanger (click)="seeAll()">
+        <a class="see-all" nz-button nzType="link" nzDanger [routerLink]="['/pages/daily-discover']">
             <i nz-icon nzType="fullscreen" style="font-size: 1.1em;"></i>See All
         </a>
     </div>
@@ -15,9 +15,24 @@
             </div>
         </div>
         <div class="product-wrapper" [@fadeIn]="data?.length">
-            <div class="product-item product-box" *ngFor="let item of data">
+            <!-- <div class="product-item product-box" *ngFor="let item of data">
                 <div #productcard class="card-preview">
                     <product-card [product]="item"></product-card>
+                </div>
+            </div> -->
+
+            <div nz-row [nzGutter]="[8,8]">
+                <div nz-col class="product-item product-box" [nzXs]="12" [nzSm]="8" [nzMd]="8" [nzLg]="4"
+                    *ngFor="let item of data">
+                    <div #productcard class="card-preview">
+                        <product-card [product]="item"></product-card>
+                    </div>
+                </div>
+            </div>
+
+            <div class="load-more-wrapper">
+                <div class="load-more">
+                    <button nz-button [nzSize]="'large'" nzType="dashed">Load More</button>
                 </div>
             </div>
         </div>

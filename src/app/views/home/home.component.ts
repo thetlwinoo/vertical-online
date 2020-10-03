@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FetchActions, ProductHomeActions } from 'app/ngrx/products/actions';
+import { FetchActions } from 'app/ngrx/products/actions';
+import { HomePageActions } from 'app/ngrx/web-sitemap/actions';
 import * as fromProducts from 'app/ngrx/products/reducers';
+import * as fromWebSitemap from 'app/ngrx/web-sitemap/reducers';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { IProductCategory } from '@vertical/models';
@@ -21,8 +23,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   bundles: IProductCategory[] = [];
   loading$: Observable<boolean>;
 
-  productHome$: Observable<any>;
-  productHome: any;
+  homePage$: Observable<any>;
+  homePage: any;
 
   gridStyle = {
     width: '11.11%',
@@ -31,24 +33,29 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private unsubscribe$: Subject<any> = new Subject();
 
-  constructor(private store: Store<fromProducts.State>, protected stockItemsService: StockItemsService) {
-    this.bundles$ = store.pipe(select(fromProducts.getFetchBundles));
+  constructor(
+    private store: Store<fromProducts.State>,
+    private webSitemapStore: Store<fromWebSitemap.State>,
+    protected stockItemsService: StockItemsService
+  ) {
     this.categoriesTree$ = store.pipe(select(fromProducts.getFetchCategoriesTree));
     this.categoriesTreeLoading$ = store.pipe(select(fromProducts.getFetchCategoriesTreeLoading));
-    this.productHome$ = store.pipe(select(fromProducts.getProductHome));
-    this.loading$ = store.pipe(select(fromProducts.getProductHomeLoading));
-    this.error$ = store.pipe(takeUntil(this.unsubscribe$), select(fromProducts.getProductHomeError));
+
+    this.bundles$ = webSitemapStore.pipe(select(fromWebSitemap.getFetchBundles));
+    this.homePage$ = webSitemapStore.pipe(select(fromWebSitemap.getHomePage));
+    this.loading$ = webSitemapStore.pipe(select(fromWebSitemap.getHomePageLoading));
+    this.error$ = webSitemapStore.pipe(takeUntil(this.unsubscribe$), select(fromWebSitemap.getHomePageError));
   }
 
   ngOnInit(): void {
     this.store.dispatch(FetchActions.fetchCategoriesTree());
-    this.store.dispatch(ProductHomeActions.fetchProductsHome());
+    this.webSitemapStore.dispatch(HomePageActions.fetchHomePage());
 
-    this.productHome$.pipe(takeUntil(this.unsubscribe$)).subscribe(payload => {
-      this.productHome = payload;
+    this.homePage$.pipe(takeUntil(this.unsubscribe$)).subscribe(payload => {
+      this.homePage = payload;
     });
 
-    this.categoriesTree$.subscribe(data => console.log(data));
+    // this.categoriesTree$.subscribe(data => console.log(data));
   }
 
   ngOnDestroy(): void {

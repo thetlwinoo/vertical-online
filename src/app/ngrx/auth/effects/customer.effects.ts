@@ -26,6 +26,22 @@ export class CustomerEffects {
     )
   );
 
+  updateCustomer$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CustomerActions.updateCustomer),
+      mergeMap(({ customers }) =>
+        this.customersService.update(customers).pipe(
+          filter((res: HttpResponse<ICustomers>) => res.ok),
+          mergeMap((res: HttpResponse<ICustomers>) => [
+            CustomerActions.updateCustomerSuccess({ customers: res.body }),
+            // CustomerActions.fetchCustomer({ query: { 'id.equals': res.body.id } }),
+          ]),
+          catchError(err => of(CustomerActions.customerError({ errorMsg: err.message })))
+        )
+      )
+    )
+  );
+
   createCustomerAccount$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CustomerActions.createCustomerAccount),

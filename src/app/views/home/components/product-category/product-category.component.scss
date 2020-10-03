@@ -14,6 +14,17 @@ product-category {
     img {
       padding: 0.5em 2em;
     }
+
+    .category-image {
+      height: 100px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+
+      // @include media-breakpoint('lt-sm') {
+      //   height: 100px;
+      // }
+    }
   }
 
   // .category-item {

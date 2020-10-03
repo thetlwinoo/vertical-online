@@ -1,15 +1,9 @@
-<nav #headerNav class="navbar navbar-expand-lg navbar-dark header-scroll">
-    <!-- [ngClass]="isMobile?'fixed-top':'sticky-top bg-primary'" -->
+<nav #headerNav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <a class="navbar-brand d-none d-md-block d-lg-block logo" routerLink="/" routerLinkActive="active"><img
                 class="logo" src="assets/logo/gardilo.svg" alt=""></a>
         <search-bar class="search-bar"></search-bar>
         <div class="nav-cart">
-            <!-- <a href routerLink="/checkout/cart" routerLinkActive="active" class="cart-button">
-                <fa-icon icon="shopping-cart"></fa-icon>
-                <span class="cart-badge"
-                    *ngIf="isAuthenticated() && (totalQuantity$ | async) > 0">{{totalQuantity$ | async}}</span>
-            </a> -->
             <a routerLink="/checkout/cart" routerLinkActive="active">
                 <nz-badge [nzCount]="totalQuantity$ | async"
                     [nzStyle]="{ backgroundColor: '#fff', color: '#ff4438', fontWeight: 600, boxShadow: '0 0 0 1px #d9d9d9 inset' }">
@@ -17,6 +11,5 @@
                 </nz-badge>
             </a>
         </div>
-
     </div>
 </nav>

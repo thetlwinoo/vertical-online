@@ -1,4 +1,4 @@
-<div id="product-card">
+<div id="product-card" *ngIf="product.productDetails?.stockItemLists?.length>0">
   <div class="product-card-wrapper">
     <div class="product-left-badge-wrapper" *ngIf="product.preferredInd">
       <div class="product-left-badge horizontal-badge">
@@ -6,10 +6,10 @@
         preferred
       </div>
     </div>
-    <div class="product-badge-wrapper" *ngIf="getPercentage(product.productDetails?.stockItemLists[0]) < 0">
+    <div class="product-badge-wrapper" *ngIf="getPercentage(product.productDetails.stockItemLists[0]) < 0">
       <div class="product-badge product-badge-fixed-width product-badge-promotion">
         <div class="product-badge-promotion-label-wrapper">
-          <span class="percent">{{getPercentage(product.productDetails?.stockItemLists[0])}}%</span>
+          <span class="percent">{{getPercentage(product.productDetails.stockItemLists[0])}}%</span>
           <span class="product-badge-promotion-label-wrapper-off">off</span>
         </div>
       </div>
@@ -25,7 +25,7 @@
     <div class="flex-row-container">
       <div class="flex-row-wrapper">
         <div class="d-flex flex-row bd-highlight">
-          <div class="p-1 bd-highlight" *ngFor="let stockItem of product.productDetails.stockItemLists | slice:0:4">
+          <div class="p-1 bd-highlight" *ngFor="let stockItem of product.productDetails?.stockItemLists | slice:0:4">
             <a href="javascript:void(0);" (click)="selectedItem = stockItem" (mouseover)="selectedItem = stockItem">
               <div class="small-img" [class.active]="selectedItem.id === stockItem.id"
                 [style.backgroundImage]="'url(' + blobUrl + stockItem.thumbnailPhoto + '/thumbnail)'"></div>
@@ -49,7 +49,8 @@
       </div>
     </div>
     <div class="price-wrapper">
-      <span class="product-current-price">{{ (selectedItem.recommendedRetailPrice || 0.00) | currency }}</span>
+      <span
+        class="product-current-price">{{ (selectedItem.unitPrice || 0) | currency:'Ks' : 'symbol' : '1.0-0' }}</span>
 
       <a href="javascript:void(0)" class="wishlist">
         <i nz-icon nzType="heart" nzTheme="outline" style="color: #fadb14"></i>
@@ -58,7 +59,7 @@
     <div class="price-wrapper">
       <div>
         <span class="product-price-old">{{
-          (selectedItem.unitPrice || 0.00) | currency
+          (selectedItem.recommendedRetailPrice || 0) | currency:'Ks' : 'symbol' : '1.0-0'
     }}</span>
         <span class="discount-percentage">{{getPercentage(selectedItem)}}%</span>
       </div>

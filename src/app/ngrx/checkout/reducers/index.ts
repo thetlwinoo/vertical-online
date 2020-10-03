@@ -1,3 +1,5 @@
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { IProducts } from '@vertical/models';
 import { createSelector, createFeatureSelector, combineReducers, Action } from '@ngrx/store';
 import * as fromAddress from 'app/ngrx/checkout/reducers/address.reducer';
@@ -47,7 +49,7 @@ export const getAddressState = createSelector(getCheckoutState, (state: Checkout
 
 export const getAddressError = createSelector(getAddressState, fromAddress.getError);
 
-export const getAddressDefault = createSelector(getAddressState, fromAddress.getDefault);
+// export const getAddressDefault = createSelector(getAddressState, fromAddress.getDefault);
 
 export const getAddressesFetched = createSelector(getAddressState, fromAddress.getAddresses);
 

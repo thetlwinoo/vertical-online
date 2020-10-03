@@ -1,3 +1,5 @@
+@import 'src/@vertical/scss/root';
+
 :host {
   .ant-divider-horizontal.ant-divider-with-text-left {
     &::after,
@@ -22,9 +24,10 @@
         font-size: 2em;
         margin-left: 10px;
 
-        // nz-divider {
-        //   color: rgba(0, 0, 0, 0.45);
-        // }
+        nz-divider {
+          // color: rgba(0, 0, 0, 0.45);
+          background: #faad14;
+        }
       }
 
       img {
@@ -33,7 +36,9 @@
     }
 
     nz-carousel {
-      padding: 1.5em 0;
+      @include media-breakpoint('gt-sm') {
+        padding: 1.5em 0 0 0;
+      }
     }
   }
 
@@ -67,13 +72,26 @@
       padding: 1em;
     }
   }
+
+  .load-more-wrapper {
+    padding-top: 8px;
+    width: 100%;
+
+    .load-more {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 0px;
+      // background: #ffffff;
+    }
+  }
 }
 
 [nz-carousel-content] {
   text-align: center;
   height: 250px;
   line-height: 250px;
-  background: #364d79;
+  // background: #364d79;
   color: #fff;
   overflow: hidden;
 }

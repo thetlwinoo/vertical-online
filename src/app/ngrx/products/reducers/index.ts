@@ -1,4 +1,6 @@
-import { IProducts, IProductCategory } from '@vertical/models';
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import { IProducts } from '@vertical/models';
 import { createSelector, createFeatureSelector, combineReducers, Action } from '@ngrx/store';
 import * as fromSearch from 'app/ngrx/products/reducers/search.reducer';
 import * as fromFetch from 'app/ngrx/products/reducers/fetch.reducer';
@@ -9,7 +11,6 @@ import * as fromWishlist from 'app/ngrx/products/reducers/wishlist.reducer';
 import * as fromQuestions from 'app/ngrx/products/reducers/question.reducer';
 import * as fromProductDetails from 'app/ngrx/products/reducers/product-details.reducer';
 import * as fromRelatedProducts from 'app/ngrx/products/reducers/related-products.reducer';
-import * as fromProductHome from 'app/ngrx/products/reducers/product-home.reducer';
 
 export const productsFeatureKey = 'products';
 
@@ -22,7 +23,6 @@ export interface ProductsState {
   [fromQuestions.questionFeatureKey]: fromQuestions.State;
   [fromProductDetails.productDetailsFeatureKey]: fromProductDetails.State;
   [fromRelatedProducts.relatedProductsFeatureKey]: fromRelatedProducts.State;
-  [fromProductHome.productHomeFeatureKey]: fromProductHome.State;
 }
 
 export interface State extends fromRoot.State {
@@ -44,7 +44,6 @@ export function reducers(state: ProductsState | undefined, action: Action) {
     [fromQuestions.questionFeatureKey]: fromQuestions.reducer,
     [fromProductDetails.productDetailsFeatureKey]: fromProductDetails.reducer,
     [fromRelatedProducts.relatedProductsFeatureKey]: fromRelatedProducts.reducer,
-    [fromProductHome.productHomeFeatureKey]: fromProductHome.reducer,
   })(state, action);
 }
 
@@ -187,20 +186,3 @@ export const getProductDetailsState = createSelector(getProductsState, (state: P
 export const getProductDetailsLoaded = createSelector(getProductDetailsState, fromProductDetails.getLoaded);
 export const getProductDetailsLoading = createSelector(getProductDetailsState, fromProductDetails.getLoading);
 export const getProductDetails = createSelector(getProductDetailsState, fromProductDetails.getProductDetails);
-
-// Product Home
-export const getProductHomeState = createSelector(getProductsState, (state: ProductsState) => state.productHome);
-export const getProductHomeLoaded = createSelector(getProductHomeState, fromProductHome.getLoaded);
-export const getProductHomeLoading = createSelector(getProductHomeState, fromProductHome.getLoading);
-export const getProductHome = createSelector(getProductHomeState, fromProductHome.getPayload);
-export const getProductHomeError = createSelector(getProductHomeState, fromProductHome.getError);
-export const getJustForYouCateogries = createSelector(getProductHome, payload => payload.justForYou);
-
-export const getFetchBundles = createSelector(getProductHome, payload => {
-  if (payload && payload.justForYou) {
-    const bundles: IProductCategory[] = payload.justForYou
-      // .filter(item => item.justForYouInd === true)
-      .reduce((rows, key, index) => (index % 2 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows, []);
-    return bundles;
-  }
-});

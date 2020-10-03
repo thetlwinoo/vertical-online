@@ -1,13 +1,9 @@
 @import 'src/@vertical/scss/root';
 
-daily-discover {
-  .ant-btn {
-    padding: 0 !important;
-  }
-
-  .content-wrapper {
-    border: 1px solid #ececec;
-  }
+:host {
+  // .content-wrapper {
+  //   border: 1px solid #ececec;
+  // }
 
   .product-wrapper {
     display: flex;
@@ -15,6 +11,7 @@ daily-discover {
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
+    padding-top: 1em;
 
     .product-item {
       border: none;
@@ -23,24 +20,6 @@ daily-discover {
       background: transparent;
       padding: 5px;
 
-      flex: 0 0 16.66666667%;
-      max-width: 16.66666667%;
-
-      @include media-breakpoint('sm') {
-        flex: 0 0 33.33333333%;
-        max-width: 33.33333333%;
-      }
-
-      @include media-breakpoint('md') {
-        flex: 0 0 33.33333333%;
-        max-width: 33.33333333%;
-      }
-
-      @include media-breakpoint('xs') {
-        flex: 0 0 50%;
-        max-width: 50%;
-      }
-
       .card-preview {
         width: 100%;
         display: flex;
@@ -48,6 +27,19 @@ daily-discover {
 
       .card-source {
         display: none;
+      }
+    }
+
+    .load-more-wrapper {
+      padding-top: 8px;
+      width: 100%;
+
+      .load-more {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 0px;
+        background: #ffffff;
       }
     }
   }

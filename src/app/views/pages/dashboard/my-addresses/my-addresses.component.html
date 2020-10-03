@@ -14,14 +14,14 @@
               <nz-tag [nzColor]="'orange'">{{item.addressTypeName}}</nz-tag>
             </nz-list-item-meta-title>
             <nz-list-item-meta-description>
-              {{ item.addressLine1 }}, {{item.addressLine2}}, {{item.city}}, {{item.postalCode}}
+              {{ item.addressLine1 }}, {{item.addressLine2}}, {{item.cityName}}, {{item.postalCode}}
             </nz-list-item-meta-description>
           </nz-list-item-meta>
           <ul nz-list-item-actions>
             <nz-list-item-action><a [routerLink]="['/pages/dashboard/address-book', item.id, 'edit']">edit</a>
             </nz-list-item-action>
             <nz-list-item-action><a nz-popconfirm nzPopconfirmTitle="Are you sure delete?"
-                nzPopconfirmPlacement="bottom" (nzOnConfirm)="confirm(item)" (nzOnCancel)="cancel()">delete</a>
+                nzPopconfirmPlacement="bottom" (nzOnConfirm)="confirm(item)">delete</a>
             </nz-list-item-action>
           </ul>
         </ng-container>

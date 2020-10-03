@@ -1,0 +1,51 @@
+<!-- <div class="daily-discover-header-wrapper">
+    <div class="container">
+        <nz-carousel [nzEffect]="'fade'" [nzAutoPlay]="true">
+            <div nz-carousel-content *ngFor="let banner of slides?.children">
+                <div class="carousel-wrapper" [style.backgroundImage]="'url(' + blobUrl + banner.url + '/original)'">
+                </div>
+            </div>
+        </nz-carousel>
+
+        <div class="daily-discover-header">
+            <img src="assets/images/home/slider-banner/categories/flash_deal.svg">
+            <h1 nz-typography nzType="warning">Flash Deals</h1>
+            <span nz-typography nzType="secondary">
+                Crazy Deals
+                <nz-divider nzType="vertical"></nz-divider>
+                Limited Time Only
+            </span>
+        </div>
+    </div>
+</div> -->
+
+<nz-affix [nzOffsetTop]="0">
+    <div id="daily-discover-nav" class="daily-discover-nav">
+        <div class="container">
+            <ul class="nav nav-pills justify-content-center">
+                <li class="nav-item" *ngFor="let item of dealTypes;let i = index;">
+                    <a class="nav-link" href="javascript:void(0);" (click)="selectedType = item;"
+                        [class.active]="selectedType.id === item.id">{{item.title}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nz-affix>
+
+<div class="daily-discover-body">
+    <div class="container">
+        <div class="daily-discover-products">
+            <div nz-row [nzGutter]="[8,8]">
+                <div nz-col class="gutter-row" [nzXs]="12" [nzSm]="4" *ngFor="let product of homePage?.dailyDiscover">
+                    <product-card [product]="product"></product-card>
+                </div>
+            </div>
+        </div>
+
+        <div class="load-more-wrapper">
+            <div class="load-more">
+                <button nz-button [nzSize]="'large'" nzType="dashed">Load More</button>
+            </div>
+        </div>
+    </div>
+</div>

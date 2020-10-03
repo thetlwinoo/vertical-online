@@ -46,8 +46,6 @@ export class BrandZoneComponent implements OnInit, OnChanges {
     this.currentTabIndex = index;
   }
 
-  seeAll(): void {}
-
   onTabClick(event): void {
     console.log('click', event);
     this.router.navigate(['/search'], { queryParams: { brandId: event.id } });

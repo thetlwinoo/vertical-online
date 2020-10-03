@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as moment from 'moment';
-import { DATE_FORMAT } from '@vertical/constants';
+import { DATE_FORMAT, SERVER_API_URL } from '@vertical/constants';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -9,17 +9,11 @@ import { DATE_FORMAT } from '@vertical/constants';
   styleUrls: ['./voucher-card.component.scss'],
 })
 export class VoucherCardComponent implements OnInit {
-  percentage = 40;
-  minSpend = 5000;
-  today = moment().startOf('day');
+  @Input() voucher;
+
+  public blobUrl = SERVER_API_URL + 'services/cloudblob/api/images-extend/';
 
   constructor() {}
 
   ngOnInit(): void {}
-
-  getDate(days: number): any {
-    return moment(this.today)
-      .add(days, 'days')
-      .format('YYYY-MM-DD');
-  }
 }

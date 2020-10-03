@@ -2,20 +2,22 @@
     <div class="container">
 
         <nz-carousel [nzEffect]="'fade'" [nzAutoPlay]="true">
-            <div nz-carousel-content *ngFor="let banner of carousel.slides">
-                <div class="carousel-wrapper" [ngStyle]="banner.style"></div>
+            <div nz-carousel-content
+                *ngFor="let banner of selectedCategory?.webImages | webImages:'main-banner-full-wide'">
+                <div class="carousel-wrapper" [style.backgroundImage]="'url(' + blobUrl + banner.url + '/original)'">
+                </div>
             </div>
         </nz-carousel>
 
         <div class="category-header" *ngIf="selectedCategory">
             <span nz-typography nzType="warning" class="header-title"
                 *ngIf="selectedCategory.name === 'Groceries';else categoryTitle">
-                <i class="iconfont icon-{{selectedCategory?.iconFont}}"></i>Grocery Mart
+                <i class="iconfont {{selectedCategory?.iconFont}}"></i>Grocery Mart
             </span>
 
             <ng-template #categoryTitle>
                 <span nz-typography nzType="warning" class="header-title">
-                    <i class="iconfont icon-{{selectedCategory?.iconFont}}"></i>{{selectedCategory?.name}}
+                    <i class="iconfont {{selectedCategory?.iconFont}}"></i>{{selectedCategory?.name}}
                 </span>
             </ng-template>
             <span nz-typography nzType="secondary" class="header-second">Buy Fast Delivery</span>
@@ -36,59 +38,47 @@
     </div>
 </nz-affix>
 
-<!-- <nz-affix [nzOffsetTop]="0">
-    <div class="store-categories">
-        <div class="container">
-            <div class="category-list">
-                <owl-carousel-o #owlSlider [options]="options" [@fadeIn]="(selectedCategory?.children)?.length">
-                    <ng-container *ngFor="let category of selectedCategory?.children">
-                        <ng-template carouselSlide>
-                            <div class="slider ml-1 rounded" [class.active]="selectedItem?.id === category.id"
-                                (click)="selectedItem = category">
-                                <img [src]="blobUrl + category.iconPhoto + '/thumbnail'" [attr.alt]="'alt'"
-                                    class="img-thumbnail sub-image" *ngIf="category.iconPhoto;else noImage">
-                                <ng-template #noImage>
-                                    <img src="/assets/images/no-image2.svg" [attr.alt]="'alt'"
-                                        class="img-thumbnail sub-image">
-                                </ng-template>
-                                <span class="category-title">{{category.myanmarName}}</span>
-                            </div>
-                        </ng-template>
-                    </ng-container>
-                </owl-carousel-o>
-                <button type="button" class="btn btn-secondary nav-button nav-left " (click)="owlSlider.prev()">
-                    <fa-icon icon="chevron-left"></fa-icon>
-                </button>
-                <button type="button" class="btn btn-secondary nav-button nav-right" (click)="owlSlider.next()">
-                    <fa-icon icon="chevron-right"></fa-icon>
-                </button>
-            </div>
-        </div>
-    </div>
-</nz-affix> -->
-
 <div class="category-body-wrapper">
     <div class="container">
         <div class="category-body">
             <div [id]="subCategory.id" *ngFor="let subCategory of selectedCategory?.children">
-                <div class="category-sub-header">
-                    <div class="banner-sub-title">
-                        <span>{{subCategory.myanmarName}}</span>
+                <ng-container *ngIf="(subCategory.webImages | webImages:'sub-banner-wide');else noSubBanner">
+                    <div class="category-sub-header"
+                        [style.backgroundImage]="'url(' + blobUrl + (subCategory.webImages | webImages:'sub-banner-wide')[0]?.url + '/original)'">
+                        <div class="banner-sub-title">
+                            <span>{{subCategory.myanmarName}}</span>
+                        </div>
                     </div>
-                </div>
+                </ng-container>
+                <ng-template #noSubBanner>
+                    <div class="category-sub-header" [style.backgroundImage]="'url(/assets/backgrounds/no-banner.png)'">
+                        <div class="banner-sub-title">
+                            <span>{{subCategory.myanmarName}}</span>
+                        </div>
+                    </div>
+                </ng-template>
 
                 <div class="category-sub-body">
                     <div nz-row [nzGutter]="[16,16]">
                         <div nz-col class="gutter-row" [nzXs]="12" [nzSm]="6"
                             *ngFor="let leaf of subCategory?.children">
-                            <div class="inner-box">
+                            <div class="inner-box" [routerLink]="['/search']" routerLinkActive="active"
+                                [queryParams]="{categoryId: leaf.id}">
                                 <div class="child-category-wrapper">
                                     <div class="catagory-leaf-wrapper">
-                                        <img [src]="blobUrl + leaf.iconPhoto + '/thumbnail'" [attr.alt]="'alt'"
-                                            class="leaf-image" *ngIf="leaf.iconPhoto;else noImage">
+                                        <div #cagimage class="category-image" *ngIf="leaf.image;else noImage">
+                                            <!-- <div class="category-image"
+                                                [style.backgroundImage]="'url(' + blobUrl + leaf.image + '/thumbnail)'">
+                                            </div> -->
+                                            <img width="200" height="200" [src]="blobUrl + leaf.image + '/thumbnail'"
+                                                [attr.alt]="'alt'" class="leaf-image">
+                                        </div>
+
                                         <ng-template #noImage>
-                                            <img src="/assets/images/no-image2.svg" [attr.alt]="'alt'"
-                                                class="leaf-image">
+                                            <div #noCagImage class="category-image">
+                                                <img width="200" height="200" [src]="'/assets/images/no-image2.svg'"
+                                                    [attr.alt]="'alt'" class="leaf-image">
+                                            </div>
                                         </ng-template>
 
                                         <div class="category-leaf-tilte">

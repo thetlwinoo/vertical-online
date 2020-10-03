@@ -1,5 +1,41 @@
 node_modules/
-dist/
 .git
 .gitignore
+e2e/*
+note.txt
 server.js
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Linting
+!.eslintrc
+!.eslintrc.json
+!.eslintrc.js
+!.prettierrc
+!.prettierrc.json
+!.prettierrc.js

@@ -205,10 +205,6 @@ export class ProductsService {
     });
   }
 
-  getProductsHome(): Observable<any> {
-    return this.http.get<any>(this.extendUrl + '/home', { observe: 'response' });
-  }
-
   getTags(query: string): Observable<HttpResponse<string[]>> {
     let params = new HttpParams();
     params = params.append('filter', query);

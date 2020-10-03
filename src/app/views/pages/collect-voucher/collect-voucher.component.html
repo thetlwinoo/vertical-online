@@ -3,13 +3,14 @@
         <div class="container">
 
             <nz-carousel [nzEffect]="'fade'" [nzAutoPlay]="true">
-                <div nz-carousel-content *ngFor="let banner of carousel.slides">
-                    <div class="carousel-wrapper" [ngStyle]="banner.style"></div>
+                <div nz-carousel-content *ngFor="let banner of slides?.children">
+                    <div class="carousel-wrapper"
+                        [style.backgroundImage]="'url(' + blobUrl + banner.url + '/original)'"></div>
                 </div>
             </nz-carousel>
 
             <div class="voucher-header">
-                <img src="assets/images/home/slider-banner/categories/collect_voucher.svg">
+                <img src="assets/icons/home-icons/collect_voucher.svg">
                 <h1 nz-typography nzType="warning">All Vouchers</h1>
                 <span nz-typography nzType="secondary">Collect Now!</span>
             </div>
@@ -50,8 +51,32 @@
     <div class="voucher-body-wrapper">
         <div class="container">
             <div nz-row [nzGutter]="[16,16]">
-                <div nz-col nzXs="24" nzSm="12" *ngFor="let voucher of vouchers">
-                    <voucher-card></voucher-card>
+                <div nz-col nzXs="24" nzSm="24" nzLg="12" *ngFor="let voucher of collectVoucherPage?.voucherList">
+                    <voucher-card [voucher]="voucher"></voucher-card>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <nz-divider nzOrientation="left" nzText="Crazy Deals"></nz-divider>
+    </div>
+
+    <div class="crazy-deals-wrapper">
+        <div class="container">
+
+            <div class="crazy-deals-products">
+                <div nz-row [nzGutter]="[8,8]">
+                    <div nz-col class="gutter-row" [nzXs]="12" [nzSm]="4"
+                        *ngFor="let product of collectVoucherPage?.products">
+                        <product-card [product]="product"></product-card>
+                    </div>
+                </div>
+            </div>
+
+            <div class="load-more-wrapper">
+                <div class="load-more">
+                    <button nz-button [nzSize]="'large'" nzType="dashed">Load More</button>
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light d-none d-sm-block" [class.bg-primary]="!isMobile">
+<nav class="navbar navbar-expand-lg navbar-light d-none d-sm-block">
     <div class="container" [ngSwitch]="isAuthenticated()">
         <!-- <a class="navbar-brand" href="#">Navbar</a> -->
         <button class="navbar-toggler" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed"
@@ -8,11 +8,13 @@
         <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Seller Centre <nz-divider nzType="vertical"></nz-divider></a>
+                    <a class="nav-link" target="_blank" href="https://seller.gardilo.com">
+                        Seller Centre <nz-divider nzType="vertical"></nz-divider>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <div class="follow-us">
-                        <a class="nav-link" href="#">Follow us on</a>
+                        <a class="nav-link" href="javascript:void(0);">Follow us on</a>
                         <a class="nav-link" target="_blank" href="https://www.facebook.com/ZeZaWarMyanmar"><i nz-icon
                                 nzType="facebook" nzTheme="fill"></i></a>
                         <a class="nav-link" target="_blank" href="https://www.instagram.com/zezawar.myanmar/"><i nz-icon

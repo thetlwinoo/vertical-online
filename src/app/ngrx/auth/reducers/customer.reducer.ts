@@ -31,6 +31,12 @@ export const reducer = createReducer(
     customer,
     error: '',
   })),
+  on(CustomerActions.updateCustomerSuccess, (state, { customers }) => ({
+    loaded: true,
+    loading: false,
+    customer: customers,
+    error: '',
+  })),
   on(CustomerActions.customerError, (state, { errorMsg }) => ({
     ...state,
     loading: false,

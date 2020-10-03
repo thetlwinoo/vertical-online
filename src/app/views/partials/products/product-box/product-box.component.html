@@ -67,7 +67,7 @@
   <div class="card-footer">
     <div class="footer-wrapper">
       <span class="product-price mr-auto">
-        {{ (selectedItem?.recommendedRetailPrice || 0.00)| currency }}
+        {{ (selectedItem?.recommendedRetailPrice || 0)| currency:'Ks' : 'symbol' : '1.0-0' }}
       </span>
       <span class="product-sold" *ngIf="mode != 'deal' && product.sellCount">
         {{ product.sellCount }} sold

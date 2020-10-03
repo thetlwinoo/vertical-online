@@ -1,3 +1,5 @@
+@import 'src/@vertical/scss/root';
+
 :host {
   .ant-divider-horizontal.ant-divider-with-text-left {
     &::after,
@@ -22,10 +24,16 @@
         font-size: 2em;
         margin-left: 10px;
       }
+
+      img {
+        height: 46px !important;
+      }
     }
 
     nz-carousel {
-      padding: 1.5em 0;
+      @include media-breakpoint('gt-sm') {
+        padding: 1.5em 0 0 0;
+      }
     }
   }
 
@@ -130,7 +138,7 @@
   text-align: center;
   height: 250px;
   line-height: 250px;
-  background: #364d79;
+  // background: #364d79;
   color: #fff;
   overflow: hidden;
 }

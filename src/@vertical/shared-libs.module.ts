@@ -14,7 +14,7 @@ import { NgZorroAntdModule } from '@vertical/modules';
 import { NgArrayPipesModule, OrderByPipe } from 'ngx-pipes';
 import { DeferLoadModule } from '@trademe/ng-defer-load';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-
+import { PinchZoomModule } from '@vertical/third-party-libs/ivypinch/pinch-zoom.module';
 @NgModule({
   exports: [
     FormsModule,
@@ -35,6 +35,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     DeferLoadModule,
     NgArrayPipesModule,
     CarouselModule,
+    PinchZoomModule,
   ],
   providers: [OrderByPipe],
 })

@@ -1,3 +1,5 @@
+import { Moment } from 'moment';
+
 export interface IAddresses {
   id?: number;
   contactPerson?: string;
@@ -5,15 +7,22 @@ export interface IAddresses {
   contactEmailAddress?: string;
   addressLine1?: string;
   addressLine2?: string;
-  city?: string;
   postalCode?: string;
-  defaultInd?: boolean;
-  activeInd?: boolean;
-  zoneCode?: string;
-  zoneId?: number;
+  description?: string;
+  validFrom?: Moment;
+  validTo?: Moment;
+  regionName?: string;
+  regionId?: number;
+  cityName?: string;
+  cityId?: number;
+  townshipName?: string;
+  townshipId?: number;
   addressTypeName?: string;
   addressTypeId?: number;
-  personId?: number;
+  customerName?: string;
+  customerId?: number;
+  supplierName?: string;
+  supplierId?: number;
 }
 
 export class Addresses implements IAddresses {
@@ -24,17 +33,21 @@ export class Addresses implements IAddresses {
     public contactEmailAddress?: string,
     public addressLine1?: string,
     public addressLine2?: string,
-    public city?: string,
     public postalCode?: string,
-    public defaultInd?: boolean,
-    public activeInd?: boolean,
-    public zoneCode?: string,
-    public zoneId?: number,
+    public description?: string,
+    public validFrom?: Moment,
+    public validTo?: Moment,
+    public regionName?: string,
+    public regionId?: number,
+    public cityName?: string,
+    public cityId?: number,
+    public townshipName?: string,
+    public townshipId?: number,
     public addressTypeName?: string,
     public addressTypeId?: number,
-    public personId?: number
-  ) {
-    this.defaultInd = this.defaultInd || false;
-    this.activeInd = this.activeInd || false;
-  }
+    public customerName?: string,
+    public customerId?: number,
+    public supplierName?: string,
+    public supplierId?: number
+  ) {}
 }

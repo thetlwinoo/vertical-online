@@ -71,19 +71,20 @@
                             <div>
                                 <span class="price-label">Subtotal</span>
                             </div>
-                            <span class="price-label">{{orders.totalDue | currency}}</span>
+                            <span class="price-label">{{orders.totalDue | currency:'Ks' : 'symbol' : '1.0-0'}}</span>
                         </nz-list-item>
                         <nz-list-item>
                             <div>
                                 <span class="price-label">Shipping Fee</span>
                             </div>
-                            <span class="price-label">{{orders.totalShippingFee | currency}}</span>
+                            <span
+                                class="price-label">{{orders.totalShippingFee | currency:'Ks' : 'symbol' : '1.0-0'}}</span>
                         </nz-list-item>
                     </nz-list>
                 </nz-collapse-panel>
             </nz-collapse>
             <ng-template #extraTpl>
-                <span class="price-amount">{{orders.totalDue | currency}}</span>
+                <span class="price-amount">{{orders.totalDue | currency:'Ks' : 'symbol' : '1.0-0'}}</span>
             </ng-template>
         </div>
 

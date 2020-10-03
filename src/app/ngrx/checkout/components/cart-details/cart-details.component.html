@@ -53,7 +53,8 @@
                                         <nz-list-item-meta-description>
                                             <div class="price">
                                                 <span class="price-label">Price : </span>
-                                                <span class="item-price">{{ item.unitPrice | currency }}</span>
+                                                <span
+                                                    class="item-price">{{ item.unitPrice | currency:'Ks' : 'symbol' : '1.0-0' }}</span>
                                             </div>
 
                                             <div>
@@ -112,7 +113,7 @@
                                 </nz-list-item-meta-title>
                             </nz-list-item-meta>
                             <nz-list-item-extra>
-                                <span class="price">{{ cartPrice | currency }}</span>
+                                <span class="price">{{ cartPrice | currency:'Ks' : 'symbol' : '1.0-0' }}</span>
                             </nz-list-item-extra>
                         </nz-list-item>
                         <nz-list-item>
@@ -122,7 +123,8 @@
                                 </nz-list-item-meta-title>
                             </nz-list-item-meta>
                             <nz-list-item-extra>
-                                <span class="price">{{ shoppingCart?.cart.totalShippingFee | currency }}</span>
+                                <span
+                                    class="price">{{ shoppingCart?.cart.totalShippingFee | currency:'Ks' : 'symbol' : '1.0-0' }}</span>
                             </nz-list-item-extra>
                         </nz-list-item>
                         <nz-list-item>
@@ -155,7 +157,7 @@
                             </nz-list-item-meta>
                             <nz-list-item-extra>
                                 <span
-                                    class="price">{{ shoppingCart.cart.discount.amount? (shoppingCart.cart.discount.amount | currency) : (shoppingCart.cart.discount.percentage + '%') }}</span>
+                                    class="price">{{ shoppingCart.cart.discount.amount? (shoppingCart.cart.discount.amount | currency:'Ks' : 'symbol' : '1.0-0') : (shoppingCart.cart.discount.percentage + '%') }}</span>
                             </nz-list-item-extra>
                         </nz-list-item>
                         <nz-list-item>
@@ -165,7 +167,8 @@
                                 </nz-list-item-meta-title>
                             </nz-list-item-meta>
                             <nz-list-item-extra>
-                                <span class="price total-price">{{ shoppingCart.cart.totalPrice | currency }}</span>
+                                <span
+                                    class="price total-price">{{ shoppingCart.cart.totalPrice | currency:'Ks' : 'symbol' : '1.0-0' }}</span>
                             </nz-list-item-extra>
                         </nz-list-item>
                     </nz-list>

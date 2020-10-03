@@ -12,7 +12,7 @@
                                         <li *ngFor="let root of categories ; let i = index"
                                             [routerLink]="['/pages/categories/',root.id]">
                                             <div class="menu-header">
-                                                <i class="iconfont icon-{{root.iconFont}} mr-2"></i>
+                                                <i class="iconfont {{root.iconFont}} mr-2"></i>
                                                 <span>{{root.myanmarName}}</span>
                                             </div>
 
@@ -44,21 +44,10 @@
                     </div>
                 </div>
                 <div nz-col class="gutter-row main-banner-wrapper" [nzXs]="24" [nzSm]="24" [nzMd]="19">
-                    <!-- <owl-carousel-o #owlElement [options]="carousel.options" class="owl-dot-style-2">
-                        <ng-container class="main-slider" *ngFor="let banner of carousel.slides;let i = index">
-                            <ng-template carouselSlide>
-                                <div class="main-slider">
-                                    <a href="#">
-                                        <div [ngStyle]="banner.style" class="banner-image">
-                                        </div>
-                                    </a>
-                                </div>
-                            </ng-template>
-                        </ng-container>
-                    </owl-carousel-o> -->
                     <nz-carousel [nzEffect]="'fade'" [nzAutoPlay]="true">
-                        <div nz-carousel-content *ngFor="let banner of carousel.slides">
-                            <div class="carousel-wrapper" [ngStyle]="banner.style"></div>
+                        <div nz-carousel-content *ngFor="let banner of slides?.children | orderBy: 'priority'">
+                            <div class="carousel-wrapper"
+                                [style.backgroundImage]="'url(' + blobUrl + banner.url + '/original)'"></div>
                         </div>
                     </nz-carousel>
                 </div>
@@ -68,8 +57,9 @@
         <div class="content">
             <div nz-row [nzGutter]="5">
                 <div nz-col class="gutter-row" [nzXs]="6" [nzSm]="6" [nzMd]="3" *ngFor="let item of features">
-                    <div class="inner-box" [routerLink]="[item.url]">
-                        <img src="assets/images/home/slider-banner/categories/{{item.icon}}">
+                    <div class="inner-box" [routerLink]="[item.url]"
+                        [queryParams]="item.queryParams?item.queryParams:null">
+                        <img src="assets/icons/home-icons/{{item.icon}}">
                         <div class="card-item-title">
                             {{item.label}}
                         </div>

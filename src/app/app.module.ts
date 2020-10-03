@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 // import 'bootstrap';
-import { NgModule, DoBootstrap, ApplicationRef, APP_INITIALIZER } from '@angular/core';
+import { NgModule, DoBootstrap, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { rootConfig } from 'app/root-config';
@@ -22,6 +23,7 @@ import { NgrxCoreModule } from 'app/ngrx/core';
 import { RouterEffects } from 'app/ngrx/core/effects';
 import 'hammerjs';
 import { ProductsModule } from 'app/ngrx/products';
+import { NgrxWebSitemapModule } from 'app/ngrx/web-sitemap';
 import { CheckoutModule } from 'app/ngrx/checkout';
 import { TagsModule } from 'app/ngrx/tags';
 import { AuthModule } from 'app/ngrx/auth';
@@ -35,6 +37,7 @@ const keycloakService: KeycloakService = new KeycloakService();
 
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+
 registerLocaleData(en);
 
 const routes: Routes = [
@@ -110,6 +113,7 @@ const routes: Routes = [
     RootSharedModule,
     RootProgressBarModule,
     ProductsModule,
+    NgrxWebSitemapModule,
     CheckoutModule,
     TagsModule,
     AuthModule,

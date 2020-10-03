@@ -20,10 +20,13 @@
   }
 
   nav {
+    background-color: #ff4438;
+
     @include media-breakpoint('xs') {
       position: absolute;
       width: 100%;
       z-index: 2;
+      background-color: transparent;
     }
   }
 

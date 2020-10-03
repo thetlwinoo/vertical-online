@@ -99,7 +99,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
     this.accountService.identity().subscribe((account: Account) => {
       this.account = account;
-      console.log('account', this.account);
+      // console.log('account', this.account);
       if (account) {
         this.store.dispatch(CartActions.fetchCart());
         this.store.dispatch(WishlistActions.loadWishlist());

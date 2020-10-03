@@ -28,6 +28,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   brandId: number = null;
   supplierId: number = null;
   suppliers: ISuppliers;
+  madeInMyanmarInd = false;
+  freeDeliveryInd = false;
   // selectedCategories: any = null;
   selectedAttributes: string[] = [];
   selectedOptions: string[] = [];
@@ -114,6 +116,8 @@ export class SearchComponent implements OnInit, OnDestroy {
           this.categoryId = payload.categoryId || null;
           this.brandId = payload.brandId || null;
           this.supplierId = payload.supplierId || null;
+          this.madeInMyanmarInd = payload.madeInMyanmar || false;
+          this.freeDeliveryInd = payload.freeDelivery || false;
 
           if (this.supplierId) {
             this.suppliersService
@@ -181,6 +185,8 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.categories = JSON.parse(JSON.stringify(result.relatedCategory));
       }
     });
+
+    this.products$.pipe(takeUntil(this.unsubscribeAll)).subscribe(products => (this.products = products));
     this.registerChangeInProducts();
   }
 
@@ -223,6 +229,14 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     if (this.brandId) {
       _.assign(this.query, { brandId: this.brandId });
+    }
+
+    if (this.madeInMyanmarInd) {
+      _.assign(this.query, { madeInMyanmar: true });
+    }
+
+    if (this.freeDeliveryInd) {
+      _.assign(this.query, { freeDelivery: true });
     }
 
     if (this.supplierId) {

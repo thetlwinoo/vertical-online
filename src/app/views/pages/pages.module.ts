@@ -9,6 +9,7 @@ import { CashBackModule } from './cash-back/cash-back.module';
 import { CollectVoucherModule } from './collect-voucher/collect-voucher.module';
 import { MadeInMyanmarModule } from './made-in-myanmar/made-in-myanmar.module';
 import { FreeShippingModule } from './free-shipping/free-shipping.module';
+import { DailyDiscoverModule } from './daily-discover/daily-discover.module';
 
 const MODULES = [
   DashboardModule,
@@ -21,6 +22,7 @@ const MODULES = [
   CollectVoucherModule,
   MadeInMyanmarModule,
   FreeShippingModule,
+  DailyDiscoverModule,
 ];
 
 @NgModule({

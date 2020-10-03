@@ -19,14 +19,21 @@ export * from './e-commerce/product-document.service';
 export * from './e-commerce/special-deals.service';
 export * from './e-commerce/questions.service';
 export * from './e-commerce/payment-methods.service';
-export * from './e-commerce/zone.service';
+export * from './e-commerce/townshops.service';
 export * from './e-commerce/customers.service';
 export * from './e-commerce/countries.service';
 export * from './e-commerce/cities.service';
 export * from './e-commerce/order-tracking.service';
 export * from './e-commerce/product-brand.service';
+export * from './e-commerce/web-config.service';
+export * from './e-commerce/web-image-types.service';
+export * from './e-commerce/web-images.service';
+export * from './e-commerce/web-sitemap.service';
+export * from './e-commerce/web-themes.service';
+export * from './e-commerce/regions.service';
 
 export * from './common/config.service';
 export * from './common/match-media.service';
+export * from './common/splash-screen.service';
 
 export * from './storage/stock-item-compare-storage.service';

@@ -2,14 +2,37 @@
     <div nz-row>
         <div nz-col nzSpan="24">
             <div class="store">
-                <nz-avatar [nzSize]="50" nzIcon="user" nzSrc="/assets/backgrounds/zezawar.png"></nz-avatar>
+                <nz-avatar nzIcon="user" [nzSrc]="blobUrl + voucher.storeLogo + '/thumbnail'"></nz-avatar>
                 <!-- <div class="store-avatar">
 
                 </div> -->
                 <div class="store-name">
-                    <span>ZeZaWar Myanmar Official Store</span>
+                    <span>{{voucher.storeName}}</span>
                 </div>
             </div>
+        </div>
+
+        <div nz-col nzSpan="24">
+            <div class="voucher-promo">
+                <div>
+                    <span *ngIf="voucher.details[0].isPercentage;else currencyValue" class="voucher-promo-value">
+                        {{(voucher.details[0].amount / 100) | percent}} OFF
+                    </span>
+                    <ng-template #currencyValue>
+                        <span class="voucher-promo-value">
+                            {{voucher.details[0].amount | currency:'Ks' : 'symbol' : '1.0-0'}} OFF
+                        </span>
+                    </ng-template>
+
+                    <span class="voucher-min-spend" *ngIf="voucher.details[0].minAmount > 0">Min.spend
+                        {{voucher.details[0].minAmount | currency:'Ks' : 'symbol' : '1.0-0'}}</span>
+                </div>
+
+                <div class="voucher-redeem">
+                    <button nz-button nzSize="medium" nzType="primary" nzDanger>CLAIM</button>
+                </div>
+            </div>
+
         </div>
         <!-- <div nz-col nzSpan="12">
             <p>{{(percentage / 100) | percent}} OFF</p>
@@ -17,20 +40,7 @@
         </div> -->
     </div>
     <div nz-row>
-        <div nz-col nzSpan="24">
-            <div class="voucher-promo">
-                <div>
-                    <span class="voucher-promo-value">{{(percentage / 100) | percent}} OFF</span>
 
-                    <span class="voucher-min-spend">Min.spend {{minSpend | currency:'Ks' : 'symbol' : '1.0-0'}}</span>
-                </div>
-
-                <div class="voucher-redeem">
-                    <button nz-button nzSize="large" nzType="primary" nzDanger>CLAIM</button>
-                </div>
-            </div>
-
-        </div>
     </div>
     <div class="voucher-description">
         <div nz-row nzGutter="16">
@@ -38,7 +48,9 @@
                 <span class="voucher-validity">Voucher Validity :</span>
             </div>
             <div nz-col nzSpan="12">
-                <span class="voucher-valid-date">{{getDate(0)}} - {{getDate(20)}}</span>
+                <span class="voucher-valid-date">
+                    {{voucher.validFrom | date: 'dd-MM-yyyy'}} - {{voucher.validTo | date: 'dd-MM-yyyy'}}
+                </span>
             </div>
         </div>
     </div>

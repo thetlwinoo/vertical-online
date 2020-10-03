@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { RootConfigService } from '@vertical/services';
+import { SplashScreenService } from '@vertical/services';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,8 @@ export class AppComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private document: any,
     private _rootConfigService: RootConfigService,
     private _platform: Platform,
-    private router: Router
+    private router: Router,
+    private splashScreenService: SplashScreenService
   ) {
     if (this._platform.ANDROID || this._platform.IOS) {
       this.document.body.classList.add('is-mobile');

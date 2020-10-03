@@ -26,7 +26,13 @@
                                 </nz-card-meta>
                             </nz-card>
                             <ng-template #coverTemplate>
-                                <img alt="example" [src]="blobUrl + category.iconPhoto + '/thumbnail'" />
+                                <img alt="NoImage" [src]="blobUrl + category.iconPhoto + '/thumbnail'"
+                                    *ngIf="category.iconPhoto;else noImage" />
+                            </ng-template>
+                            <ng-template #noImage>
+                                <div class="category-image"
+                                    [style.backgroundImage]="'url(/assets/images/no-image2.svg)'">
+                                </div>
                             </ng-template>
                             <ng-template #descriptionTemplate>
                                 <span class="card-item-title">{{category.myanmarName}}</span>

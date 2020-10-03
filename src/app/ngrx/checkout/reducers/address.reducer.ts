@@ -9,7 +9,7 @@ export interface State {
   loaded: boolean;
   loading: boolean;
   addresses: IAddresses[];
-  default: IAddresses;
+  // default: IAddresses;
   error: string;
 }
 
@@ -17,7 +17,7 @@ const initialState: State = {
   loaded: false,
   loading: false,
   addresses: [],
-  default: null,
+  // default: null,
   error: '',
 };
 
@@ -31,7 +31,7 @@ export const reducer = createReducer(
     loaded: true,
     loading: false,
     addresses,
-    default: addresses.filter(address => address.defaultInd == true)[0],
+    // default: addresses.filter(address => address.defaultInd == true)[0],
     error: '',
   })),
   on(AddressActions.addressError, (state, { errorMsg }) => ({
@@ -47,6 +47,6 @@ export const getLoading = (state: State) => state.loading;
 
 export const getAddresses = (state: State) => state.addresses;
 
-export const getDefault = (state: State) => state.default;
+// export const getDefault = (state: State) => state.default;
 
 export const getError = (state: State) => state.error;

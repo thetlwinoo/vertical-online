@@ -1,6 +1,14 @@
+@import 'src/@vertical/scss/root';
+
 toolbar {
   font-size: 0.8125rem;
   // font-weight: 600;
+
+  nav {
+    @include media-breakpoint('gt-sm') {
+      background-color: #ff4438;
+    }
+  }
 
   #track-my-order {
     nz-skeleton {

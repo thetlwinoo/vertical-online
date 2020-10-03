@@ -1,14 +1,24 @@
 product-gallery {
+  // pinch-zoom {
+  //   background-color: transparent !important;
+  // }
+
   .gallery-wrapper {
     .gallery-preview-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 8px 0;
 
-      .gallery-preview {
-        overflow: hidden;
-        height: 400px;
-        width: 400px;
+      .pinch-zoom-wrapper {
+        background: rgba(0, 0, 0, 0.02);
+
+        .gallery-preview {
+          overflow: hidden;
+          height: 400px;
+
+          img {
+            max-height: 100% !important;
+            width: auto !important;
+          }
+        }
       }
     }
   }

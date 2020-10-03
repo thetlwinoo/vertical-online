@@ -1,0 +1,119 @@
+<div *ngIf="addNewAddressInd;else showAddresses">
+    <div *ngIf="editForm">
+        <form nz-form [nzLayout]="'horizontal'" [formGroup]="editForm" (ngSubmit)="submitForm()">
+            <nz-form-item>
+                <nz-form-label [nzSpan]="5">Contact Person</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzHasFeedback>
+                    <input nz-input formControlName="contactPerson" placeholder="Contact Person" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSpan]="5">Contact Number</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzHasFeedback>
+                    <input nz-input formControlName="contactNumber" placeholder="Contact Number" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSpan]="5">Email Address</nz-form-label>
+                <nz-form-control [nzSpan]="12">
+                    <input nz-input formControlName="contactEmailAddress" placeholder="Contact Email Address" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSpan]="5">Address Line 1</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzHasFeedback>
+                    <input nz-input formControlName="addressLine1" placeholder="Address Line 1" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSpan]="5">Address Line 2</nz-form-label>
+                <nz-form-control [nzSpan]="12">
+                    <input nz-input formControlName="addressLine2" placeholder="Address Line 2" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSpan]="5">Address Types</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzHasFeedback>
+                    <nz-radio-group formControlName="addressTypeId">
+                        <label nz-radio-button [nzValue]="addressType.id"
+                            *ngFor="let addressType of addressTypes; trackBy: trackById">{{addressType.name}}</label>
+                    </nz-radio-group>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSpan]="5" nzRequired nzFor="region">Region
+                </nz-form-label>
+                <nz-form-control [nzSpan]="12" nzHasFeedback>
+                    <nz-select name="region" nzShowSearch nzAllowClear formControlName="regionId"
+                        (ngModelChange)="selectRegion(regionId)">
+                        <nz-option [nzValue]="regionsOption.id" [nzLabel]="regionsOption.name"
+                            *ngFor="let regionsOption of regions; trackBy: trackById">{{ regionsOption.name }}
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSpan]="5" nzRequired nzFor="city">Cities</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzHasFeedback>
+                    <nz-select name="city" formControlName="cityId" (ngModelChange)="selectCity(cityId)"
+                        [nzDisabled]="!regionId">
+                        <nz-option [nzValue]="citiesOption.id" [nzLabel]="citiesOption.name"
+                            *ngFor="let citiesOption of cities; trackBy: trackById">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSpan]="5" nzRequired nzFor="township">Townships</nz-form-label>
+                <nz-form-control [nzSpan]="12" nzHasFeedback>
+                    <nz-select name="township" formControlName="townshipId" [nzDisabled]="!cityId">
+                        <nz-option [nzValue]="townshipsOption.id" [nzLabel]="townshipsOption.name"
+                            *ngFor="let townshipsOption of townships; trackBy: trackById">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </div>
+
+</div>
+
+<ng-template #showAddresses>
+    <vs-panel [title]="isShipping?'Shipping Address':'Billing Address'">
+        <div extra>
+            <a href="javascript:void(0)" nz-button nzType="link" (click)="addNewAddressInd = true">Add New Address</a>
+        </div>
+        <div body class="content-wrapper">
+            <nz-radio-group [(ngModel)]="selectAddressId" (ngModelChange)="changeCustomerAddress($event)">
+                <nz-table #addressListTable [nzData]="addresses$ | async" [nzHideOnSinglePage]="true">
+                    <thead>
+                        <tr>
+                            <th>Contact Person</th>
+                            <th>Contact Number</th>
+                            <th>Email Address</th>
+                            <th>Address</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of addressListTable.data">
+                            <td>{{data.contactPerson}}</td>
+                            <td>{{data.contactNumber}}</td>
+                            <td>{{data.contactEmailAddress}}</td>
+                            <td>{{data.addressLine1}},{{data.addressLine2}},{{data.city}}</td>
+                            <td><label nz-radio [nzValue]="data.id"></label></td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </nz-radio-group>
+        </div>
+    </vs-panel>
+</ng-template>

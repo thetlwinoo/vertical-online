@@ -19,6 +19,10 @@ export class ProductGalleryComponent implements OnInit, OnChanges {
   public extendUrl = SERVER_API_URL + 'services/vscommerce/api/photos-extend';
   public blobUrl = SERVER_API_URL + 'services/cloudblob/api/images-extend/';
 
+  zoomOptions = {
+    backgroundColor: '#ffffff',
+    zoomControlPosition: 'right-bottom',
+  };
   images: any[] = [];
   selectedPhoto: IPhotos;
 
@@ -52,5 +56,6 @@ export class ProductGalleryComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     this.selectedPhoto = this.stockItem.photoList[0];
+    console.log('this.selectedPhoto', this.selectedPhoto);
   }
 }

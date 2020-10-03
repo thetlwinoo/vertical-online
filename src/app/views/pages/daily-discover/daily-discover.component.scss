@@ -1,0 +1,95 @@
+@import 'src/@vertical/scss/root';
+
+:host {
+  .ant-divider-horizontal.ant-divider-with-text-left {
+    &::after,
+    &::before {
+      border-top: 1px solid #faad14 !important;
+    }
+  }
+
+  .daily-discover-header-wrapper {
+    background-color: #ffffff;
+    .daily-discover-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 0 0 1.5em 0;
+
+      h1 {
+        margin: 0;
+      }
+
+      span {
+        font-size: 2em;
+        margin-left: 10px;
+
+        // nz-divider {
+        //   color: rgba(0, 0, 0, 0.45);
+        // }
+      }
+
+      img {
+        height: 46px !important;
+      }
+    }
+
+    nz-carousel {
+      @include media-breakpoint('gt-sm') {
+        padding: 1.5em 0 0 0;
+      }
+    }
+  }
+
+  .daily-discover-nav {
+    background: #4c4c4c;
+
+    ul {
+      padding: 0.5em 0;
+    }
+
+    .nav-link {
+      padding: 0.5rem 0.9rem !important;
+      //   color: rgba(0, 0, 0, 0.65);
+      color: #ffffff;
+      font-size: 1.2em;
+      font-weight: 500;
+    }
+
+    .nav-pills .nav-link.active {
+      background-color: #f57123;
+    }
+  }
+
+  .daily-discover-body {
+    nz-divider {
+      color: #faad14;
+      font-size: 30px;
+    }
+
+    .daily-discover-products {
+      padding: 1em;
+    }
+  }
+
+  .load-more-wrapper {
+    padding-top: 8px;
+    width: 100%;
+
+    .load-more {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 0px;
+    }
+  }
+}
+
+[nz-carousel-content] {
+  text-align: center;
+  height: 250px;
+  line-height: 250px;
+  // background: #364d79;
+  color: #fff;
+  overflow: hidden;
+}

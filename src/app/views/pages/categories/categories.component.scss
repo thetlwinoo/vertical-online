@@ -1,3 +1,5 @@
+@import 'src/@vertical/scss/root';
+
 :host {
   .ant-divider-horizontal.ant-divider-with-text-left {
     &::after,
@@ -53,7 +55,9 @@
   }
 
   nz-carousel {
-    padding: 1.5em 0 0 0;
+    @include media-breakpoint('gt-sm') {
+      padding: 1.5em 0 0 0;
+    }
   }
 
   .category-body-wrapper {
@@ -62,8 +66,7 @@
     .category-body {
       .category-sub-header {
         height: 100px;
-        border: 1px solid #f5f5f5;
-        background-image: url('/assets/images/banner/grocery_banner.jpg');
+        border: 1px solid #f0f2f5;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: bottom;
@@ -75,8 +78,8 @@
 
           span {
             color: #ffffff;
-            background: rgba(245, 113, 35, 0.6);
-            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px 20px;
             margin-left: 20px;
             white-space: nowrap;
             overflow: hidden;
@@ -93,6 +96,7 @@
           .category-leaf-tilte {
             margin: 0.5em 1em;
             min-height: 56px;
+            text-align: center;
 
             span {
               font-size: 18px;
@@ -103,6 +107,13 @@
               -webkit-box-orient: vertical;
               overflow: hidden;
             }
+          }
+
+          .category-image {
+            padding-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
         }
 
@@ -193,7 +204,7 @@
   text-align: center;
   height: 250px;
   line-height: 250px;
-  background: #364d79;
+  // background: #364d79;
   color: #fff;
   overflow: hidden;
 }

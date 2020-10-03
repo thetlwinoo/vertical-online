@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { createReducer, on } from '@ngrx/store';
 
 import { ProductDetailsActions } from 'app/ngrx/products/actions';

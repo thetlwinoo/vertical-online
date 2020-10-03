@@ -12,10 +12,21 @@ export class HeaderScrollDirective implements OnInit, OnDestroy {
   private _parent: any;
   private _grandParent: any;
   private _nativeElement: any;
-  private _unsubscribeAll: Subject<any>;
+  private unsubscribe$: Subject<any>;
 
   constructor(private _elementRef: ElementRef, private _rootMediaMatchService: RootMatchMediaService, private _renderer: Renderer2) {
-    this._unsubscribeAll = new Subject();
+    this.unsubscribe$ = new Subject();
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll($event: Event): void {
+    if (this.isMobile) {
+      if (window.pageYOffset >= 100) {
+        this._renderer.addClass(this._nativeElement, 'bg-primary');
+      } else {
+        this._renderer.removeClass(this._nativeElement, 'bg-primary');
+      }
+    }
   }
 
   ngOnInit(): void {
@@ -27,7 +38,7 @@ export class HeaderScrollDirective implements OnInit, OnDestroy {
     }
     this._grandParent = this._renderer.parentNode(this._parent);
 
-    this._rootMediaMatchService.onMediaChange.pipe(takeUntil(this._unsubscribeAll)).subscribe(alias => {
+    this._rootMediaMatchService.onMediaChange.pipe(takeUntil(this.unsubscribe$)).subscribe(alias => {
       if (alias === 'xs') {
         this.isMobile = true;
         // this._renderer.removeClass(this._nativeElement, 'sticky-top');
@@ -43,18 +54,7 @@ export class HeaderScrollDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._unsubscribeAll.next();
-    this._unsubscribeAll.complete();
-  }
-
-  @HostListener('window:scroll', ['$event'])
-  onScroll($event: Event): void {
-    if (this.isMobile) {
-      if (window.pageYOffset >= 100) {
-        this._renderer.addClass(this._nativeElement, 'bg-primary');
-      } else {
-        this._renderer.removeClass(this._nativeElement, 'bg-primary');
-      }
-    }
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

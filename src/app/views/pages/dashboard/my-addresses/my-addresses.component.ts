@@ -1,3 +1,6 @@
+/* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/camelcase */
+/* tslint:disable */
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription, Subject } from 'rxjs';
@@ -9,6 +12,7 @@ import { AccountService } from '@vertical/core';
 import { Account } from '@vertical/core/user/account.model';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { takeUntil } from 'rxjs/operators';
+import { en_US, NzI18nService } from 'ng-zorro-antd/i18n';
 
 @Component({
   selector: 'app-my-addresses',
@@ -32,8 +36,11 @@ export class MyAddressesComponent implements OnInit, OnDestroy {
     private store: Store<fromCheckout.State>,
     private authStore: Store<fromAuth.State>,
     private accountService: AccountService,
-    private nzMessageService: NzMessageService
+    private nzMessageService: NzMessageService,
+    private i18n: NzI18nService
   ) {
+    this.i18n.setLocale(en_US);
+
     this.addresses$ = store.pipe(select(fromCheckout.getAddressesFetched));
     this.people$ = authStore.pipe(select(fromAuth.getPeopleFetched));
     this.customer$ = authStore.pipe(select(fromAuth.getCustomerFetched));
@@ -42,14 +49,18 @@ export class MyAddressesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.people$.pipe(takeUntil(this.unsubscribe$)).subscribe(item => {
       this.people = item;
-      if (this.people) {
-        console.log('people', this.people);
-        this.store.dispatch(AddressActions.fetchAddresses({ query: { 'personId.equals': this.people.id } }));
-      }
     });
 
     this.accountService.identity().subscribe(account => {
       this.account = account;
+    });
+
+    this.customer$.pipe(takeUntil(this.unsubscribe$)).subscribe(item => {
+      this.customer = item;
+
+      if (this.customer) {
+        this.store.dispatch(AddressActions.fetchAddresses({ query: { 'customerId.equals': this.customer.id } }));
+      }
     });
   }
 
@@ -59,15 +70,16 @@ export class MyAddressesComponent implements OnInit, OnDestroy {
 
   onEditAddress(event): void {}
 
-  onSetDefault(event: IAddresses): void {
-    if (event && !event.defaultInd) {
-      this.store.dispatch(AddressActions.setDefault({ props: { addressId: event.id, isShippingAddress: true, peopleId: this.people.id } }));
-    }
-  }
+  // onSetDefault(event: IAddresses): void {
+  //   if (event && !event.defaultInd) {
+  //     this.store.dispatch(AddressActions.setDefault(
+  // { props: { addressId: event.id, isShippingAddress: true, peopleId: this.people.id } }));
+  //   }
+  // }
 
-  cancel(): void {
-    this.nzMessageService.info('click cancel');
-  }
+  // cancel(): void {
+  //   this.nzMessageService.info('click cancel');
+  // }
 
   confirm(event): void {
     this.store.dispatch(AddressActions.removeAddress({ address: event }));

@@ -39,6 +39,7 @@ export class SelectedProductPageComponent implements OnInit, OnDestroy {
   compareStockItems$: Observable<IStockItems[]>;
   compareStockItems: IStockItems[];
   productDetails$: Observable<any>;
+  productDetails: any;
   productDetailsLoading$: Observable<boolean>;
 
   private subscriptions: Subscription[] = [];
@@ -88,6 +89,7 @@ export class SelectedProductPageComponent implements OnInit, OnDestroy {
 
     this.productDetails$.subscribe(res => {
       console.log('res?.productDetails', res);
+      this.productDetails = res;
       if (res?.stockItemLists.length > 0) {
         this.store.dispatch(ProductActions.selectStockItem({ stockItem: res?.stockItemLists[0] }));
       }

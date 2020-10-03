@@ -6,8 +6,8 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { banner2 } from '@vertical/config/owl-carousel';
 import { Store, select } from '@ngrx/store';
 import { takeUntil } from 'rxjs/operators';
-import * as fromProducts from 'app/ngrx/products/reducers';
-import { ProductHomeActions } from 'app/ngrx/products/actions';
+import * as fromWebSitemap from 'app/ngrx/web-sitemap/reducers';
+import { FlashDealCollectionPageActions } from 'app/ngrx/web-sitemap/actions';
 
 @Component({
   selector: 'app-flash-deal-collection',
@@ -21,8 +21,9 @@ export class FlashDealCollectionComponent implements OnInit, OnDestroy {
   carousel: any;
   selectedType: any;
 
-  productHome$: Observable<any>;
-  productHome: any;
+  flashDealCollectionPage$: Observable<any>;
+  flashDealCollectionPage: any;
+  slides: any;
   error$: Observable<string>;
 
   options: OwlOptions = {
@@ -62,19 +63,23 @@ export class FlashDealCollectionComponent implements OnInit, OnDestroy {
 
   private unsubscribe$: Subject<any> = new Subject();
 
-  constructor(private store: Store<fromProducts.State>) {
+  constructor(private store: Store<fromWebSitemap.State>) {
     this.carousel = banner2;
     this.selectedType = this.dealTypes[0];
 
-    this.productHome$ = store.pipe(select(fromProducts.getProductHome));
-    this.error$ = store.pipe(takeUntil(this.unsubscribe$), select(fromProducts.getProductHomeError));
+    this.flashDealCollectionPage$ = store.pipe(select(fromWebSitemap.getFlashDealCollectionPage));
+    this.error$ = store.pipe(takeUntil(this.unsubscribe$), select(fromWebSitemap.getFlashDealCollectionPageError));
   }
 
   ngOnInit(): void {
-    this.store.dispatch(ProductHomeActions.fetchProductsHome());
+    this.store.dispatch(FlashDealCollectionPageActions.fetchFlashDealCollectionPage());
 
-    this.productHome$.pipe(takeUntil(this.unsubscribe$)).subscribe(payload => {
-      this.productHome = payload;
+    this.flashDealCollectionPage$.pipe(takeUntil(this.unsubscribe$)).subscribe(payload => {
+      this.flashDealCollectionPage = payload;
+
+      if (payload && payload.contents) {
+        this.slides = payload.contents.find(x => x.webImageTypeHandle === 'main-banner-full-wide');
+      }
     });
   }
 

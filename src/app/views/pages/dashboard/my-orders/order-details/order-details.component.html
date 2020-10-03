@@ -14,7 +14,7 @@
       </nz-list-item-meta>
       <nz-list-item-extra>
         <span>Total: </span>
-        <span>{{orders.totalDue | currency}}</span>
+        <span>{{orders.totalDue | currency:'Ks' : 'symbol' : '1.0-0'}}</span>
       </nz-list-item-extra>
     </ng-container>
   </nz-list-item>
@@ -58,7 +58,7 @@
             <td><img width="50" [src]="blobUrl + data.stockItemPhoto + '/thumbnail'"></td>
             <td>{{data.description}} x {{data.quantity}}</td>
             <td>
-              <span>{{data.unitPrice | currency}}</span>
+              <span>{{data.unitPrice | currency:'Ks' : 'symbol' : '1.0-0'}}</span>
             </td>
             <td>
               <a href="javascript:void(0)" nz-button nzType="link" [routerLink]="['/pages/dashboard/my-reviews']"
@@ -116,7 +116,7 @@
             </nz-list-item-meta>
             <nz-list-item-extra>
               <span></span>
-              <span>{{orders.totalDue | currency}}</span>
+              <span>{{orders.totalDue | currency:'Ks' : 'symbol' : '1.0-0'}}</span>
             </nz-list-item-extra>
           </ng-container>
         </nz-list-item>
@@ -132,7 +132,7 @@
             </nz-list-item-meta>
             <nz-list-item-extra>
               <span></span>
-              <span>{{orders.totalShippingFee | currency}}</span>
+              <span>{{orders.totalShippingFee | currency:'Ks' : 'symbol' : '1.0-0'}}</span>
             </nz-list-item-extra>
           </ng-container>
         </nz-list-item>

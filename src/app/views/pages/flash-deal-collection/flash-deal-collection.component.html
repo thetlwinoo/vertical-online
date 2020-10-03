@@ -1,13 +1,14 @@
 <div class="flash-deal-header-wrapper">
     <div class="container">
         <nz-carousel [nzEffect]="'fade'" [nzAutoPlay]="true">
-            <div nz-carousel-content *ngFor="let banner of carousel.slides">
-                <div class="carousel-wrapper" [ngStyle]="banner.style"></div>
+            <div nz-carousel-content *ngFor="let banner of slides?.children">
+                <div class="carousel-wrapper" [style.backgroundImage]="'url(' + blobUrl + banner.url + '/original)'">
+                </div>
             </div>
         </nz-carousel>
 
         <div class="flash-deal-header">
-            <img src="assets/images/home/slider-banner/categories/flash_deal.svg">
+            <img src="assets/icons/home-icons/flash_deal.svg">
             <h1 nz-typography nzType="warning">Flash Deals</h1>
             <span nz-typography nzType="secondary">
                 Crazy Deals
@@ -35,10 +36,16 @@
     <div class="container">
         <div class="flash-deal-products">
             <div nz-row [nzGutter]="[8,8]">
-                <div nz-col class="gutter-row" [nzXs]="12" [nzSm]="4"
-                    *ngFor="let product of productHome?.dailyDiscover">
+                <div nz-col class="gutter-row" [nzXs]="12" [nzSm]="8" [nzMd]="8" [nzLg]="4"
+                    *ngFor="let product of flashDealCollectionPage?.products">
                     <product-card [product]="product"></product-card>
                 </div>
+            </div>
+        </div>
+
+        <div class="load-more-wrapper">
+            <div class="load-more">
+                <button nz-button [nzSize]="'large'" nzType="dashed">Load More</button>
             </div>
         </div>
     </div>
